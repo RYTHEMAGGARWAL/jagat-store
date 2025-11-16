@@ -18,7 +18,7 @@ import MyOrders from './Components/MyOrders';
 import OrderSuccess from './Components/OrderSuccess';
 import AdminDashboard from './Components/AdminDashboard';
 import AdminOrders from './Components/AdminOrders';
-import OrderDetails from './Components/OrderDetails';
+
 import AdminOrderDetail from './Components/AdminOrderDetail';
 import JagatStore from './Components/JagatStore';
 import SearchResults from './Components/SearchResults';
@@ -31,6 +31,7 @@ import CleaningEssentials from './Components/CleaningEssentials';
 import OrganicHealthyLiving from './Components/OrganicHealthyLiving';
 import ColdDrinksJuices from './Components/ColdDrinksJuices';
 import BreakfastInstantFoods from './Components/BreakfastInstantFoods';
+
 import HomeOffices from './Components/HomeOffices';
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
         <Route path="/Pharmacy" element={<Pharmacy />} />
         <Route path="/Checkout" element={<Checkout />} />
         <Route path="/order-success" element={<OrderSuccess />} />
-          <Route path="/order-details/:orderId" element={<OrderDetails />} />
+        
           <Route path="/SnacksMunchies" element={<SnacksMunchies />} />
         <Route path="/PersonalCare" element={<PersonalCare />} />
         <Route path="/SweetTooth" element={<SweetTooth />} />
