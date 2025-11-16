@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductPage from './ProductPage';
 
+
 const Pharmacy = () => {
   return (
     <ProductPage 
