@@ -29,7 +29,7 @@ import SweetTooth from './Components/SweetTooth';
 import BakeryBiscuits from './Components/BakeryBiscuits';
 import CleaningEssentials from './Components/CleaningEssentials';
 import OrganicHealthyLiving from './Components/OrganicHealthyLiving';
-import ColdDrinksJuices from './Components/ColdDrinksJuices.jsx';
+import ColdDrinksJuices from './Components/ColdDrinksJuices';
 import BreakfastInstantFoods from './Components/BreakfastInstantFoods';
 import HomeOffices from './Components/HomeOffices';
 function App() {
