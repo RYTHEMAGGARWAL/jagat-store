@@ -4,9 +4,9 @@ import ProductPage from './ProductPage';
 const DairyBreadEggs = () => {
   return (
     <ProductPage 
-      category="Dairy Bread Eggs"
+      category="Dairy Bread & Eggs"
       title="Dairy, Bread & Eggs"
-      subtitle="Fresh dairy products, bread, and eggs delivered to your doorstep"
+      subtitle="Fresh dairy products, bread, and farm eggs"
     />
   );
 };

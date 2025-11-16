@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Components/Navbar';
 import FirstContainer from './Components/FirstContainer';  // ← Home page!
-import DairyBreadEggs from './Components/DairyBreadEggs';
+import DairyBreadEggs from './Components/1';
 import AttaRiceDal from './Components/AttaRiceDal';
 import MasalaOil from './Components/MasalaOil';
 import PetCare from './Components/PetCare';
