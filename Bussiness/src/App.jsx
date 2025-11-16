@@ -19,7 +19,7 @@ import OrderSuccess from './Components/OrderSuccess';
 import AdminDashboard from './Components/AdminDashboard';
 import AdminOrders from './Components/AdminOrders';
 import AdminOrderDetail from './Components/AdminOrderDetail';
-import OrderDetails from './components/OrderDetails';
+import OrderDetails from './Components/OrderDetails';
 import JagatStore from './Components/JagatStore';
 import SearchResults from './Components/SearchResults';
 import SaucesSpreads from './Components/SaucesSpreads';
