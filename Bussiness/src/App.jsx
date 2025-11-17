@@ -78,8 +78,10 @@ function App() {
             <Route path="/admin/orders/:orderId" element={<AdminOrderDetail />} />
         {/* Cart */}
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart />} />
         
-        {/* Auth */}
+        {/* Auth - Both cases for compatibility */}
+        <Route path="/login" element={<Login />} />
         <Route path="/Login" element={<Login />} />
         
       </Routes>
