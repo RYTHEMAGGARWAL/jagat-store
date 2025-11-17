@@ -1,4 +1,4 @@
-/* Navbar.css - RESPONSIVE FIXED VERSION */
+/* Navbar.css - FULLY RESPONSIVE - NO OVERFLOW */
 * {
   margin: 0;
   padding: 0;
@@ -23,17 +23,21 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   height: 64px;
   width: 100%;
+  box-sizing: border-box;
 }
 
-/* Logo Section */
+/* ========================================== */
+/* LOGO SECTION */
+/* ========================================== */
 .logo-section {
   flex-shrink: 0;
   height: 38px;
   display: flex;
   align-items: center;
+  min-width: fit-content;
 }
 
 .logo-img {
@@ -48,11 +52,13 @@
   transform: scale(1.03);
 }
 
-/* Delivery Section */
+/* ========================================== */
+/* DELIVERY SECTION */
+/* ========================================== */
 .delivery-section {
   flex-shrink: 0;
-  min-width: 200px;
-  max-width: 250px;
+  min-width: 180px;
+  max-width: 220px;
 }
 
 .delivery-info {
@@ -73,6 +79,7 @@
   align-items: center;
   gap: 5px;
   margin-bottom: 2px;
+  flex-shrink: 0;
 }
 
 .delivery-label {
@@ -80,6 +87,7 @@
   font-size: 12px;
   font-weight: 500;
   font-family: 'Arial', sans-serif;
+  white-space: nowrap;
 }
 
 .delivery-time {
@@ -87,6 +95,7 @@
   font-size: 13px;
   font-weight: 700;
   font-family: 'Arial', sans-serif;
+  white-space: nowrap;
 }
 
 .location-info {
@@ -119,11 +128,14 @@
   line-height: 1.4;
 }
 
-/* Search Section */
+/* ========================================== */
+/* SEARCH SECTION - CRITICAL FIX */
+/* ========================================== */
 .search-section {
   flex: 1;
   max-width: 500px;
-  min-width: 200px;
+  min-width: 0; /* 🔥 CRITICAL: Allows shrinking */
+  overflow: hidden;
 }
 
 .search-container {
@@ -136,6 +148,8 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.25s ease;
   border: 2px solid transparent;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .search-container:focus-within {
@@ -146,7 +160,7 @@
 
 .search-icon {
   color: #666;
-  margin-right: 10px;
+  margin-right: 8px;
   flex-shrink: 0;
 }
 
@@ -158,6 +172,8 @@
   color: #333;
   background: transparent;
   font-family: Arial, sans-serif;
+  min-width: 0; /* 🔥 CRITICAL: Prevents overflow */
+  width: 100%;
 }
 
 .search-input::placeholder {
@@ -166,12 +182,15 @@
   font-style: italic;
 }
 
-/* Auth and Cart Section */
+/* ========================================== */
+/* AUTH AND CART SECTION */
+/* ========================================== */
 .auth-cart-section {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  min-width: fit-content;
 }
 
 /* User Menu Container */
@@ -193,6 +212,7 @@
   height: 36px;
   font-weight: 600;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .user-info-btn:hover {
@@ -210,7 +230,7 @@
   color: white;
   font-size: 13px;
   font-weight: 600;
-  max-width: 110px;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -314,6 +334,7 @@
   height: 36px;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .login-btn:hover {
@@ -337,6 +358,7 @@
   border: 1px solid transparent;
   height: 36px;
   width: 36px;
+  flex-shrink: 0;
 }
 
 .cart-container:hover {
@@ -369,12 +391,14 @@
   box-shadow: 0 2px 6px rgba(255, 68, 68, 0.4);
 }
 
-/* Mobile Menu */
+/* ========================================== */
+/* MOBILE MENU */
+/* ========================================== */
 .mobile-menu {
   display: none;
-  margin-left: auto;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .mobile-menu-btn {
@@ -407,6 +431,7 @@
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .mobile-cart-container:hover {
@@ -506,13 +531,15 @@
   box-shadow: 0 4px 12px rgba(84, 178, 38, 0.4);
 }
 
-/* Responsive Design */
+/* ========================================== */
+/* RESPONSIVE BREAKPOINTS */
+/* ========================================== */
 
-/* Large screens (1280px+) */
+/* Large Desktop (1280px+) */
 @media (min-width: 1280px) {
   .header-container {
     padding: 0 32px;
-    gap: 24px;
+    gap: 20px;
   }
 
   .logo-section {
@@ -524,66 +551,83 @@
   }
 
   .delivery-section {
-    min-width: 240px;
-    max-width: 300px;
+    min-width: 220px;
+    max-width: 260px;
   }
 
-  .delivery-label {
-    font-size: 13px;
-  }
-
-  .delivery-time {
-    font-size: 14px;
-  }
-
-  .location-text {
-    font-size: 13px;
-  }
-
-  .search-container {
-    height: 42px;
+  .search-section {
+    max-width: 600px;
   }
 
   .user-name {
-    max-width: 130px;
+    max-width: 120px;
     font-size: 14px;
   }
 }
 
-/* Medium screens (768px to 1279px) */
+/* Medium Desktop (1024px to 1279px) */
 @media (max-width: 1279px) {
   .header-container {
-    gap: 16px;
+    gap: 14px;
+    padding: 0 20px;
   }
 
   .delivery-section {
-    min-width: 200px;
-    max-width: 240px;
-  }
-
-  .delivery-label {
-    font-size: 11px;
-  }
-
-  .delivery-time {
-    font-size: 12px;
-  }
-
-  .location-text {
-    font-size: 11px;
+    min-width: 180px;
+    max-width: 220px;
   }
 
   .user-name {
     max-width: 90px;
+  }
+}
+
+/* Small Desktop/Large Tablet (900px to 1023px) */
+@media (max-width: 1023px) {
+  .header-container {
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .delivery-title-row {
+    font-size: 11px;
+  }
+
+  .delivery-time {
+    font-size: 12px;
+  }
+
+  .search-section {
+    max-width: 400px;
+  }
+
+  .user-name {
+    max-width: 80px;
     font-size: 12px;
   }
 }
 
 /* ========================================== */
-/* MOBILE & TABLET RESPONSIVE - FIXED */
+/* TABLET & MOBILE - CRITICAL FIXES */
 /* ========================================== */
 
-/* Tablets & Mobile (below 768px) */
+/* Tablet (768px to 899px) */
+@media (max-width: 899px) {
+  .header-container {
+    gap: 10px;
+    padding: 0 14px;
+  }
+
+  .delivery-title-row {
+    max-width: 150px;
+  }
+
+  .delivery-time {
+    font-size: 11px;
+  }
+}
+
+/* Mobile & Small Tablet (below 768px) */
 @media (max-width: 767px) {
   .blinkit-header {
     height: 56px;
@@ -593,13 +637,11 @@
     gap: 8px;
     padding: 0 12px;
     height: 56px;
-    justify-content: space-between;
   }
 
-  /* Logo - Smaller on mobile */
+  /* Logo - Compact */
   .logo-section {
     height: 32px;
-    flex-shrink: 0;
   }
 
   .logo-img {
@@ -607,17 +649,18 @@
     height: 32px;
   }
 
-  /* HIDE delivery section on mobile */
+  /* 🔥 HIDE delivery section on mobile */
   .delivery-section,
   .delivery-title-row {
     display: none !important;
   }
 
-  /* Search takes remaining space */
+  /* 🔥 Search takes ALL remaining space */
   .search-section {
     flex: 1;
     max-width: none;
     min-width: 0;
+    margin: 0;
   }
 
   .search-container {
@@ -628,6 +671,8 @@
 
   .search-icon {
     margin-right: 6px;
+    width: 16px;
+    height: 16px;
   }
 
   .search-input {
@@ -638,16 +683,14 @@
     font-size: 12px;
   }
 
-  /* HIDE desktop auth/cart section */
+  /* 🔥 HIDE desktop auth/cart */
   .auth-cart-section {
     display: none !important;
   }
 
-  /* SHOW mobile menu */
+  /* 🔥 SHOW mobile menu */
   .mobile-menu {
     display: flex;
-    flex-shrink: 0;
-    margin-left: 0;
   }
 
   .mobile-menu-btn {
@@ -670,31 +713,12 @@
     height: 20px !important;
   }
 
-  /* Mobile dropdown positioning */
   .mobile-menu-dropdown {
     top: 56px;
-    padding: 12px;
-    max-height: calc(100vh - 56px);
-  }
-
-  .mobile-user-info {
-    padding: 10px 12px;
-    font-size: 13px;
-  }
-
-  .mobile-menu-item {
-    padding: 12px;
-    font-size: 13px;
-  }
-
-  .mobile-login-btn,
-  .mobile-logout-btn {
-    padding: 12px;
-    font-size: 14px;
   }
 }
 
-/* Small mobile (below 480px) */
+/* Small Mobile (below 480px) */
 @media (max-width: 479px) {
   .blinkit-header {
     height: 54px;
@@ -711,7 +735,7 @@
   }
 
   .logo-img {
-    max-width: 90px;
+    max-width: 85px;
     height: 30px;
   }
 
@@ -729,25 +753,23 @@
   }
 
   .search-icon {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
   }
 
   .mobile-menu {
-    gap: 8px;
+    gap: 6px;
   }
 
-  .mobile-menu-btn {
+  .mobile-menu-btn,
+  .mobile-cart-container {
     padding: 5px;
   }
 
   .hamburger {
     width: 18px;
     height: 18px;
-  }
-
-  .mobile-cart-container {
-    padding: 5px;
   }
 
   .mobile-cart-container img {
@@ -757,20 +779,19 @@
 
   .mobile-menu-dropdown {
     top: 54px;
-    padding: 10px;
-    gap: 10px;
+    padding: 12px;
   }
 }
 
-/* Very small screens (below 360px) */
-@media (max-width: 359px) {
+/* Extra Small Mobile (below 380px) */
+@media (max-width: 379px) {
   .header-container {
-    gap: 4px;
+    gap: 5px;
     padding: 0 8px;
   }
 
   .logo-img {
-    max-width: 80px;
+    max-width: 75px;
     height: 28px;
   }
 
@@ -788,27 +809,48 @@
   }
 
   .mobile-menu {
-    gap: 6px;
+    gap: 5px;
   }
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px; /* Add gap */
-  padding: 15px 30px;
-}
-
-/* Make navbar responsive with search */
-@media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
+/* Very Small Screens (below 360px) */
+@media (max-width: 359px) {
+  .header-container {
+    gap: 4px;
+    padding: 0 6px;
   }
-  
-  .search-bar-container {
-    order: 3;
-    width: 100%;
-    margin-top: 10px;
+
+  .logo-img {
+    max-width: 70px;
+    height: 26px;
+  }
+
+  .search-container {
+    padding: 0 5px;
+    height: 30px;
+  }
+
+  .search-input {
+    font-size: 10px;
+  }
+
+  .search-input::placeholder {
+    font-size: 9px;
+  }
+
+  .search-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
+
+  .mobile-cart-container img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .hamburger {
+    width: 16px;
+    height: 16px;
   }
 }
