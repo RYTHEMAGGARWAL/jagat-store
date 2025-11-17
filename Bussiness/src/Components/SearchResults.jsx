@@ -23,10 +23,11 @@ const SearchResults = () => {
       setError(null);
 
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/products/search?q=${encodeURIComponent(query)}`
-        );
-        
+       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const response = await fetch(
+  `${API_URL}/products/search?q=${encodeURIComponent(query)}`
+);
+
         if (!response.ok) {
           throw new Error('Search failed');
         }

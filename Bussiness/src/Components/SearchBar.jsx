@@ -31,9 +31,10 @@ const SearchBar = () => {
       }
 
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/products/search/suggestions?q=${encodeURIComponent(searchQuery)}`
-        );
+       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const response = await fetch(
+  `${API_URL}/products/search/suggestions?q=${encodeURIComponent(searchQuery)}`
+);
         
         if (response.ok) {
           const data = await response.json();
