@@ -28,7 +28,11 @@ global.notifyAdmins = notifyAdmins;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    /\.vercel\.app$/  // Allow all Vercel domains
+  ],
   credentials: true
 }));
 
