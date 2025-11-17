@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useCart } from '../components/CartContext';
+import { useCart } from '../Components/CartContext';
 import './SearchResults.css';
 
 const SearchResults = () => {
