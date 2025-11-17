@@ -7,6 +7,7 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // ✅ Add this
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -64,7 +65,7 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           {!isLogin && (
             <div className="form-group">
               <label>Full Name</label>
@@ -74,6 +75,7 @@ const Login = () => {
                 placeholder="Enter your name"
                 value={formData.name}
                 onChange={handleChange}
+                autoComplete="off"
                 required={!isLogin}
               />
             </div>
@@ -87,6 +89,7 @@ const Login = () => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
+              autoComplete="off"
               required
             />
           </div>
@@ -101,25 +104,37 @@ const Login = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 pattern="[0-9]{10}"
+                autoComplete="off"
                 required={!isLogin}
               />
             </div>
           )}
 
+          {/* ✅ PASSWORD WITH EYE ICON */}
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password (min 6 characters)"
-              value={formData.password}
-              onChange={handleChange}
-              minLength="6"
-              required
-            />
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter password (min 6 characters)"
+                value={formData.password}
+                onChange={handleChange}
+                minLength="6"
+                autoComplete="new-password"
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex="-1"
+              >
+                {showPassword ? '👁️' : '👁️‍🗨️'}
+              </button>
+            </div>
           </div>
 
-          {/* Forgot Password Link */}
           {isLogin && (
             <div className="forgot-password-link">
               <span onClick={() => navigate('/forgot-password')}>

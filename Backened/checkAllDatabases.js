@@ -10,7 +10,7 @@ const checkAllDatabases = async () => {
     console.log('═══════════════════════════════════\n');
 
     // Connect to MongoDB
-    await mongoose.connect('mongodb://localhost:27017');
+    await mongoose.connect("mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0");
     console.log('✅ Connected to MongoDB\n');
 
     // Get admin database

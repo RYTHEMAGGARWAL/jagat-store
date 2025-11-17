@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 console.log('\n🖼️  UPDATING PHARMACY PRODUCTS WITH REAL IMAGES\n');
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore')
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ MongoDB Connected'))
   .catch(err => {
     console.error('❌ MongoDB Connection Failed:', err.message);

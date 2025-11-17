@@ -149,3 +149,77 @@
     font-size: 15px;
   }
 }
+/* Password Input with Eye Icon */
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 45px; /* Space for eye icon */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+
+.password-toggle-btn:hover {
+  opacity: 0.7;
+}
+
+.password-toggle-btn:focus {
+  outline: none;
+}
+
+/* Disable browser autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #333 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-card h2 {
+    font-size: 24px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .password-input-wrapper input {
+    padding-right: 40px;
+  }
+
+  .password-toggle-btn {
+    font-size: 18px;
+    right: 10px;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}

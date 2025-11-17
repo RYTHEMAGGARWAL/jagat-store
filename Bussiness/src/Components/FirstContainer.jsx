@@ -162,12 +162,7 @@ const FirstContainer = () => {
       alt: "Personal Care",
       link: "/PersonalCare"
     },
-    {
-      id: 6,
-      src: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=225/layout-engine/2022-12/paan-corner_web.png",
-      alt: "Tobacco and Cigarette",
-      link: "/PaanCorner"
-    },
+   
     {
       id: 7,
       src: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=225/layout-engine/2022-11/Slice-7_3.png",

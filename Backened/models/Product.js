@@ -20,6 +20,8 @@ const productSchema = new mongoose.Schema({
       'Atta, Rice & Dal',
       'Masala & Oil',
       'Bakery Biscuits',
+      'Bakery',
+      
       'Fruits & Vegetables',
       'Frozen Food',
       'Meat & Seafood',
@@ -28,6 +30,7 @@ const productSchema = new mongoose.Schema({
       'Cold Drinks',
       'Kitchen Essentials',
       'Juices & Dairy Drinks',
+
       'Juices',
       'Cold Drinks & Juices',
       'Cleaning Essentials',

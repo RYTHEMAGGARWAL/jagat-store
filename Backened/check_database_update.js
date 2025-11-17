@@ -8,7 +8,7 @@ console.log('╚═════════════════════�
 
 console.log('🔍 Step 1: Checking MongoDB Connection\n');
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore';
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0";
 console.log(`Connection String: ${MONGO_URI}\n`);
 
 mongoose.connect(MONGO_URI)

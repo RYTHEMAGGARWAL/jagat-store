@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const MONGO_URI = 'mongodb://localhost:27017/jagat-store';
+const MONGO_URI =  "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0";
 
 const userSchema = new mongoose.Schema({
   name: String,

@@ -8,7 +8,7 @@ import AttaRiceDal from './Components/AttaRiceDal';
 import MasalaOil from './Components/MasalaOil';
 import PetCare from './Components/PetCare';
 import BabyCare from './Components/BabyCare';
-import PaanCorner from './Components/PaanCorner';
+
 import Pharmacy from './Components/Pharmacy';
 import Cart from './Components/Cart';
 import Login from './Components/Login';
@@ -31,6 +31,7 @@ import CleaningEssentials from './Components/CleaningEssentials';
 import OrganicHealthyLiving from './Components/OrganicHealthyLiving';
 import ColdDrinksJuices from './Components/ColdDrinksJuices';
 import BreakfastInstantFoods from './Components/BreakfastInstantFoods';
+import OrderDetails from './Components/OrderDetails';
 
 import HomeOffices from './Components/HomeOffices';
 function App() {
@@ -48,7 +49,7 @@ function App() {
         <Route path="/MasalaOil" element={<MasalaOil />} />
         <Route path="/PetCare" element={<PetCare />} />
         <Route path="/BabyCare" element={<BabyCare />} />
-        <Route path="/PaanCorner" element={<PaanCorner />} />
+   
         <Route path="/JagatStore" element={<JagatStore />} />
           <Route path="/SaucesSpreads" element={<SaucesSpreads />} />
         <Route path="/Pharmacy" element={<Pharmacy />} />
@@ -64,6 +65,7 @@ function App() {
         <Route path="/ColdDrinksJuices" element={<ColdDrinksJuices />} />
         <Route path="/BreakfastInstantFoods" element={<BreakfastInstantFoods />} />
         <Route path="/HomeOffices" element={<HomeOffices />} />
+        <Route path="/order-details/:orderId" element={<OrderDetails />} />
 
           
         <Route path="/orders" element={<MyOrders />} />
