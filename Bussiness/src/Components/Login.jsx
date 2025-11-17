@@ -7,7 +7,7 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // ✅ Add this
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -110,7 +110,6 @@ const Login = () => {
             </div>
           )}
 
-          {/* ✅ PASSWORD WITH EYE ICON */}
           <div className="form-group">
             <label>Password</label>
             <div className="password-input-wrapper">
@@ -129,6 +128,7 @@ const Login = () => {
                 className="password-toggle-btn"
                 onClick={() => setShowPassword(!showPassword)}
                 tabIndex="-1"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? '👁️' : '👁️‍🗨️'}
               </button>
