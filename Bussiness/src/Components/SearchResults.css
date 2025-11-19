@@ -1,4 +1,4 @@
-/* SearchResults.css - FINAL WITH PERFECT DISCOUNT BADGE */
+/* SearchResults.css - WITH WEIGHT DISPLAY */
 
 .search-results-container {
   max-width: 1400px;
@@ -25,7 +25,7 @@
   font-weight: 500;
 }
 
-/* Loading & Error states (keep as is) */
+/* Loading & Error states */
 .loading-spinner {
   display: flex;
   flex-direction: column;
@@ -139,10 +139,7 @@
   transform: scale(1.05);
 }
 
-/* ========================================= */
-/* 🔥 DISCOUNT BADGE - PERFECT DESIGN */
-/* ========================================= */
-
+/* Discount Badge */
 .discount-badge {
   position: absolute;
   top: 12px;
@@ -206,8 +203,20 @@
 .product-brand {
   font-size: 12px;
   color: #888;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-weight: 500;
+}
+
+/* 🔥 WEIGHT DISPLAY - NEW */
+.product-weight {
+  font-size: 13px;
+  color: #667eea;
+  margin-bottom: 8px;
+  font-weight: 600;
+  background: #f0f4ff;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
 }
 
 /* Pricing */
@@ -369,7 +378,6 @@
     font-size: 14px;
   }
 
-  /* Smaller discount badge on mobile */
   .discount-badge {
     width: 40px;
     height: 40px;
@@ -377,6 +385,11 @@
     border-width: 2px;
     top: 8px;
     right: 8px;
+  }
+
+  .product-weight {
+    font-size: 12px;
+    padding: 2px 8px;
   }
 }
 
@@ -413,6 +426,11 @@
     height: 36px;
     font-size: 9px;
   }
+
+  .product-weight {
+    font-size: 11px;
+    padding: 1px 7px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -432,5 +450,10 @@
     width: 32px;
     height: 32px;
     font-size: 8px;
+  }
+
+  .product-weight {
+    font-size: 10px;
+    padding: 1px 6px;
   }
 }

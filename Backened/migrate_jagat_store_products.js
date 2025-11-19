@@ -1,10 +1,9 @@
-// migrate_jagat_store_products.js - Jagat Store Exclusive Category
-// Save in Backend folder and run: node migrate_jagat_store_products.js
+// migrate_jagat_store_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_jagat_store_IMPROVED.js
 
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
@@ -12,7 +11,6 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-// Product Schema
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, default: '' },
@@ -20,8 +18,8 @@ const productSchema = new mongoose.Schema({
   category: { type: String, required: true },
   image: { type: String, required: true },
   stock: { type: Number, default: 50 },
-  brand: { type: String, default: 'Jagat Store' },
-  rating: { type: Number, default: 4.5 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
   reviews: { type: Array, default: [] },
   weight: { type: String, default: '' },
   oldPrice: { type: Number },
@@ -32,612 +30,139 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-// ============================================
-// JAGAT STORE EXCLUSIVE PRODUCTS (50+ items)
-// ============================================
-
+// ========== JAGAT STORE EXCLUSIVE PRODUCTS ==========
 const jagatStoreProducts = [
-  // ==========================================
   // FRESH VEGETABLES (10 products)
-  // ==========================================
-  {
-    name: "Fresh Tomato",
-    weight: "500 gm",
-    price: 25,
-    oldPrice: 30,
-    discount: "17% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=225/layout-engine/2022-11/Slice-6_5.png",
-    inStock: true,
-    description: "Fresh red tomatoes, locally sourced"
-  },
-  {
-    name: "Fresh Onion",
-    weight: "1 kg",
-    price: 35,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000206_9.jpg",
-    inStock: true,
-    description: "Premium quality onions"
-  },
-  {
-    name: "Fresh Potato",
-    weight: "1 kg",
-    price: 30,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000141_9.jpg",
-    inStock: true,
-    description: "Farm fresh potatoes"
-  },
-  {
-    name: "Green Capsicum",
-    weight: "250 gm",
-    price: 28,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000143_9.jpg",
-    inStock: true,
-    description: "Fresh green bell peppers"
-  },
-  {
-    name: "Fresh Cucumber",
-    weight: "500 gm",
-    price: 20,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000144_9.jpg",
-    inStock: true,
-    description: "Crispy fresh cucumbers"
-  },
-  {
-    name: "Fresh Carrot",
-    weight: "500 gm",
-    price: 35,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000151_9.jpg",
-    inStock: true,
-    description: "Healthy orange carrots"
-  },
-  {
-    name: "Fresh Spinach (Palak)",
-    weight: "250 gm",
-    price: 18,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000157_9.jpg",
-    inStock: true,
-    description: "Fresh green spinach leaves"
-  },
-  {
-    name: "Fresh Coriander Leaves",
-    weight: "100 gm",
-    price: 12,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000158_9.jpg",
-    inStock: true,
-    description: "Fresh dhania patta"
-  },
-  {
-    name: "Fresh Ginger",
-    weight: "250 gm",
-    price: 45,
-    oldPrice: 55,
-    discount: "18% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000201_9.jpg",
-    inStock: true,
-    description: "Premium quality ginger (adrak)"
-  },
-  {
-    name: "Fresh Green Chilli",
-    weight: "100 gm",
-    price: 15,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000146_9.jpg",
-    inStock: true,
-    description: "Spicy green chillies (hari mirch)"
-  },
+  { name: "Fresh Tomato", weight: "500g", price: 25, oldPrice: 30, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61TdF3q7L9L._SL1500_.jpg", inStock: true, description: "Fresh red tomatoes, locally sourced", stock: 100 },
+  { name: "Fresh Onion", weight: "1kg", price: 35, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61X4FqH7hWL._SL1500_.jpg", inStock: true, description: "Premium quality onions", stock: 100 },
+  { name: "Fresh Potato", weight: "1kg", price: 30, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61zZ6ypOBTL._SL1500_.jpg", inStock: true, description: "Farm fresh potatoes", stock: 100 },
+  { name: "Green Capsicum", weight: "250g", price: 28, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61IiMLgTusL._SL1500_.jpg", inStock: true, description: "Fresh green bell peppers", stock: 90 },
+  { name: "Fresh Cucumber", weight: "500g", price: 20, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61rqI4fCLvL._SL1500_.jpg", inStock: true, description: "Crispy fresh cucumbers", stock: 95 },
+  { name: "Fresh Carrot", weight: "500g", price: 35, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61XM7pTjQgL._SL1500_.jpg", inStock: true, description: "Healthy orange carrots", stock: 90 },
+  { name: "Fresh Spinach (Palak)", weight: "250g", price: 18, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61TQZpWlK2L._SL1500_.jpg", inStock: true, description: "Fresh green spinach leaves", stock: 85 },
+  { name: "Fresh Coriander Leaves", weight: "100g", price: 12, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61hqIWJXXxL._SL1500_.jpg", inStock: true, description: "Fresh dhania patta", stock: 80 },
+  { name: "Fresh Ginger", weight: "250g", price: 45, oldPrice: 55, discount: "18% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61v6TmRCJxL._SL1500_.jpg", inStock: true, description: "Premium quality ginger (adrak)", stock: 75 },
+  { name: "Fresh Green Chilli", weight: "100g", price: 15, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61GRQ6Y7KWL._SL1500_.jpg", inStock: true, description: "Spicy green chillies (hari mirch)", stock: 85 },
 
-  // ==========================================
   // FRESH FRUITS (10 products)
-  // ==========================================
-  {
-    name: "Fresh Banana",
-    weight: "6 pieces",
-    price: 42,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000025_9.jpg",
-    inStock: true,
-    description: "Ripe yellow bananas (kela)"
-  },
-  {
-    name: "Fresh Apple - Royal Gala",
-    weight: "4 pieces (approx 500gm)",
-    price: 120,
-    oldPrice: 145,
-    discount: "17% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000263_9.jpg",
-    inStock: true,
-    description: "Premium quality apples (seb)"
-  },
-  {
-    name: "Fresh Orange",
-    weight: "1 kg",
-    price: 80,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000265_9.jpg",
-    inStock: true,
-    description: "Juicy fresh oranges (santra)"
-  },
-  {
-    name: "Fresh Pomegranate",
-    weight: "2 pieces (approx 500gm)",
-    price: 150,
-    oldPrice: 180,
-    discount: "17% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000269_9.jpg",
-    inStock: true,
-    description: "Sweet pomegranate (anar)"
-  },
-  {
-    name: "Fresh Papaya",
-    weight: "1 piece (approx 800gm)",
-    price: 55,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000270_9.jpg",
-    inStock: true,
-    description: "Ripe papaya (papita)"
-  },
-  {
-    name: "Fresh Watermelon",
-    weight: "1 piece (approx 3-4kg)",
-    price: 45,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000277_9.jpg",
-    inStock: true,
-    description: "Sweet red watermelon (tarbooz)"
-  },
-  {
-    name: "Fresh Mango - Alphonso",
-    weight: "6 pieces (approx 1kg)",
-    price: 299,
-    oldPrice: 349,
-    discount: "14% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000279_9.jpg",
-    inStock: true,
-    description: "Premium Alphonso mangoes (aam)"
-  },
-  {
-    name: "Fresh Grapes - Green",
-    weight: "500 gm",
-    price: 85,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000266_9.jpg",
-    inStock: true,
-    description: "Seedless green grapes (angoor)"
-  },
-  {
-    name: "Fresh Kiwi",
-    weight: "3 pieces",
-    price: 99,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000268_9.jpg",
-    inStock: true,
-    description: "Fresh kiwi fruits"
-  },
-  {
-    name: "Fresh Pineapple",
-    weight: "1 piece (approx 1kg)",
-    price: 65,
-    category: "Jagat Store",
-    brand: "Jagat Fresh",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10000271_9.jpg",
-    inStock: true,
-    description: "Sweet pineapple (ananas)"
-  },
+  { name: "Fresh Banana", weight: "6 pcs", price: 42, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61OPzCQCTlL._SL1500_.jpg", inStock: true, description: "Ripe yellow bananas (kela)", stock: 100 },
+  { name: "Fresh Apple - Royal Gala", weight: "4 pcs (500g)", price: 120, oldPrice: 145, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/71nZTt1GICL._SL1500_.jpg", inStock: true, description: "Premium quality apples (seb)", stock: 90 },
+  { name: "Fresh Orange", weight: "1kg", price: 80, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61m9vC40qRL._SL1500_.jpg", inStock: true, description: "Juicy fresh oranges (santra)", stock: 95 },
+  { name: "Fresh Pomegranate", weight: "2 pcs (500g)", price: 150, oldPrice: 180, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61T+kq4VDSL._SL1500_.jpg", inStock: true, description: "Sweet pomegranate (anar)", stock: 80 },
+  { name: "Fresh Papaya", weight: "1 pc (800g)", price: 55, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61eS4wRoZ5L._SL1500_.jpg", inStock: true, description: "Ripe papaya (papita)", stock: 75 },
+  { name: "Fresh Watermelon", weight: "1 pc (3-4kg)", price: 45, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/71ZgTKiNshL._SL1500_.jpg", inStock: true, description: "Sweet red watermelon (tarbooz)", stock: 60 },
+  { name: "Fresh Mango - Alphonso", weight: "6 pcs (1kg)", price: 299, oldPrice: 349, discount: "14% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61r9xZmTBaL._SL1500_.jpg", inStock: true, description: "Premium Alphonso mangoes (aam)", stock: 50 },
+  { name: "Fresh Grapes - Green", weight: "500g", price: 85, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61UtWOy-1bL._SL1500_.jpg", inStock: true, description: "Seedless green grapes (angoor)", stock: 70 },
+  { name: "Fresh Kiwi", weight: "3 pcs", price: 99, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61pV72CU3LL._SL1500_.jpg", inStock: true, description: "Fresh kiwi fruits", stock: 65 },
+  { name: "Fresh Pineapple", weight: "1 pc (1kg)", price: 65, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61oQ8P+J35L._SL1500_.jpg", inStock: true, description: "Sweet pineapple (ananas)", stock: 60 },
 
-  // ==========================================
   // PACKAGED FOODS (10 products)
-  // ==========================================
-  {
-    name: "Jagat Special Namkeen Mix",
-    weight: "400 gm",
-    price: 89,
-    oldPrice: 110,
-    discount: "19% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/482725_a.jpg",
-    inStock: true,
-    description: "Crispy namkeen mixture"
-  },
-  {
-    name: "Jagat Roasted Peanuts",
-    weight: "500 gm",
-    price: 75,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/447840_a.jpg",
-    inStock: true,
-    description: "Lightly salted roasted moongfali"
-  },
-  {
-    name: "Jagat Poha Thick",
-    weight: "1 kg",
-    price: 55,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10531_a.jpg",
-    inStock: true,
-    description: "Premium quality thick poha"
-  },
-  {
-    name: "Jagat Besan (Gram Flour)",
-    weight: "1 kg",
-    price: 95,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10200_a.jpg",
-    inStock: true,
-    description: "Pure gram flour for pakoras"
-  },
-  {
-    name: "Jagat Sooji (Rava)",
-    weight: "500 gm",
-    price: 42,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10533_a.jpg",
-    inStock: true,
-    description: "Fine quality semolina"
-  },
-  {
-    name: "Jagat Maida (All Purpose Flour)",
-    weight: "1 kg",
-    price: 48,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10201_a.jpg",
-    inStock: true,
-    description: "Refined wheat flour"
-  },
-  {
-    name: "Jagat Roasted Chana",
-    weight: "500 gm",
-    price: 65,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/447841_a.jpg",
-    inStock: true,
-    description: "Healthy roasted chickpeas snack"
-  },
-  {
-    name: "Jagat Cornflakes",
-    weight: "800 gm",
-    price: 149,
-    oldPrice: 175,
-    discount: "15% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481698_a.jpg",
-    inStock: true,
-    description: "Crispy breakfast cornflakes"
-  },
-  {
-    name: "Jagat Oats",
-    weight: "1 kg",
-    price: 165,
-    oldPrice: 190,
-    discount: "13% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10534_a.jpg",
-    inStock: true,
-    description: "Healthy rolled oats"
-  },
-  {
-    name: "Jagat Vermicelli (Seviyaan)",
-    weight: "400 gm",
-    price: 45,
-    category: "Jagat Store",
-    brand: "Jagat Foods",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10535_a.jpg",
-    inStock: true,
-    description: "Roasted vermicelli for kheer"
-  },
+  { name: "Jagat Special Namkeen Mix", weight: "400g", price: 89, oldPrice: 110, discount: "19% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GMn8dKsEL._SL1500_.jpg", inStock: true, description: "Crispy namkeen mixture", stock: 100 },
+  { name: "Jagat Roasted Peanuts", weight: "500g", price: 75, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71VFN5s2WTL._SL1500_.jpg", inStock: true, description: "Lightly salted roasted moongfali", stock: 95 },
+  { name: "Jagat Poha Thick", weight: "1kg", price: 55, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71cjJVNQZ9L._SL1500_.jpg", inStock: true, description: "Premium quality thick poha", stock: 90 },
+  { name: "Jagat Besan (Gram Flour)", weight: "1kg", price: 95, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71MQXx7V6DL._SL1500_.jpg", inStock: true, description: "Pure gram flour for pakoras", stock: 85 },
+  { name: "Jagat Sooji (Rava)", weight: "500g", price: 42, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GwvQ2R7rL._SL1500_.jpg", inStock: true, description: "Fine quality semolina", stock: 90 },
+  { name: "Jagat Maida (All Purpose Flour)", weight: "1kg", price: 48, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71Jy8pRTJ2L._SL1500_.jpg", inStock: true, description: "Refined wheat flour", stock: 95 },
+  { name: "Jagat Roasted Chana", weight: "500g", price: 65, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71PK3PpRtEL._SL1500_.jpg", inStock: true, description: "Healthy roasted chickpeas snack", stock: 100 },
+  { name: "Jagat Cornflakes", weight: "800g", price: 149, oldPrice: 175, discount: "15% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71nSvPZGiGL._SL1500_.jpg", inStock: true, description: "Crispy breakfast cornflakes", stock: 80 },
+  { name: "Jagat Oats", weight: "1kg", price: 165, oldPrice: 190, discount: "13% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GJDhj7YwL._SL1500_.jpg", inStock: true, description: "Healthy rolled oats", stock: 75 },
+  { name: "Jagat Vermicelli (Seviyaan)", weight: "400g", price: 45, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/61fQX7j3nBL._SL1500_.jpg", inStock: true, description: "Roasted vermicelli for kheer", stock: 85 },
 
-  // ==========================================
   // BEVERAGES (10 products)
-  // ==========================================
-  {
-    name: "Jagat Fresh Juice - Orange",
-    weight: "1 Litre",
-    price: 120,
-    oldPrice: 145,
-    discount: "17% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481699_a.jpg",
-    inStock: true,
-    description: "Fresh orange juice, no preservatives"
-  },
-  {
-    name: "Jagat Fresh Juice - Mixed Fruit",
-    weight: "1 Litre",
-    price: 115,
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481700_a.jpg",
-    inStock: true,
-    description: "Blend of fresh fruits"
-  },
-  {
-    name: "Jagat Lassi - Sweet",
-    weight: "500 ml",
-    price: 45,
-    category: "Jagat Store",
-    brand: "Jagat Dairy",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481701_a.jpg",
-    inStock: true,
-    description: "Traditional sweet lassi"
-  },
-  {
-    name: "Jagat Buttermilk (Chaas)",
-    weight: "500 ml",
-    price: 25,
-    category: "Jagat Store",
-    brand: "Jagat Dairy",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481702_a.jpg",
-    inStock: true,
-    description: "Fresh spiced buttermilk"
-  },
-  {
-    name: "Jagat Premium Tea",
-    weight: "500 gm",
-    price: 185,
-    oldPrice: 220,
-    discount: "16% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10536_a.jpg",
-    inStock: true,
-    description: "Premium quality loose tea leaves"
-  },
-  {
-    name: "Jagat Green Tea",
-    weight: "100 Tea Bags",
-    price: 299,
-    oldPrice: 349,
-    discount: "14% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481703_a.jpg",
-    inStock: true,
-    description: "Healthy green tea bags"
-  },
-  {
-    name: "Jagat Instant Coffee",
-    weight: "100 gm",
-    price: 145,
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10537_a.jpg",
-    inStock: true,
-    description: "Rich instant coffee powder"
-  },
-  {
-    name: "Jagat Coconut Water",
-    weight: "500 ml",
-    price: 55,
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481704_a.jpg",
-    inStock: true,
-    description: "Natural coconut water (nariyal pani)"
-  },
-  {
-    name: "Jagat Mango Drink",
-    weight: "1 Litre",
-    price: 95,
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481705_a.jpg",
-    inStock: true,
-    description: "Refreshing mango flavored drink"
-  },
-  {
-    name: "Jagat Lemonade",
-    weight: "750 ml",
-    price: 65,
-    category: "Jagat Store",
-    brand: "Jagat Beverages",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481706_a.jpg",
-    inStock: true,
-    description: "Fresh lemon drink (nimbu pani)"
-  },
+  { name: "Jagat Fresh Juice - Orange", weight: "1L", price: 120, oldPrice: 145, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61SPH8dL+cL._SL1500_.jpg", inStock: true, description: "Fresh orange juice, no preservatives", stock: 70 },
+  { name: "Jagat Fresh Juice - Mixed Fruit", weight: "1L", price: 115, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71UBnY8rDzL._SL1500_.jpg", inStock: true, description: "Blend of fresh fruits", stock: 75 },
+  { name: "Jagat Lassi - Sweet", weight: "500ml", price: 45, category: "Jagat Store", brand: "Jagat Dairy", image: "https://m.media-amazon.com/images/I/61+8T8MvY8L._SL1500_.jpg", inStock: true, description: "Traditional sweet lassi", stock: 80 },
+  { name: "Jagat Buttermilk (Chaas)", weight: "500ml", price: 25, category: "Jagat Store", brand: "Jagat Dairy", image: "https://m.media-amazon.com/images/I/61bQR0H7qVL._SL1500_.jpg", inStock: true, description: "Fresh spiced buttermilk", stock: 85 },
+  { name: "Jagat Premium Tea", weight: "500g", price: 185, oldPrice: 220, discount: "16% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71XnCqcPXBL._SL1500_.jpg", inStock: true, description: "Premium quality loose tea leaves", stock: 70 },
+  { name: "Jagat Green Tea", weight: "100 bags", price: 299, oldPrice: 349, discount: "14% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71Q8QXOgxZL._SL1500_.jpg", inStock: true, description: "Healthy green tea bags", stock: 60 },
+  { name: "Jagat Instant Coffee", weight: "100g", price: 145, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71g4FaV+SQL._SL1500_.jpg", inStock: true, description: "Rich instant coffee powder", stock: 75 },
+  { name: "Jagat Coconut Water", weight: "500ml", price: 55, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61U7Uw4CjxL._SL1500_.jpg", inStock: true, description: "Natural coconut water (nariyal pani)", stock: 80 },
+  { name: "Jagat Mango Drink", weight: "1L", price: 95, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71zoYuRfBVL._SL1500_.jpg", inStock: true, description: "Refreshing mango flavored drink", stock: 85 },
+  { name: "Jagat Lemonade", weight: "750ml", price: 65, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61Z8MYD3JLL._SL1500_.jpg", inStock: true, description: "Fresh lemon drink (nimbu pani)", stock: 90 },
 
-  // ==========================================
   // HOUSEHOLD ESSENTIALS (10 products)
-  // ==========================================
-  {
-    name: "Jagat Detergent Powder",
-    weight: "2 kg",
-    price: 249,
-    oldPrice: 299,
-    discount: "17% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10538_a.jpg",
-    inStock: true,
-    description: "Powerful cleaning detergent"
-  },
-  {
-    name: "Jagat Dishwash Liquid",
-    weight: "1 Litre",
-    price: 125,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481707_a.jpg",
-    inStock: true,
-    description: "Grease cutting dishwash gel"
-  },
-  {
-    name: "Jagat Floor Cleaner",
-    weight: "1 Litre",
-    price: 99,
-    oldPrice: 120,
-    discount: "18% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481708_a.jpg",
-    inStock: true,
-    description: "Multi-purpose floor cleaner"
-  },
-  {
-    name: "Jagat Toilet Cleaner",
-    weight: "1 Litre",
-    price: 115,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481709_a.jpg",
-    inStock: true,
-    description: "Powerful toilet bowl cleaner"
-  },
-  {
-    name: "Jagat Phenyl",
-    weight: "1 Litre",
-    price: 65,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10539_a.jpg",
-    inStock: true,
-    description: "Disinfectant floor cleaner"
-  },
-  {
-    name: "Jagat Garbage Bags",
-    weight: "Pack of 30 (Large)",
-    price: 89,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481710_a.jpg",
-    inStock: true,
-    description: "Strong dustbin bags"
-  },
-  {
-    name: "Jagat Naphthalene Balls",
-    weight: "200 gm",
-    price: 45,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10540_a.jpg",
-    inStock: true,
-    description: "Moth repellent balls (kapoor)"
-  },
-  {
-    name: "Jagat Air Freshener",
-    weight: "300 ml",
-    price: 135,
-    oldPrice: 160,
-    discount: "16% OFF",
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481711_a.jpg",
-    inStock: true,
-    description: "Room freshener spray"
-  },
-  {
-    name: "Jagat Mosquito Coil",
-    weight: "Pack of 10",
-    price: 55,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10541_a.jpg",
-    inStock: true,
-    description: "Mosquito repellent coils"
-  },
-  {
-    name: "Jagat Scrub Pad",
-    weight: "Pack of 6",
-    price: 49,
-    category: "Jagat Store",
-    brand: "Jagat Home",
-    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/481712_a.jpg",
-    inStock: true,
-    description: "Kitchen scrubbing pads"
-  },
+  { name: "Jagat Detergent Powder", weight: "2kg", price: 249, oldPrice: 299, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71NvSDN2vUL._SL1500_.jpg", inStock: true, description: "Powerful cleaning detergent", stock: 70 },
+  { name: "Jagat Dishwash Liquid", weight: "1L", price: 125, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61vFdIZKT3L._SL1500_.jpg", inStock: true, description: "Grease cutting dishwash gel", stock: 75 },
+  { name: "Jagat Floor Cleaner", weight: "1L", price: 99, oldPrice: 120, discount: "18% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61xQpB7NHGL._SL1500_.jpg", inStock: true, description: "Multi-purpose floor cleaner", stock: 80 },
+  { name: "Jagat Toilet Cleaner", weight: "1L", price: 115, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61rkR8R0jmL._SL1500_.jpg", inStock: true, description: "Powerful toilet bowl cleaner", stock: 70 },
+  { name: "Jagat Phenyl", weight: "1L", price: 65, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61dZ7xNPQqL._SL1500_.jpg", inStock: true, description: "Disinfectant floor cleaner", stock: 85 },
+  { name: "Jagat Garbage Bags", weight: "30 pcs (Large)", price: 89, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71YgJ0QmCBL._SL1500_.jpg", inStock: true, description: "Strong dustbin bags", stock: 90 },
+  { name: "Jagat Naphthalene Balls", weight: "200g", price: 45, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61h4Z0c7uNL._SL1500_.jpg", inStock: true, description: "Moth repellent balls (kapoor)", stock: 95 },
+  { name: "Jagat Air Freshener", weight: "300ml", price: 135, oldPrice: 160, discount: "16% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61BZ6tJ9qEL._SL1500_.jpg", inStock: true, description: "Room freshener spray", stock: 60 },
+  { name: "Jagat Mosquito Coil", weight: "10 pcs", price: 55, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71YqV7kR7cL._SL1500_.jpg", inStock: true, description: "Mosquito repellent coils", stock: 100 },
+  { name: "Jagat Scrub Pad", weight: "6 pcs", price: 49, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61YcPn7bXZL._SL1500_.jpg", inStock: true, description: "Kitchen scrubbing pads", stock: 110 }
 ];
 
-// Migration function
-const migrateJagatStore = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('\n🏪 Starting Jagat Store Products Migration...\n');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('\n🏪 Starting Smart Migration for Jagat Store...\n');
+    console.log('━'.repeat(60));
     
-    const existingCount = await Product.countDocuments({ category: "Jagat Store" });
-    console.log(`📦 Existing Jagat Store products: ${existingCount}`);
+    let added = 0, updated = 0, unchanged = 0;
     
-    console.log(`📊 New products to add: ${jagatStoreProducts.length}\n`);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    const existingProducts = await Product.find({ category: "Jagat Store" });
     
-    let addedCount = 0;
-    let skippedCount = 0;
-    let errorCount = 0;
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    const sourceProductKeys = new Set();
     
     for (const productData of jagatStoreProducts) {
-      try {
-        const existing = await Product.findOne({ 
-          name: productData.name,
-          weight: productData.weight,
-          category: "Jagat Store"
-        });
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
         
-        if (existing) {
-          console.log(`⏭️  Skipped: ${productData.name} (${productData.weight})`);
-          skippedCount++;
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
         } else {
-          const product = new Product({
-            ...productData,
-            stock: productData.inStock ? 50 : 0,
-            description: productData.description || `${productData.name} - ${productData.weight}`
-          });
-          
-          await product.save();
-          console.log(`✅ Added: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
-          addedCount++;
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
         }
-      } catch (error) {
-        console.error(`❌ Error: ${productData.name} - ${error.message}`);
-        errorCount++;
       }
     }
     
-    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('\n🎉 MIGRATION COMPLETE!\n');
-    console.log('📊 Summary:');
-    console.log(`   ✅ Added: ${addedCount} products`);
-    console.log(`   ⏭️  Skipped: ${skippedCount} products`);
-    console.log(`   ❌ Errors: ${errorCount} products`);
-    console.log(`   📦 Total Jagat Store products: ${await Product.countDocuments({ category: "Jagat Store" })}`);
-    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Jagat Store" })}`);
     
     console.log('\n📋 Product Categories:');
     console.log('   🥬 Fresh Vegetables: 10 products');
@@ -646,24 +171,13 @@ const migrateJagatStore = async () => {
     console.log('   🥤 Beverages: 10 products');
     console.log('   🧹 Household Essentials: 10 products');
     
-    console.log('\n✅ Jagat Store products added successfully!');
-    console.log('🚀 Next steps:');
-    console.log('   1. Create JagatStore.jsx component');
-    console.log('   2. Add route in App.jsx');
-    console.log('   3. Update FirstContainer main banner link');
-    console.log('   4. Restart backend & frontend\n');
+    console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);
-  } catch (error) {
-    console.error('\n❌ Migration Error:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-// Run migration
-console.log('\n╔═══════════════════════════════════════════╗');
-console.log('║   JAGAT STORE PRODUCTS MIGRATION          ║');
-console.log('║   Exclusive Products - Own Brand          ║');
-console.log('╚═══════════════════════════════════════════╝\n');
-
-migrateJagatStore();
+smartMigrate();

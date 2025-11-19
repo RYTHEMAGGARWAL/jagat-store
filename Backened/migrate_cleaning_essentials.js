@@ -1,317 +1,393 @@
-// migrate_cleaning_essentials.js - Cleaning Essentials Migration
+// migrate_cleaning_essentials_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_cleaning_essentials_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
     console.error('❌ MongoDB connection error:', err);
     process.exit(1);
   });
-const Product = require('./models/Product');
 
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+// ========== CLEANING ESSENTIALS PRODUCTS ==========
 const cleaningEssentialsProducts = [
-  // Toilet Cleaners
+  // TOILET CLEANERS
   {
-    name: 'Harpic Toilet Cleaner - 1L',
-    description: 'Powerful toilet cleaning liquid',
+    name: 'Harpic Toilet Cleaner',
+    weight: '1L',
     price: 145,
-    mrp: 165,
+    oldPrice: 165,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Harpic',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10401a.jpg' }],
-    stock: 80,
+    image: 'https://m.media-amazon.com/images/I/61rkR8R0jmL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Powerful toilet cleaning liquid',
+    stock: 80
   },
   {
-    name: 'Harpic Power Plus - 500ml',
-    description: 'Extra strong toilet cleaner',
+    name: 'Harpic Power Plus',
+    weight: '500ml',
     price: 85,
-    mrp: 95,
+    oldPrice: 95,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Harpic',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10402a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/51aByfUrvIL._SL1080_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Extra strong toilet cleaner',
+    stock: 100
   },
   {
-    name: 'Domex Toilet Cleaner - 1L',
-    description: 'Kills 99.9% germs',
+    name: 'Domex Toilet Cleaner',
+    weight: '1L',
     price: 135,
-    mrp: 155,
+    oldPrice: 155,
+    discount: '13% OFF',
     category: 'Cleaning Essentials',
     brand: 'Domex',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10403a.jpg' }],
-    stock: 75,
+    image: 'https://m.media-amazon.com/images/I/61eIjm4Rx0L._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Kills 99.9% germs',
+    stock: 75
   },
 
-  // Floor Cleaners
+  // FLOOR CLEANERS
   {
-    name: 'Lizol Floor Cleaner - 975ml',
-    description: 'Disinfectant floor cleaner',
+    name: 'Lizol Floor Cleaner',
+    weight: '975ml',
     price: 125,
-    mrp: 140,
+    oldPrice: 140,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Lizol',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10404a.jpg' }],
-    stock: 90,
+    image: 'https://m.media-amazon.com/images/I/61xQpB7NHGL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 975
+    description: 'Disinfectant floor cleaner',
+    stock: 90
   },
   {
-    name: 'Lizol Citrus Floor Cleaner - 500ml',
-    description: 'Fresh citrus fragrance',
+    name: 'Lizol Citrus Floor Cleaner',
+    weight: '500ml',
     price: 75,
-    mrp: 85,
+    oldPrice: 85,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Lizol',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10405a.jpg' }],
-    stock: 95,
+    image: 'https://m.media-amazon.com/images/I/61L3t9GYoHL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Fresh citrus fragrance',
+    stock: 95
   },
 
-  // Dishwash
+  // DISHWASH
   {
-    name: 'Vim Dishwash Bar - 600g',
-    description: 'Lemon dishwash bar',
+    name: 'Vim Dishwash Bar',
+    weight: '600g',
     price: 85,
-    mrp: 95,
+    oldPrice: 95,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Vim',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10406a.jpg' }],
-    stock: 120,
+    image: 'https://m.media-amazon.com/images/I/71EUWFTiXdL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'Lemon dishwash bar',
+    stock: 120
   },
   {
-    name: 'Vim Dishwash Liquid - 750ml',
-    description: 'Tough on grease, soft on hands',
+    name: 'Vim Dishwash Liquid',
+    weight: '750ml',
     price: 95,
-    mrp: 110,
+    oldPrice: 110,
+    discount: '14% OFF',
     category: 'Cleaning Essentials',
     brand: 'Vim',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10407a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/61vFdIZKT3L._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 750
+    description: 'Tough on grease, soft on hands',
+    stock: 100
   },
   {
-    name: 'Pril Dishwash Liquid - 750ml',
-    description: 'Concentrated dishwashing liquid',
+    name: 'Pril Dishwash Liquid',
+    weight: '750ml',
     price: 105,
-    mrp: 120,
+    oldPrice: 120,
+    discount: '13% OFF',
     category: 'Cleaning Essentials',
     brand: 'Pril',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10408a.jpg' }],
-    stock: 85,
+    image: 'https://m.media-amazon.com/images/I/61YmPXiZn3L._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 750
+    description: 'Concentrated dishwashing liquid',
+    stock: 85
   },
 
-  // Glass & Surface Cleaners
+  // GLASS & SURFACE CLEANERS
   {
-    name: 'Colin Glass Cleaner - 500ml',
-    description: 'Streak-free shine',
+    name: 'Colin Glass Cleaner',
+    weight: '500ml',
     price: 110,
-    mrp: 125,
+    oldPrice: 125,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Colin',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10409a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/61wVCcJCBQL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Streak-free shine',
+    stock: 70
   },
   {
-    name: 'Colin Glass Cleaner Refill - 500ml',
-    description: 'Refill pack for Colin',
+    name: 'Colin Glass Cleaner Refill',
+    weight: '500ml',
     price: 85,
-    mrp: 95,
+    oldPrice: 95,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Colin',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10410a.jpg' }],
-    stock: 80,
+    image: 'https://m.media-amazon.com/images/I/61I2p0S1XTL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Refill pack for Colin',
+    stock: 80
   },
 
-  // Scrubbers & Pads
+  // SCRUBBERS & PADS
   {
-    name: 'Scotch Brite Scrub Pad - 3 pcs',
-    description: 'Heavy-duty scrubbing pads',
+    name: 'Scotch Brite Scrub Pad',
+    weight: '3 pcs',
     price: 55,
-    mrp: 62,
+    oldPrice: 62,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Scotch Brite',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10411a.jpg' }],
-    stock: 150,
+    image: 'https://m.media-amazon.com/images/I/61YcPn7bXZL._SL1500_.jpg',
     inStock: true,
-    unit: 'pcs',
-    quantity: 3
+    description: 'Heavy-duty scrubbing pads',
+    stock: 150
   },
   {
-    name: 'Scotch Brite Scrub Sponge - 3 pcs',
-    description: 'Dual-sided scrub sponge',
+    name: 'Scotch Brite Scrub Sponge',
+    weight: '3 pcs',
     price: 65,
-    mrp: 72,
+    oldPrice: 72,
+    discount: '10% OFF',
     category: 'Cleaning Essentials',
     brand: 'Scotch Brite',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10412a.jpg' }],
-    stock: 140,
+    image: 'https://m.media-amazon.com/images/I/71gdAYyPuCL._SL1500_.jpg',
     inStock: true,
-    unit: 'pcs',
-    quantity: 3
+    description: 'Dual-sided scrub sponge',
+    stock: 140
   },
 
-  // Detergents - Bar
+  // DETERGENTS - BAR
   {
-    name: 'Rin Detergent Bar - 1kg',
-    description: 'Superior stain removal',
+    name: 'Rin Detergent Bar',
+    weight: '1kg',
     price: 95,
-    mrp: 110,
+    oldPrice: 110,
+    discount: '14% OFF',
     category: 'Cleaning Essentials',
     brand: 'Rin',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10413a.jpg' }],
-    stock: 110,
+    image: 'https://m.media-amazon.com/images/I/71N7v2RFvkL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 1
+    description: 'Superior stain removal',
+    stock: 110
   },
   {
-    name: 'Wheel Detergent Bar - 1kg',
-    description: 'Tough on stains',
+    name: 'Wheel Detergent Bar',
+    weight: '1kg',
     price: 85,
-    mrp: 95,
+    oldPrice: 95,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Wheel',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10414a.jpg' }],
-    stock: 105,
+    image: 'https://m.media-amazon.com/images/I/61iSiR6AFQL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 1
+    description: 'Tough on stains',
+    stock: 105
   },
 
-  // Detergents - Liquid
+  // DETERGENTS - LIQUID
   {
-    name: 'Surf Excel Liquid - 1L',
-    description: 'Liquid detergent for washing machine',
+    name: 'Surf Excel Liquid',
+    weight: '1L',
     price: 195,
-    mrp: 220,
+    oldPrice: 220,
+    discount: '11% OFF',
     category: 'Cleaning Essentials',
     brand: 'Surf Excel',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10415a.jpg' }],
-    stock: 85,
+    image: 'https://m.media-amazon.com/images/I/61C0x9LBDOL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Liquid detergent for washing machine',
+    stock: 85
   },
 
-  // Detergents - Powder
+  // DETERGENTS - POWDER
   {
-    name: 'Ariel Detergent Powder - 2kg',
-    description: 'Removes tough stains in 1 wash',
+    name: 'Ariel Detergent Powder',
+    weight: '2kg',
     price: 320,
-    mrp: 365,
+    oldPrice: 365,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Ariel',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10416a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/71NvSDN2vUL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 2
+    description: 'Removes tough stains in 1 wash',
+    stock: 70
   },
   {
-    name: 'Tide Plus Detergent - 2kg',
-    description: 'Extra power detergent powder',
+    name: 'Tide Plus Detergent',
+    weight: '2kg',
     price: 280,
-    mrp: 320,
+    oldPrice: 320,
+    discount: '13% OFF',
     category: 'Cleaning Essentials',
     brand: 'Tide',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10417a.jpg' }],
-    stock: 80,
+    image: 'https://m.media-amazon.com/images/I/71xRhCqVsrL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 2
+    description: 'Extra power detergent powder',
+    stock: 80
   },
   {
-    name: 'Surf Excel Easy Wash - 2kg',
-    description: 'Easy wash detergent powder',
+    name: 'Surf Excel Easy Wash',
+    weight: '2kg',
     price: 265,
-    mrp: 300,
+    oldPrice: 300,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Surf Excel',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10418a.jpg' }],
-    stock: 75,
+    image: 'https://m.media-amazon.com/images/I/71WU+KqrLsL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 2
+    description: 'Easy wash detergent powder',
+    stock: 75
   },
 
-  // Fabric Conditioner
+  // FABRIC CONDITIONER
   {
-    name: 'Comfort Fabric Conditioner - 860ml',
-    description: 'Softens & freshens clothes',
+    name: 'Comfort Fabric Conditioner',
+    weight: '860ml',
     price: 185,
-    mrp: 210,
+    oldPrice: 210,
+    discount: '12% OFF',
     category: 'Cleaning Essentials',
     brand: 'Comfort',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10419a.jpg' }],
-    stock: 65,
+    image: 'https://m.media-amazon.com/images/I/61v7qY1m8LL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 860
+    description: 'Softens & freshens clothes',
+    stock: 65
   },
   {
-    name: 'Comfort After Wash - 400ml',
-    description: 'Luxury fragrance conditioner',
+    name: 'Comfort After Wash',
+    weight: '400ml',
     price: 95,
-    mrp: 110,
+    oldPrice: 110,
+    discount: '14% OFF',
     category: 'Cleaning Essentials',
     brand: 'Comfort',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10420a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/61JK3S3ot9L._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 400
+    description: 'Luxury fragrance conditioner',
+    stock: 70
   }
 ];
 
-const migrateCleaningEssentials = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Cleaning Essentials products...');
-    await Product.deleteMany({ category: 'Cleaning Essentials' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Cleaning Essentials products...');
-    const result = await Product.insertMany(cleaningEssentialsProducts);
-    console.log(`✅ Added ${result.length} Cleaning Essentials products`);
-
-    console.log('🎉 Migration completed successfully!');
-    console.log(`📊 Total: ${result.length} products`);
+    console.log('\n🧹 Starting Smart Migration for Cleaning Essentials...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    const existingProducts = await Product.find({ category: "Cleaning Essentials" });
+    
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    const sourceProductKeys = new Set();
+    
+    for (const productData of cleaningEssentialsProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Cleaning Essentials" })}`);
+    console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateCleaningEssentials();
+smartMigrate();

@@ -1,345 +1,421 @@
-// migrate_cold_drinks_juices.js - Cold Drinks & Juices Migration
+// migrate_cold_drinks_juices_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_cold_drinks_juices_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
     console.error('❌ MongoDB connection error:', err);
     process.exit(1);
   });
-const Product = require('./models/Product');
 
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+// ========== COLD DRINKS & JUICES PRODUCTS ==========
 const coldDrinksJuicesProducts = [
-  // Cold Drinks - Coca-Cola
+  // COCA-COLA
   {
-    name: 'Coca-Cola - 1.25L',
+    name: 'Coca-Cola',
+    weight: '1.25L',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Coca-Cola',
+    image: 'https://m.media-amazon.com/images/I/51v8nyxSOYL._SL1080_.jpg',
+    inStock: true,
     description: 'The iconic refreshing cola drink',
-    price: 60,
-    mrp: 70,
-    category: 'Cold Drinks & Juices',
-    brand: 'Coca-Cola',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40041a.jpg' }],
-    stock: 120,
-    inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    stock: 120
   },
   {
-    name: 'Coca-Cola - 750ml',
+    name: 'Coca-Cola',
+    weight: '750ml',
+    price: 40,
+    oldPrice: 45,
+    discount: '11% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Coca-Cola',
+    image: 'https://m.media-amazon.com/images/I/51v8nyxSOYL._SL1080_.jpg',
+    inStock: true,
     description: 'Perfect size cola bottle',
-    price: 40,
-    mrp: 45,
-    category: 'Cold Drinks & Juices',
-    brand: 'Coca-Cola',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40041a.jpg' }],
-    stock: 150,
-    inStock: true,
-    unit: 'ml',
-    quantity: 750
+    stock: 150
   },
 
-  // Pepsi
+  // PEPSI
   {
-    name: 'Pepsi - 1.25L',
+    name: 'Pepsi',
+    weight: '1.25L',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Pepsi',
+    image: 'https://m.media-amazon.com/images/I/61aSP3ZAVPL._SL1500_.jpg',
+    inStock: true,
     description: 'Bold and refreshing cola',
-    price: 60,
-    mrp: 70,
-    category: 'Cold Drinks & Juices',
-    brand: 'Pepsi',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40042a.jpg' }],
-    stock: 115,
-    inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    stock: 115
   },
   {
-    name: 'Pepsi - 750ml',
-    description: 'Refreshing Pepsi cola',
+    name: 'Pepsi',
+    weight: '750ml',
     price: 40,
-    mrp: 45,
+    oldPrice: 45,
+    discount: '11% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Pepsi',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40042a.jpg' }],
-    stock: 140,
+    image: 'https://m.media-amazon.com/images/I/61aSP3ZAVPL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 750
+    description: 'Refreshing Pepsi cola',
+    stock: 140
   },
 
-  // Sprite & Lemon Drinks
+  // SPRITE & LEMON DRINKS
   {
-    name: 'Sprite - 1.25L',
-    description: 'Clear lemon-lime flavored drink',
+    name: 'Sprite',
+    weight: '1.25L',
     price: 60,
-    mrp: 70,
+    oldPrice: 70,
+    discount: '14% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Sprite',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40043a.jpg' }],
-    stock: 110,
+    image: 'https://m.media-amazon.com/images/I/61W8kRMLBvL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    description: 'Clear lemon-lime flavored drink',
+    stock: 110
   },
   {
-    name: '7UP - 1.25L',
-    description: 'Crisp lemon-lime soda',
+    name: '7UP',
+    weight: '1.25L',
     price: 60,
-    mrp: 70,
+    oldPrice: 70,
+    discount: '14% OFF',
     category: 'Cold Drinks & Juices',
     brand: '7UP',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40044a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/61rPJB4Y9ZL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    description: 'Crisp lemon-lime soda',
+    stock: 100
   },
 
-  // Thums Up & Mountain Dew
+  // THUMS UP & MOUNTAIN DEW
   {
-    name: 'Thums Up - 1.25L',
-    description: 'Strong fizzy cola',
+    name: 'Thums Up',
+    weight: '1.25L',
     price: 60,
-    mrp: 70,
+    oldPrice: 70,
+    discount: '14% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Thums Up',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40045a.jpg' }],
-    stock: 105,
+    image: 'https://m.media-amazon.com/images/I/61xqhXefPtL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    description: 'Strong fizzy cola',
+    stock: 105
   },
   {
-    name: 'Mountain Dew - 1.25L',
-    description: 'Energizing citrus drink',
+    name: 'Mountain Dew',
+    weight: '1.25L',
     price: 60,
-    mrp: 70,
+    oldPrice: 70,
+    discount: '14% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Mountain Dew',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40046a.jpg' }],
-    stock: 95,
+    image: 'https://m.media-amazon.com/images/I/61RuYViniLL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    description: 'Energizing citrus drink',
+    stock: 95
   },
 
-  // Fanta
+  // FANTA
   {
-    name: 'Fanta Orange - 1.25L',
-    description: 'Orange flavored fizzy drink',
+    name: 'Fanta Orange',
+    weight: '1.25L',
     price: 60,
-    mrp: 70,
+    oldPrice: 70,
+    discount: '14% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Fanta',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40047a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/61bGWOhGDVL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.25
+    description: 'Orange flavored fizzy drink',
+    stock: 100
   },
 
-  // Fruit Juices - Premium
+  // FRUIT JUICES - PREMIUM
   {
-    name: 'Real Fruit Juice Mango - 1L',
+    name: 'Real Fruit Juice Mango',
+    weight: '1L',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Real',
+    image: 'https://m.media-amazon.com/images/I/71zoYuRfBVL._SL1500_.jpg',
+    inStock: true,
     description: 'Made with real fruit pulp',
-    price: 95,
-    mrp: 110,
-    category: 'Cold Drinks & Juices',
-    brand: 'Real',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40048a.jpg' }],
-    stock: 80,
-    inStock: true,
-    unit: 'L',
-    quantity: 1
+    stock: 80
   },
   {
-    name: 'Real Fruit Juice Mixed Fruit - 1L',
+    name: 'Real Fruit Juice Mixed Fruit',
+    weight: '1L',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Real',
+    image: 'https://m.media-amazon.com/images/I/71UBnY8rDzL._SL1500_.jpg',
+    inStock: true,
     description: 'Blend of delicious fruits',
-    price: 95,
-    mrp: 110,
-    category: 'Cold Drinks & Juices',
-    brand: 'Real',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40049a.jpg' }],
-    stock: 75,
-    inStock: true,
-    unit: 'L',
-    quantity: 1
+    stock: 75
   },
   {
-    name: 'Tropicana Orange Juice - 1L',
+    name: 'Tropicana Orange Juice',
+    weight: '1L',
+    price: 110,
+    oldPrice: 125,
+    discount: '12% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Tropicana',
+    image: 'https://m.media-amazon.com/images/I/61SPH8dL+cL._SL1500_.jpg',
+    inStock: true,
     description: '100% orange juice, no added sugar',
-    price: 110,
-    mrp: 125,
-    category: 'Cold Drinks & Juices',
-    brand: 'Tropicana',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40050a.jpg' }],
-    stock: 75,
-    inStock: true,
-    unit: 'L',
-    quantity: 1
+    stock: 75
   },
   {
-    name: 'Tropicana Mixed Fruit - 1L',
-    description: 'Premium mixed fruit juice',
+    name: 'Tropicana Mixed Fruit',
+    weight: '1L',
     price: 110,
-    mrp: 125,
+    oldPrice: 125,
+    discount: '12% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Tropicana',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40051a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/71gI8tWm1zL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Premium mixed fruit juice',
+    stock: 70
   },
 
-  // Pulpy Drinks
+  // PULPY DRINKS
   {
-    name: 'Minute Maid Pulpy Orange - 400ml',
-    description: 'Orange juice with pulpy bits',
+    name: 'Minute Maid Pulpy Orange',
+    weight: '400ml',
     price: 40,
-    mrp: 45,
+    oldPrice: 45,
+    discount: '11% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Minute Maid',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40052a.jpg' }],
-    stock: 140,
+    image: 'https://m.media-amazon.com/images/I/61a9VZDvpZL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 400
+    description: 'Orange juice with pulpy bits',
+    stock: 140
   },
 
-  // Mango Drinks
+  // MANGO DRINKS
   {
-    name: 'Frooti Mango Drink - 1.2L',
-    description: 'Fresh and juicy mango drink',
+    name: 'Frooti Mango Drink',
+    weight: '1.2L',
     price: 70,
-    mrp: 80,
+    oldPrice: 80,
+    discount: '13% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Frooti',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40053a.jpg' }],
-    stock: 90,
+    image: 'https://m.media-amazon.com/images/I/61b0ZST3E0L._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.2
+    description: 'Fresh and juicy mango drink',
+    stock: 90
   },
   {
-    name: 'Maaza Mango Drink - 1.2L',
-    description: 'Real mango taste',
+    name: 'Maaza Mango Drink',
+    weight: '1.2L',
     price: 70,
-    mrp: 80,
+    oldPrice: 80,
+    discount: '13% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Maaza',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40054a.jpg' }],
-    stock: 85,
+    image: 'https://m.media-amazon.com/images/I/51Y4lW3EAHL._SL1080_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.2
+    description: 'Real mango taste',
+    stock: 85
   },
   {
-    name: 'Slice Mango Drink - 1.2L',
-    description: 'Thick mango drink',
+    name: 'Slice Mango Drink',
+    weight: '1.2L',
     price: 65,
-    mrp: 75,
+    oldPrice: 75,
+    discount: '13% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Slice',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40055a.jpg' }],
-    stock: 95,
+    image: 'https://m.media-amazon.com/images/I/71+WNNGU7SL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1.2
+    description: 'Thick mango drink',
+    stock: 95
   },
 
-  // Energy Drinks
+  // ENERGY DRINKS
   {
-    name: 'Red Bull Energy Drink - 250ml',
-    description: 'Gives you wings',
+    name: 'Red Bull Energy Drink',
+    weight: '250ml',
     price: 110,
-    mrp: 125,
+    oldPrice: 125,
+    discount: '12% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Red Bull',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40056a.jpg' }],
-    stock: 60,
+    image: 'https://m.media-amazon.com/images/I/51fAO+gmikL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 250
+    description: 'Gives you wings',
+    stock: 60
   },
   {
-    name: 'Monster Energy Drink - 500ml',
-    description: 'Unleash the beast',
+    name: 'Monster Energy Drink',
+    weight: '500ml',
     price: 140,
-    mrp: 160,
+    oldPrice: 160,
+    discount: '13% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Monster',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40057a.jpg' }],
-    stock: 50,
+    image: 'https://m.media-amazon.com/images/I/51RZbxqVoYL._SL1200_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Unleash the beast',
+    stock: 50
   },
   {
-    name: 'Sting Energy Drink - 500ml',
-    description: 'Get your energy boost',
+    name: 'Sting Energy Drink',
+    weight: '500ml',
     price: 40,
-    mrp: 45,
+    oldPrice: 45,
+    discount: '11% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Sting',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40058a.jpg' }],
-    stock: 80,
+    image: 'https://m.media-amazon.com/images/I/71KH1BaQcLL._SL1500_.jpg',
     inStock: true,
-    unit: 'ml',
-    quantity: 500
+    description: 'Get your energy boost',
+    stock: 80
   },
 
-  // Water
+  // WATER
   {
-    name: 'Bisleri Mineral Water - 1L',
-    description: 'Pure and safe drinking water',
+    name: 'Bisleri Mineral Water',
+    weight: '1L',
     price: 20,
-    mrp: 22,
+    oldPrice: 22,
+    discount: '9% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Bisleri',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40059a.jpg' }],
-    stock: 200,
+    image: 'https://m.media-amazon.com/images/I/51F6E5l3VfL._SL1080_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Pure and safe drinking water',
+    stock: 200
   },
   {
-    name: 'Kinley Mineral Water - 1L',
-    description: 'Trusted mineral water',
+    name: 'Kinley Mineral Water',
+    weight: '1L',
     price: 20,
-    mrp: 22,
+    oldPrice: 22,
+    discount: '9% OFF',
     category: 'Cold Drinks & Juices',
     brand: 'Kinley',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40060a.jpg' }],
-    stock: 180,
+    image: 'https://m.media-amazon.com/images/I/61jmCxF8BbL._SL1500_.jpg',
     inStock: true,
-    unit: 'L',
-    quantity: 1
+    description: 'Trusted mineral water',
+    stock: 180
   }
 ];
 
-const migrateColdDrinksJuices = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Cold Drinks & Juices products...');
-    await Product.deleteMany({ category: 'Cold Drinks & Juices' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Cold Drinks & Juices products...');
-    const result = await Product.insertMany(coldDrinksJuicesProducts);
-    console.log(`✅ Added ${result.length} Cold Drinks & Juices products`);
-
-    console.log('🎉 Migration completed successfully!');
-    console.log(`📊 Total: ${result.length} products`);
+    console.log('\n🥤 Starting Smart Migration for Cold Drinks & Juices...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    const existingProducts = await Product.find({ category: "Cold Drinks & Juices" });
+    
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    const sourceProductKeys = new Set();
+    
+    for (const productData of coldDrinksJuicesProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Cold Drinks & Juices" })}`);
+    console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateColdDrinksJuices();
+smartMigrate();

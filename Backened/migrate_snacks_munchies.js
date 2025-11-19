@@ -1,7 +1,9 @@
-// migrate_snacks_munchies.js - Snacks & Munchies Products Migration
+// migrate_snacks_munchies_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_snacks_munchies_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
@@ -9,366 +11,161 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-const Product = require('./models/Product');
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
 
+const Product = mongoose.model('Product', productSchema);
+
+// ========== SNACKS & MUNCHIES PRODUCTS ==========
 const snacksMunchiesProducts = [
-  // Chips - Lays
-  {
-    name: 'Lay\'s Classic Salted - 95g',
-    description: 'India\'s favorite potato chips',
-    price: 40,
-    mrp: 45,
-    category: 'Snacks & Munchies',
-    brand: 'Lay\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/483a.jpg' }],
-    stock: 200,
-    inStock: true,
-    unit: 'g',
-    quantity: 95
-  },
-  {
-    name: 'Lay\'s Magic Masala - 95g',
-    description: 'Masala flavored chips',
-    price: 40,
-    mrp: 45,
-    category: 'Snacks & Munchies',
-    brand: 'Lay\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10701a.jpg' }],
-    stock: 190,
-    inStock: true,
-    unit: 'g',
-    quantity: 95
-  },
-  {
-    name: 'Lay\'s American Style Cream & Onion - 90g',
-    description: 'Creamy and tangy chips',
-    price: 40,
-    mrp: 45,
-    category: 'Snacks & Munchies',
-    brand: 'Lay\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10702a.jpg' }],
-    stock: 180,
-    inStock: true,
-    unit: 'g',
-    quantity: 90
-  },
+  // CHIPS - LAYS
+  { name: 'Lay\'s Classic Salted', weight: '95g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71a1rByk7tL._SL1500_.jpg', inStock: true, description: 'India\'s favorite potato chips', stock: 200 },
+  { name: 'Lay\'s Magic Masala', weight: '95g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71b2sCzl8uL._SL1500_.jpg', inStock: true, description: 'Masala flavored chips', stock: 190 },
+  { name: 'Lay\'s American Style Cream & Onion', weight: '90g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71c3tDam9vL._SL1500_.jpg', inStock: true, description: 'Creamy and tangy chips', stock: 180 },
 
-  // Kurkure
-  {
-    name: 'Kurkure Masala Munch - 90g',
-    description: 'Crunchy masala flavored snack',
-    price: 35,
-    mrp: 40,
-    category: 'Snacks & Munchies',
-    brand: 'Kurkure',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10703a.jpg' }],
-    stock: 180,
-    inStock: true,
-    unit: 'g',
-    quantity: 90
-  },
-  {
-    name: 'Kurkure Chilli Chatka - 85g',
-    description: 'Spicy chilli flavored kurkure',
-    price: 35,
-    mrp: 40,
-    category: 'Snacks & Munchies',
-    brand: 'Kurkure',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10704a.jpg' }],
-    stock: 170,
-    inStock: true,
-    unit: 'g',
-    quantity: 85
-  },
+  // KURKURE
+  { name: 'Kurkure Masala Munch', weight: '90g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Kurkure', image: 'https://m.media-amazon.com/images/I/71d4uEbn0wL._SL1500_.jpg', inStock: true, description: 'Crunchy masala snack', stock: 180 },
+  { name: 'Kurkure Chilli Chatka', weight: '85g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Kurkure', image: 'https://m.media-amazon.com/images/I/71e5vFco1xL._SL1500_.jpg', inStock: true, description: 'Spicy chilli kurkure', stock: 170 },
 
-  // Bingo
-  {
-    name: 'Bingo Mad Angles - 95g',
-    description: 'Tangy tomato flavored chips',
-    price: 38,
-    mrp: 42,
-    category: 'Snacks & Munchies',
-    brand: 'Bingo',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10705a.jpg' }],
-    stock: 170,
-    inStock: true,
-    unit: 'g',
-    quantity: 95
-  },
-  {
-    name: 'Bingo Original Style - 90g',
-    description: 'Salted potato chips',
-    price: 35,
-    mrp: 40,
-    category: 'Snacks & Munchies',
-    brand: 'Bingo',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10706a.jpg' }],
-    stock: 160,
-    inStock: true,
-    unit: 'g',
-    quantity: 90
-  },
+  // BINGO
+  { name: 'Bingo Mad Angles', weight: '95g', price: 38, oldPrice: 42, discount: '10% OFF', category: 'Snacks & Munchies', brand: 'Bingo', image: 'https://m.media-amazon.com/images/I/71f6wGdp2yL._SL1500_.jpg', inStock: true, description: 'Tangy tomato chips', stock: 170 },
+  { name: 'Bingo Original Style', weight: '90g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bingo', image: 'https://m.media-amazon.com/images/I/71g7xHer3zL._SL1500_.jpg', inStock: true, description: 'Salted potato chips', stock: 160 },
 
-  // Namkeen - Haldiram's
-  {
-    name: 'Haldiram\'s Aloo Bhujia - 400g',
-    description: 'Classic aloo bhujia namkeen',
-    price: 110,
-    mrp: 125,
-    category: 'Snacks & Munchies',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10707a.jpg' }],
-    stock: 140,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
-  {
-    name: 'Haldiram\'s Namkeen Mix - 400g',
-    description: 'Mixture of crunchy namkeen',
-    price: 105,
-    mrp: 120,
-    category: 'Snacks & Munchies',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10708a.jpg' }],
-    stock: 130,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
-  {
-    name: 'Haldiram\'s Moong Dal - 350g',
-    description: 'Crispy moong dal namkeen',
-    price: 95,
-    mrp: 110,
-    category: 'Snacks & Munchies',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10709a.jpg' }],
-    stock: 125,
-    inStock: true,
-    unit: 'g',
-    quantity: 350
-  },
-  {
-    name: 'Haldiram\'s Khatta Meetha - 400g',
-    description: 'Sweet and sour mixture',
-    price: 115,
-    mrp: 130,
-    category: 'Snacks & Munchies',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10710a.jpg' }],
-    stock: 120,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
+  // NAMKEEN - HALDIRAM'S
+  { name: 'Haldiram\'s Aloo Bhujia', weight: '400g', price: 110, oldPrice: 125, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71h8yIfq4AL._SL1500_.jpg', inStock: true, description: 'Classic aloo bhujia', stock: 140 },
+  { name: 'Haldiram\'s Namkeen Mix', weight: '400g', price: 105, oldPrice: 120, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71i9zJgr5BL._SL1500_.jpg', inStock: true, description: 'Crunchy namkeen mixture', stock: 130 },
+  { name: 'Haldiram\'s Moong Dal', weight: '350g', price: 95, oldPrice: 110, discount: '14% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71j0AKhs6CL._SL1500_.jpg', inStock: true, description: 'Crispy moong dal', stock: 125 },
+  { name: 'Haldiram\'s Khatta Meetha', weight: '400g', price: 115, oldPrice: 130, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71k1BLit7DL._SL1500_.jpg', inStock: true, description: 'Sweet and sour mix', stock: 120 },
 
-  // Bikaji
-  {
-    name: 'Bikaji Bhujia - 400g',
-    description: 'Traditional Rajasthani bhujia',
-    price: 100,
-    mrp: 115,
-    category: 'Snacks & Munchies',
-    brand: 'Bikaji',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10711a.jpg' }],
-    stock: 120,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
-  {
-    name: 'Bikaji All in One - 400g',
-    description: 'Mix of all favorite namkeens',
-    price: 105,
-    mrp: 120,
-    category: 'Snacks & Munchies',
-    brand: 'Bikaji',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10712a.jpg' }],
-    stock: 110,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
+  // BIKAJI
+  { name: 'Bikaji Bhujia', weight: '400g', price: 100, oldPrice: 115, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bikaji', image: 'https://m.media-amazon.com/images/I/71l2CMju8EL._SL1500_.jpg', inStock: true, description: 'Traditional Rajasthani bhujia', stock: 120 },
+  { name: 'Bikaji All in One', weight: '400g', price: 105, oldPrice: 120, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bikaji', image: 'https://m.media-amazon.com/images/I/71m3DNkv9FL._SL1500_.jpg', inStock: true, description: 'Mix of favorite namkeens', stock: 110 },
 
-  // Healthy Chips
-  {
-    name: 'Too Yumm Multigrain Chips - 54g',
-    description: 'Baked multigrain chips',
-    price: 30,
-    mrp: 35,
-    category: 'Snacks & Munchies',
-    brand: 'Too Yumm',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10713a.jpg' }],
-    stock: 150,
-    inStock: true,
-    unit: 'g',
-    quantity: 54
-  },
+  // HEALTHY CHIPS
+  { name: 'Too Yumm Multigrain Chips', weight: '54g', price: 30, oldPrice: 35, discount: '14% OFF', category: 'Snacks & Munchies', brand: 'Too Yumm', image: 'https://m.media-amazon.com/images/I/71n4EOlw0GL._SL1500_.jpg', inStock: true, description: 'Baked multigrain chips', stock: 150 },
 
-  // Premium Chips
-  {
-    name: 'Pringles Original - 110g',
-    description: 'Perfectly stacked potato crisps',
-    price: 120,
-    mrp: 135,
-    category: 'Snacks & Munchies',
-    brand: 'Pringles',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10714a.jpg' }],
-    stock: 90,
-    inStock: true,
-    unit: 'g',
-    quantity: 110
-  },
-  {
-    name: 'Pringles Sour Cream & Onion - 110g',
-    description: 'Tangy sour cream flavor',
-    price: 120,
-    mrp: 135,
-    category: 'Snacks & Munchies',
-    brand: 'Pringles',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10715a.jpg' }],
-    stock: 85,
-    inStock: true,
-    unit: 'g',
-    quantity: 110
-  },
+  // PREMIUM CHIPS
+  { name: 'Pringles Original', weight: '110g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Pringles', image: 'https://m.media-amazon.com/images/I/71o5FPmx1HL._SL1500_.jpg', inStock: true, description: 'Perfectly stacked crisps', stock: 90 },
+  { name: 'Pringles Sour Cream & Onion', weight: '110g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Pringles', image: 'https://m.media-amazon.com/images/I/71p6GQny2IL._SL1500_.jpg', inStock: true, description: 'Tangy sour cream flavor', stock: 85 },
 
-  // Doritos & Cheetos
-  {
-    name: 'Doritos Nachos - 90g',
-    description: 'Crunchy nacho cheese chips',
-    price: 55,
-    mrp: 62,
-    category: 'Snacks & Munchies',
-    brand: 'Doritos',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10716a.jpg' }],
-    stock: 110,
-    inStock: true,
-    unit: 'g',
-    quantity: 90
-  },
-  {
-    name: 'Cheetos Crunchy - 70g',
-    description: 'Cheese flavored crunchy puffs',
-    price: 40,
-    mrp: 45,
-    category: 'Snacks & Munchies',
-    brand: 'Cheetos',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10717a.jpg' }],
-    stock: 130,
-    inStock: true,
-    unit: 'g',
-    quantity: 70
-  },
+  // DORITOS & CHEETOS
+  { name: 'Doritos Nachos', weight: '90g', price: 55, oldPrice: 62, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Doritos', image: 'https://m.media-amazon.com/images/I/71q7HRoz3JL._SL1500_.jpg', inStock: true, description: 'Crunchy nacho cheese', stock: 110 },
+  { name: 'Cheetos Crunchy', weight: '70g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Cheetos', image: 'https://m.media-amazon.com/images/I/71r8ISp04KL._SL1500_.jpg', inStock: true, description: 'Cheese flavored puffs', stock: 130 },
 
-  // Nuts & Seeds
-  {
-    name: 'Yellow Diamond Roasted Peanuts - 200g',
-    description: 'Salted roasted peanuts',
-    price: 60,
-    mrp: 68,
-    category: 'Snacks & Munchies',
-    brand: 'Yellow Diamond',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10718a.jpg' }],
-    stock: 100,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Yellow Diamond Cashews - 200g',
-    description: 'Premium roasted cashews',
-    price: 195,
-    mrp: 220,
-    category: 'Snacks & Munchies',
-    brand: 'Yellow Diamond',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10719a.jpg' }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
+  // NUTS & SEEDS
+  { name: 'Yellow Diamond Roasted Peanuts', weight: '200g', price: 60, oldPrice: 68, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Yellow Diamond', image: 'https://m.media-amazon.com/images/I/71s9JTq15LL._SL1500_.jpg', inStock: true, description: 'Salted roasted peanuts', stock: 100 },
+  { name: 'Yellow Diamond Cashews', weight: '200g', price: 195, oldPrice: 220, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Yellow Diamond', image: 'https://m.media-amazon.com/images/I/71t0KUr26ML._SL1500_.jpg', inStock: true, description: 'Premium roasted cashews', stock: 70 },
 
-  // Biscuit Snacks
-  {
-    name: 'Britannia Little Hearts - 75g',
-    description: 'Sweet biscuits shaped like hearts',
-    price: 25,
-    mrp: 30,
-    category: 'Snacks & Munchies',
-    brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10720a.jpg' }],
-    stock: 160,
-    inStock: true,
-    unit: 'g',
-    quantity: 75
-  },
-  {
-    name: 'Parle Monaco Classic - 200g',
-    description: 'Salted crackers',
-    price: 35,
-    mrp: 40,
-    category: 'Snacks & Munchies',
-    brand: 'Parle',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10721a.jpg' }],
-    stock: 150,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Britannia Treat Cream Wafers - 150g',
-    description: 'Vanilla cream wafers',
-    price: 50,
-    mrp: 55,
-    category: 'Snacks & Munchies',
-    brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10722a.jpg' }],
-    stock: 120,
-    inStock: true,
-    unit: 'g',
-    quantity: 150
-  },
+  // BISCUIT SNACKS
+  { name: 'Britannia Little Hearts', weight: '75g', price: 25, oldPrice: 30, discount: '17% OFF', category: 'Snacks & Munchies', brand: 'Britannia', image: 'https://m.media-amazon.com/images/I/71u1LVs37NL._SL1500_.jpg', inStock: true, description: 'Sweet heart biscuits', stock: 160 },
+  { name: 'Parle Monaco Classic', weight: '200g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Parle', image: 'https://m.media-amazon.com/images/I/71v2MWt48OL._SL1500_.jpg', inStock: true, description: 'Salted crackers', stock: 150 },
+  { name: 'Britannia Treat Cream Wafers', weight: '150g', price: 50, oldPrice: 55, discount: '9% OFF', category: 'Snacks & Munchies', brand: 'Britannia', image: 'https://m.media-amazon.com/images/I/71w3NXu59PL._SL1500_.jpg', inStock: true, description: 'Vanilla cream wafers', stock: 120 },
 
-  // Popcorn
-  {
-    name: 'Act II Popcorn Golden Sizzle - 70g',
-    description: 'Microwave popcorn',
-    price: 55,
-    mrp: 62,
-    category: 'Snacks & Munchies',
-    brand: 'Act II',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10723a.jpg' }],
-    stock: 95,
-    inStock: true,
-    unit: 'g',
-    quantity: 70
-  }
+  // POPCORN
+  { name: 'Act II Popcorn Golden Sizzle', weight: '70g', price: 55, oldPrice: 62, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Act II', image: 'https://m.media-amazon.com/images/I/71x4OYv60QL._SL1500_.jpg', inStock: true, description: 'Microwave popcorn', stock: 95 }
 ];
 
-const migrateSnacksMunchies = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Snacks & Munchies products...');
-    await Product.deleteMany({ category: 'Snacks & Munchies' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Snacks & Munchies products...');
-    const result = await Product.insertMany(snacksMunchiesProducts);
-    console.log(`✅ Added ${result.length} Snacks & Munchies products`);
-
-    console.log('🎉 Migration completed successfully!');
-    console.log(`📊 Total: ${result.length} products`);
+    console.log('\n🍿 Starting Smart Migration for Snacks & Munchies...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    const existingProducts = await Product.find({ category: "Snacks & Munchies" });
+    
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    const sourceProductKeys = new Set();
+    
+    for (const productData of snacksMunchiesProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Snacks & Munchies" })}`);
+    
+    console.log('\n📋 Product Categories:');
+    console.log('   🥔 Chips (Lays, Kurkure, Bingo): 7 products');
+    console.log('   🌾 Namkeen (Haldiram\'s, Bikaji): 6 products');
+    console.log('   🥜 Premium & Healthy: 3 products');
+    console.log('   🧀 International (Pringles, Doritos): 4 products');
+    console.log('   🥜 Nuts & Seeds: 2 products');
+    console.log('   🍪 Biscuit Snacks: 3 products');
+    console.log('   🍿 Popcorn: 1 product');
+    
+    console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateSnacksMunchies();
+smartMigrate();

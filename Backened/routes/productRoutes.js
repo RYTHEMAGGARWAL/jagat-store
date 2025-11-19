@@ -1,4 +1,4 @@
-// Backend/routes/productRoutes.js - COMPLETE WITH SMART SEARCH
+// Backend/routes/productRoutes.js - FIXED CATEGORY FILTERING
 
 const express = require('express');
 const router = express.Router();
@@ -35,8 +35,8 @@ const normalizeProduct = (product) => {
 const cleanSearchQuery = (query) => {
   return query
     .toLowerCase()
-    .replace(/[,&]/g, ' ')  // Remove commas and ampersands
-    .replace(/\s+/g, ' ')    // Replace multiple spaces with single space
+    .replace(/[,&]/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 };
 
@@ -44,7 +44,7 @@ const cleanSearchQuery = (query) => {
 // SPECIFIC ROUTES FIRST
 // ====================================
 
-// ✅ 1. SEARCH SUGGESTIONS (Most specific)
+// ✅ 1. SEARCH SUGGESTIONS
 router.get('/search/suggestions', async (req, res) => {
   try {
     const { q } = req.query;
@@ -58,17 +58,12 @@ router.get('/search/suggestions', async (req, res) => {
     const cleanedQuery = cleanSearchQuery(q);
     const searchWords = cleanedQuery.split(' ').filter(word => word.length >= 2);
 
-    console.log('🔍 Cleaned Query:', cleanedQuery);
-    console.log('🔍 Search Words:', searchWords);
-
-    // Build flexible OR conditions
     const orConditions = [];
     
     searchWords.forEach(word => {
       orConditions.push({ name: { $regex: word, $options: 'i' } });
     });
 
-    // Also search full cleaned query
     if (cleanedQuery.length >= 2) {
       orConditions.push({ name: { $regex: cleanedQuery, $options: 'i' } });
     }
@@ -93,7 +88,7 @@ router.get('/search/suggestions', async (req, res) => {
   }
 });
 
-// ✅ 2. SEARCH ROUTE (Specific) - SMART MATCHING
+// ✅ 2. SEARCH ROUTE - SMART MATCHING
 router.get('/search', async (req, res) => {
   try {
     const { q } = req.query;
@@ -104,17 +99,14 @@ router.get('/search', async (req, res) => {
       return res.json([]);
     }
 
-    // Clean the search query
     const cleanedQuery = cleanSearchQuery(q);
     const searchWords = cleanedQuery.split(' ').filter(word => word.length >= 2);
     
     console.log('🔍 Cleaned Query:', cleanedQuery);
     console.log('🔍 Search Words:', searchWords);
 
-    // Build flexible OR conditions for multi-word search
     const orConditions = [];
     
-    // Search each word individually
     searchWords.forEach(word => {
       orConditions.push(
         { name: { $regex: word, $options: 'i' } },
@@ -124,7 +116,6 @@ router.get('/search', async (req, res) => {
       );
     });
 
-    // Also search full cleaned query
     if (cleanedQuery.length >= 2) {
       orConditions.push(
         { name: { $regex: cleanedQuery, $options: 'i' } },
@@ -140,16 +131,6 @@ router.get('/search', async (req, res) => {
 
     console.log('✅ Found Products:', products.length);
 
-    // Log sample matches for debugging
-    if (products.length > 0) {
-      console.log('📦 Sample Results:', products.slice(0, 3).map(p => ({
-        name: p.name,
-        category: p.category,
-        brand: p.brand
-      })));
-    }
-
-    // Normalize all products before sending
     const normalizedProducts = products.map(normalizeProduct);
 
     res.json(normalizedProducts);
@@ -162,33 +143,20 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// ✅ 3. CATEGORY ROUTE (Specific) - FLEXIBLE MATCHING
+// ✅ 3. CATEGORY ROUTE - EXACT MATCHING
 router.get('/category/:category', async (req, res) => {
   try {
     const requestedCategory = req.params.category;
-    const cleanedCategory = cleanSearchQuery(requestedCategory);
     
-    console.log('🔍 Category Request:', requestedCategory);
-    console.log('🔍 Cleaned Category:', cleanedCategory);
+    console.log('📂 Category Request:', requestedCategory);
     
-    // Try exact match first
-    let products = await Product.find({ 
+    // 🔥 EXACT MATCH ONLY - Case insensitive
+    const products = await Product.find({ 
       category: { $regex: `^${requestedCategory}$`, $options: 'i' }
     });
     
-    // If no exact match, try flexible match
-    if (products.length === 0) {
-      const categoryWords = cleanedCategory.split(' ').filter(w => w.length >= 2);
-      const orConditions = categoryWords.map(word => ({
-        category: { $regex: word, $options: 'i' }
-      }));
-      
-      products = await Product.find({ $or: orConditions });
-    }
-    
     console.log('✅ Found Products in Category:', products.length);
     
-    // Normalize products
     const normalizedProducts = products.map(normalizeProduct);
     
     res.json({
@@ -208,22 +176,20 @@ router.get('/category/:category', async (req, res) => {
 // GENERAL ROUTES AFTER
 // ====================================
 
-// ✅ 4. GET ALL PRODUCTS (with filters)
+// ✅ 4. GET ALL PRODUCTS (with filters) - FIXED
 router.get('/', async (req, res) => {
   try {
     const { category, search } = req.query;
     
+    console.log('📦 GET / - category:', category, 'search:', search);
+    
     let query = {};
     
+    // 🔥 FIX: EXACT CATEGORY MATCH
     if (category) {
-      const cleanedCategory = cleanSearchQuery(category);
-      const categoryWords = cleanedCategory.split(' ').filter(w => w.length >= 2);
-      
-      if (categoryWords.length > 0) {
-        query.$or = categoryWords.map(word => ({
-          category: { $regex: word, $options: 'i' }
-        }));
-      }
+      // Use exact match with case-insensitive regex
+      query.category = { $regex: `^${category}$`, $options: 'i' };
+      console.log('🔍 Category Query:', query.category);
     }
     
     if (search) {
@@ -231,9 +197,20 @@ router.get('/', async (req, res) => {
       query.name = { $regex: cleanedSearch, $options: 'i' };
     }
     
+    console.log('🔍 Final Query:', JSON.stringify(query));
+    
     const products = await Product.find(query);
     
-    // Normalize products
+    console.log('✅ Found Products:', products.length);
+    
+    // Log first 3 for debugging
+    if (products.length > 0) {
+      console.log('📦 Sample Products:', products.slice(0, 3).map(p => ({
+        name: p.name,
+        category: p.category
+      })));
+    }
+    
     const normalizedProducts = products.map(normalizeProduct);
     
     res.json({
@@ -301,7 +278,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ 6. GET PRODUCT BY ID (Last - most general)
+// ✅ 6. GET PRODUCT BY ID
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);

@@ -140,8 +140,8 @@ const response = await fetch(
                       e.target.src = 'https://via.placeholder.com/300x300?text=No+Image';
                     }}
                   />
-                  {product.discount > 0 && (
-                    <div className="discount-badge">-{product.discount}%</div>
+                  {product.discount && (
+                    <div className="discount-badge">{product.discount}</div>
                   )}
                 </div>
 
@@ -149,6 +149,11 @@ const response = await fetch(
                   <div className="product-category">{product.category}</div>
                   <h3 className="product-name">{product.name}</h3>
                   <p className="product-brand">{product.brand}</p>
+                  
+                  {/* 🔥 WEIGHT DISPLAY - ADDED */}
+                  {product.weight && (
+                    <p className="product-weight">{product.weight}</p>
+                  )}
                   
                   <div className="product-pricing">
                     <div className="price-section">

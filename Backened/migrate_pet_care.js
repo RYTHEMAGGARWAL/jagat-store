@@ -1,5 +1,5 @@
-// migrate_pet_care.js - Pet Care Products Migration
-// Save in Backend folder and run: node migrate_pet_care.js
+// migrate_pet_care_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_pet_care_IMPROVED.js
 
 require('dotenv').config();
 const mongoose = require('mongoose');
@@ -30,37 +30,294 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
+// ========== PET CARE PRODUCTS ==========
+// ADD/EDIT/DELETE products here and run the script
 const petCareProducts = [
-  { name: "Pedigree Adult Dog Dry Food (Chicken and Vegetables)", weight: "1kg", price: 232, oldPrice: 249, discount: "7% OFF", category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=450/da/cms-assets/cms/product/0a27b202-9f8e-4374-b0cd-b5d013d801f1.png", inStock: true, description: "Complete nutrition for adult dogs" },
-  { name: "Pedigree Adult Dog Dry Food (Chicken and Vegetables)", weight: "2.8kg", price: 610, oldPrice: 655, discount: "7% OFF", category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=540/da/cms-assets/cms/product/0a27b202-9f8e-4374-b0cd-b5d013d801f1.png", inStock: true, description: "Large pack adult dog food" },
-  { name: "Pedigree Puppy Dog Dry Food (Chicken and Milk)", weight: "1 kg", price: 270, oldPrice: 290, discount: "7% OFF", category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/5fd12876-6de4-46eb-a53a-e17887b2a6a5.png", inStock: true, description: "Complete nutrition for puppies" },
-  { name: "Drools Adult (Chicken and Vegetables)", weight: "3kg", price: 605, oldPrice: 650, discount: "7% OFF", category: "Pet Care", brand: "Drools", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/9d4592ce-fcf8-4438-b0c7-4fa7c1a59141.png", inStock: true, description: "Premium adult dog food" },
-  { name: "Pedigree Adult Wet Food (Chicken & Liver)", weight: "70g (30pcs)", price: 1350, oldPrice: 1500, discount: "10% OFF", category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=1080/da/cms-assets/cms/product/7269b332-e28f-4dcc-8fd2-f9de5eb55214.png", inStock: true, description: "Wet food pouches pack" },
-  { name: "Pedigree Adult (Chicken and Vegetables)", weight: "370 g", price: 105, oldPrice: 110, discount: "5% OFF", category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=540/da/cms-assets/cms/product/0a27b202-9f8e-4374-b0cd-b5d013d801f1.png", inStock: true, description: "Small pack dry food" },
-  { name: "Whiskas Adult Dry Cat Food- Ocean Fish Flavour", weight: "480g", price: 190, oldPrice: 200, discount: "5% OFF", category: "Pet Care", brand: "Whiskas", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/71e3a9df-dd5d-437e-8ef5-3d702d2b5078.png", inStock: true, description: "Delicious ocean fish cat food" },
-  { name: "Whiskas Kitten Dry Cat Food", weight: "480g", price: 195, oldPrice: 205, discount: "5% OFF", category: "Pet Care", brand: "Whiskas", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/b8a70e1c-2e3b-423e-8c7e-0e2a0b8e5e5e.png", inStock: true, description: "Complete nutrition for kittens" },
-  { name: "Drools Puppy (Chicken & Egg)", weight: "1.2kg", price: 280, oldPrice: 310, discount: "10% OFF", category: "Pet Care", brand: "Drools", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/abc123def456.png", inStock: true, description: "Nutritious puppy food" },
-  { name: "Pedigree Dentastix", weight: "Pack of 7", price: 120, category: "Pet Care", brand: "Pedigree", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/dentastix123.png", inStock: true, description: "Dental treats for dogs" },
-  { name: "Whiskas Cat Treats", weight: "60g", price: 85, category: "Pet Care", brand: "Whiskas", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/cat-treats-456.png", inStock: true, description: "Tasty cat treats" },
-  { name: "Dog Shampoo", weight: "200ml", price: 150, category: "Pet Care", brand: "Drools", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/shampoo789.png", inStock: true, description: "Gentle pet shampoo" },
-  { name: "Cat Litter", weight: "5kg", price: 450, oldPrice: 500, discount: "10% OFF", category: "Pet Care", brand: "Whiskas", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/litter123.png", inStock: true, description: "Odor control cat litter" },
-  { name: "Dog Collar", weight: "1 piece", price: 199, category: "Pet Care", brand: "Generic", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/collar456.png", inStock: true, description: "Adjustable dog collar" },
-  { name: "Pet Bowl Set", weight: "2 pieces", price: 299, category: "Pet Care", brand: "Generic", image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/bowl789.png", inStock: true, description: "Stainless steel pet bowls" },
+  // DOG FOOD - DRY
+  { 
+    name: "Pedigree Adult Dog Dry Food (Chicken and Vegetables)", 
+    weight: "1kg", 
+    price: 232, 
+    oldPrice: 249, 
+    discount: "7% OFF", 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/71z6FZKrjaL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Complete nutrition for adult dogs",
+    stock: 50
+  },
+  { 
+    name: "Pedigree Adult Dog Dry Food (Chicken and Vegetables)", 
+    weight: "2.8kg", 
+    price: 610, 
+    oldPrice: 655, 
+    discount: "7% OFF", 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/71cOUZ5r5nL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Large pack adult dog food",
+    stock: 50
+  },
+  { 
+    name: "Pedigree Adult Dog Dry Food (Chicken and Vegetables)", 
+    weight: "370g", 
+    price: 105, 
+    oldPrice: 110, 
+    discount: "5% OFF", 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/81eWZVaZl6L._SL1500_.jpg", 
+    inStock: true, 
+    description: "Small pack dry food",
+    stock: 50
+  },
+  { 
+    name: "Pedigree Puppy Dog Dry Food (Chicken and Milk)", 
+    weight: "1kg", 
+    price: 270, 
+    oldPrice: 290, 
+    discount: "7% OFF", 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/81OkQZ+SzwL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Complete nutrition for puppies",
+    stock: 50
+  },
+  { 
+    name: "Drools Adult Dog Food (Chicken and Vegetables)", 
+    weight: "3kg", 
+    price: 605, 
+    oldPrice: 650, 
+    discount: "7% OFF", 
+    category: "Pet Care", 
+    brand: "Drools", 
+    image: "https://m.media-amazon.com/images/I/71QWvqVMIDL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Premium adult dog food",
+    stock: 50
+  },
+  { 
+    name: "Drools Puppy Dog Food (Chicken & Egg)", 
+    weight: "1.2kg", 
+    price: 280, 
+    oldPrice: 310, 
+    discount: "10% OFF", 
+    category: "Pet Care", 
+    brand: "Drools", 
+    image: "https://m.media-amazon.com/images/I/71xGwO1ULQL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Nutritious puppy food",
+    stock: 50
+  },
+  
+  // DOG FOOD - WET
+  { 
+    name: "Pedigree Adult Wet Food (Chicken & Liver)", 
+    weight: "70g (30pcs)", 
+    price: 1350, 
+    oldPrice: 1500, 
+    discount: "10% OFF", 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/71YwZs4dkYL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Wet food pouches pack",
+    stock: 50
+  },
+  
+  // CAT FOOD
+  { 
+    name: "Whiskas Adult Dry Cat Food - Ocean Fish", 
+    weight: "480g", 
+    price: 190, 
+    oldPrice: 200, 
+    discount: "5% OFF", 
+    category: "Pet Care", 
+    brand: "Whiskas", 
+    image: "https://m.media-amazon.com/images/I/71pNW0JDHRL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Delicious ocean fish cat food",
+    stock: 50
+  },
+  { 
+    name: "Whiskas Kitten Dry Cat Food", 
+    weight: "480g", 
+    price: 195, 
+    oldPrice: 205, 
+    discount: "5% OFF", 
+    category: "Pet Care", 
+    brand: "Whiskas", 
+    image: "https://m.media-amazon.com/images/I/71zSWRdcvJL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Complete nutrition for kittens",
+    stock: 50
+  },
+  { 
+    name: "Whiskas Cat Treats (Tuna)", 
+    weight: "60g", 
+    price: 85, 
+    category: "Pet Care", 
+    brand: "Whiskas", 
+    image: "https://m.media-amazon.com/images/I/71l0PGt-6nL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Tasty cat treats",
+    stock: 50
+  },
+  
+  // DOG TREATS & CARE
+  { 
+    name: "Pedigree Dentastix", 
+    weight: "Pack of 7", 
+    price: 120, 
+    category: "Pet Care", 
+    brand: "Pedigree", 
+    image: "https://m.media-amazon.com/images/I/71UKJ+SaDAL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Dental treats for dogs",
+    stock: 50
+  },
+  { 
+    name: "Dog Shampoo (Anti-Tick)", 
+    weight: "200ml", 
+    price: 150, 
+    category: "Pet Care", 
+    brand: "Drools", 
+    image: "https://m.media-amazon.com/images/I/61EwC-xr5QL._SL1000_.jpg", 
+    inStock: true, 
+    description: "Gentle pet shampoo",
+    stock: 50
+  },
+  
+  // CAT CARE
+  { 
+    name: "Cat Litter (Odour Control)", 
+    weight: "5kg", 
+    price: 450, 
+    oldPrice: 500, 
+    discount: "10% OFF", 
+    category: "Pet Care", 
+    brand: "Whiskas", 
+    image: "https://m.media-amazon.com/images/I/71wYDqLmT0L._SL1500_.jpg", 
+    inStock: true, 
+    description: "Odor control cat litter",
+    stock: 50
+  },
+  
+  // PET ACCESSORIES
+  { 
+    name: "Dog Collar (Adjustable)", 
+    weight: "1 piece", 
+    price: 199, 
+    category: "Pet Care", 
+    brand: "Generic", 
+    image: "https://m.media-amazon.com/images/I/71qXJZgmBsL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Adjustable dog collar",
+    stock: 50
+  },
+  { 
+    name: "Pet Bowl Set (Stainless Steel)", 
+    weight: "2 pieces", 
+    price: 299, 
+    category: "Pet Care", 
+    brand: "Generic", 
+    image: "https://m.media-amazon.com/images/I/71VYjG8hPTL._SL1500_.jpg", 
+    inStock: true, 
+    description: "Stainless steel pet bowls",
+    stock: 50
+  },
 ];
 
-const migrate = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('\n🐾 Migrating Pet Care Products...\n');
-    let added = 0, skipped = 0;
-    for (const p of petCareProducts) {
-      const exists = await Product.findOne({ name: p.name, weight: p.weight, category: "Pet Care" });
-      if (exists) { console.log(`⏭️  ${p.name}`); skipped++; }
-      else { await Product.create({ ...p, stock: p.inStock ? 50 : 0 }); console.log(`✅ ${p.name} - ₹${p.price}`); added++; }
+    console.log('\n🐾 Starting Smart Migration for Pet Care Products...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    // Get all existing products in this category
+    const existingProducts = await Product.find({ category: "Pet Care" });
+    
+    // Create a map of existing products for quick lookup
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    // Create a set of products from our source
+    const sourceProductKeys = new Set();
+    
+    // Process each product from source
+    for (const productData of petCareProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        // ADD NEW PRODUCT
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        // CHECK IF UPDATE NEEDED
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          // UPDATE PRODUCT
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
     }
-    console.log(`\n✅ Done! Added: ${added}, Skipped: ${skipped}`);
-    console.log(`📦 Total: ${await Product.countDocuments({ category: "Pet Care" })}\n`);
+    
+    // DELETE products that are no longer in source
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    // Summary
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Pet Care" })}`);
+    console.log('\n✅ Migration Complete!\n');
+    
     process.exit(0);
-  } catch (err) { console.error('❌ Error:', err); process.exit(1); }
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
+    process.exit(1);
+  }
 };
 
-migrate();
+// Run migration
+smartMigrate();

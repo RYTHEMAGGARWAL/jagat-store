@@ -1,7 +1,9 @@
-// migrate_sauces_spreads.js - Sauces & Spreads Products Migration
+// migrate_sauces_spreads_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_sauces_spreads_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
@@ -9,477 +11,166 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-const Product = require('./models/Product');
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
 
+const Product = mongoose.model('Product', productSchema);
+
+// ========== SAUCES & SPREADS PRODUCTS ==========
 const saucesAndSpreadsProducts = [
-  // Tomato Ketchup
-  {
-    name: 'Kissan Fresh Tomato Ketchup - 200g',
-    description: 'India\'s favorite tomato ketchup made with fresh tomatoes',
-    price: 45,
-    mrp: 50,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/20832a.jpg'
-    }],
-    stock: 100,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Kissan Fresh Tomato Ketchup - 500g',
-    description: 'Family pack tomato ketchup with real tomato goodness',
-    price: 95,
-    mrp: 105,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/20832a.jpg'
-    }],
-    stock: 80,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  },
-  {
-    name: 'Maggi Rich Tomato Ketchup - 1kg',
-    description: 'Rich and tangy tomato ketchup from Maggi',
-    price: 140,
-    mrp: 160,
-    category: 'Sauces Spreads',
-    brand: 'Maggi',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/20833a.jpg'
-    }],
-    stock: 60,
-    inStock: true,
-    unit: 'kg',
-    quantity: 1
-  },
+  // TOMATO KETCHUP
+  { name: 'Kissan Fresh Tomato Ketchup', weight: '200g', price: 45, oldPrice: 50, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71G8fX8DJQL._SL1500_.jpg', inStock: true, description: 'India\'s favorite tomato ketchup', stock: 100 },
+  { name: 'Kissan Fresh Tomato Ketchup', weight: '500g', price: 95, oldPrice: 105, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71G8fX8DJQL._SL1500_.jpg', inStock: true, description: 'Family pack tomato ketchup', stock: 80 },
+  { name: 'Maggi Rich Tomato Ketchup', weight: '1kg', price: 140, oldPrice: 160, discount: '13% OFF', category: 'Sauces Spreads', brand: 'Maggi', image: 'https://m.media-amazon.com/images/I/61HB0sK7eEL._SL1500_.jpg', inStock: true, description: 'Rich and tangy ketchup', stock: 60 },
 
-  // Chilli Sauce
-  {
-    name: 'Ching\'s Secret Red Chilli Sauce - 200g',
-    description: 'Spicy red chilli sauce for Indo-Chinese dishes',
-    price: 50,
-    mrp: 55,
-    category: 'Sauces Spreads',
-    brand: 'Ching\'s Secret',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446514a.jpg'
-    }],
-    stock: 75,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Ching\'s Secret Green Chilli Sauce - 190g',
-    description: 'Tangy green chilli sauce with authentic taste',
-    price: 48,
-    mrp: 52,
-    category: 'Sauces Spreads',
-    brand: 'Ching\'s Secret',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446515a.jpg'
-    }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 190
-  },
+  // CHILLI SAUCE
+  { name: 'Ching\'s Secret Red Chilli Sauce', weight: '200g', price: 50, oldPrice: 55, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Ching\'s Secret', image: 'https://m.media-amazon.com/images/I/61IC1tL8fFL._SL1500_.jpg', inStock: true, description: 'Spicy red chilli sauce', stock: 75 },
+  { name: 'Ching\'s Secret Green Chilli Sauce', weight: '190g', price: 48, oldPrice: 52, discount: '8% OFF', category: 'Sauces Spreads', brand: 'Ching\'s Secret', image: 'https://m.media-amazon.com/images/I/61JD2uM9gGL._SL1500_.jpg', inStock: true, description: 'Tangy green chilli sauce', stock: 70 },
 
-  // Soy Sauce
-  {
-    name: 'Ching\'s Secret Dark Soy Sauce - 210g',
-    description: 'Premium dark soy sauce for authentic Chinese cooking',
-    price: 55,
-    mrp: 60,
-    category: 'Sauces Spreads',
-    brand: 'Ching\'s Secret',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446516a.jpg'
-    }],
-    stock: 65,
-    inStock: true,
-    unit: 'g',
-    quantity: 210
-  },
-  {
-    name: 'Lee Kum Kee Premium Soy Sauce - 500ml',
-    description: 'Authentic Chinese soy sauce for professional cooking',
-    price: 180,
-    mrp: 200,
-    category: 'Sauces Spreads',
-    brand: 'Lee Kum Kee',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446517a.jpg'
-    }],
-    stock: 40,
-    inStock: true,
-    unit: 'ml',
-    quantity: 500
-  },
+  // SOY SAUCE
+  { name: 'Ching\'s Secret Dark Soy Sauce', weight: '210g', price: 55, oldPrice: 60, discount: '8% OFF', category: 'Sauces Spreads', brand: 'Ching\'s Secret', image: 'https://m.media-amazon.com/images/I/61KE3vN0hHL._SL1500_.jpg', inStock: true, description: 'Premium dark soy sauce', stock: 65 },
+  { name: 'Lee Kum Kee Premium Soy Sauce', weight: '500ml', price: 180, oldPrice: 200, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Lee Kum Kee', image: 'https://m.media-amazon.com/images/I/61LF4wO1iIL._SL1500_.jpg', inStock: true, description: 'Authentic Chinese soy sauce', stock: 40 },
 
-  // Schezwan Sauce
-  {
-    name: 'Ching\'s Secret Schezwan Chutney - 250g',
-    description: 'Spicy Schezwan sauce for perfect Indo-Chinese taste',
-    price: 65,
-    mrp: 70,
-    category: 'Sauces Spreads',
-    brand: 'Ching\'s Secret',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446518a.jpg'
-    }],
-    stock: 85,
-    inStock: true,
-    unit: 'g',
-    quantity: 250
-  },
+  // SCHEZWAN SAUCE
+  { name: 'Ching\'s Secret Schezwan Chutney', weight: '250g', price: 65, oldPrice: 70, discount: '7% OFF', category: 'Sauces Spreads', brand: 'Ching\'s Secret', image: 'https://m.media-amazon.com/images/I/61MG5xP2jJL._SL1500_.jpg', inStock: true, description: 'Spicy Schezwan sauce', stock: 85 },
 
-  // Mayonnaise
-  {
-    name: 'Veeba Eggless Mayo - 250g',
-    description: 'Creamy eggless mayonnaise, perfect for sandwiches',
-    price: 85,
-    mrp: 95,
-    category: 'Sauces Spreads',
-    brand: 'Veeba',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446519a.jpg'
-    }],
-    stock: 90,
-    inStock: true,
-    unit: 'g',
-    quantity: 250
-  },
-  {
-    name: 'Dr. Oetker FunFoods Veg Mayonnaise - 500g',
-    description: 'India\'s favorite vegetarian mayonnaise',
-    price: 150,
-    mrp: 165,
-    category: 'Sauces Spreads',
-    brand: 'Dr. Oetker',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/18922a.jpg'
-    }],
-    stock: 75,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  },
-  {
-    name: 'Hellmann\'s Real Mayonnaise - 400ml',
-    description: 'World\'s best selling mayonnaise with real eggs',
-    price: 220,
-    mrp: 245,
-    category: 'Sauces Spreads',
-    brand: 'Hellmann\'s',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446520a.jpg'
-    }],
-    stock: 50,
-    inStock: true,
-    unit: 'ml',
-    quantity: 400
-  },
+  // MAYONNAISE
+  { name: 'Veeba Eggless Mayo', weight: '250g', price: 85, oldPrice: 95, discount: '11% OFF', category: 'Sauces Spreads', brand: 'Veeba', image: 'https://m.media-amazon.com/images/I/61NH6yQ3kKL._SL1500_.jpg', inStock: true, description: 'Creamy eggless mayonnaise', stock: 90 },
+  { name: 'Dr. Oetker FunFoods Veg Mayonnaise', weight: '500g', price: 150, oldPrice: 165, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Dr. Oetker', image: 'https://m.media-amazon.com/images/I/61OI7zR4lLL._SL1500_.jpg', inStock: true, description: 'India\'s favorite mayo', stock: 75 },
+  { name: 'Hellmann\'s Real Mayonnaise', weight: '400ml', price: 220, oldPrice: 245, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Hellmann\'s', image: 'https://m.media-amazon.com/images/I/61PJ8AS5mML._SL1500_.jpg', inStock: true, description: 'World\'s best selling mayo', stock: 50 },
 
-  // Peanut Butter
-  {
-    name: 'Sundrop Peanut Butter Crunchy - 462g',
-    description: 'High protein crunchy peanut butter',
-    price: 180,
-    mrp: 200,
-    category: 'Sauces Spreads',
-    brand: 'Sundrop',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/7818a.jpg'
-    }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 462
-  },
-  {
-    name: 'Sundrop Peanut Butter Creamy - 924g',
-    description: 'Smooth and creamy peanut butter, high in protein',
-    price: 330,
-    mrp: 370,
-    category: 'Sauces Spreads',
-    brand: 'Sundrop',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/7818a.jpg'
-    }],
-    stock: 60,
-    inStock: true,
-    unit: 'g',
-    quantity: 924
-  },
-  {
-    name: 'Alpino Peanut Butter Smooth - 1kg',
-    description: '100% natural peanut butter with no added sugar',
-    price: 450,
-    mrp: 499,
-    category: 'Sauces Spreads',
-    brand: 'Alpino',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446521a.jpg'
-    }],
-    stock: 45,
-    inStock: true,
-    unit: 'kg',
-    quantity: 1
-  },
+  // PEANUT BUTTER
+  { name: 'Sundrop Peanut Butter Crunchy', weight: '462g', price: 180, oldPrice: 200, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Sundrop', image: 'https://m.media-amazon.com/images/I/61QK9BT6nNL._SL1500_.jpg', inStock: true, description: 'High protein crunchy', stock: 70 },
+  { name: 'Sundrop Peanut Butter Creamy', weight: '924g', price: 330, oldPrice: 370, discount: '11% OFF', category: 'Sauces Spreads', brand: 'Sundrop', image: 'https://m.media-amazon.com/images/I/61QK9BT6nNL._SL1500_.jpg', inStock: true, description: 'Smooth and creamy', stock: 60 },
+  { name: 'Alpino Peanut Butter Smooth', weight: '1kg', price: 450, oldPrice: 499, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Alpino', image: 'https://m.media-amazon.com/images/I/61RL0CU7oOL._SL1500_.jpg', inStock: true, description: '100% natural peanut butter', stock: 45 },
 
-  // Jam
-  {
-    name: 'Kissan Mixed Fruit Jam - 200g',
-    description: 'Delicious mixed fruit jam made with real fruits',
-    price: 65,
-    mrp: 72,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/20834a.jpg'
-    }],
-    stock: 80,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Kissan Mixed Fruit Jam - 500g',
-    description: 'Family pack mixed fruit jam with fruity taste',
-    price: 140,
-    mrp: 155,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/20834a.jpg'
-    }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  },
-  {
-    name: 'Kissan Pineapple Jam - 200g',
-    description: 'Tangy pineapple jam perfect for breakfast',
-    price: 68,
-    mrp: 75,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446522a.jpg'
-    }],
-    stock: 65,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Kissan Mango Jam - 200g',
-    description: 'Sweet mango jam made with real Alphonso mangoes',
-    price: 70,
-    mrp: 77,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446523a.jpg'
-    }],
-    stock: 75,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
+  // JAM
+  { name: 'Kissan Mixed Fruit Jam', weight: '200g', price: 65, oldPrice: 72, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71SM1DV8pPL._SL1500_.jpg', inStock: true, description: 'Delicious mixed fruit jam', stock: 80 },
+  { name: 'Kissan Mixed Fruit Jam', weight: '500g', price: 140, oldPrice: 155, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71SM1DV8pPL._SL1500_.jpg', inStock: true, description: 'Family pack jam', stock: 70 },
+  { name: 'Kissan Pineapple Jam', weight: '200g', price: 68, oldPrice: 75, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71TN2EW9qQL._SL1500_.jpg', inStock: true, description: 'Tangy pineapple jam', stock: 65 },
+  { name: 'Kissan Mango Jam', weight: '200g', price: 70, oldPrice: 77, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/71UO3FX0rRL._SL1500_.jpg', inStock: true, description: 'Sweet mango jam', stock: 75 },
 
-  // Chocolate Spread
-  {
-    name: 'Nutella Hazelnut Spread - 350g',
-    description: 'World famous hazelnut spread with cocoa',
-    price: 320,
-    mrp: 360,
-    category: 'Sauces Spreads',
-    brand: 'Nutella',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/77a.jpg'
-    }],
-    stock: 55,
-    inStock: true,
-    unit: 'g',
-    quantity: 350
-  },
-  {
-    name: 'Nutella Hazelnut Spread - 750g',
-    description: 'Family pack Nutella for chocolate lovers',
-    price: 650,
-    mrp: 720,
-    category: 'Sauces Spreads',
-    brand: 'Nutella',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/77a.jpg'
-    }],
-    stock: 40,
-    inStock: true,
-    unit: 'g',
-    quantity: 750
-  },
-  {
-    name: 'Hershey\'s Chocolate Syrup - 623g',
-    description: 'Premium chocolate syrup for desserts and drinks',
-    price: 280,
-    mrp: 310,
-    category: 'Sauces Spreads',
-    brand: 'Hershey\'s',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446524a.jpg'
-    }],
-    stock: 50,
-    inStock: true,
-    unit: 'g',
-    quantity: 623
-  },
+  // CHOCOLATE SPREAD
+  { name: 'Nutella Hazelnut Spread', weight: '350g', price: 320, oldPrice: 360, discount: '11% OFF', category: 'Sauces Spreads', brand: 'Nutella', image: 'https://m.media-amazon.com/images/I/71VP4GY1sSL._SL1500_.jpg', inStock: true, description: 'World famous hazelnut spread', stock: 55 },
+  { name: 'Nutella Hazelnut Spread', weight: '750g', price: 650, oldPrice: 720, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Nutella', image: 'https://m.media-amazon.com/images/I/71VP4GY1sSL._SL1500_.jpg', inStock: true, description: 'Family pack Nutella', stock: 40 },
+  { name: 'Hershey\'s Chocolate Syrup', weight: '623g', price: 280, oldPrice: 310, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Hershey\'s', image: 'https://m.media-amazon.com/images/I/61WQ5HZ2tTL._SL1500_.jpg', inStock: true, description: 'Premium chocolate syrup', stock: 50 },
 
-  // Pasta Sauce
-  {
-    name: 'Kissan Pasta Sauce Italian Blend - 200g',
-    description: 'Ready to use Italian pasta sauce',
-    price: 75,
-    mrp: 82,
-    category: 'Sauces Spreads',
-    brand: 'Kissan',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446525a.jpg'
-    }],
-    stock: 60,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Maggi Pasta Sauce Tomato Basil - 140g',
-    description: 'Tomato and basil pasta sauce from Maggi',
-    price: 65,
-    mrp: 70,
-    category: 'Sauces Spreads',
-    brand: 'Maggi',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446526a.jpg'
-    }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 140
-  },
+  // PASTA SAUCE
+  { name: 'Kissan Pasta Sauce Italian Blend', weight: '200g', price: 75, oldPrice: 82, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Kissan', image: 'https://m.media-amazon.com/images/I/61XR6IaA3UL._SL1500_.jpg', inStock: true, description: 'Ready to use pasta sauce', stock: 60 },
+  { name: 'Maggi Pasta Sauce Tomato Basil', weight: '140g', price: 65, oldPrice: 70, discount: '7% OFF', category: 'Sauces Spreads', brand: 'Maggi', image: 'https://m.media-amazon.com/images/I/61YS7JbB4VL._SL1500_.jpg', inStock: true, description: 'Tomato and basil sauce', stock: 70 },
 
-  // Vinegar
-  {
-    name: 'Heinz Apple Cider Vinegar - 473ml',
-    description: 'Natural apple cider vinegar for health and cooking',
-    price: 195,
-    mrp: 215,
-    category: 'Sauces Spreads',
-    brand: 'Heinz',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446527a.jpg'
-    }],
-    stock: 45,
-    inStock: true,
-    unit: 'ml',
-    quantity: 473
-  },
-  {
-    name: 'American Garden White Vinegar - 473ml',
-    description: 'Pure white vinegar for cooking and pickling',
-    price: 120,
-    mrp: 135,
-    category: 'Sauces Spreads',
-    brand: 'American Garden',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446528a.jpg'
-    }],
-    stock: 55,
-    inStock: true,
-    unit: 'ml',
-    quantity: 473
-  },
+  // VINEGAR
+  { name: 'Heinz Apple Cider Vinegar', weight: '473ml', price: 195, oldPrice: 215, discount: '9% OFF', category: 'Sauces Spreads', brand: 'Heinz', image: 'https://m.media-amazon.com/images/I/61ZT8KcC5WL._SL1500_.jpg', inStock: true, description: 'Natural apple cider vinegar', stock: 45 },
+  { name: 'American Garden White Vinegar', weight: '473ml', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Sauces Spreads', brand: 'American Garden', image: 'https://m.media-amazon.com/images/I/61aU9LdD6XL._SL1500_.jpg', inStock: true, description: 'Pure white vinegar', stock: 55 },
 
-  // Honey
-  {
-    name: 'Dabur Honey - 400g',
-    description: '100% pure honey, tested for purity',
-    price: 185,
-    mrp: 205,
-    category: 'Sauces Spreads',
-    brand: 'Dabur',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/486a.jpg'
-    }],
-    stock: 80,
-    inStock: true,
-    unit: 'g',
-    quantity: 400
-  },
-  {
-    name: 'Dabur Honey - 1kg',
-    description: 'Family pack 100% pure honey',
-    price: 420,
-    mrp: 470,
-    category: 'Sauces Spreads',
-    brand: 'Dabur',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/486a.jpg'
-    }],
-    stock: 60,
-    inStock: true,
-    unit: 'kg',
-    quantity: 1
-  },
-  {
-    name: 'Patanjali Pure Honey - 500g',
-    description: 'Natural and pure honey from Patanjali',
-    price: 160,
-    mrp: 180,
-    category: 'Sauces Spreads',
-    brand: 'Patanjali',
-    images: [{
-      url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/446529a.jpg'
-    }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  }
+  // HONEY
+  { name: 'Dabur Honey', weight: '400g', price: 185, oldPrice: 205, discount: '10% OFF', category: 'Sauces Spreads', brand: 'Dabur', image: 'https://m.media-amazon.com/images/I/61bV0MeE7YL._SL1500_.jpg', inStock: true, description: '100% pure honey', stock: 80 },
+  { name: 'Dabur Honey', weight: '1kg', price: 420, oldPrice: 470, discount: '11% OFF', category: 'Sauces Spreads', brand: 'Dabur', image: 'https://m.media-amazon.com/images/I/61bV0MeE7YL._SL1500_.jpg', inStock: true, description: 'Family pack pure honey', stock: 60 },
+  { name: 'Patanjali Pure Honey', weight: '500g', price: 160, oldPrice: 180, discount: '11% OFF', category: 'Sauces Spreads', brand: 'Patanjali', image: 'https://m.media-amazon.com/images/I/61cW1NfF8ZL._SL1500_.jpg', inStock: true, description: 'Natural pure honey', stock: 70 }
 ];
 
-const migrateSaucesSpreads = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+    console.log('\n🍯 Starting Smart Migration for Sauces & Spreads...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    const existingProducts = await Product.find({ category: "Sauces Spreads" });
+    
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
     });
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Sauces & Spreads products...');
-    await Product.deleteMany({ category: 'Sauces Spreads' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Sauces & Spreads products...');
-    const result = await Product.insertMany(saucesAndSpreadsProducts);
-    console.log(`✅ Added ${result.length} Sauces & Spreads products`);
-
-    console.log('🎉 Migration completed successfully!');
-    console.log(`📊 Total products in Sauces & Spreads: ${result.length}`);
-
+    
+    const sourceProductKeys = new Set();
+    
+    for (const productData of saucesAndSpreadsProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Sauces Spreads" })}`);
+    
+    console.log('\n📋 Product Categories:');
+    console.log('   🍅 Tomato Ketchup: 3 products');
+    console.log('   🌶️  Chilli & Soy Sauce: 4 products');
+    console.log('   🥪 Mayonnaise: 3 products');
+    console.log('   🥜 Peanut Butter: 3 products');
+    console.log('   🍓 Jams: 4 products');
+    console.log('   🍫 Chocolate Spread: 3 products');
+    console.log('   🍝 Pasta Sauce: 2 products');
+    console.log('   🍯 Honey & Vinegar: 5 products');
+    
+    console.log('\n✅ Migration Complete!\n');
+    
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateSaucesSpreads();
+smartMigrate();

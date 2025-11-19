@@ -1,7 +1,9 @@
-// migrate_breakfast_instant.js - Breakfast & Instant Foods Migration
+// migrate_breakfast_instant_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_breakfast_instant_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
@@ -9,233 +11,319 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-const Product = require('./models/Product');
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
 
+const Product = mongoose.model('Product', productSchema);
+
+// ========== BREAKFAST & INSTANT FOODS PRODUCTS ==========
+// ADD/EDIT/DELETE products here and run the script
 const breakfastInstantProducts = [
-  // Cereals
+  // CEREALS
   {
-    name: 'Kellogg\'s Corn Flakes - 875g',
-    description: 'Crispy golden corn flakes for healthy breakfast',
+    name: 'Kellogg\'s Corn Flakes',
+    weight: '875g',
     price: 320,
-    mrp: 360,
+    oldPrice: 360,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Kellogg\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10665a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/71nSvPZGiGL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 875
+    description: 'Crispy golden corn flakes for healthy breakfast',
+    stock: 70
   },
   {
-    name: 'Quaker Oats - 1kg',
-    description: '100% natural whole grain oats',
+    name: 'Quaker Oats',
+    weight: '1kg',
     price: 180,
-    mrp: 200,
+    oldPrice: 200,
+    discount: '10% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Quaker',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/486a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/71GJDhj7YwL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 1
+    description: '100% natural whole grain oats',
+    stock: 100
   },
   {
-    name: 'Kellogg\'s Chocos - 700g',
-    description: 'Chocolatey breakfast cereal for kids',
+    name: 'Kellogg\'s Chocos',
+    weight: '700g',
     price: 280,
-    mrp: 315,
+    oldPrice: 315,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Kellogg\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10666a.jpg' }],
-    stock: 60,
+    image: 'https://m.media-amazon.com/images/I/71-aKLKJSHL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 700
+    description: 'Chocolatey breakfast cereal for kids',
+    stock: 60
   },
   {
-    name: 'Saffola Oats - 1kg',
-    description: 'Heart-healthy oats',
+    name: 'Saffola Oats',
+    weight: '1kg',
     price: 195,
-    mrp: 220,
+    oldPrice: 220,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Saffola',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10667a.jpg' }],
-    stock: 90,
+    image: 'https://m.media-amazon.com/images/I/71gQVJ0i5PL._SL1500_.jpg',
     inStock: true,
-    unit: 'kg',
-    quantity: 1
+    description: 'Heart-healthy oats',
+    stock: 90
   },
 
-  // Instant Noodles
+  // INSTANT NOODLES
   {
-    name: 'Maggi 2-Minute Noodles - 12 Pack',
-    description: 'India\'s favorite instant noodles',
+    name: 'Maggi 2-Minute Noodles',
+    weight: '12 Pack',
     price: 140,
-    mrp: 156,
+    oldPrice: 156,
+    discount: '10% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Maggi',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/483a.jpg' }],
-    stock: 150,
+    image: 'https://m.media-amazon.com/images/I/71DhG3W5g4L._SL1500_.jpg',
     inStock: true,
-    unit: 'pack',
-    quantity: 12
+    description: 'India\'s favorite instant noodles',
+    stock: 150
   },
   {
-    name: 'Yippee Noodles Magic Masala - 12 Pack',
-    description: 'Tasty instant noodles',
+    name: 'Yippee Noodles Magic Masala',
+    weight: '12 Pack',
     price: 120,
-    mrp: 135,
+    oldPrice: 135,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Yippee',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10668a.jpg' }],
-    stock: 140,
+    image: 'https://m.media-amazon.com/images/I/71c8M1WCHZL._SL1500_.jpg',
     inStock: true,
-    unit: 'pack',
-    quantity: 12
+    description: 'Tasty instant noodles',
+    stock: 140
   },
   {
-    name: 'Top Ramen Curry Noodles - 12 Pack',
-    description: 'Delicious curry flavored noodles',
+    name: 'Top Ramen Curry Noodles',
+    weight: '12 Pack',
     price: 125,
-    mrp: 140,
+    oldPrice: 140,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Top Ramen',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10669a.jpg' }],
-    stock: 130,
+    image: 'https://m.media-amazon.com/images/I/71vGx6h8zYL._SL1500_.jpg',
     inStock: true,
-    unit: 'pack',
-    quantity: 12
+    description: 'Delicious curry flavored noodles',
+    stock: 130
   },
   {
-    name: 'Maggi Cuppa Mania - 4 Pack',
-    description: 'Cup noodles ready in minutes',
+    name: 'Maggi Cuppa Mania',
+    weight: '4 Pack',
     price: 95,
-    mrp: 108,
+    oldPrice: 108,
+    discount: '12% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Maggi',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10670a.jpg' }],
-    stock: 110,
+    image: 'https://m.media-amazon.com/images/I/71QcU4XrFvL._SL1500_.jpg',
     inStock: true,
-    unit: 'pack',
-    quantity: 4
+    description: 'Cup noodles ready in minutes',
+    stock: 110
   },
   {
-    name: 'Knorr Soupy Noodles - 4 Pack',
-    description: 'Soupy instant noodles',
+    name: 'Knorr Soupy Noodles',
+    weight: '4 Pack',
     price: 90,
-    mrp: 100,
+    oldPrice: 100,
+    discount: '10% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Knorr',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10671a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/71YKkv3XEML._SL1500_.jpg',
     inStock: true,
-    unit: 'pack',
-    quantity: 4
+    description: 'Soupy instant noodles',
+    stock: 100
   },
 
-  // Ready to Eat
+  // READY TO EAT
   {
-    name: 'MTR Ready to Eat Poha - 250g',
+    name: 'MTR Ready to Eat Poha',
+    weight: '250g',
+    price: 65,
+    oldPrice: 72,
+    discount: '10% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'MTR',
+    image: 'https://m.media-amazon.com/images/I/71TqGd8ayvL._SL1500_.jpg',
+    inStock: true,
     description: 'Traditional poha ready in 2 minutes',
-    price: 65,
-    mrp: 72,
-    category: 'Breakfast & Instant Foods',
-    brand: 'MTR',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10672a.jpg' }],
-    stock: 80,
-    inStock: true,
-    unit: 'g',
-    quantity: 250
+    stock: 80
   },
   {
-    name: 'MTR Ready to Eat Upma - 250g',
+    name: 'MTR Ready to Eat Upma',
+    weight: '250g',
+    price: 65,
+    oldPrice: 72,
+    discount: '10% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'MTR',
+    image: 'https://m.media-amazon.com/images/I/71OvBsQq7CL._SL1500_.jpg',
+    inStock: true,
     description: 'South Indian upma ready to eat',
-    price: 65,
-    mrp: 72,
-    category: 'Breakfast & Instant Foods',
-    brand: 'MTR',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10673a.jpg' }],
-    stock: 75,
-    inStock: true,
-    unit: 'g',
-    quantity: 250
+    stock: 75
   },
   {
-    name: 'Nestlé Ceregrow - 300g',
-    description: 'Nutritious cereal for growing kids',
+    name: 'Nestlé Ceregrow',
+    weight: '300g',
     price: 245,
-    mrp: 275,
+    oldPrice: 275,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Nestlé',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10674a.jpg' }],
-    stock: 50,
+    image: 'https://m.media-amazon.com/images/I/71CnhF+OHJL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 300
+    description: 'Nutritious cereal for growing kids',
+    stock: 50
   },
 
-  // Instant Mixes
+  // INSTANT MIXES
   {
-    name: 'MTR Rava Idli Mix - 500g',
-    description: 'Instant idli mix, just add water',
+    name: 'MTR Rava Idli Mix',
+    weight: '500g',
     price: 85,
-    mrp: 95,
+    oldPrice: 95,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'MTR',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10675a.jpg' }],
-    stock: 85,
+    image: 'https://m.media-amazon.com/images/I/71f0T2tKyuL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 500
+    description: 'Instant idli mix, just add water',
+    stock: 85
   },
   {
-    name: 'Gits Dosa Mix - 500g',
-    description: 'Crispy dosa mix ready in minutes',
+    name: 'Gits Dosa Mix',
+    weight: '500g',
     price: 80,
-    mrp: 90,
+    oldPrice: 90,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Gits',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10676a.jpg' }],
-    stock: 75,
+    image: 'https://m.media-amazon.com/images/I/71mOWJXeIIL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 500
+    description: 'Crispy dosa mix ready in minutes',
+    stock: 75
   },
   {
-    name: 'Pillsbury Pancake Mix - 400g',
-    description: 'Fluffy pancakes in minutes',
+    name: 'Pillsbury Pancake Mix',
+    weight: '400g',
     price: 120,
-    mrp: 135,
+    oldPrice: 135,
+    discount: '11% OFF',
     category: 'Breakfast & Instant Foods',
     brand: 'Pillsbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10677a.jpg' }],
-    stock: 65,
+    image: 'https://m.media-amazon.com/images/I/71qNM5qk6FL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Fluffy pancakes in minutes',
+    stock: 65
   }
 ];
 
-const migrateBreakfastInstant = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Breakfast & Instant Foods products...');
-    await Product.deleteMany({ category: 'Breakfast & Instant Foods' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new products...');
-    const result = await Product.insertMany(breakfastInstantProducts);
-    console.log(`✅ Added ${result.length} Breakfast & Instant Foods products`);
-
-    console.log('🎉 Migration completed successfully!');
+    console.log('\n🥣 Starting Smart Migration for Breakfast & Instant Foods...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    // Get all existing products in this category
+    const existingProducts = await Product.find({ category: "Breakfast & Instant Foods" });
+    
+    // Create a map of existing products for quick lookup
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    // Create a set of products from our source
+    const sourceProductKeys = new Set();
+    
+    // Process each product from source
+    for (const productData of breakfastInstantProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        // ADD NEW PRODUCT
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        // CHECK IF UPDATE NEEDED
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          // UPDATE PRODUCT
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    // DELETE products that are no longer in source
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    // Summary
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Breakfast & Instant Foods" })}`);
+    console.log('\n✅ Migration Complete!\n');
+    
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateBreakfastInstant();
+// Run migration
+smartMigrate();

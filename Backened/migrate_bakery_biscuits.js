@@ -1,7 +1,8 @@
-// migrate_bakery_biscuits.js - Bakery & Biscuits Products Migration
+// migrate_bakery_biscuits_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_bakery_biscuits_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
@@ -10,237 +11,323 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-const Product = require('./models/Product');
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
 
+const Product = mongoose.model('Product', productSchema);
+
+// ========== BAKERY & BISCUITS PRODUCTS ==========
+// ADD/EDIT/DELETE products here and run the script
 const bakeryBiscuitsProducts = [
-  // Marie Biscuits
+  // MARIE BISCUITS
   {
-    name: 'Parle Marie Biscuits - 250g',
-    description: 'Classic Marie biscuits, perfect with tea',
+    name: 'Parle Marie Biscuits',
+    weight: '250g',
     price: 35,
-    mrp: 40,
+    oldPrice: 40,
+    discount: '13% OFF',
     category: 'Bakery Biscuits',
     brand: 'Parle',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10491a.jpg' }],
-    stock: 150,
+    image: 'https://m.media-amazon.com/images/I/61Y8qKFHE1L._SL1080_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 250
+    description: 'Classic Marie biscuits, perfect with tea',
+    stock: 150
   },
   {
-    name: 'Britannia Marie Gold - 500g',
-    description: 'Premium Marie biscuits with rich taste',
+    name: 'Britannia Marie Gold',
+    weight: '500g',
     price: 65,
-    mrp: 72,
+    oldPrice: 72,
+    discount: '10% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/10491a.jpg' }],
-    stock: 120,
+    image: 'https://m.media-amazon.com/images/I/71NU0VXOqtL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 500
+    description: 'Premium Marie biscuits with rich taste',
+    stock: 120
   },
 
-  // Glucose Biscuits
+  // GLUCOSE BISCUITS
   {
-    name: 'Parle-G Gold Biscuits - 1kg',
+    name: 'Parle-G Gold Biscuits',
+    weight: '1kg',
+    price: 120,
+    oldPrice: 135,
+    discount: '11% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Parle',
+    image: 'https://m.media-amazon.com/images/I/71ScHJ6LPQL._SL1500_.jpg',
+    inStock: true,
     description: 'India\'s favorite glucose biscuits',
-    price: 120,
-    mrp: 135,
-    category: 'Bakery Biscuits',
-    brand: 'Parle',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/25610a.jpg' }],
-    stock: 200,
-    inStock: true,
-    unit: 'kg',
-    quantity: 1
+    stock: 200
   },
   {
-    name: 'Britannia 50-50 Biscuits - 400g',
-    description: 'Sweet and salty biscuits combo',
+    name: 'Britannia 50-50 Biscuits',
+    weight: '400g',
     price: 55,
-    mrp: 62,
+    oldPrice: 62,
+    discount: '11% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/25611a.jpg' }],
-    stock: 130,
+    image: 'https://m.media-amazon.com/images/I/71r5eF3Z5bL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Sweet and salty biscuits combo',
+    stock: 130
   },
 
-  // Cream Biscuits
+  // CREAM BISCUITS
   {
-    name: 'Britannia Bourbon Biscuits - 400g',
-    description: 'Chocolate cream biscuits',
+    name: 'Britannia Bourbon Biscuits',
+    weight: '400g',
     price: 80,
-    mrp: 90,
+    oldPrice: 90,
+    discount: '11% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/447a.jpg' }],
-    stock: 140,
+    image: 'https://m.media-amazon.com/images/I/71L4zBm8qTL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Chocolate cream biscuits',
+    stock: 140
   },
   {
-    name: 'Parle Hide & Seek Biscuits - 600g',
-    description: 'Chocolate chip cookies',
+    name: 'Parle Hide & Seek Biscuits',
+    weight: '600g',
     price: 110,
-    mrp: 125,
+    oldPrice: 125,
+    discount: '12% OFF',
     category: 'Bakery Biscuits',
     brand: 'Parle',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/448a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/71rOdW8NVZL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'Chocolate chip cookies',
+    stock: 100
   },
   {
-    name: 'Sunfeast Dark Fantasy Biscuits - 300g',
-    description: 'Premium chocolate biscuits',
+    name: 'Sunfeast Dark Fantasy Biscuits',
+    weight: '300g',
     price: 95,
-    mrp: 105,
+    oldPrice: 105,
+    discount: '10% OFF',
     category: 'Bakery Biscuits',
     brand: 'Sunfeast',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/449a.jpg' }],
-    stock: 90,
+    image: 'https://m.media-amazon.com/images/I/71qEqaHRQBL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 300
+    description: 'Premium chocolate biscuits',
+    stock: 90
   },
 
-  // Cookies
+  // COOKIES
   {
-    name: 'Britannia Good Day Butter Cookies - 600g',
-    description: 'Rich butter cookies',
+    name: 'Britannia Good Day Butter Cookies',
+    weight: '600g',
     price: 120,
-    mrp: 135,
+    oldPrice: 135,
+    discount: '11% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/450a.jpg' }],
-    stock: 110,
+    image: 'https://m.media-amazon.com/images/I/71vKdS5WOzL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'Rich butter cookies',
+    stock: 110
   },
   {
-    name: 'Sunfeast Mom\'s Magic Cookies - 600g',
-    description: 'Homemade taste cookies',
+    name: 'Sunfeast Mom\'s Magic Cookies',
+    weight: '600g',
     price: 115,
-    mrp: 130,
+    oldPrice: 130,
+    discount: '12% OFF',
     category: 'Bakery Biscuits',
     brand: 'Sunfeast',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/451a.jpg' }],
-    stock: 95,
+    image: 'https://m.media-amazon.com/images/I/71eRJz0IOQL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'Homemade taste cookies',
+    stock: 95
   },
   {
-    name: 'Oreo Cream Biscuits - 600g',
-    description: 'World\'s favorite sandwich cookie',
+    name: 'Oreo Cream Biscuits',
+    weight: '600g',
     price: 140,
-    mrp: 160,
+    oldPrice: 160,
+    discount: '13% OFF',
     category: 'Bakery Biscuits',
     brand: 'Oreo',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/452a.jpg' }],
-    stock: 120,
+    image: 'https://m.media-amazon.com/images/I/71KBJj2GUOL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'World\'s favorite sandwich cookie',
+    stock: 120
   },
 
-  // Bread & Pav
+  // BREAD & PAV
   {
-    name: 'Britannia Bread - White - 400g',
-    description: 'Fresh white bread',
+    name: 'Britannia Bread - White',
+    weight: '400g',
     price: 45,
-    mrp: 50,
+    oldPrice: 50,
+    discount: '10% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/453a.jpg' }],
-    stock: 80,
+    image: 'https://m.media-amazon.com/images/I/71SRpZ3KGJL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Fresh white bread',
+    stock: 80
   },
   {
-    name: 'Modern Brown Bread - 400g',
-    description: 'Healthy brown bread',
+    name: 'Modern Brown Bread',
+    weight: '400g',
     price: 55,
-    mrp: 62,
+    oldPrice: 62,
+    discount: '11% OFF',
     category: 'Bakery Biscuits',
     brand: 'Modern',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/454a.jpg' }],
-    stock: 70,
+    image: 'https://m.media-amazon.com/images/I/71B2kYGn9dL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Healthy brown bread',
+    stock: 70
   },
   {
-    name: 'Wibs Premium Pav - 6 pcs',
-    description: 'Fresh pav bread',
+    name: 'Wibs Premium Pav',
+    weight: '6 pcs',
     price: 30,
-    mrp: 35,
+    oldPrice: 35,
+    discount: '14% OFF',
     category: 'Bakery Biscuits',
     brand: 'Wibs',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/455a.jpg' }],
-    stock: 100,
+    image: 'https://m.media-amazon.com/images/I/51VxJKm6wKL._SL1080_.jpg',
     inStock: true,
-    unit: 'pcs',
-    quantity: 6
+    description: 'Fresh pav bread',
+    stock: 100
   },
 
-  // Rusk & Toast
+  // RUSK & TOAST
   {
-    name: 'Britannia Rusk - 600g',
-    description: 'Crispy tea rusk',
+    name: 'Britannia Rusk',
+    weight: '600g',
     price: 75,
-    mrp: 85,
+    oldPrice: 85,
+    discount: '12% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/456a.jpg' }],
-    stock: 90,
+    image: 'https://m.media-amazon.com/images/I/71aEhEhBZLL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 600
+    description: 'Crispy tea rusk',
+    stock: 90
   },
   {
-    name: 'Britannia Cake Rusk - 400g',
-    description: 'Sweet cake rusk',
+    name: 'Britannia Cake Rusk',
+    weight: '400g',
     price: 60,
-    mrp: 68,
+    oldPrice: 68,
+    discount: '12% OFF',
     category: 'Bakery Biscuits',
     brand: 'Britannia',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/457a.jpg' }],
-    stock: 85,
+    image: 'https://m.media-amazon.com/images/I/71MH8iGQ5PL._SL1500_.jpg',
     inStock: true,
-    unit: 'g',
-    quantity: 400
+    description: 'Sweet cake rusk',
+    stock: 85
   }
 ];
 
-const migrateBakeryBiscuits = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Bakery & Biscuits products...');
-    await Product.deleteMany({ category: 'Bakery Biscuits' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Bakery & Biscuits products...');
-    const result = await Product.insertMany(bakeryBiscuitsProducts);
-    console.log(`✅ Added ${result.length} Bakery & Biscuits products`);
-
-    console.log('🎉 Migration completed successfully!');
+    console.log('\n🍪 Starting Smart Migration for Bakery & Biscuits Products...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    // Get all existing products in this category
+    const existingProducts = await Product.find({ category: "Bakery Biscuits" });
+    
+    // Create a map of existing products for quick lookup
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    // Create a set of products from our source
+    const sourceProductKeys = new Set();
+    
+    // Process each product from source
+    for (const productData of bakeryBiscuitsProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        // ADD NEW PRODUCT
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        // CHECK IF UPDATE NEEDED
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          // UPDATE PRODUCT
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    // DELETE products that are no longer in source
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    // Summary
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Bakery Biscuits" })}`);
+    console.log('\n✅ Migration Complete!\n');
+    
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateBakeryBiscuits();
+// Run migration
+smartMigrate();

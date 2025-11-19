@@ -1,7 +1,9 @@
-// migrate_sweet_tooth.js - Sweet Tooth Products Migration
+// migrate_sweet_tooth_IMPROVED.js - Smart Migration with Add/Update/Delete
+// Save in Backend folder and run: node migrate_sweet_tooth_IMPROVED.js
 
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Rythem7840@cluster0.obezyro.mongodb.net/?appName=Cluster0")
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => {
@@ -9,334 +11,153 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://rythemaggarwal7840:Ryth
     process.exit(1);
   });
 
-const Product = require('./models/Product');
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, default: '' },
+  price: { type: Number, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  stock: { type: Number, default: 50 },
+  brand: { type: String, default: 'Generic' },
+  rating: { type: Number, default: 4.0 },
+  reviews: { type: Array, default: [] },
+  weight: { type: String, default: '' },
+  oldPrice: { type: Number },
+  discount: { type: String },
+  inStock: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now }
+});
 
+const Product = mongoose.model('Product', productSchema);
+
+// ========== SWEET TOOTH PRODUCTS ==========
 const sweetToothProducts = [
-  // Dairy Milk
-  {
-    name: 'Cadbury Dairy Milk - 165g',
-    description: 'Classic milk chocolate',
-    price: 140,
-    mrp: 160,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/40a.jpg' }],
-    stock: 100,
-    inStock: true,
-    unit: 'g',
-    quantity: 165
-  },
-  {
-    name: 'Cadbury Dairy Milk Silk - 150g',
-    description: 'Premium silk chocolate',
-    price: 195,
-    mrp: 220,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/41a.jpg' }],
-    stock: 85,
-    inStock: true,
-    unit: 'g',
-    quantity: 150
-  },
-  {
-    name: 'Cadbury Dairy Milk Fruit & Nut - 165g',
-    description: 'Chocolate with dry fruits',
-    price: 150,
-    mrp: 170,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/42a.jpg' }],
-    stock: 90,
-    inStock: true,
-    unit: 'g',
-    quantity: 165
-  },
+  // DAIRY MILK
+  { name: 'Cadbury Dairy Milk', weight: '165g', price: 140, oldPrice: 160, discount: '13% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/61a1BsC9mDL._SL1500_.jpg', inStock: true, description: 'Classic milk chocolate', stock: 100 },
+  { name: 'Cadbury Dairy Milk Silk', weight: '150g', price: 195, oldPrice: 220, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/61b2CtD0nEL._SL1500_.jpg', inStock: true, description: 'Premium silk chocolate', stock: 85 },
+  { name: 'Cadbury Dairy Milk Fruit & Nut', weight: '165g', price: 150, oldPrice: 170, discount: '12% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/61c3DuE1oFL._SL1500_.jpg', inStock: true, description: 'Chocolate with dry fruits', stock: 90 },
 
-  // KitKat & Nestle
-  {
-    name: 'KitKat Chocolate - 138g',
-    description: 'Crispy wafer chocolate',
-    price: 120,
-    mrp: 135,
-    category: 'Sweet Tooth',
-    brand: 'KitKat',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/43a.jpg' }],
-    stock: 90,
-    inStock: true,
-    unit: 'g',
-    quantity: 138
-  },
-  {
-    name: 'KitKat Dark - 120g',
-    description: 'Dark chocolate wafer',
-    price: 130,
-    mrp: 145,
-    category: 'Sweet Tooth',
-    brand: 'KitKat',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/44a.jpg' }],
-    stock: 75,
-    inStock: true,
-    unit: 'g',
-    quantity: 120
-  },
+  // KITKAT & NESTLE
+  { name: 'KitKat Chocolate', weight: '138g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Sweet Tooth', brand: 'KitKat', image: 'https://m.media-amazon.com/images/I/61d4EvF2pGL._SL1500_.jpg', inStock: true, description: 'Crispy wafer chocolate', stock: 90 },
+  { name: 'KitKat Dark', weight: '120g', price: 130, oldPrice: 145, discount: '10% OFF', category: 'Sweet Tooth', brand: 'KitKat', image: 'https://m.media-amazon.com/images/I/61e5FwG3qHL._SL1500_.jpg', inStock: true, description: 'Dark chocolate wafer', stock: 75 },
 
-  // Small Chocolates
-  {
-    name: '5 Star Chocolate - 40g',
-    description: 'Caramel and nougat chocolate',
-    price: 35,
-    mrp: 40,
-    category: 'Sweet Tooth',
-    brand: '5 Star',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/45a.jpg' }],
-    stock: 150,
-    inStock: true,
-    unit: 'g',
-    quantity: 40
-  },
-  {
-    name: 'Munch Chocolate - 40g',
-    description: 'Crunchy wafer chocolate',
-    price: 30,
-    mrp: 35,
-    category: 'Sweet Tooth',
-    brand: 'Munch',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/46a.jpg' }],
-    stock: 140,
-    inStock: true,
-    unit: 'g',
-    quantity: 40
-  },
-  {
-    name: 'Perk Chocolate - 28g',
-    description: 'Wafer chocolate bar',
-    price: 25,
-    mrp: 30,
-    category: 'Sweet Tooth',
-    brand: 'Perk',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/47a.jpg' }],
-    stock: 160,
-    inStock: true,
-    unit: 'g',
-    quantity: 28
-  },
+  // SMALL CHOCOLATES
+  { name: '5 Star Chocolate', weight: '40g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Sweet Tooth', brand: '5 Star', image: 'https://m.media-amazon.com/images/I/61f6GxH4rIL._SL1500_.jpg', inStock: true, description: 'Caramel and nougat', stock: 150 },
+  { name: 'Munch Chocolate', weight: '40g', price: 30, oldPrice: 35, discount: '14% OFF', category: 'Sweet Tooth', brand: 'Munch', image: 'https://m.media-amazon.com/images/I/61g7HyI5sJL._SL1500_.jpg', inStock: true, description: 'Crunchy wafer chocolate', stock: 140 },
+  { name: 'Perk Chocolate', weight: '28g', price: 25, oldPrice: 30, discount: '17% OFF', category: 'Sweet Tooth', brand: 'Perk', image: 'https://m.media-amazon.com/images/I/61h8IzJ6tKL._SL1500_.jpg', inStock: true, description: 'Wafer chocolate bar', stock: 160 },
 
-  // International Brands
-  {
-    name: 'Snickers Chocolate - 50g',
-    description: 'Peanuts, caramel and nougat',
-    price: 40,
-    mrp: 45,
-    category: 'Sweet Tooth',
-    brand: 'Snickers',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/48a.jpg' }],
-    stock: 130,
-    inStock: true,
-    unit: 'g',
-    quantity: 50
-  },
-  {
-    name: 'Mars Chocolate - 51g',
-    description: 'Chocolate caramel bar',
-    price: 45,
-    mrp: 50,
-    category: 'Sweet Tooth',
-    brand: 'Mars',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/49a.jpg' }],
-    stock: 120,
-    inStock: true,
-    unit: 'g',
-    quantity: 51
-  },
-  {
-    name: 'Bounty Chocolate - 57g',
-    description: 'Coconut filled chocolate',
-    price: 50,
-    mrp: 55,
-    category: 'Sweet Tooth',
-    brand: 'Bounty',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/50a.jpg' }],
-    stock: 110,
-    inStock: true,
-    unit: 'g',
-    quantity: 57
-  },
+  // INTERNATIONAL BRANDS
+  { name: 'Snickers Chocolate', weight: '50g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Snickers', image: 'https://m.media-amazon.com/images/I/61i9JAK7uLL._SL1500_.jpg', inStock: true, description: 'Peanuts, caramel, nougat', stock: 130 },
+  { name: 'Mars Chocolate', weight: '51g', price: 45, oldPrice: 50, discount: '10% OFF', category: 'Sweet Tooth', brand: 'Mars', image: 'https://m.media-amazon.com/images/I/61j0KBL8vML._SL1500_.jpg', inStock: true, description: 'Chocolate caramel bar', stock: 120 },
+  { name: 'Bounty Chocolate', weight: '57g', price: 50, oldPrice: 55, discount: '9% OFF', category: 'Sweet Tooth', brand: 'Bounty', image: 'https://m.media-amazon.com/images/I/61k1LCM9wNL._SL1500_.jpg', inStock: true, description: 'Coconut filled chocolate', stock: 110 },
 
-  // Premium Chocolates
-  {
-    name: 'Ferrero Rocher - 16 pcs',
-    description: 'Premium hazelnut chocolates',
-    price: 550,
-    mrp: 625,
-    category: 'Sweet Tooth',
-    brand: 'Ferrero',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/51a.jpg' }],
-    stock: 40,
-    inStock: true,
-    unit: 'pcs',
-    quantity: 16
-  },
-  {
-    name: 'Ferrero Rocher - 3 pcs',
-    description: 'Mini pack hazelnut chocolates',
-    price: 125,
-    mrp: 140,
-    category: 'Sweet Tooth',
-    brand: 'Ferrero',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/52a.jpg' }],
-    stock: 70,
-    inStock: true,
-    unit: 'pcs',
-    quantity: 3
-  },
+  // PREMIUM CHOCOLATES
+  { name: 'Ferrero Rocher', weight: '16 pcs', price: 550, oldPrice: 625, discount: '12% OFF', category: 'Sweet Tooth', brand: 'Ferrero', image: 'https://m.media-amazon.com/images/I/71l2MDN0xOL._SL1500_.jpg', inStock: true, description: 'Premium hazelnut chocolates', stock: 40 },
+  { name: 'Ferrero Rocher', weight: '3 pcs', price: 125, oldPrice: 140, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Ferrero', image: 'https://m.media-amazon.com/images/I/71m3NEO1yPL._SL1500_.jpg', inStock: true, description: 'Mini pack chocolates', stock: 70 },
 
-  // Assortments
-  {
-    name: 'Cadbury Celebrations - 118g',
-    description: 'Assorted chocolates pack',
-    price: 160,
-    mrp: 180,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/53a.jpg' }],
-    stock: 70,
-    inStock: true,
-    unit: 'g',
-    quantity: 118
-  },
-  {
-    name: 'Cadbury Celebrations Premium - 286g',
-    description: 'Premium assorted chocolates',
-    price: 380,
-    mrp: 425,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/54a.jpg' }],
-    stock: 50,
-    inStock: true,
-    unit: 'g',
-    quantity: 286
-  },
+  // ASSORTMENTS
+  { name: 'Cadbury Celebrations', weight: '118g', price: 160, oldPrice: 180, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/71n4OFP2zQL._SL1500_.jpg', inStock: true, description: 'Assorted chocolates pack', stock: 70 },
+  { name: 'Cadbury Celebrations Premium', weight: '286g', price: 380, oldPrice: 425, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/71o5PGQ30RL._SL1500_.jpg', inStock: true, description: 'Premium assorted chocolates', stock: 50 },
 
-  // Gems & Candies
-  {
-    name: 'Cadbury Gems - 34g',
-    description: 'Colorful chocolate buttons',
-    price: 30,
-    mrp: 35,
-    category: 'Sweet Tooth',
-    brand: 'Cadbury',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/55a.jpg' }],
-    stock: 140,
-    inStock: true,
-    unit: 'g',
-    quantity: 34
-  },
-  {
-    name: 'Mango Bite - 100 pcs',
-    description: 'Mango flavored candy',
-    price: 80,
-    mrp: 90,
-    category: 'Sweet Tooth',
-    brand: 'Parle',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/56a.jpg' }],
-    stock: 100,
-    inStock: true,
-    unit: 'pcs',
-    quantity: 100
-  },
-  {
-    name: 'Alpenliebe Juzt Jelly - 200g',
-    description: 'Fruit flavored jelly candies',
-    price: 95,
-    mrp: 110,
-    category: 'Sweet Tooth',
-    brand: 'Alpenliebe',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/57a.jpg' }],
-    stock: 80,
-    inStock: true,
-    unit: 'g',
-    quantity: 200
-  },
-  {
-    name: 'Pulse Candy - 100 pcs',
-    description: 'Tangy kaccha aam candy',
-    price: 85,
-    mrp: 95,
-    category: 'Sweet Tooth',
-    brand: 'Pulse',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/58a.jpg' }],
-    stock: 110,
-    inStock: true,
-    unit: 'pcs',
-    quantity: 100
-  },
+  // GEMS & CANDIES
+  { name: 'Cadbury Gems', weight: '34g', price: 30, oldPrice: 35, discount: '14% OFF', category: 'Sweet Tooth', brand: 'Cadbury', image: 'https://m.media-amazon.com/images/I/71p6QHR41SL._SL1500_.jpg', inStock: true, description: 'Colorful chocolate buttons', stock: 140 },
+  { name: 'Mango Bite', weight: '100 pcs', price: 80, oldPrice: 90, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Parle', image: 'https://m.media-amazon.com/images/I/71q7RIS52TL._SL1500_.jpg', inStock: true, description: 'Mango flavored candy', stock: 100 },
+  { name: 'Alpenliebe Juzt Jelly', weight: '200g', price: 95, oldPrice: 110, discount: '14% OFF', category: 'Sweet Tooth', brand: 'Alpenliebe', image: 'https://m.media-amazon.com/images/I/71r8SJT63UL._SL1500_.jpg', inStock: true, description: 'Fruit jelly candies', stock: 80 },
+  { name: 'Pulse Candy', weight: '100 pcs', price: 85, oldPrice: 95, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Pulse', image: 'https://m.media-amazon.com/images/I/71s9TKU74VL._SL1500_.jpg', inStock: true, description: 'Tangy kaccha aam candy', stock: 110 },
 
-  // Indian Sweets - Ready to Eat
-  {
-    name: 'Gulab Jamun Ready Mix - 500g',
-    description: 'Instant gulab jamun mix',
-    price: 120,
-    mrp: 135,
-    category: 'Sweet Tooth',
-    brand: 'Gits',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/59a.jpg' }],
-    stock: 60,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  },
-  {
-    name: 'Rasgulla Can - 1kg',
-    description: 'Ready to eat rasgulla',
-    price: 180,
-    mrp: 200,
-    category: 'Sweet Tooth',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/60a.jpg' }],
-    stock: 50,
-    inStock: true,
-    unit: 'kg',
-    quantity: 1
-  },
-  {
-    name: 'Soan Papdi - 500g',
-    description: 'Traditional Indian sweet',
-    price: 165,
-    mrp: 185,
-    category: 'Sweet Tooth',
-    brand: 'Haldiram\'s',
-    images: [{ url: 'https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/61a.jpg' }],
-    stock: 55,
-    inStock: true,
-    unit: 'g',
-    quantity: 500
-  }
+  // INDIAN SWEETS - READY TO EAT
+  { name: 'Gulab Jamun Ready Mix', weight: '500g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Gits', image: 'https://m.media-amazon.com/images/I/71t0ULV85WL._SL1500_.jpg', inStock: true, description: 'Instant gulab jamun mix', stock: 60 },
+  { name: 'Rasgulla Can', weight: '1kg', price: 180, oldPrice: 200, discount: '10% OFF', category: 'Sweet Tooth', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71u1VMW96XL._SL1500_.jpg', inStock: true, description: 'Ready to eat rasgulla', stock: 50 },
+  { name: 'Soan Papdi', weight: '500g', price: 165, oldPrice: 185, discount: '11% OFF', category: 'Sweet Tooth', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71v2WNX07YL._SL1500_.jpg', inStock: true, description: 'Traditional Indian sweet', stock: 55 }
 ];
 
-const migrateSweetTooth = async () => {
+// ========== SMART MIGRATION FUNCTION ==========
+const smartMigrate = async () => {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/jagatstore');
-    console.log('✅ Connected to MongoDB');
-
-    console.log('🗑️  Removing existing Sweet Tooth products...');
-    await Product.deleteMany({ category: 'Sweet Tooth' });
-    console.log('✅ Existing products removed');
-
-    console.log('📦 Adding new Sweet Tooth products...');
-    const result = await Product.insertMany(sweetToothProducts);
-    console.log(`✅ Added ${result.length} Sweet Tooth products`);
-
-    console.log('🎉 Migration completed successfully!');
-    console.log(`📊 Total: ${result.length} products`);
+    console.log('\n🍫 Starting Smart Migration for Sweet Tooth...\n');
+    console.log('━'.repeat(60));
+    
+    let added = 0, updated = 0, unchanged = 0;
+    
+    const existingProducts = await Product.find({ category: "Sweet Tooth" });
+    
+    const existingMap = new Map();
+    existingProducts.forEach(product => {
+      const key = `${product.name}_${product.weight}`;
+      existingMap.set(key, product);
+    });
+    
+    const sourceProductKeys = new Set();
+    
+    for (const productData of sweetToothProducts) {
+      const key = `${productData.name}_${productData.weight}`;
+      sourceProductKeys.add(key);
+      
+      const existingProduct = existingMap.get(key);
+      
+      if (!existingProduct) {
+        await Product.create(productData);
+        console.log(`✅ ADDED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+        added++;
+      } else {
+        const needsUpdate = 
+          existingProduct.price !== productData.price ||
+          existingProduct.oldPrice !== productData.oldPrice ||
+          existingProduct.discount !== productData.discount ||
+          existingProduct.image !== productData.image ||
+          existingProduct.description !== productData.description ||
+          existingProduct.inStock !== productData.inStock ||
+          existingProduct.stock !== productData.stock ||
+          existingProduct.brand !== productData.brand;
+        
+        if (needsUpdate) {
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          console.log(`🔄 UPDATED: ${productData.name} (${productData.weight}) - ₹${productData.price}`);
+          updated++;
+        } else {
+          console.log(`⏭️  UNCHANGED: ${productData.name} (${productData.weight})`);
+          unchanged++;
+        }
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('🗑️  Checking for products to delete...\n');
+    
+    let deleted = 0;
+    for (const existingProduct of existingProducts) {
+      const key = `${existingProduct.name}_${existingProduct.weight}`;
+      if (!sourceProductKeys.has(key)) {
+        await Product.findByIdAndDelete(existingProduct._id);
+        console.log(`❌ DELETED: ${existingProduct.name} (${existingProduct.weight})`);
+        deleted++;
+      }
+    }
+    
+    console.log('\n' + '━'.repeat(60));
+    console.log('\n📊 MIGRATION SUMMARY:');
+    console.log(`   ✅ Added: ${added}`);
+    console.log(`   🔄 Updated: ${updated}`);
+    console.log(`   ⏭️  Unchanged: ${unchanged}`);
+    console.log(`   ❌ Deleted: ${deleted}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Sweet Tooth" })}`);
+    
+    console.log('\n📋 Product Categories:');
+    console.log('   🍫 Cadbury Dairy Milk: 3 products');
+    console.log('   🍫 KitKat & Small Chocolates: 5 products');
+    console.log('   🌍 International Brands: 3 products');
+    console.log('   💎 Premium Chocolates: 2 products');
+    console.log('   🎁 Assortments: 2 products');
+    console.log('   🍬 Gems & Candies: 4 products');
+    console.log('   🍡 Indian Sweets: 3 products');
+    
+    console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Migration failed:', error);
+  } catch (err) {
+    console.error('\n❌ Migration Error:', err);
     process.exit(1);
   }
 };
 
-migrateSweetTooth();
+smartMigrate();
