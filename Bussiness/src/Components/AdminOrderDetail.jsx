@@ -206,9 +206,20 @@ const AdminOrderDetail = () => {
       {order.hasGift && (
         <div className="gift-alert-banner">
           <div className="gift-alert-icon">🎁</div>
+          <img 
+            src="https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg"
+            alt="Gift"
+            style={{
+              width: '50px',
+              height: '50px',
+              borderRadius: '8px',
+              objectFit: 'cover',
+              border: '2px solid #fff'
+            }}
+          />
           <div className="gift-alert-text">
             <strong>This order includes a FREE Gift!</strong>
-            <p>Don't forget to pack: {order.giftItem?.name || 'Premium Ice Cream Pack'}</p>
+            <p>Don't forget to pack: {order.giftItem?.name || 'Premium Ice Cream Pack'} ({order.giftItem?.weight || '500ml'})</p>
           </div>
           <div className="gift-alert-value">
             Worth ₹{order.giftSavings || order.giftItem?.oldPrice || 149}
@@ -293,29 +304,43 @@ const AdminOrderDetail = () => {
                     <div className="item-info">
                       <p className="item-name">{item.name}</p>
                       <p className="item-qty">Quantity: {item.quantity}</p>
+                      {item.weight && (
+                        <p className="item-weight" style={{ color: '#666', fontSize: '13px', marginTop: '2px' }}>
+                          Weight: {item.weight}
+                        </p>
+                      )}
                     </div>
                     <p className="item-price">₹{(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                 ))}
 
                 {/* 🎁 GIFT ITEM ROW */}
-                {order.hasGift && order.giftItem && (
+                {order.hasGift && (
                   <div className="order-item gift-item-row">
                     <div className="gift-item-ribbon">🎁 FREE GIFT</div>
                     <img 
-                      src={order.giftItem.image || 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg'} 
-                      alt="Gift"
-                      onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/80?text=Gift';
+                      src="https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg"
+                      alt="Gift - Premium Ice Cream Pack"
+                      style={{
+                        width: '90px',
+                        height: '90px',
+                        objectFit: 'cover',
+                        border: '2px solid #4caf50',
+                        background: '#fff',
+                        padding: '4px',
+                        borderRadius: '8px'
                       }}
                     />
                     <div className="item-info">
-                      <p className="item-name gift-name">{order.giftItem.name || 'Premium Ice Cream Pack'}</p>
+                      <p className="item-name gift-name">🎁 {order.giftItem?.name || 'FREE Gift - Premium Ice Cream Pack'}</p>
                       <p className="item-qty">Quantity: 1 | 🎁 Complimentary</p>
+                      <p className="item-weight" style={{ color: '#2e7d32', fontSize: '13px', marginTop: '2px' }}>
+                        Weight: {order.giftItem?.weight || '500ml'}
+                      </p>
                     </div>
                     <p className="item-price gift-price">
                       <span className="free-text">FREE</span>
-                      <span className="original-price">₹{order.giftItem.oldPrice || 149}</span>
+                      <span className="original-price">₹{order.giftItem?.oldPrice || 149}</span>
                     </p>
                   </div>
                 )}

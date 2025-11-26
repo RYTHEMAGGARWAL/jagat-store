@@ -127,7 +127,8 @@ const Checkout = () => {
         name: item.product.name,
         quantity: item.quantity,
         price: item.product.price,
-        image: item.product.image || ''
+        image: item.product.image || '',
+        weight: item.product.weight || ''  // 📦 ADD WEIGHT
       }));
 
       const itemsTotal = getCartTotal();
