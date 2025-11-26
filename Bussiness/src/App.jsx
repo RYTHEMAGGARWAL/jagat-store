@@ -34,6 +34,7 @@ import BreakfastInstantFoods from './Components/BreakfastInstantFoods';
 import OrderDetails from './Components/OrderDetails';
 
 import HomeOffices from './Components/HomeOffices';
+import WhatsAppButton from './Components/WhatsAppButton';
 function App() {
   return (
     <CartProvider>
@@ -85,6 +86,10 @@ function App() {
         <Route path="/Login" element={<Login />} />
         
       </Routes>
+      
+      
+      {/* 📱 ADD THIS LINE */}
+      <WhatsAppButton />
     </CartProvider>
   );
 }

@@ -1090,3 +1090,32 @@
   color: #2e7d32 !important;
   font-weight: 600 !important;
 }
+/* WhatsApp Order Button */
+.whatsapp-order-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-order-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-order-btn svg {
+  width: 22px;
+  height: 22px;
+}
