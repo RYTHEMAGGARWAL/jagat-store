@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from './CartContext';
+import SurpriseGift from '../Components/SurpriseGift';
 import './Cart.css';
 
 const Cart = () => {
@@ -12,10 +13,31 @@ const Cart = () => {
     getCartTotal, 
     refreshCart, 
     loading,
-    totalItems 
+    totalItems,
+    // 🎁 Gift data from context
+    hasGift,
+    giftItem
   } = useCart();
 
   const [updating, setUpdating] = useState(false);
+  const [localHasGift, setLocalHasGift] = useState(false);
+  const [localGiftItem, setLocalGiftItem] = useState(null);
+
+  // 🎁 Gift Configuration
+  const GIFT_THRESHOLD = 999;
+  const DEFAULT_GIFT = {
+    name: '🎁 FREE Gift - Premium Ice Cream Pack',
+    brand: 'Jagat Store',
+    price: 0,
+    oldPrice: 149,
+    weight: '500ml',
+    image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+    isGift: true
+  };
+
+  // 🚚 DELIVERY CONFIGURATION
+  const DELIVERY_THRESHOLD = 399;
+  const DELIVERY_CHARGE = 19;
 
   const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23f5f5f5" width="100" height="100"/%3E%3Ctext x="50%25" y="50%25" font-size="12" text-anchor="middle" dy=".3em" fill="%23999"%3ENo Image%3C/text%3E%3C/svg%3E';
 
@@ -24,12 +46,57 @@ const Cart = () => {
     refreshCart();
   }, []);
 
+  // 🎁 Check localStorage for gift status
+  useEffect(() => {
+    const giftAdded = localStorage.getItem('jagat_gift_added');
+    const storedGift = localStorage.getItem('jagat_gift_product');
+    
+    if (giftAdded === 'true') {
+      setLocalHasGift(true);
+      if (storedGift) {
+        try {
+          setLocalGiftItem(JSON.parse(storedGift));
+        } catch (e) {
+          setLocalGiftItem(DEFAULT_GIFT);
+        }
+      } else {
+        setLocalGiftItem(DEFAULT_GIFT);
+      }
+    }
+  }, []);
+
+  // 🎁 Sync with context gift data
+  useEffect(() => {
+    if (hasGift && giftItem) {
+      setLocalHasGift(true);
+      setLocalGiftItem(giftItem);
+    }
+  }, [hasGift, giftItem]);
+
+  // Calculate subtotal
+  const subtotal = cartItems.reduce((total, item) => {
+    return total + (item.product.price * item.quantity);
+  }, 0);
+
+  // 🎁 Check if gift should be shown
+  const showGift = (localHasGift || hasGift) && subtotal >= GIFT_THRESHOLD;
+  const currentGiftItem = localGiftItem || giftItem || DEFAULT_GIFT;
+
+  // 🎁 Auto-remove gift if below threshold
+  useEffect(() => {
+    if (subtotal < GIFT_THRESHOLD && localHasGift) {
+      setLocalHasGift(false);
+      setLocalGiftItem(null);
+      localStorage.removeItem('jagat_gift_added');
+      localStorage.removeItem('jagat_gift_product');
+    }
+  }, [subtotal, localHasGift]);
+
   const handleIncrease = async (productId, currentQty) => {
     try {
       setUpdating(true);
       const newQty = currentQty + 1;
       await updateQuantity(productId, newQty);
-      // Force refresh to get updated data
       await refreshCart();
     } catch (error) {
       console.error('Error increasing quantity:', error);
@@ -43,7 +110,6 @@ const Cart = () => {
     try {
       setUpdating(true);
       if (currentQty <= 1) {
-        // Confirm before removing
         if (window.confirm('Remove this item from cart?')) {
           await removeFromCart(productId);
           await refreshCart();
@@ -66,7 +132,6 @@ const Cart = () => {
       if (window.confirm('Remove this item from cart?')) {
         setUpdating(true);
         await removeFromCart(productId);
-        // Force refresh
         await refreshCart();
       }
     } catch (error) {
@@ -75,6 +140,13 @@ const Cart = () => {
     } finally {
       setUpdating(false);
     }
+  };
+
+  // 🎁 Handle gift added callback
+  const handleGiftAdded = () => {
+    setLocalHasGift(true);
+    setLocalGiftItem(DEFAULT_GIFT);
+    refreshCart();
   };
 
   if (loading) {
@@ -101,14 +173,13 @@ const Cart = () => {
     );
   }
 
-  // Calculate totals from current cart items
-  const subtotal = cartItems.reduce((total, item) => {
-    return total + (item.product.price * item.quantity);
-  }, 0);
+  // 🚚 DELIVERY FEE LOGIC - FREE above ₹399, else ₹19
+  const deliveryFee = subtotal >= DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE;
+  const remainingForFreeDelivery = Math.max(0, DELIVERY_THRESHOLD - subtotal);
   
-  const deliveryFee = 0;
   const tax = 0;
   const total = subtotal + deliveryFee + tax;
+  const remainingForGift = Math.max(0, GIFT_THRESHOLD - subtotal);
 
   return (
     <div className="cart-page">
@@ -118,7 +189,7 @@ const Cart = () => {
         <div className="cart-left">
           <div className="cart-title-section">
             <h1>Shopping Cart</h1>
-            <p className="items-count">{cartItems.length} items</p>
+            <p className="items-count">{cartItems.length} items {showGift && '+ 1 Gift 🎁'}</p>
           </div>
 
           {updating && (
@@ -129,6 +200,7 @@ const Cart = () => {
           )}
 
           <div className="cart-items-list">
+            {/* Regular Cart Items */}
             {cartItems.map((item) => {
               const product = item.product;
               const quantity = item.quantity;
@@ -136,8 +208,6 @@ const Cart = () => {
 
               return (
                 <div key={product._id} className="cart-product-card">
-                  
-                  {/* Product Image */}
                   <div className="product-img-box">
                     <img 
                       src={product.image || FALLBACK_IMAGE}
@@ -146,7 +216,6 @@ const Cart = () => {
                     />
                   </div>
 
-                  {/* Product Info */}
                   <div className="product-info-box">
                     <h3>{product.name}</h3>
                     {product.brand && <p className="brand-text">{product.brand}</p>}
@@ -159,7 +228,6 @@ const Cart = () => {
                     </div>
                   </div>
 
-                  {/* Quantity + Remove */}
                   <div className="product-actions-box">
                     <div className="qty-controls">
                       <button 
@@ -185,15 +253,54 @@ const Cart = () => {
                     </button>
                   </div>
 
-                  {/* Item Total */}
                   <div className="product-total-box">
                     <span className="item-total-price">₹{itemTotal.toFixed(2)}</span>
                   </div>
-
                 </div>
               );
             })}
+
+            {/* 🎁 GIFT ITEM - SHOWS IN CART */}
+            {showGift && currentGiftItem && (
+              <div className="cart-product-card gift-item-card">
+                {/* Gift Badge */}
+                <div className="gift-ribbon">🎁 FREE GIFT</div>
+                
+                <div className="product-img-box">
+                  <img 
+                    src={currentGiftItem.image || 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg'}
+                    alt={currentGiftItem.name}
+                    onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
+                  />
+                </div>
+
+                <div className="product-info-box">
+                  <h3>{currentGiftItem.name || 'Premium Ice Cream Pack'}</h3>
+                  <p className="brand-text">{currentGiftItem.brand || 'Jagat Store'}</p>
+                  <p className="weight-text">{currentGiftItem.weight || '500ml'}</p>
+                  <div className="price-box">
+                    <span className="current-price gift-price">FREE</span>
+                    <span className="old-price">₹{currentGiftItem.oldPrice || 149}</span>
+                  </div>
+                </div>
+
+                <div className="product-actions-box">
+                  <div className="gift-qty">
+                    <span>Qty: 1</span>
+                  </div>
+                  <span className="gift-tag">🎉 Complimentary</span>
+                </div>
+
+                <div className="product-total-box">
+                  <span className="item-total-price gift-total">₹0.00</span>
+                  <span className="gift-savings">You save ₹{currentGiftItem.oldPrice || 149}!</span>
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* 🎁 SURPRISE GIFT COMPONENT */}
+          <SurpriseGift cartTotal={subtotal} onGiftAdded={handleGiftAdded} />
         </div>
 
         {/* Right Side - Order Summary */}
@@ -206,20 +313,60 @@ const Cart = () => {
               <span>₹{subtotal.toFixed(2)}</span>
             </div>
 
+            {/* 🚚 DELIVERY CHARGES */}
             <div className="summary-line">
               <span>Delivery Charges</span>
-              <span className="free-text">FREE</span>
+              {subtotal >= DELIVERY_THRESHOLD ? (
+                <span className="free-text">FREE</span>
+              ) : (
+                <span className="delivery-charge">₹{DELIVERY_CHARGE}</span>
+              )}
             </div>
+
+            {/* 🚚 FREE DELIVERY HINT */}
+            {subtotal < DELIVERY_THRESHOLD && subtotal > 0 && (
+              <div className="free-delivery-hint">
+                🚚 Add ₹{remainingForFreeDelivery.toFixed(0)} more for FREE delivery!
+              </div>
+            )}
 
             <div className="summary-line">
               <span>Tax (GST)</span>
               <span>₹{tax.toFixed(2)}</span>
             </div>
 
+            {/* 🎁 Gift Row in Summary */}
+            {showGift && (
+              <div className="summary-line gift-summary-row">
+                <span>🎁 Surprise Gift</span>
+                <span className="gift-free-text">FREE (Worth ₹{currentGiftItem?.oldPrice || 149})</span>
+              </div>
+            )}
+
             <div className="summary-total-line">
               <span>Total Amount</span>
               <span>₹{total.toFixed(2)}</span>
             </div>
+
+            {/* 🎁 Savings Badge */}
+            {showGift && (
+              <div className="savings-badge">
+                🎉 You're saving ₹{currentGiftItem?.oldPrice || 149} with FREE gift!
+              </div>
+            )}
+
+            {/* 🎁 Gift Progress - Shows when NOT unlocked */}
+            {!showGift && subtotal > 0 && (
+              <div className="gift-progress-mini">
+                <span>🎁 Add ₹{remainingForGift.toFixed(0)} more for FREE Ice Cream!</span>
+                <div className="mini-progress-bar">
+                  <div 
+                    className="mini-progress-fill"
+                    style={{ width: `${Math.min(100, (subtotal / GIFT_THRESHOLD) * 100)}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
 
             <div className="delivery-box">
               <div className="delivery-line">
@@ -233,11 +380,11 @@ const Cart = () => {
             </div>
 
             <button 
-              className="checkout-btn-main" 
+              className={`checkout-btn-main ${showGift ? 'has-gift' : ''}`}
               onClick={() => navigate('/checkout')}
               disabled={updating}
             >
-              Proceed to Checkout
+              Proceed to Checkout {showGift && '🎁'}
             </button>
             
             <Link to="/" className="continue-btn-outline">

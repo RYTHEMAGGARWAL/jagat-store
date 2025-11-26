@@ -14,12 +14,21 @@ const Checkout = () => {
     name: '',
     phone: '',
     address: '',
-    paymentMethod: 'COD' // ✅ FIXED TO COD ONLY
+    paymentMethod: 'COD'
   });
 
   const [placing, setPlacing] = useState(false);
   const [storeStatus, setStoreStatus] = useState(getStoreStatusMessage());
   const [deliveryCheck, setDeliveryCheck] = useState(null);
+
+  // 🎁 GIFT CONFIGURATION
+  const GIFT_THRESHOLD = 999;
+  const [hasGift, setHasGift] = useState(false);
+  const [giftItem, setGiftItem] = useState(null);
+
+  // 🚚 DELIVERY CONFIGURATION
+  const DELIVERY_THRESHOLD = 399;
+  const DELIVERY_CHARGE = 19;
 
   // Check store timing every minute
   useEffect(() => {
@@ -29,6 +38,35 @@ const Checkout = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  // 🎁 CHECK GIFT STATUS
+  useEffect(() => {
+    const giftAdded = localStorage.getItem('jagat_gift_added');
+    const storedGift = localStorage.getItem('jagat_gift_product');
+    const subtotal = getCartTotal();
+
+    if (giftAdded === 'true' && subtotal >= GIFT_THRESHOLD) {
+      setHasGift(true);
+      if (storedGift) {
+        try {
+          setGiftItem(JSON.parse(storedGift));
+        } catch (e) {
+          setGiftItem({
+            name: '🎁 FREE Gift - Premium Ice Cream Pack',
+            brand: 'Jagat Store',
+            price: 0,
+            oldPrice: 149,
+            weight: '500ml',
+            image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+            isGift: true
+          });
+        }
+      }
+    } else {
+      setHasGift(false);
+      setGiftItem(null);
+    }
+  }, [cartItems]);
 
   useEffect(() => {
     if (cartLoading) return;
@@ -50,7 +88,6 @@ const Checkout = () => {
       [name]: value
     });
 
-    // ✅ CHECK DELIVERY AREA WHEN ADDRESS CHANGES
     if (name === 'address' && value.length > 5) {
       const deliveryMsg = getDeliveryMessage(value);
       setDeliveryCheck(deliveryMsg);
@@ -60,13 +97,11 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ CHECK STORE TIMING
     if (!isStoreOpen()) {
       alert(`Sorry! Store is closed. We're open from ${STORE_HOURS.OPEN}:00 AM to ${STORE_HOURS.CLOSE % 12 || 12}:00 PM`);
       return;
     }
 
-    // Validation
     if (!formData.name || !formData.phone || !formData.address) {
       alert('Please fill all required fields');
       return;
@@ -77,7 +112,6 @@ const Checkout = () => {
       return;
     }
 
-    // ✅ CHECK DELIVERY AREA
     if (!isDeliveryAvailable(formData.address)) {
       alert(`Sorry! We currently deliver only to:\n\n${getDeliveryAreasText()}\n\nPlease check your address.`);
       return;
@@ -96,8 +130,13 @@ const Checkout = () => {
         image: item.product.image || ''
       }));
 
-      const totalPrice = getCartTotal();
+      const itemsTotal = getCartTotal();
+      
+      // 🚚 CALCULATE DELIVERY CHARGE
+      const shippingCost = itemsTotal >= DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE;
+      const finalTotal = itemsTotal + shippingCost;
 
+      // 🎁 INCLUDE GIFT DATA IN ORDER
       const orderData = {
         orderItems,
         shippingAddress: {
@@ -107,14 +146,19 @@ const Checkout = () => {
           pincode: '201009',
           phone: formData.phone
         },
-        paymentMethod: 'COD', // ✅ ALWAYS COD
-        itemsPrice: totalPrice,
+        paymentMethod: 'COD',
+        itemsPrice: itemsTotal,
         taxPrice: 0,
-        shippingPrice: 0,
-        totalPrice: totalPrice
+        shippingPrice: shippingCost,  // 🚚 DELIVERY CHARGE
+        totalPrice: finalTotal,        // 🚚 INCLUDES DELIVERY
+        // 🎁 GIFT DATA
+        hasGift: hasGift,
+        giftItem: giftItem
       };
 
       console.log('📤 Sending order to backend:', orderData);
+      console.log('🚚 Delivery charge:', shippingCost);
+      console.log('🎁 Gift included:', hasGift);
 
       const response = await api.post('/orders', orderData);
 
@@ -123,18 +167,27 @@ const Checkout = () => {
       if (response.data.success) {
         console.log('🎉 Order created successfully!');
         
+        // 🎁 CLEAR GIFT FROM LOCALSTORAGE
+        localStorage.removeItem('jagat_gift_added');
+        localStorage.removeItem('jagat_gift_product');
+        localStorage.removeItem('jagat_gift_cart_total');
+        
         clearCart();
 
         navigate('/order-success', { 
           state: {
             orderId: response.data.order._id,
-            totalAmount: totalPrice,
+            totalAmount: finalTotal,
+            deliveryCharge: shippingCost,
             items: orderItems.length,
             deliveryAddress: formData.address,
             customerName: formData.name,
             customerPhone: formData.phone,
             paymentMethod: 'COD',
-            orderDate: new Date().toISOString()
+            orderDate: new Date().toISOString(),
+            // 🎁 GIFT INFO FOR SUCCESS PAGE
+            hasGift: hasGift,
+            giftSavings: hasGift ? (giftItem?.oldPrice || 149) : 0
           },
           replace: true 
         });
@@ -169,11 +222,15 @@ const Checkout = () => {
   }
 
   const subtotal = getCartTotal();
-  const deliveryFee = 0;
+  
+  // 🚚 DELIVERY FEE LOGIC
+  const deliveryFee = subtotal >= DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE;
+  const remainingForFreeDelivery = Math.max(0, DELIVERY_THRESHOLD - subtotal);
+  
   const tax = 0;
   const total = subtotal + deliveryFee + tax;
 
-  // ✅ STORE CLOSED UI
+  // Store Closed UI
   if (!storeStatus.isOpen) {
     return (
       <div className="checkout-page">
@@ -208,7 +265,7 @@ const Checkout = () => {
     <div className="checkout-page">
       <div className="checkout-container">
         
-        {/* ✅ STORE TIMING BANNER */}
+        {/* STORE TIMING BANNER */}
         {storeStatus.isOpen && (
           <div className="store-open-banner">
             <span className="open-indicator">🟢 Store is Open</span>
@@ -221,7 +278,7 @@ const Checkout = () => {
           <div className="checkout-section">
             <h2>Delivery Details</h2>
 
-            {/* ✅ DELIVERY AREAS INFO */}
+            {/* DELIVERY AREAS INFO */}
             <div className="delivery-areas-info">
               <div className="info-icon">🚚</div>
               <div className="info-text">
@@ -272,7 +329,7 @@ const Checkout = () => {
                   disabled={placing}
                 />
                 
-                {/* ✅ DELIVERY CHECK MESSAGE */}
+                {/* DELIVERY CHECK MESSAGE */}
                 {deliveryCheck && (
                   <div 
                     className={`delivery-check-msg ${deliveryCheck.available ? 'success' : 'error'}`}
@@ -283,7 +340,7 @@ const Checkout = () => {
                 )}
               </div>
 
-              {/* ✅ PAYMENT METHOD - ONLY COD (HIDDEN/DISABLED) */}
+              {/* PAYMENT METHOD - ONLY COD */}
               <div className="payment-method-display">
                 <div className="cod-badge">
                   <span className="cod-icon">💵</span>
@@ -296,7 +353,7 @@ const Checkout = () => {
                 </p>
               </div>
 
-              {/* ✅ DELIVERY BOY SCANNER MESSAGE */}
+              {/* DELIVERY BOY SCANNER MESSAGE */}
               <div className="scanner-info-box">
                 <div className="scanner-icon">📱</div>
                 <div className="scanner-text">
@@ -307,10 +364,10 @@ const Checkout = () => {
 
               <button 
                 type="submit" 
-                className="place-order-btn"
+                className={`place-order-btn ${hasGift ? 'has-gift' : ''}`}
                 disabled={placing || (deliveryCheck && !deliveryCheck.available)}
               >
-                {placing ? '⏳ Placing Order...' : `Place Order - ₹${total.toFixed(2)} (COD)`}
+                {placing ? '⏳ Placing Order...' : `Place Order - ₹${total.toFixed(2)} (COD) ${hasGift ? '🎁' : ''}`}
               </button>
             </form>
           </div>
@@ -340,6 +397,25 @@ const Checkout = () => {
                   </span>
                 </div>
               ))}
+
+              {/* 🎁 GIFT ITEM IN SUMMARY */}
+              {hasGift && giftItem && (
+                <div className="summary-item gift-summary-item">
+                  <div className="gift-badge-checkout">🎁 FREE</div>
+                  <img 
+                    src={giftItem.image || 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg'} 
+                    alt="Gift"
+                  />
+                  <div className="item-details">
+                    <p className="item-name">{giftItem.name || 'Premium Ice Cream Pack'}</p>
+                    <p className="item-qty">Complimentary Gift</p>
+                  </div>
+                  <span className="item-price gift-price-checkout">
+                    <span className="free">FREE</span>
+                    <span className="original">₹{giftItem.oldPrice || 149}</span>
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="summary-totals">
@@ -347,24 +423,55 @@ const Checkout = () => {
                 <span>Subtotal ({cartItems.length} items)</span>
                 <span>₹{subtotal.toFixed(2)}</span>
               </div>
+              
+              {/* 🚚 DELIVERY CHARGES */}
               <div className="total-row">
                 <span>Delivery Charges</span>
-                <span className="free">FREE</span>
+                {subtotal >= DELIVERY_THRESHOLD ? (
+                  <span className="free">FREE</span>
+                ) : (
+                  <span className="delivery-charge">₹{DELIVERY_CHARGE}</span>
+                )}
               </div>
+
+              {/* 🚚 FREE DELIVERY HINT */}
+              {subtotal < DELIVERY_THRESHOLD && subtotal > 0 && (
+                <div className="free-delivery-hint">
+                  🚚 Add ₹{remainingForFreeDelivery.toFixed(0)} more for FREE delivery!
+                </div>
+              )}
+              
               <div className="total-row">
                 <span>Tax (GST)</span>
                 <span>₹{tax.toFixed(2)}</span>
               </div>
+              
+              {/* 🎁 GIFT ROW */}
+              {hasGift && (
+                <div className="total-row gift-row">
+                  <span>🎁 Surprise Gift</span>
+                  <span className="gift-free">FREE (Worth ₹{giftItem?.oldPrice || 149})</span>
+                </div>
+              )}
+              
               <div className="total-row final">
                 <span>Total Amount</span>
                 <span>₹{total.toFixed(2)}</span>
               </div>
             </div>
 
+            {/* 🎁 SAVINGS BADGE */}
+            {hasGift && (
+              <div className="checkout-savings-badge">
+                🎉 You're saving ₹{giftItem?.oldPrice || 149} with FREE gift!
+              </div>
+            )}
+
             <div className="delivery-info-checkout">
               <p>🚚 Delivery in 40 minutes</p>
               <p>📍 {formData.address || 'Enter address above'}</p>
               <p>💵 Cash on Delivery</p>
+              {hasGift && <p>🎁 Includes FREE Gift!</p>}
             </div>
           </div>
         </div>

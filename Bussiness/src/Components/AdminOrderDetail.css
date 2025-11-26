@@ -575,3 +575,189 @@
     border: 1px solid #e0e0e0;
   }
 }
+* ================================================== */
+/* 4. ADD TO AdminOrderDetail.css                      */
+/* ================================================== */
+
+/* 🎁 Header Gift Badge */
+.header-gift-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* 🎁 Gift Alert Banner */
+.gift-alert-banner {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  animation: gift-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gift-pulse {
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+  50% { box-shadow: 0 4px 25px rgba(255, 152, 0, 0.5); }
+}
+
+.gift-alert-icon {
+  font-size: 40px;
+  animation: gift-bounce 1s ease-in-out infinite;
+}
+
+@keyframes gift-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.gift-alert-text {
+  flex: 1;
+}
+
+.gift-alert-text strong {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gift-alert-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.gift-alert-value {
+  background: white;
+  color: #ff5722;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+/* 🎁 Gift Item Row */
+.order-item.gift-item-row {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 2px dashed #4caf50;
+  border-radius: 12px;
+  position: relative;
+  margin-top: 12px;
+}
+
+.gift-item-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.item-name.gift-name {
+  color: #2e7d32 !important;
+}
+
+.item-price.gift-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.item-price.gift-price .free-text {
+  color: #2e7d32;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.item-price.gift-price .original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 13px;
+}
+
+/* 🎁 Gift Summary Row */
+.summary-row.gift-summary-row {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border: 1px dashed #4caf50;
+}
+
+.summary-row .gift-free {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* 🎁 Admin Savings Badge */
+.admin-savings-badge {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  color: #e65100;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 16px;
+  border: 2px dashed #ff9800;
+}
+
+/* 🎁 Gift Pack Reminder */
+.gift-pack-reminder {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #4caf50;
+}
+
+.gift-pack-reminder span:first-child {
+  font-size: 20px;
+}
+@media (max-width: 768px) {
+  .gift-alert-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gift-alert-value {
+    width: 100%;
+    text-align: center;
+  }
+
+  .order-gift-row {
+    flex-wrap: wrap;
+  }
+
+  .gift-stats-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-gift-badge {
+    margin-top: 10px;
+  }
+}

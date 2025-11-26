@@ -3,16 +3,28 @@ import { Menu, User, Package } from 'lucide-react';
 import './Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './CartContext';
-import SearchBar from './SearchBar'; // ✅ NEW: Import SearchBar component
+import SearchBar from './SearchBar';
 import logo3 from '../assets/logo3.png';
 import cartIcon from '../assets/cart-icon.png';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const { getTotalItems } = useCart();
+  const { getTotalItems, getCartTotal, cartItems } = useCart();
   const totalItems = getTotalItems();
   const navigate = useNavigate();
+
+  // 🎁 Gift threshold
+  const GIFT_THRESHOLD = 999;
+  
+  // Calculate cart total for gift indicator
+  const cartTotal = cartItems ? cartItems.reduce((total, item) => {
+    return total + (item.product?.price || 0) * (item.quantity || 0);
+  }, 0) : 0;
+  
+  const remainingForGift = Math.max(0, GIFT_THRESHOLD - cartTotal);
+  const isGiftUnlocked = cartTotal >= GIFT_THRESHOLD;
+  const giftProgress = Math.min(100, (cartTotal / GIFT_THRESHOLD) * 100);
 
   // Check if user is logged in
   useEffect(() => {
@@ -61,6 +73,22 @@ const Navbar = () => {
     />
   );
 
+  // 🎁 Gift Mini Indicator Component
+  const GiftMiniIndicator = () => {
+    if (cartTotal === 0) return null;
+    
+    return (
+      <Link to="/Cart" className={`gift-mini-indicator ${isGiftUnlocked ? 'unlocked' : ''}`}>
+        <span className="gift-mini-icon">{isGiftUnlocked ? '🎁' : '🎁'}</span>
+        {isGiftUnlocked ? (
+          <span className="gift-mini-text">Gift Unlocked! ✨</span>
+        ) : (
+          <span className="gift-mini-text">₹{remainingForGift.toFixed(0)} more</span>
+        )}
+      </Link>
+    );
+  };
+
   return (
     <div className="blinkit-header">
       <div className="header-container">
@@ -76,7 +104,7 @@ const Navbar = () => {
           <span className="delivery-time">Delivery in 40 minutes</span>
         </div>
 
-        {/* ✅ NEW: Search Section with SearchBar Component */}
+        {/* Search Section with SearchBar Component */}
         <div className="search-section">
           <SearchBar />
         </div>
@@ -126,6 +154,9 @@ const Navbar = () => {
             </Link>
           )}
           
+          {/* 🎁 Gift Mini Indicator - Desktop */}
+          <GiftMiniIndicator />
+          
           {/* Desktop Cart */}
           <Link to="/Cart">
             <div className="cart-container">
@@ -137,6 +168,13 @@ const Navbar = () => {
 
         {/* Mobile Menu Button & Cart */}
         <div className="mobile-menu">
+          {/* 🎁 Gift Mini Indicator - Mobile (Small version) */}
+          {cartTotal > 0 && (
+            <Link to="/Cart" className={`gift-mini-mobile ${isGiftUnlocked ? 'unlocked' : ''}`}>
+              <span>🎁</span>
+            </Link>
+          )}
+          
           <button 
             className="mobile-menu-btn" 
             onClick={toggleMobileMenu}
@@ -154,6 +192,23 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       <div className={`mobile-menu-dropdown ${isMobileMenuOpen ? 'open' : ''}`}>
+        {/* 🎁 Gift Progress in Mobile Menu */}
+        {cartTotal > 0 && (
+          <div className={`mobile-gift-banner ${isGiftUnlocked ? 'unlocked' : ''}`}>
+            {isGiftUnlocked ? (
+              <>
+                <span className="mobile-gift-icon">🎁</span>
+                <span>FREE Gift Unlocked! ✨</span>
+              </>
+            ) : (
+              <>
+                <span className="mobile-gift-icon">🎁</span>
+                <span>Add ₹{remainingForGift.toFixed(0)} for FREE gift</span>
+              </>
+            )}
+          </div>
+        )}
+        
         {user ? (
           <>
             <div className="mobile-user-info">

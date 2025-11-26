@@ -1,4 +1,4 @@
-// Backend/routes/productRoutes.js - FIXED CATEGORY FILTERING
+// Backend/routes/productRoutes.js - FIXED WITH REGEX ESCAPING
 
 const express = require('express');
 const router = express.Router();
@@ -8,31 +8,43 @@ const Product = require('../models/Product');
 // HELPER FUNCTIONS
 // ====================================
 
-// Normalize product data
-const normalizeProduct = (product) => {
-  const normalized = product.toObject ? product.toObject() : product;
-  
-  if (!normalized.image && normalized.images && normalized.images.length > 0) {
-    normalized.image = normalized.images[0].url;
-  }
-  
-  if (!normalized.originalPrice && !normalized.oldPrice && normalized.mrp) {
-    normalized.originalPrice = normalized.mrp;
-    normalized.oldPrice = normalized.mrp;
-  }
-  
-  if (!normalized.discount && normalized.oldPrice && normalized.price) {
-    const discountPercent = Math.round(((normalized.oldPrice - normalized.price) / normalized.oldPrice) * 100);
-    if (discountPercent > 0) {
-      normalized.discount = `${discountPercent}%`;
-    }
-  }
-  
-  return normalized;
+// 🔥 ESCAPE REGEX SPECIAL CHARACTERS - THIS WAS MISSING!
+const escapeRegex = (string) => {
+  if (!string) return '';
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
-// Clean search query - remove special characters, commas, &
+// Normalize product data
+const normalizeProduct = (product) => {
+  try {
+    const normalized = product.toObject ? product.toObject() : { ...product };
+    
+    if (!normalized.image && normalized.images && normalized.images.length > 0) {
+      normalized.image = normalized.images[0].url;
+    }
+    
+    if (!normalized.originalPrice && !normalized.oldPrice && normalized.mrp) {
+      normalized.originalPrice = normalized.mrp;
+      normalized.oldPrice = normalized.mrp;
+    }
+    
+    if (!normalized.discount && normalized.oldPrice && normalized.price) {
+      const discountPercent = Math.round(((normalized.oldPrice - normalized.price) / normalized.oldPrice) * 100);
+      if (discountPercent > 0) {
+        normalized.discount = `${discountPercent}%`;
+      }
+    }
+    
+    return normalized;
+  } catch (err) {
+    console.error('Normalize error:', err);
+    return product;
+  }
+};
+
+// Clean search query
 const cleanSearchQuery = (query) => {
+  if (!query) return '';
   return query
     .toLowerCase()
     .replace(/[,&]/g, ' ')
@@ -40,8 +52,74 @@ const cleanSearchQuery = (query) => {
     .trim();
 };
 
+// 🔥 RELEVANCE SCORING FUNCTION
+const calculateRelevanceScore = (product, searchQuery, searchWords) => {
+  try {
+    let score = 0;
+    
+    const name = String(product.name || '').toLowerCase();
+    const category = String(product.category || '').toLowerCase();
+    const brand = String(product.brand || '').toLowerCase();
+    const description = String(product.description || '').toLowerCase();
+    const query = String(searchQuery || '').toLowerCase();
+
+    if (!name || !query) return 0;
+
+    // 🏆 Exact name match
+    if (name === query) score += 1000;
+    
+    // 🥇 Name starts with search query
+    if (name.startsWith(query)) score += 500;
+    
+    // 🥈 Name starts with any search word
+    if (Array.isArray(searchWords)) {
+      searchWords.forEach(word => {
+        if (word && name.startsWith(word)) score += 300;
+      });
+    }
+    
+    // 🥉 Search query is a complete word in name
+    const nameWords = name.split(/\s+/);
+    if (nameWords.some(w => w === query)) score += 200;
+    
+    // ✅ Each search word appears in name
+    if (Array.isArray(searchWords)) {
+      searchWords.forEach(word => {
+        if (word && nameWords.some(w => w === word || w.startsWith(word))) {
+          score += 100;
+        }
+      });
+    }
+    
+    // ✅ Name contains search query
+    if (name.includes(query)) score += 50;
+    
+    // ✅ Name contains search words
+    if (Array.isArray(searchWords)) {
+      searchWords.forEach(word => {
+        if (word && name.includes(word)) score += 30;
+      });
+    }
+    
+    // 📦 Brand match
+    if (brand === query) score += 40;
+    if (brand.includes(query)) score += 20;
+    
+    // 📂 Category match (lower priority)
+    if (category.includes(query)) score += 10;
+    
+    // 📝 Description match
+    if (description.includes(query)) score += 5;
+    
+    return score;
+  } catch (err) {
+    console.error('Score calculation error:', err);
+    return 0;
+  }
+};
+
 // ====================================
-// SPECIFIC ROUTES FIRST
+// ROUTES
 // ====================================
 
 // ✅ 1. SEARCH SUGGESTIONS
@@ -56,58 +134,78 @@ router.get('/search/suggestions', async (req, res) => {
     }
 
     const cleanedQuery = cleanSearchQuery(q);
-    const searchWords = cleanedQuery.split(' ').filter(word => word.length >= 2);
+    const searchWords = cleanedQuery.split(' ').filter(word => word && word.length >= 2);
+
+    // 🔥 ESCAPE REGEX SPECIAL CHARACTERS
+    const escapedQuery = escapeRegex(cleanedQuery);
+    const escapedWords = searchWords.map(w => escapeRegex(w));
 
     const orConditions = [];
     
-    searchWords.forEach(word => {
+    escapedWords.forEach(word => {
       orConditions.push({ name: { $regex: word, $options: 'i' } });
     });
 
-    if (cleanedQuery.length >= 2) {
-      orConditions.push({ name: { $regex: cleanedQuery, $options: 'i' } });
+    if (escapedQuery.length >= 2) {
+      orConditions.push({ name: { $regex: escapedQuery, $options: 'i' } });
+    }
+
+    if (orConditions.length === 0) {
+      return res.json([]);
     }
 
     const products = await Product.find({
       $or: orConditions
     })
     .select('name')
-    .limit(5);
+    .limit(20);
 
-    const suggestionList = products.map(p => p.name);
+    // Sort by relevance
+    const sortedProducts = products
+      .map(p => ({
+        name: p.name,
+        score: calculateRelevanceScore({ name: p.name }, cleanedQuery, searchWords)
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5);
+
+    const suggestionList = sortedProducts.map(p => p.name);
     
-    console.log('✅ Found Suggestions:', suggestionList);
+    console.log('✅ Suggestions:', suggestionList);
 
     res.json(suggestionList);
   } catch (error) {
     console.error('❌ Suggestions Error:', error);
-    res.status(500).json({ 
-      message: 'Suggestions failed', 
-      error: error.message 
-    });
+    res.json([]); // Return empty array instead of error
   }
 });
 
-// ✅ 2. SEARCH ROUTE - SMART MATCHING
+// ✅ 2. SEARCH ROUTE - FIXED WITH REGEX ESCAPING 🔥
 router.get('/search', async (req, res) => {
   try {
     const { q } = req.query;
 
-    console.log('🔍 Original Search Query:', q);
+    console.log('🔍 Search Query:', q);
 
     if (!q || q.trim().length === 0) {
       return res.json([]);
     }
 
     const cleanedQuery = cleanSearchQuery(q);
-    const searchWords = cleanedQuery.split(' ').filter(word => word.length >= 2);
+    const searchWords = cleanedQuery.split(' ').filter(word => word && word.length >= 2);
     
-    console.log('🔍 Cleaned Query:', cleanedQuery);
-    console.log('🔍 Search Words:', searchWords);
+    console.log('🔍 Cleaned:', cleanedQuery);
+    console.log('🔍 Words:', searchWords);
+
+    // 🔥 ESCAPE REGEX SPECIAL CHARACTERS - CRITICAL FIX!
+    const escapedQuery = escapeRegex(cleanedQuery);
+    const escapedWords = searchWords.map(w => escapeRegex(w));
+
+    console.log('🔍 Escaped Query:', escapedQuery);
 
     const orConditions = [];
     
-    searchWords.forEach(word => {
+    escapedWords.forEach(word => {
       orConditions.push(
         { name: { $regex: word, $options: 'i' } },
         { category: { $regex: word, $options: 'i' } },
@@ -116,26 +214,61 @@ router.get('/search', async (req, res) => {
       );
     });
 
-    if (cleanedQuery.length >= 2) {
+    if (escapedQuery.length >= 2) {
       orConditions.push(
-        { name: { $regex: cleanedQuery, $options: 'i' } },
-        { category: { $regex: cleanedQuery, $options: 'i' } },
-        { brand: { $regex: cleanedQuery, $options: 'i' } },
-        { description: { $regex: cleanedQuery, $options: 'i' } }
+        { name: { $regex: escapedQuery, $options: 'i' } },
+        { category: { $regex: escapedQuery, $options: 'i' } },
+        { brand: { $regex: escapedQuery, $options: 'i' } },
+        { description: { $regex: escapedQuery, $options: 'i' } }
       );
     }
 
+    if (orConditions.length === 0) {
+      console.log('⚠️ No conditions');
+      return res.json([]);
+    }
+
+    console.log('🔍 Conditions count:', orConditions.length);
+
     const products = await Product.find({
       $or: orConditions
-    }).limit(250);
+    }).limit(500);
 
-    console.log('✅ Found Products:', products.length);
+    console.log('📦 Found:', products.length);
 
-    const normalizedProducts = products.map(normalizeProduct);
+    if (products.length === 0) {
+      return res.json([]);
+    }
 
-    res.json(normalizedProducts);
+    // Relevance sorting
+    const scoredProducts = [];
+    
+    for (const product of products) {
+      try {
+        const normalized = normalizeProduct(product);
+        const score = calculateRelevanceScore(product, cleanedQuery, searchWords);
+        scoredProducts.push({ ...normalized, _relevanceScore: score });
+      } catch (err) {
+        console.error('Product error:', err);
+        scoredProducts.push({ ...product.toObject(), _relevanceScore: 0 });
+      }
+    }
+
+    // Sort by score
+    scoredProducts.sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
+
+    // Remove score and limit
+    const finalProducts = scoredProducts.slice(0, 250).map(p => {
+      const { _relevanceScore, ...product } = p;
+      return product;
+    });
+
+    console.log('✅ Returning:', finalProducts.length);
+
+    res.json(finalProducts);
   } catch (error) {
-    console.error('❌ Search Error:', error);
+    console.error('❌ Search Error:', error.message);
+    console.error('❌ Stack:', error.stack);
     res.status(500).json({ 
       message: 'Search failed', 
       error: error.message 
@@ -143,19 +276,21 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// ✅ 3. CATEGORY ROUTE - EXACT MATCHING
+// ✅ 3. CATEGORY ROUTE
 router.get('/category/:category', async (req, res) => {
   try {
     const requestedCategory = req.params.category;
     
-    console.log('📂 Category Request:', requestedCategory);
+    console.log('📂 Category:', requestedCategory);
     
-    // 🔥 EXACT MATCH ONLY - Case insensitive
+    // 🔥 ESCAPE REGEX
+    const escapedCategory = escapeRegex(requestedCategory);
+    
     const products = await Product.find({ 
-      category: { $regex: `^${requestedCategory}$`, $options: 'i' }
+      category: { $regex: `^${escapedCategory}$`, $options: 'i' }
     });
     
-    console.log('✅ Found Products in Category:', products.length);
+    console.log('✅ Found:', products.length);
     
     const normalizedProducts = products.map(normalizeProduct);
     
@@ -164,7 +299,7 @@ router.get('/category/:category', async (req, res) => {
       products: normalizedProducts
     });
   } catch (error) {
-    console.error('Error fetching products by category:', error);
+    console.error('Category Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching products'
@@ -172,11 +307,7 @@ router.get('/category/:category', async (req, res) => {
   }
 });
 
-// ====================================
-// GENERAL ROUTES AFTER
-// ====================================
-
-// ✅ 4. GET ALL PRODUCTS (with filters) - FIXED
+// ✅ 4. GET ALL PRODUCTS
 router.get('/', async (req, res) => {
   try {
     const { category, search } = req.query;
@@ -185,31 +316,20 @@ router.get('/', async (req, res) => {
     
     let query = {};
     
-    // 🔥 FIX: EXACT CATEGORY MATCH
     if (category) {
-      // Use exact match with case-insensitive regex
-      query.category = { $regex: `^${category}$`, $options: 'i' };
-      console.log('🔍 Category Query:', query.category);
+      const escapedCategory = escapeRegex(category);
+      query.category = { $regex: `^${escapedCategory}$`, $options: 'i' };
     }
     
     if (search) {
       const cleanedSearch = cleanSearchQuery(search);
-      query.name = { $regex: cleanedSearch, $options: 'i' };
+      const escapedSearch = escapeRegex(cleanedSearch);
+      query.name = { $regex: escapedSearch, $options: 'i' };
     }
-    
-    console.log('🔍 Final Query:', JSON.stringify(query));
     
     const products = await Product.find(query);
     
-    console.log('✅ Found Products:', products.length);
-    
-    // Log first 3 for debugging
-    if (products.length > 0) {
-      console.log('📦 Sample Products:', products.slice(0, 3).map(p => ({
-        name: p.name,
-        category: p.category
-      })));
-    }
+    console.log('✅ Found:', products.length);
     
     const normalizedProducts = products.map(normalizeProduct);
     
@@ -218,7 +338,7 @@ router.get('/', async (req, res) => {
       products: normalizedProducts
     });
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching products'
@@ -229,18 +349,7 @@ router.get('/', async (req, res) => {
 // ✅ 5. CREATE PRODUCT
 router.post('/', async (req, res) => {
   try {
-    const {
-      name,
-      brand,
-      category,
-      price,
-      oldPrice,
-      weight,
-      image,
-      stock,
-      inStock,
-      discount
-    } = req.body;
+    const { name, brand, category, price, oldPrice, weight, image, stock, inStock, discount } = req.body;
     
     if (!name || !category || !price) {
       return res.status(400).json({
@@ -270,7 +379,7 @@ router.post('/', async (req, res) => {
       product: normalizeProduct(product)
     });
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error creating product'
@@ -295,7 +404,7 @@ router.get('/:id', async (req, res) => {
       product: normalizeProduct(product)
     });
   } catch (error) {
-    console.error('Error fetching product:', error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching product'
@@ -325,7 +434,7 @@ router.put('/:id', async (req, res) => {
       product: normalizeProduct(product)
     });
   } catch (error) {
-    console.error('Error updating product:', error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error updating product'
@@ -350,7 +459,7 @@ router.delete('/:id', async (req, res) => {
       message: 'Product deleted successfully'
     });
   } catch (error) {
-    console.error('Error deleting product:', error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error deleting product'

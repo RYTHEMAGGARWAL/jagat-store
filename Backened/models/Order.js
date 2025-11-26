@@ -1,6 +1,19 @@
-// Backend/models/Order.js - Complete Order Model
+// Backend/models/Order.js - WITH GIFT FEATURE 🎁
 
 const mongoose = require('mongoose');
+
+// 🎁 Gift Item Schema
+const giftItemSchema = new mongoose.Schema({
+  name: { type: String },
+  brand: { type: String },
+  category: { type: String },
+  price: { type: Number, default: 0 },
+  oldPrice: { type: Number },
+  quantity: { type: Number, default: 1 },
+  weight: { type: String },
+  image: { type: String },
+  isGift: { type: Boolean, default: true }
+}, { _id: false });
 
 const orderSchema = new mongoose.Schema({
   user: {
@@ -31,6 +44,13 @@ const orderSchema = new mongoose.Schema({
       type: String
     }
   }],
+  
+  // 🎁 GIFT FIELDS - NEW!
+  hasGift: {
+    type: Boolean,
+    default: false
+  },
+  giftItem: giftItemSchema,
   
   shippingAddress: {
     fullAddress: {
@@ -90,6 +110,12 @@ const orderSchema = new mongoose.Schema({
     default: 0
   },
   
+  // 🎁 Gift savings amount
+  giftSavings: {
+    type: Number,
+    default: 0
+  },
+  
   orderStatus: {
     type: String,
     enum: ['Processing', 'Confirmed', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled'],
@@ -116,7 +142,7 @@ orderSchema.pre('save', function(next) {
   if (this.isNew) {
     this.statusHistory.push({
       status: this.orderStatus,
-      note: 'Order placed',
+      note: this.hasGift ? 'Order placed with FREE gift 🎁' : 'Order placed',
       timestamp: Date.now()
     });
   }

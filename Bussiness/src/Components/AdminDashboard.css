@@ -341,3 +341,40 @@
     width: 100%;
   }
 }
+/* 5. ADD TO AdminDashboard.css (Gift in Recent Orders) */
+/* ================================================== */
+
+/* 🎁 Gift indicator in dashboard */
+.orders-table .gift-indicator {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 10px;
+  margin-left: 4px;
+}
+@media (max-width: 768px) {
+  .gift-alert-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gift-alert-value {
+    width: 100%;
+    text-align: center;
+  }
+
+  .order-gift-row {
+    flex-wrap: wrap;
+  }
+
+  .gift-stats-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-gift-badge {
+    margin-top: 10px;
+  }
+}

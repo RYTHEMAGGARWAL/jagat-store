@@ -1,4 +1,4 @@
-console.log('NEW ORDERCONTROLLER LOADED - SUPER FAST MODE ACTIVATED');
+console.log('NEW ORDERCONTROLLER LOADED - WITH GIFT FEATURE 🎁');
 
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
@@ -6,9 +6,21 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 
-// FIXED & OPTIMIZED createOrder - 3 सेकंड में Order Place!
-// सिर्फ़ createOrder function को ये वाला पेस्ट कर दो (बाकी file वैसी ही)
+// 🎁 GIFT CONFIGURATION
+const GIFT_THRESHOLD = 999;
+const GIFT_PRODUCT = {
+  name: '🎁 FREE Gift - Premium Ice Cream Pack',
+  brand: 'Jagat Store',
+  category: 'Gift',
+  price: 0,
+  oldPrice: 149,
+  quantity: 1,
+  weight: '500ml',
+  image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+  isGift: true
+};
 
+// FIXED & OPTIMIZED createOrder - 3 सेकंड में Order Place!
 exports.createOrder = async (req, res) => {
   console.log('NEW ORDER FROM:', req.user.email);
 
@@ -20,7 +32,10 @@ exports.createOrder = async (req, res) => {
       itemsPrice,
       taxPrice,
       shippingPrice,
-      totalPrice
+      totalPrice,
+      // 🎁 GIFT DATA FROM FRONTEND
+      hasGift,
+      giftItem
     } = req.body;
 
     // Stock check
@@ -34,24 +49,51 @@ exports.createOrder = async (req, res) => {
       }
     }
 
+    // 🎁 VALIDATE GIFT - Check if eligible
+    let finalHasGift = false;
+    let finalGiftItem = null;
+    let giftSavings = 0;
+
+    if (hasGift && itemsPrice >= GIFT_THRESHOLD) {
+      finalHasGift = true;
+      finalGiftItem = giftItem || GIFT_PRODUCT;
+      giftSavings = finalGiftItem.oldPrice || 149;
+      console.log('🎁 Order includes FREE gift!');
+    }
+
     // Create order
     const order = await Order.create({
       user: req.user._id,
       orderItems,
       shippingAddress,
       paymentInfo: { method: paymentMethod, status: 'Pending' },
-      itemsPrice, taxPrice, shippingPrice, totalPrice,
+      itemsPrice, 
+      taxPrice, 
+      shippingPrice, 
+      totalPrice,
+      // 🎁 GIFT DATA
+      hasGift: finalHasGift,
+      giftItem: finalGiftItem,
+      giftSavings: giftSavings,
       orderStatus: 'Processing'
     });
 
-    // Clear cart (background)
-    Cart.findOneAndUpdate({ user: req.user._id }, { items: [], totalPrice: 0 }).catch(() => {});
+    // Clear cart (background) - Also clear gift
+    Cart.findOneAndUpdate(
+      { user: req.user._id }, 
+      { items: [], totalPrice: 0, hasGift: false, giftItem: null }
+    ).catch(() => {});
 
     // TURANT RESPONSE → 3 सेकंड में success page!
     res.json({
       success: true,
-      message: 'Order placed!',
-      order: { _id: order._id, totalPrice }
+      message: finalHasGift ? '🎉 Order placed with FREE gift!' : 'Order placed!',
+      order: { 
+        _id: order._id, 
+        totalPrice,
+        hasGift: finalHasGift,
+        giftSavings: giftSavings
+      }
     });
 
     // BACKGROUND MEIN SAB KUCH (email + stock)
@@ -70,6 +112,25 @@ exports.createOrder = async (req, res) => {
         </tr>
       `).join('');
 
+      // 🎁 GIFT ROW FOR EMAIL
+      const giftHTML = finalHasGift ? `
+        <tr style="border-bottom:1px solid #eee; background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+          <td style="padding:12px 8px; color:#2e7d32;">
+            🎁 <strong>FREE GIFT</strong> - ${finalGiftItem?.name || 'Premium Ice Cream Pack'}
+          </td>
+          <td style="padding:12px 8px; text-align:center; color:#2e7d32;">1</td>
+          <td style="padding:12px 8px; text-align:right; text-decoration:line-through; color:#999;">₹${finalGiftItem?.oldPrice || 149}</td>
+          <td style="padding:12px 8px; text-align:right; font-weight:bold; color:#2e7d32;">FREE</td>
+        </tr>
+      ` : '';
+
+      // 🎁 GIFT SAVINGS BADGE
+      const savingsBadge = finalHasGift ? `
+        <div style="background:linear-gradient(135deg, #4caf50, #2e7d32); color:white; padding:15px; text-align:center; margin:15px 0; border-radius:8px;">
+          🎉 Customer saved ₹${giftSavings} with FREE gift!
+        </div>
+      ` : '';
+
       try {
         const transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -79,17 +140,24 @@ exports.createOrder = async (req, res) => {
           }
         });
 
-        // ADMIN EMAIL - Pro & Detailed
+        // ADMIN EMAIL - Pro & Detailed with Gift
         await transporter.sendMail({
           from: '"Jagat Store" <Rythemaggarwal7840@gmail.com>',
           to: 'Rythemaggarwal7840@gmail.com',
-          subject: `NEW ORDER #${shortId} | ₹${totalPrice} | ${user?.name || 'Guest'}`,
+          subject: `${finalHasGift ? '🎁 ' : ''}NEW ORDER #${shortId} | ₹${totalPrice} | ${user?.name || 'Guest'}`,
           html: `
             <div style="font-family:Arial,sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; border-radius:12px; overflow:hidden;">
               <div style="background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:20px; text-align:center;">
                 <h1 style="margin:0;">NEW ORDER RECEIVED!</h1>
                 <p style="margin:5px 0 0; font-size:18px;">Order #${shortId}</p>
               </div>
+              
+              ${finalHasGift ? `
+                <div style="background:linear-gradient(135deg, #4caf50, #2e7d32); color:white; padding:15px; text-align:center; font-weight:bold;">
+                  🎁 THIS ORDER INCLUDES FREE GIFT (Worth ₹${giftSavings})
+                </div>
+              ` : ''}
+              
               <div style="background:#fff3cd; padding:15px; text-align:center; font-weight:bold; color:#856404;">
                 Action Required: New order needs packing & delivery!
               </div>
@@ -101,7 +169,7 @@ exports.createOrder = async (req, res) => {
                 <p><strong>Order Date:</strong> ${date}</p>
               </div>
               <div style="padding:20px;">
-                <h3>Order Items (${orderItems.length})</h3>
+                <h3>Order Items (${orderItems.length}${finalHasGift ? ' + 1 Gift' : ''})</h3>
                 <table width="100%" style="border-collapse:collapse;">
                   <thead>
                     <tr style="background:#667eea; color:white;">
@@ -111,8 +179,12 @@ exports.createOrder = async (req, res) => {
                       <th style="padding:10px; text-align:right;">Total</th>
                     </tr>
                   </thead>
-                  <tbody>${itemsHTML}</tbody>
+                  <tbody>
+                    ${itemsHTML}
+                    ${giftHTML}
+                  </tbody>
                 </table>
+                ${savingsBadge}
                 <div style="margin-top:20px; text-align:right; font-size:18px;">
                   <strong>Total Amount: ₹${totalPrice}</strong>
                 </div>
@@ -124,18 +196,26 @@ exports.createOrder = async (req, res) => {
           `
         });
 
-        // CUSTOMER EMAIL - Sweet & Thank You
+        // CUSTOMER EMAIL - Sweet & Thank You with Gift
         if (user?.email) {
           await transporter.sendMail({
             from: '"Jagat Store" <Rythemaggarwal7840@gmail.com>',
             to: user.email,
-            subject: `Order Confirmed #${shortId} | Thank You ${user.name.split(' ')[0]}!`,
+            subject: `${finalHasGift ? '🎁 ' : ''}Order Confirmed #${shortId} | Thank You ${user.name.split(' ')[0]}!`,
             html: `
               <div style="font-family:Arial,sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; border-radius:12px; overflow:hidden;">
                 <div style="background:linear-gradient(135deg,#11998e,#38ef7d); color:white; padding:30px; text-align:center;">
                   <h1 style="margin:0;">Thank You for Your Order!</h1>
                   <p style="margin:10px 0 0; font-size:20px;">Order #${shortId}</p>
                 </div>
+                
+                ${finalHasGift ? `
+                  <div style="background:linear-gradient(135deg, #ff9800, #ff5722); color:white; padding:20px; text-align:center;">
+                    <h2 style="margin:0;">🎉 Congratulations!</h2>
+                    <p style="margin:10px 0 0; font-size:16px;">You got a FREE Premium Ice Cream Pack (Worth ₹${giftSavings})!</p>
+                  </div>
+                ` : ''}
+                
                 <div style="padding:25px; text-align:center; background:#f8fff9;">
                   <p style="font-size:18px;">Hi <strong>${user.name.split(' ')[0]}</strong>,</p>
                   <p>Your order has been confirmed and is being prepared with love!</p>
@@ -145,7 +225,13 @@ exports.createOrder = async (req, res) => {
                   <h3>Your Order Summary</h3>
                   <table width="100%" style="border-collapse:collapse;">
                     ${itemsHTML}
+                    ${giftHTML}
                   </table>
+                  ${finalHasGift ? `
+                    <div style="background:#e8f5e9; padding:15px; border-radius:8px; margin-top:15px; text-align:center; border:2px dashed #4caf50;">
+                      <p style="margin:0; color:#2e7d32; font-weight:bold;">🎁 You saved ₹${giftSavings} with your FREE gift!</p>
+                    </div>
+                  ` : ''}
                   <div style="margin-top:20px; text-align:right; font-size:20px; color:#11998e;">
                     <strong>Total: ₹${totalPrice} (COD)</strong>
                   </div>
@@ -157,7 +243,7 @@ exports.createOrder = async (req, res) => {
                 </div>
                 <div style="background:#11998e; color:white; padding:20px; text-align:center;">
                   <p style="margin:0; font-size:16px;">We deliver happiness!</p>
-                  <p style="margin:5px 0 0; font-size:24px;">Jagat Store</p>
+                  <p style="margin:5px 0 0; font-size:24px;">🏪 Jagat Store</p>
                 </div>
               </div>
             `

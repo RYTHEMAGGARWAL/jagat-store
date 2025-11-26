@@ -268,3 +268,98 @@
     font-size: 12px;
   }
 }
+
+/* ================================================== */
+/* 3. ADD TO AdminOrders.css                           */
+/* ================================================== */
+
+/* 🎁 Gift Stats Banner */
+.gift-stats-banner {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.gift-stats-banner .gift-icon {
+  font-size: 28px;
+}
+
+.gift-stats-banner .gift-text {
+  font-size: 15px;
+  color: #2e7d32;
+}
+
+.gift-stats-banner .gift-text strong {
+  font-size: 20px;
+}
+
+/* 🎁 Gift Filter */
+.filter-group.gift-filter {
+  background: #fff3e0;
+  border: 1px solid #ff9800;
+}
+
+.filter-group.gift-filter span {
+  font-size: 16px;
+}
+
+/* 🎁 Gift Badge in Table */
+.gift-badge-admin {
+  display: inline-block;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.no-gift-badge {
+  color: #ccc;
+  font-size: 16px;
+}
+
+.gift-plus {
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* 🎁 Row with Gift Highlight */
+.has-gift-row {
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%) !important;
+}
+
+.has-gift-row:hover {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%) !important;
+}
+@media (max-width: 768px) {
+  .gift-alert-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gift-alert-value {
+    width: 100%;
+    text-align: center;
+  }
+
+  .order-gift-row {
+    flex-wrap: wrap;
+  }
+
+  .gift-stats-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-gift-badge {
+    margin-top: 10px;
+  }
+}

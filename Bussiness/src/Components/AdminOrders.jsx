@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, Filter, Download, Eye } from 'lucide-react';
+import { ArrowLeft, Search, Filter, Download, Eye, Gift } from 'lucide-react';
 import api from '../utils/api';
 import './AdminOrders.css';
 
@@ -10,6 +10,7 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [giftFilter, setGiftFilter] = useState('all'); // 🎁 NEW FILTER
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const AdminOrders = () => {
 
   useEffect(() => {
     filterOrders();
-  }, [orders, searchQuery, statusFilter]);
+  }, [orders, searchQuery, statusFilter, giftFilter]);
 
   const checkAdminAccess = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -57,6 +58,13 @@ const AdminOrders = () => {
       filtered = filtered.filter(o => o.orderStatus === statusFilter);
     }
 
+    // 🎁 Filter by gift
+    if (giftFilter === 'with-gift') {
+      filtered = filtered.filter(o => o.hasGift === true);
+    } else if (giftFilter === 'without-gift') {
+      filtered = filtered.filter(o => !o.hasGift);
+    }
+
     // Filter by search
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
@@ -71,7 +79,7 @@ const AdminOrders = () => {
   };
 
   const exportToCSV = () => {
-    const headers = ['Order ID', 'Customer', 'Phone', 'Items', 'Total', 'Status', 'Date'];
+    const headers = ['Order ID', 'Customer', 'Phone', 'Items', 'Total', 'Status', 'Has Gift', 'Date'];
     const rows = filteredOrders.map(order => [
       order._id.slice(-8).toUpperCase(),
       order.user?.name || 'N/A',
@@ -79,6 +87,7 @@ const AdminOrders = () => {
       order.orderItems?.length || 0,
       order.totalPrice,
       order.orderStatus,
+      order.hasGift ? 'Yes' : 'No',
       new Date(order.createdAt).toLocaleString()
     ]);
 
@@ -117,6 +126,9 @@ const AdminOrders = () => {
     return colors[status] || '#666';
   };
 
+  // 🎁 Count orders with gifts
+  const giftOrdersCount = orders.filter(o => o.hasGift).length;
+
   if (loading) {
     return (
       <div className="admin-orders-page">
@@ -138,6 +150,16 @@ const AdminOrders = () => {
         <h1>All Orders</h1>
         <p>Manage all customer orders</p>
       </div>
+
+      {/* 🎁 GIFT STATS BANNER */}
+      {giftOrdersCount > 0 && (
+        <div className="gift-stats-banner">
+          <span className="gift-icon">🎁</span>
+          <span className="gift-text">
+            <strong>{giftOrdersCount}</strong> orders include FREE gift
+          </span>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="orders-filters">
@@ -167,6 +189,19 @@ const AdminOrders = () => {
           </select>
         </div>
 
+        {/* 🎁 GIFT FILTER */}
+        <div className="filter-group gift-filter">
+          <span>🎁</span>
+          <select
+            value={giftFilter}
+            onChange={(e) => setGiftFilter(e.target.value)}
+          >
+            <option value="all">All Orders</option>
+            <option value="with-gift">With Gift 🎁</option>
+            <option value="without-gift">Without Gift</option>
+          </select>
+        </div>
+
         <button className="export-btn" onClick={exportToCSV}>
           <Download size={18} />
           Export CSV
@@ -189,6 +224,7 @@ const AdminOrders = () => {
                 <th>Phone</th>
                 <th>Items</th>
                 <th>Total</th>
+                <th>Gift</th>
                 <th>Payment</th>
                 <th>Status</th>
                 <th>Date</th>
@@ -197,7 +233,7 @@ const AdminOrders = () => {
             </thead>
             <tbody>
               {filteredOrders.map((order) => (
-                <tr key={order._id}>
+                <tr key={order._id} className={order.hasGift ? 'has-gift-row' : ''}>
                   <td>
                     <span className="order-id">
                       #{order._id.slice(-8).toUpperCase()}
@@ -205,8 +241,19 @@ const AdminOrders = () => {
                   </td>
                   <td>{order.user?.name || 'N/A'}</td>
                   <td>{order.shippingAddress?.phone || 'N/A'}</td>
-                  <td>{order.orderItems?.length || 0} items</td>
+                  <td>
+                    {order.orderItems?.length || 0} items
+                    {order.hasGift && <span className="gift-plus"> +1🎁</span>}
+                  </td>
                   <td className="order-total">₹{order.totalPrice}</td>
+                  <td>
+                    {/* 🎁 GIFT BADGE */}
+                    {order.hasGift ? (
+                      <span className="gift-badge-admin">🎁 Yes</span>
+                    ) : (
+                      <span className="no-gift-badge">-</span>
+                    )}
+                  </td>
                   <td>
                     <span className="payment-badge">
                       {order.paymentInfo?.method || 'COD'}

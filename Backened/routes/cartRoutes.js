@@ -1,10 +1,24 @@
-// Backend/routes/cartRoutes.js - FIXED
+// Backend/routes/cartRoutes.js - WITH GIFT FEATURE 🎁
 
 const express = require('express');
 const router = express.Router();
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
-const auth = require('../middleware/auth');  // ← MUST BE A FUNCTION!
+const auth = require('../middleware/auth');
+
+// 🎁 GIFT CONFIGURATION
+const GIFT_THRESHOLD = 999;
+const GIFT_PRODUCT = {
+  name: '🎁 FREE Gift - Premium Ice Cream Pack',
+  brand: 'Jagat Store',
+  category: 'Gift',
+  price: 0,
+  oldPrice: 149,
+  quantity: 1,
+  weight: '500ml',
+  image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+  isGift: true
+};
 
 // Get user's cart
 router.get('/', auth, async (req, res) => {
@@ -15,7 +29,9 @@ router.get('/', auth, async (req, res) => {
     if (!cart) {
       cart = {
         items: [],
-        totalPrice: 0
+        totalPrice: 0,
+        hasGift: false,
+        giftItem: null
       };
     }
     
@@ -44,7 +60,6 @@ router.post('/add', auth, async (req, res) => {
       });
     }
 
-    // Check if product exists
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ 
@@ -53,7 +68,6 @@ router.post('/add', auth, async (req, res) => {
       });
     }
 
-    // Check stock
     if (!product.inStock || product.stock < quantity) {
       return res.status(400).json({ 
         success: false, 
@@ -61,7 +75,6 @@ router.post('/add', auth, async (req, res) => {
       });
     }
 
-    // Find or create cart
     let cart = await Cart.findOne({ user: req.user._id });
     
     if (!cart) {
@@ -71,16 +84,13 @@ router.post('/add', auth, async (req, res) => {
       });
     }
 
-    // Check if item already in cart
     const existingItemIndex = cart.items.findIndex(
       item => item.product.toString() === productId
     );
 
     if (existingItemIndex > -1) {
-      // Update quantity
       cart.items[existingItemIndex].quantity += quantity;
     } else {
-      // Add new item
       cart.items.push({
         product: productId,
         quantity: quantity
@@ -90,7 +100,6 @@ router.post('/add', auth, async (req, res) => {
     await cart.save();
     await cart.populate('items.product');
 
-    // Calculate total
     cart.totalPrice = cart.items.reduce((total, item) => {
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -142,17 +151,14 @@ router.put('/update', auth, async (req, res) => {
     }
 
     if (quantity <= 0) {
-      // Remove item
       cart.items.splice(itemIndex, 1);
     } else {
-      // Update quantity
       cart.items[itemIndex].quantity = quantity;
     }
 
     await cart.save();
     await cart.populate('items.product');
 
-    // Calculate total
     cart.totalPrice = cart.items.reduce((total, item) => {
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -192,7 +198,6 @@ router.delete('/remove/:productId', auth, async (req, res) => {
     await cart.save();
     await cart.populate('items.product');
 
-    // Calculate total
     cart.totalPrice = cart.items.reduce((total, item) => {
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -219,19 +224,156 @@ router.delete('/clear', auth, async (req, res) => {
     if (cart) {
       cart.items = [];
       cart.totalPrice = 0;
+      cart.hasGift = false;
+      cart.giftItem = undefined;
       await cart.save();
     }
 
     res.json({ 
       success: true, 
       message: 'Cart cleared',
-      cart: cart || { items: [], totalPrice: 0 }
+      cart: cart || { items: [], totalPrice: 0, hasGift: false, giftItem: null }
     });
   } catch (error) {
     console.error('Error clearing cart:', error);
     res.status(500).json({ 
       success: false, 
       message: 'Error clearing cart' 
+    });
+  }
+});
+
+// ============================================
+// 🎁 GIFT ROUTES
+// ============================================
+
+// 🎁 Add free gift to cart
+router.post('/add-gift', auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    
+    let cart = await Cart.findOne({ user: userId }).populate('items.product');
+    
+    if (!cart) {
+      return res.status(404).json({
+        success: false,
+        message: 'Cart not found. Add items first!'
+      });
+    }
+
+    const cartTotal = cart.items.reduce((total, item) => {
+      if (item.product && item.product.price) {
+        return total + (item.product.price * item.quantity);
+      }
+      return total;
+    }, 0);
+
+    if (cartTotal < GIFT_THRESHOLD) {
+      return res.status(400).json({
+        success: false,
+        message: `Add ₹${(GIFT_THRESHOLD - cartTotal).toFixed(0)} more to get FREE gift!`
+      });
+    }
+
+    if (cart.hasGift) {
+      return res.json({
+        success: true,
+        message: 'Gift already in cart! 🎁',
+        alreadyAdded: true,
+        giftItem: cart.giftItem
+      });
+    }
+
+    cart.hasGift = true;
+    cart.giftItem = GIFT_PRODUCT;
+    await cart.save();
+
+    console.log('🎁 Gift added for user:', userId);
+
+    res.json({
+      success: true,
+      message: '🎉 FREE Ice Cream gift added!',
+      giftItem: GIFT_PRODUCT
+    });
+
+  } catch (error) {
+    console.error('❌ Add gift error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to add gift'
+    });
+  }
+});
+
+// 🎁 Remove gift from cart
+router.delete('/remove-gift', auth, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user._id });
+    
+    if (!cart) {
+      return res.status(404).json({
+        success: false,
+        message: 'Cart not found'
+      });
+    }
+
+    cart.hasGift = false;
+    cart.giftItem = undefined;
+    await cart.save();
+
+    res.json({
+      success: true,
+      message: 'Gift removed from cart'
+    });
+
+  } catch (error) {
+    console.error('Remove gift error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to remove gift'
+    });
+  }
+});
+
+// 🎁 Check gift eligibility
+router.get('/gift-status', auth, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    
+    if (!cart) {
+      return res.json({
+        success: true,
+        eligible: false,
+        hasGift: false,
+        cartTotal: 0,
+        remaining: GIFT_THRESHOLD,
+        threshold: GIFT_THRESHOLD
+      });
+    }
+
+    const cartTotal = cart.items.reduce((total, item) => {
+      if (item.product && item.product.price) {
+        return total + (item.product.price * item.quantity);
+      }
+      return total;
+    }, 0);
+
+    res.json({
+      success: true,
+      eligible: cartTotal >= GIFT_THRESHOLD,
+      hasGift: cart.hasGift || false,
+      giftItem: cart.giftItem || null,
+      cartTotal,
+      remaining: Math.max(0, GIFT_THRESHOLD - cartTotal),
+      threshold: GIFT_THRESHOLD,
+      giftDetails: GIFT_PRODUCT
+    });
+
+  } catch (error) {
+    console.error('Gift status error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to check gift status'
     });
   }
 });

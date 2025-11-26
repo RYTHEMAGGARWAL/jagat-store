@@ -854,3 +854,249 @@
     height: 16px;
   }
 }
+/* ============================================ */
+/* 🎁 GIFT FEATURE CSS - ADD TO YOUR FILES     */
+/* ============================================ */
+
+
+/* ============================================ */
+/* ADD TO NAVBAR.CSS                           */
+/* ============================================ */
+
+/* 🎁 Gift Mini Indicator - Desktop */
+.gift-mini-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff9e6, #ffe082);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #e65100;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin-right: 10px;
+  border: 1px solid #ffcc80;
+}
+
+.gift-mini-indicator:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 10px rgba(255, 152, 0, 0.3);
+}
+
+.gift-mini-indicator.unlocked {
+  background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
+  color: #2e7d32;
+  border-color: #81c784;
+}
+
+.gift-mini-icon {
+  font-size: 14px;
+  animation: shake-gift 2s ease-in-out infinite;
+}
+
+.gift-mini-indicator.unlocked .gift-mini-icon {
+  animation: bounce-gift 1s ease-in-out infinite;
+}
+
+@keyframes shake-gift {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+@keyframes bounce-gift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.gift-mini-text {
+  white-space: nowrap;
+}
+
+/* 🎁 Gift Mini - Mobile (Icon only) */
+.gift-mini-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #fff9e6, #ffe082);
+  border-radius: 50%;
+  font-size: 14px;
+  margin-right: 8px;
+  animation: pulse-gift 2s ease-in-out infinite;
+  text-decoration: none;
+}
+
+.gift-mini-mobile.unlocked {
+  background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
+}
+
+@keyframes pulse-gift {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* 🎁 Mobile Menu Gift Banner */
+.mobile-gift-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #fff9e6, #ffe082);
+  padding: 12px 15px;
+  margin: 10px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #e65100;
+  font-weight: 600;
+  border: 1px dashed #ff9800;
+}
+
+.mobile-gift-banner.unlocked {
+  background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
+  color: #2e7d32;
+  border-color: #4caf50;
+}
+
+.mobile-gift-icon {
+  font-size: 18px;
+  animation: shake-gift 2s ease-in-out infinite;
+}
+
+.mobile-gift-banner.unlocked .mobile-gift-icon {
+  animation: bounce-gift 1s ease-in-out infinite;
+}
+
+/* Hide on very small screens */
+@media (max-width: 400px) {
+  .gift-mini-indicator {
+    display: none;
+  }
+}
+
+
+/* ============================================ */
+/* ADD TO CART.CSS                             */
+/* ============================================ */
+
+/* 🎁 Gift Row in Summary */
+.summary-line.gift-row {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  border: 1px dashed #4caf50;
+}
+
+.gift-free {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* 🎁 Savings Badge */
+.savings-badge {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  color: #e65100;
+  padding: 12px 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 15px 0;
+  animation: savings-pulse 2s ease-in-out infinite;
+  border: 1px dashed #ff9800;
+}
+
+@keyframes savings-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 2px 10px rgba(255, 152, 0, 0.2);
+  }
+  50% { 
+    transform: scale(1.02); 
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  }
+}
+
+/* 🎁 Gift Progress Mini (in summary) */
+.gift-progress-mini {
+  background: linear-gradient(135deg, #fff9e6, #fff3cd);
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px dashed #ffc107;
+}
+
+.gift-progress-mini span {
+  display: block;
+  font-size: 13px;
+  color: #e65100;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.mini-progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9800, #ff5722);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  position: relative;
+}
+
+.mini-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* 🎁 Checkout Button with Gift */
+.checkout-btn-main.has-gift {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  position: relative;
+}
+
+.checkout-btn-main.has-gift:hover {
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+/* 🎁 Responsive */
+@media (max-width: 768px) {
+  .savings-badge {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .gift-progress-mini {
+    padding: 10px;
+  }
+
+  .gift-progress-mini span {
+    font-size: 12px;
+  }
+}

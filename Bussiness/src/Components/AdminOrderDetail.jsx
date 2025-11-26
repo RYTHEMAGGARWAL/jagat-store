@@ -11,7 +11,8 @@ import {
   Truck,
   CheckCircle,
   Clock,
-  XCircle
+  XCircle,
+  Gift
 } from 'lucide-react';
 import api from '../utils/api';
 import './AdminOrderDetail.css';
@@ -101,7 +102,7 @@ const AdminOrderDetail = () => {
 
       if (response.data.success) {
         alert('✅ Order status updated successfully!\n\nCustomer can now see this update.');
-        fetchOrderDetails(); // Refresh order details
+        fetchOrderDetails();
       }
     } catch (error) {
       console.error('❌ Error updating status:', error);
@@ -173,6 +174,14 @@ const AdminOrderDetail = () => {
         
         <div className="order-header-info">
           <h1>Order #{order._id.slice(-8).toUpperCase()}</h1>
+          
+          {/* 🎁 GIFT BADGE IN HEADER */}
+          {order.hasGift && (
+            <span className="header-gift-badge">
+              🎁 Includes FREE Gift
+            </span>
+          )}
+          
           <span 
             className="current-status"
             style={{ 
@@ -192,6 +201,20 @@ const AdminOrderDetail = () => {
           Placed on {formatDate(order.createdAt)}
         </p>
       </div>
+
+      {/* 🎁 GIFT ALERT BANNER */}
+      {order.hasGift && (
+        <div className="gift-alert-banner">
+          <div className="gift-alert-icon">🎁</div>
+          <div className="gift-alert-text">
+            <strong>This order includes a FREE Gift!</strong>
+            <p>Don't forget to pack: {order.giftItem?.name || 'Premium Ice Cream Pack'}</p>
+          </div>
+          <div className="gift-alert-value">
+            Worth ₹{order.giftSavings || order.giftItem?.oldPrice || 149}
+          </div>
+        </div>
+      )}
 
       <div className="order-detail-grid">
         {/* Left Column */}
@@ -223,9 +246,8 @@ const AdminOrderDetail = () => {
                   <p className="info-label">Delivery Address</p>
                   <p className="info-value">{order.shippingAddress?.fullAddress}</p>
                   <p className="info-value">
-                    {order.shippingAddress?.city}, {order.shippingAddress?.state}
+                    {order.shippingAddress?.city}, {order.shippingAddress?.state} - {order.shippingAddress?.pincode}
                   </p>
-                  <p className="info-value">PIN: {order.shippingAddress?.pincode}</p>
                 </div>
               </div>
             </div>
@@ -234,13 +256,13 @@ const AdminOrderDetail = () => {
           {/* Payment Info */}
           <div className="info-card">
             <div className="card-header">
-              <CreditCard size={20} color="#54b226" />
+              <CreditCard size={20} color="#4caf50" />
               <h3>Payment Information</h3>
             </div>
             <div className="card-content">
               <div className="payment-info">
                 <p className="info-label">Payment Method</p>
-                <p className="payment-method">{order.paymentMethod || 'COD'}</p>
+                <p className="payment-method">{order.paymentInfo?.method || 'COD'}</p>
               </div>
               <div className="payment-info">
                 <p className="info-label">Payment Status</p>
@@ -255,7 +277,7 @@ const AdminOrderDetail = () => {
           <div className="info-card">
             <div className="card-header">
               <Package size={20} color="#ff9800" />
-              <h3>Order Items ({order.orderItems?.length || 0})</h3>
+              <h3>Order Items ({order.orderItems?.length || 0}{order.hasGift ? ' + 1 Gift' : ''})</h3>
             </div>
             <div className="card-content">
               <div className="order-items-list">
@@ -275,6 +297,28 @@ const AdminOrderDetail = () => {
                     <p className="item-price">₹{(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                 ))}
+
+                {/* 🎁 GIFT ITEM ROW */}
+                {order.hasGift && order.giftItem && (
+                  <div className="order-item gift-item-row">
+                    <div className="gift-item-ribbon">🎁 FREE GIFT</div>
+                    <img 
+                      src={order.giftItem.image || 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg'} 
+                      alt="Gift"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/80?text=Gift';
+                      }}
+                    />
+                    <div className="item-info">
+                      <p className="item-name gift-name">{order.giftItem.name || 'Premium Ice Cream Pack'}</p>
+                      <p className="item-qty">Quantity: 1 | 🎁 Complimentary</p>
+                    </div>
+                    <p className="item-price gift-price">
+                      <span className="free-text">FREE</span>
+                      <span className="original-price">₹{order.giftItem.oldPrice || 149}</span>
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="order-summary">
@@ -290,10 +334,26 @@ const AdminOrderDetail = () => {
                   <span>Tax:</span>
                   <span>₹{order.taxPrice || 0}</span>
                 </div>
+                
+                {/* 🎁 GIFT ROW IN SUMMARY */}
+                {order.hasGift && (
+                  <div className="summary-row gift-summary-row">
+                    <span>🎁 Gift (Worth ₹{order.giftItem?.oldPrice || 149}):</span>
+                    <span className="gift-free">FREE</span>
+                  </div>
+                )}
+                
                 <div className="summary-row total">
                   <span>Total:</span>
                   <span>₹{order.totalPrice}</span>
                 </div>
+
+                {/* 🎁 SAVINGS DISPLAY */}
+                {order.hasGift && (
+                  <div className="admin-savings-badge">
+                    🎉 Customer saved ₹{order.giftSavings || order.giftItem?.oldPrice || 149} with FREE gift!
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -321,13 +381,6 @@ const AdminOrderDetail = () => {
                       value={newStatus}
                       onChange={(e) => setNewStatus(e.target.value)}
                       className="status-select"
-                      style={{
-                        background: '#f8f9fa',
-                        border: '2px solid #e0e0e0',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        fontSize: '15px'
-                      }}
                     >
                       {statusOptions.map(status => (
                         <option key={status.value} value={status.value}>
@@ -341,22 +394,17 @@ const AdminOrderDetail = () => {
                     className="update-btn"
                     onClick={handleUpdateStatus}
                     disabled={updating || newStatus === order.orderStatus}
-                    style={{
-                      background: newStatus !== order.orderStatus ? 
-                        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#ccc',
-                      color: 'white',
-                      width: '100%',
-                      padding: '14px',
-                      borderRadius: '8px',
-                      border: 'none',
-                      fontSize: '16px',
-                      fontWeight: '700',
-                      cursor: newStatus !== order.orderStatus ? 'pointer' : 'not-allowed',
-                      transition: 'all 0.3s'
-                    }}
                   >
                     {updating ? '⏳ Updating...' : '✅ Update Status'}
                   </button>
+
+                  {/* 🎁 GIFT REMINDER */}
+                  {order.hasGift && (
+                    <div className="gift-pack-reminder">
+                      <span>🎁</span>
+                      <span>Remember to pack the FREE gift!</span>
+                    </div>
+                  )}
 
                   <div style={{
                     marginTop: '16px',
@@ -409,11 +457,7 @@ const AdminOrderDetail = () => {
                         background: getStatusColor(history.status) 
                       }}></div>
                       <div className="timeline-content">
-                        <p className="timeline-status" style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px'
-                        }}>
+                        <p className="timeline-status">
                           {getStatusIcon(history.status)}
                           {history.status}
                         </p>
@@ -438,24 +482,6 @@ const AdminOrderDetail = () => {
               <button 
                 className="action-btn print-btn"
                 onClick={() => window.print()}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: '2px solid #2196f3',
-                  borderRadius: '8px',
-                  background: 'white',
-                  color: '#2196f3',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s'
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.background = '#e3f2fd';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.background = 'white';
-                }}
               >
                 🖨️ Print Order
               </button>
