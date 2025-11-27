@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Components/Navbar';
-import FirstContainer from './Components/FirstContainer';  // ← Home page!
+import FirstContainer from './Components/FirstContainer';
 import DairyBreadEggs from './Components/DairyBreadEggs';
 import AttaRiceDal from './Components/AttaRiceDal';
 import MasalaOil from './Components/MasalaOil';
@@ -35,9 +35,16 @@ import OrderDetails from './Components/OrderDetails';
 
 import HomeOffices from './Components/HomeOffices';
 import WhatsAppButton from './Components/WhatsAppButton';
+
+// 👇 NEW: Import ScrollToTop
+import ScrollToTop from './Components/ScrollToTop';
+
 function App() {
   return (
     <CartProvider>
+      {/* 👇 ADD THIS - Page change pe scroll top ho jayega */}
+      <ScrollToTop />
+      
       <Navbar />
       <Routes>
         {/* Home Page - Shows FirstContainer with categories */}
@@ -52,12 +59,12 @@ function App() {
         <Route path="/BabyCare" element={<BabyCare />} />
    
         <Route path="/JagatStore" element={<JagatStore />} />
-         <Route path="/SaucesSpreads" element={<SaucesSpreads />} />
+        <Route path="/SaucesSpreads" element={<SaucesSpreads />} />
         <Route path="/Pharmacy" element={<Pharmacy />} />
         <Route path="/Checkout" element={<Checkout />} />
         <Route path="/order-success" element={<OrderSuccess />} />
         
-          <Route path="/SnacksMunchies" element={<SnacksMunchies />} />
+        <Route path="/SnacksMunchies" element={<SnacksMunchies />} />
         <Route path="/PersonalCare" element={<PersonalCare />} />
         <Route path="/SweetTooth" element={<SweetTooth />} />
         <Route path="/BakeryBiscuits" element={<BakeryBiscuits />} />
@@ -70,13 +77,14 @@ function App() {
 
           
         <Route path="/orders" element={<MyOrders />} />
-<Route path="/my-orders" element={<MyOrders />} />
-<Route path="/search" element={<SearchResults />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/search" element={<SearchResults />} />
         
         {/* Admin Routes */}
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/orders" element={<AdminOrders />} />
-            <Route path="/admin/orders/:orderId" element={<AdminOrderDetail />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/admin/orders/:orderId" element={<AdminOrderDetail />} />
+        
         {/* Cart */}
         <Route path="/Cart" element={<Cart />} />
         <Route path="/cart" element={<Cart />} />
@@ -87,8 +95,7 @@ function App() {
         
       </Routes>
       
-      
-      {/* 📱 ADD THIS LINE */}
+      {/* 📱 WhatsApp Button */}
       <WhatsAppButton />
     </CartProvider>
   );

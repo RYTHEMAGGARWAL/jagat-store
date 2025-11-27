@@ -32,65 +32,735 @@ const Product = mongoose.model('Product', productSchema);
 
 // ========== JAGAT STORE EXCLUSIVE PRODUCTS ==========
 const jagatStoreProducts = [
-  // FRESH VEGETABLES (10 products)
-  { name: "Fresh Tomato", weight: "500g", price: 25, oldPrice: 30, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61TdF3q7L9L._SL1500_.jpg", inStock: true, description: "Fresh red tomatoes, locally sourced", stock: 100 },
-  { name: "Fresh Onion", weight: "1kg", price: 35, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61X4FqH7hWL._SL1500_.jpg", inStock: true, description: "Premium quality onions", stock: 100 },
-  { name: "Fresh Potato", weight: "1kg", price: 30, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61zZ6ypOBTL._SL1500_.jpg", inStock: true, description: "Farm fresh potatoes", stock: 100 },
-  { name: "Green Capsicum", weight: "250g", price: 28, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61IiMLgTusL._SL1500_.jpg", inStock: true, description: "Fresh green bell peppers", stock: 90 },
-  { name: "Fresh Cucumber", weight: "500g", price: 20, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61rqI4fCLvL._SL1500_.jpg", inStock: true, description: "Crispy fresh cucumbers", stock: 95 },
-  { name: "Fresh Carrot", weight: "500g", price: 35, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61XM7pTjQgL._SL1500_.jpg", inStock: true, description: "Healthy orange carrots", stock: 90 },
-  { name: "Fresh Spinach (Palak)", weight: "250g", price: 18, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61TQZpWlK2L._SL1500_.jpg", inStock: true, description: "Fresh green spinach leaves", stock: 85 },
-  { name: "Fresh Coriander Leaves", weight: "100g", price: 12, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61hqIWJXXxL._SL1500_.jpg", inStock: true, description: "Fresh dhania patta", stock: 80 },
-  { name: "Fresh Ginger", weight: "250g", price: 45, oldPrice: 55, discount: "18% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61v6TmRCJxL._SL1500_.jpg", inStock: true, description: "Premium quality ginger (adrak)", stock: 75 },
-  { name: "Fresh Green Chilli", weight: "100g", price: 15, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61GRQ6Y7KWL._SL1500_.jpg", inStock: true, description: "Spicy green chillies (hari mirch)", stock: 85 },
 
-  // FRESH FRUITS (10 products)
-  { name: "Fresh Banana", weight: "6 pcs", price: 42, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61OPzCQCTlL._SL1500_.jpg", inStock: true, description: "Ripe yellow bananas (kela)", stock: 100 },
-  { name: "Fresh Apple - Royal Gala", weight: "4 pcs (500g)", price: 120, oldPrice: 145, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/71nZTt1GICL._SL1500_.jpg", inStock: true, description: "Premium quality apples (seb)", stock: 90 },
-  { name: "Fresh Orange", weight: "1kg", price: 80, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61m9vC40qRL._SL1500_.jpg", inStock: true, description: "Juicy fresh oranges (santra)", stock: 95 },
-  { name: "Fresh Pomegranate", weight: "2 pcs (500g)", price: 150, oldPrice: 180, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61T+kq4VDSL._SL1500_.jpg", inStock: true, description: "Sweet pomegranate (anar)", stock: 80 },
-  { name: "Fresh Papaya", weight: "1 pc (800g)", price: 55, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61eS4wRoZ5L._SL1500_.jpg", inStock: true, description: "Ripe papaya (papita)", stock: 75 },
-  { name: "Fresh Watermelon", weight: "1 pc (3-4kg)", price: 45, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/71ZgTKiNshL._SL1500_.jpg", inStock: true, description: "Sweet red watermelon (tarbooz)", stock: 60 },
-  { name: "Fresh Mango - Alphonso", weight: "6 pcs (1kg)", price: 299, oldPrice: 349, discount: "14% OFF", category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61r9xZmTBaL._SL1500_.jpg", inStock: true, description: "Premium Alphonso mangoes (aam)", stock: 50 },
-  { name: "Fresh Grapes - Green", weight: "500g", price: 85, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61UtWOy-1bL._SL1500_.jpg", inStock: true, description: "Seedless green grapes (angoor)", stock: 70 },
-  { name: "Fresh Kiwi", weight: "3 pcs", price: 99, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61pV72CU3LL._SL1500_.jpg", inStock: true, description: "Fresh kiwi fruits", stock: 65 },
-  { name: "Fresh Pineapple", weight: "1 pc (1kg)", price: 65, category: "Jagat Store", brand: "Jagat Fresh", image: "https://m.media-amazon.com/images/I/61oQ8P+J35L._SL1500_.jpg", inStock: true, description: "Sweet pineapple (ananas)", stock: 60 },
 
-  // PACKAGED FOODS (10 products)
-  { name: "Jagat Special Namkeen Mix", weight: "400g", price: 89, oldPrice: 110, discount: "19% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GMn8dKsEL._SL1500_.jpg", inStock: true, description: "Crispy namkeen mixture", stock: 100 },
-  { name: "Jagat Roasted Peanuts", weight: "500g", price: 75, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71VFN5s2WTL._SL1500_.jpg", inStock: true, description: "Lightly salted roasted moongfali", stock: 95 },
-  { name: "Jagat Poha Thick", weight: "1kg", price: 55, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71cjJVNQZ9L._SL1500_.jpg", inStock: true, description: "Premium quality thick poha", stock: 90 },
-  { name: "Jagat Besan (Gram Flour)", weight: "1kg", price: 95, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71MQXx7V6DL._SL1500_.jpg", inStock: true, description: "Pure gram flour for pakoras", stock: 85 },
-  { name: "Jagat Sooji (Rava)", weight: "500g", price: 42, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GwvQ2R7rL._SL1500_.jpg", inStock: true, description: "Fine quality semolina", stock: 90 },
-  { name: "Jagat Maida (All Purpose Flour)", weight: "1kg", price: 48, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71Jy8pRTJ2L._SL1500_.jpg", inStock: true, description: "Refined wheat flour", stock: 95 },
-  { name: "Jagat Roasted Chana", weight: "500g", price: 65, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71PK3PpRtEL._SL1500_.jpg", inStock: true, description: "Healthy roasted chickpeas snack", stock: 100 },
-  { name: "Jagat Cornflakes", weight: "800g", price: 149, oldPrice: 175, discount: "15% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71nSvPZGiGL._SL1500_.jpg", inStock: true, description: "Crispy breakfast cornflakes", stock: 80 },
-  { name: "Jagat Oats", weight: "1kg", price: 165, oldPrice: 190, discount: "13% OFF", category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/71GJDhj7YwL._SL1500_.jpg", inStock: true, description: "Healthy rolled oats", stock: 75 },
-  { name: "Jagat Vermicelli (Seviyaan)", weight: "400g", price: 45, category: "Jagat Store", brand: "Jagat Foods", image: "https://m.media-amazon.com/images/I/61fQX7j3nBL._SL1500_.jpg", inStock: true, description: "Roasted vermicelli for kheer", stock: 85 },
 
-  // BEVERAGES (10 products)
-  { name: "Jagat Fresh Juice - Orange", weight: "1L", price: 120, oldPrice: 145, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61SPH8dL+cL._SL1500_.jpg", inStock: true, description: "Fresh orange juice, no preservatives", stock: 70 },
-  { name: "Jagat Fresh Juice - Mixed Fruit", weight: "1L", price: 115, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71UBnY8rDzL._SL1500_.jpg", inStock: true, description: "Blend of fresh fruits", stock: 75 },
-  { name: "Jagat Lassi - Sweet", weight: "500ml", price: 45, category: "Jagat Store", brand: "Jagat Dairy", image: "https://m.media-amazon.com/images/I/61+8T8MvY8L._SL1500_.jpg", inStock: true, description: "Traditional sweet lassi", stock: 80 },
-  { name: "Jagat Buttermilk (Chaas)", weight: "500ml", price: 25, category: "Jagat Store", brand: "Jagat Dairy", image: "https://m.media-amazon.com/images/I/61bQR0H7qVL._SL1500_.jpg", inStock: true, description: "Fresh spiced buttermilk", stock: 85 },
-  { name: "Jagat Premium Tea", weight: "500g", price: 185, oldPrice: 220, discount: "16% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71XnCqcPXBL._SL1500_.jpg", inStock: true, description: "Premium quality loose tea leaves", stock: 70 },
-  { name: "Jagat Green Tea", weight: "100 bags", price: 299, oldPrice: 349, discount: "14% OFF", category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71Q8QXOgxZL._SL1500_.jpg", inStock: true, description: "Healthy green tea bags", stock: 60 },
-  { name: "Jagat Instant Coffee", weight: "100g", price: 145, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71g4FaV+SQL._SL1500_.jpg", inStock: true, description: "Rich instant coffee powder", stock: 75 },
-  { name: "Jagat Coconut Water", weight: "500ml", price: 55, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61U7Uw4CjxL._SL1500_.jpg", inStock: true, description: "Natural coconut water (nariyal pani)", stock: 80 },
-  { name: "Jagat Mango Drink", weight: "1L", price: 95, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/71zoYuRfBVL._SL1500_.jpg", inStock: true, description: "Refreshing mango flavored drink", stock: 85 },
-  { name: "Jagat Lemonade", weight: "750ml", price: 65, category: "Jagat Store", brand: "Jagat Beverages", image: "https://m.media-amazon.com/images/I/61Z8MYD3JLL._SL1500_.jpg", inStock: true, description: "Fresh lemon drink (nimbu pani)", stock: 90 },
+{
+  name: 'Jagat Store Alsi (Flax Seeds)',
+  weight: '100g',
+  price: 35,
+  oldPrice: 50,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.RjlzLst-1o_CtxhleXA85gHaD4?pid=Api&P=0&w=762&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Alsi Seeds | Omega-3 Rich',
+  stock: 100
+},
+{
+  name: 'Jagat Store Safed Til (White Sesame)',
+  weight: '100g',
+  price: 38,
+  oldPrice: 55,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.M9j1wnaaZ27mIIauTZx12QHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Safed Til | Premium Quality',
+  stock: 100
+},
+{
+  name: 'Jagat Store Kale Til (Black Sesame)',
+  weight: '100g',
+  price: 42,
+  oldPrice: 60,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.gbrQS02fPHAfA0O4iKdGeQHaEJ?pid=Api&P=0&h=180',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Kale Til | Premium Quality',
+  stock: 100
+},
+{
+  name: 'Jagat Store Pumpkin Seeds',
+  weight: '100g',
+  price: 145,
+  oldPrice: 199,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.4kv1rP8XqYT7lRzv0xaE_gHaE7?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Pumpkin Seeds | Protein Rich',
+  stock: 80
+},
+{
+  name: 'Jagat Store Sunflower Seeds',
+  weight: '100g',
+  price: 85,
+  oldPrice: 120,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.JuoJTfxa5uljUUWf-S2DRgHaE8?pid=Api&P=0&w=599&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Sunflower Seeds | Healthy Snack',
+  stock: 80
+},
+{
+  name: 'Jagat Store Kharbuja Beej (Melon Seeds)',
+  weight: '100g',
+  price: 95,
+  oldPrice: 135,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.WbwC09RBvNVFhxvow7M8tgHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Magaz | Cooling Seeds',
+  stock: 100
+},
+{
+  name: 'Jagat Store Tarbooj Beej (Watermelon Seeds)',
+  weight: '100g',
+  price: 85,
+  oldPrice: 120,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.TZUPUlQMwWTaJACYGQ61hQHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Tarbooj Magaz | Premium',
+  stock: 100
+},
+{
+  name: 'Jagat Store Chia Seeds',
+  weight: '100g',
+  price: 125,
+  oldPrice: 175,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.GBUWN6fTktSkXlhkRo0dTgHaE8?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Chia Seeds | Superfood',
+  stock: 80
+},
 
-  // HOUSEHOLD ESSENTIALS (10 products)
-  { name: "Jagat Detergent Powder", weight: "2kg", price: 249, oldPrice: 299, discount: "17% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71NvSDN2vUL._SL1500_.jpg", inStock: true, description: "Powerful cleaning detergent", stock: 70 },
-  { name: "Jagat Dishwash Liquid", weight: "1L", price: 125, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61vFdIZKT3L._SL1500_.jpg", inStock: true, description: "Grease cutting dishwash gel", stock: 75 },
-  { name: "Jagat Floor Cleaner", weight: "1L", price: 99, oldPrice: 120, discount: "18% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61xQpB7NHGL._SL1500_.jpg", inStock: true, description: "Multi-purpose floor cleaner", stock: 80 },
-  { name: "Jagat Toilet Cleaner", weight: "1L", price: 115, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61rkR8R0jmL._SL1500_.jpg", inStock: true, description: "Powerful toilet bowl cleaner", stock: 70 },
-  { name: "Jagat Phenyl", weight: "1L", price: 65, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61dZ7xNPQqL._SL1500_.jpg", inStock: true, description: "Disinfectant floor cleaner", stock: 85 },
-  { name: "Jagat Garbage Bags", weight: "30 pcs (Large)", price: 89, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71YgJ0QmCBL._SL1500_.jpg", inStock: true, description: "Strong dustbin bags", stock: 90 },
-  { name: "Jagat Naphthalene Balls", weight: "200g", price: 45, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61h4Z0c7uNL._SL1500_.jpg", inStock: true, description: "Moth repellent balls (kapoor)", stock: 95 },
-  { name: "Jagat Air Freshener", weight: "300ml", price: 135, oldPrice: 160, discount: "16% OFF", category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61BZ6tJ9qEL._SL1500_.jpg", inStock: true, description: "Room freshener spray", stock: 60 },
-  { name: "Jagat Mosquito Coil", weight: "10 pcs", price: 55, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/71YqV7kR7cL._SL1500_.jpg", inStock: true, description: "Mosquito repellent coils", stock: 100 },
-  { name: "Jagat Scrub Pad", weight: "6 pcs", price: 49, category: "Jagat Store", brand: "Jagat Home", image: "https://m.media-amazon.com/images/I/61YcPn7bXZL._SL1500_.jpg", inStock: true, description: "Kitchen scrubbing pads", stock: 110 }
+// ========================================
+// 🍯 GOOND (EDIBLE GUM)
+// ========================================
+{
+  name: 'Jagat Store Goond (Edible Gum)',
+  weight: '100g',
+  price: 95,
+  oldPrice: 135,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.aprXL_sv9R7aHQcxq_Z4vwHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Goond | For Laddu & Panjiri',
+  stock: 100
+},
+{
+  name: 'Jagat Store Goond Tira (Thin Gum)',
+  weight: '100g',
+  price: 85,
+  oldPrice: 120,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.UCQxuXbGIALnD5uPnzI2YgHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Goond Tira | Premium Quality',
+  stock: 100
+},
+
+// ========================================
+// 🥜 DRY FRUITS - ANJIR & AKHROT
+// ========================================
+{
+  name: 'Jagat Store Anjir (Dried Figs)',
+  weight: '250g',
+  price: 195,
+  oldPrice: 275,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.nR0vA4CUkEALkd-NF76YZgHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Premium Anjir | Sweet & Soft',
+  stock: 80
+},
+{
+  name: 'Jagat Store Akhrot Sabut (Whole Walnut)',
+  weight: '250g',
+  price: 185,
+  oldPrice: 260,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.tFoF1mMCisMZP1z5EwQLpgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Akhrot With Shell | Brain Food',
+  stock: 80
+},
+{
+  name: 'Jagat Store Akhrot Giri (Walnut Kernels)',
+  weight: '250g',
+  price: 345,
+  oldPrice: 475,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.JCRPE6NQ7S02vzyNZeoCZgHaGt?pid=Api&H=144&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Akhrot Giri | Premium Quality',
+  stock: 60
+},
+
+// ========================================
+// 🌴 CHUHARA (DATES DRY)
+// ========================================
+{
+  name: 'Jagat Store Chuhara Pila (Yellow Dry Dates)',
+  weight: '250g',
+  price: 85,
+  oldPrice: 120,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.fuKQErwBHG8ofjd6dHQwmAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Pila Chuhara | Energy Booster',
+  stock: 100
+},
+{
+  name: 'Jagat Store Chuhara Kala (Black Dry Dates)',
+  weight: '250g',
+  price: 95,
+  oldPrice: 135,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.NttpHn07ZI950ot7ClRL1QHaHp?pid=Api&H=165&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Kala Chuhara | Premium',
+  stock: 100
+},
+
+// ========================================
+// 🥜 BADAM (ALMONDS)
+// ========================================
+{
+  name: 'Jagat Store Badam Sabut (Whole Almonds)',
+  weight: '250g',
+  price: 225,
+  oldPrice: 310,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.LJswLvHTW70PDIFh3uRE1gHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Badam Sabut | Premium Quality',
+  stock: 80
+},
+{
+  name: 'Jagat Store Badam 1st Quality (Premium)',
+  weight: '250g',
+  price: 295,
+  oldPrice: 399,
+  discount: '26% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.IV1C4AhvxoLazV2r8mFeXQHaJ3?pid=Api&P=0&w=400&h=533',
+  inStock: true,
+  description: '🏪 Jagat Store | Badam 1st Grade | California Style',
+  stock: 60
+},
+
+{
+  name: 'Jagat Store Badam Tulsi',
+  weight: '250g',
+  price: 185,
+  oldPrice: 260,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.3NG9LlOL6xRgjM1Hv33QVwHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Badam Tulsi | Indian Almonds',
+  stock: 80
+},
+{
+  name: 'Jagat Store Badam Nutify',
+  weight: '250g',
+  price: 185,
+  oldPrice: 260,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Nutify',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.8lIUTKpHDDVf_sk9U--9JgHaH7?pid=Api&H=171&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Badam Tulsi | Indian Almonds',
+  stock: 80
+},
+{
+  name: 'Ramu Badam Gurbandi',
+  weight: '250g',
+  price: 275,
+  oldPrice: 375,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Ramu',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.jpsLTgBfxM8RaA2052M08QAAAA?pid=Api&H=235&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Gurbandi Badam | Afghan Premium',
+  stock: 60
+},
+
+// ========================================
+// 🥜 PISTA (PISTACHIO)
+// ========================================
+{
+  name: 'Jagat Store Pista Namkeen (Salted)',
+  weight: '250g',
+  price: 385,
+  oldPrice: 520,
+  discount: '26% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.KdK_lDf8lchUf19vccMafwHaGg?pid=Api&P=0&w=455&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pista Namkeen | Roasted & Salted',
+  stock: 60
+},
+{
+  name: 'Jagat Store Pista Hara (Green Pistachio)',
+  weight: '100g',
+  price: 245,
+  oldPrice: 340,
+  discount: '28% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.z7mdSZyEVQhp02G0M75bWQHaFj?pid=Api&P=0&w=533&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pista Hara | For Sweets & Garnish',
+  stock: 50
+},
+
+// ========================================
+// 🥜 KAJU (CASHEW)
+// ========================================
+{
+  name: 'Jagat Store Kaju 1st Quality (Premium)',
+  weight: '250g',
+  price: 325,
+  oldPrice: 450,
+  discount: '28% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.NisATEKUh4crVMIQOfH6lQHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Kaju W240 | Whole Premium',
+  stock: 60
+},
+{
+  name: 'Jagat Store Kaju 2nd Quality',
+  weight: '250g',
+  price: 265,
+  oldPrice: 365,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.SErMTHwhoImZIN9bgl9kOwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Kaju W320 | Value Pack',
+  stock: 80
+},
+{
+  name: 'Nutify Kaju Packet',
+  weight: '250g',
+  price: 265,
+  oldPrice: 365,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Nutify',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.O7hpAf6wnTtk569ZGdq1wwHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Kaju W320 | Value Pack',
+  stock: 80
+},
+{
+  name: 'Jagat Store Kaju Tukda (Broken Cashew)',
+  weight: '250g',
+  price: 195,
+  oldPrice: 275,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.tlnjPH6V3yc8jTnfAqAYJgHaG1?pid=Api&P=0&w=433&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Kaju Tukda | For Cooking',
+  stock: 100
+},
+
+// ========================================
+// 🍇 KISHMISH & MUNAKKA
+// ========================================
+{
+  name: 'Jagat Store Kishmish (Raisins)',
+  weight: '250g',
+  price: 125,
+  oldPrice: 175,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.KS7-IUY80WHQ_8WLMYWnVwHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Kishmish | Green Raisins',
+  stock: 100
+},
+{
+  name: 'Jagat Store Munakka (Black Raisins)',
+  weight: '250g',
+  price: 145,
+  oldPrice: 199,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.1iO3pF0zHtgbvv7JQgSakQHaFV?pid=Api&P=0&w=556&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Munakka | With Seeds',
+  stock: 100
+},
+
+// ========================================
+// 🌴 COCONUT (GOLA)
+// ========================================
+{
+  name: 'Jagat Store Gola Burada (Coconut Powder)',
+  weight: '100g',
+  price: 45,
+  oldPrice: 65,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.lgAju31W7zPIKWN_fk_e7wHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Nariyal Burada | Fresh',
+  stock: 100
+},
+{
+  name: 'Jagat Store Gola Sabut (Dry Coconut)',
+  weight: '1pc',
+  price: 35,
+  oldPrice: 50,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.q9RoBdvfdzPuwy46J6W08wHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: '🏪 Jagat Store | Sukha Nariyal | Premium',
+  stock: 100
+},
+
+// ========================================
+// 🌿 AYURVEDIC HERBS
+// ========================================
+{
+  name: 'Jagat Store Arjun Chhal (Arjuna Bark)',
+  weight: '100g',
+  price: 55,
+  oldPrice: 80,
+  discount: '31% OFF',
+  category: 'Herbs & Ayurveda',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.3cgYoDsEMw-ZqhjHKKqr_AHaE7?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Arjun Chhal | Heart Health',
+  stock: 80
+},
+
+{
+  name: 'Jagat Store Shatavari (Satavar)',
+  weight: '100g',
+  price: 125,
+  oldPrice: 175,
+  discount: '29% OFF',
+  category: 'Herbs & Ayurveda',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.Io0SsNi4cvh7TFzOu8qaTQHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Shatavari | Women Health',
+  stock: 60
+},
+{
+  name: 'Jagat Store Mulethi (Licorice Root)',
+  weight: '100g',
+  price: 75,
+  oldPrice: 110,
+  discount: '32% OFF',
+  category: 'Herbs & Ayurveda',
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.3KkMjX_g7nywVqzeKBSeIQHaEK?pid=Api&H=89&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Mulethi Sticks | Throat Care',
+  stock: 100
+},
+{
+  name: 'Jagat Store Ashwagandha',
+  weight: '100g',
+  price: 145,
+  oldPrice: 199,
+  discount: '27% OFF',
+category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.CGf8BNkTlh3DR8O1_n-jcgHaEK?pid=Api&H=89&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Ashwagandha Root | Immunity Booster',
+  stock: 80
+},
+
+// ========================================
+// 🧴 AYURVEDIC POWDERS
+// ========================================
+{
+  name: 'Jagat Store Mulethi Powder',
+  weight: '100g',
+  price: 65,
+  oldPrice: 95,
+  discount: '32% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.Q6AGHv2UG9ujAtlgEq-RPgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Mulethi Powder | For Skin & Health',
+  stock: 100
+},
+{
+  name: 'Jagat Store Amla Powder',
+  weight: '100g',
+  price: 55,
+  oldPrice: 80,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.wA7r3gSadiAKNNKWMBqiXwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Amla Powder | Vitamin C Rich',
+  stock: 100
+},
+{
+  name: 'Jagat Store Shikakai Powder',
+  weight: '100g',
+  price: 55,
+  oldPrice: 80,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.4TYrJzQL_5UNE67u6zsRmQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Shikakai Powder | Hair Wash',
+  stock: 100
+},
+{
+  name: 'Jagat Store Reetha Powder',
+  weight: '100g',
+  price: 55,
+  oldPrice: 80,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP._qEZ1g9XPMHSR-ByiCkFnAAAAA?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Reetha Powder | Natural Cleanser',
+  stock: 100
+},
+
+// ========================================
+// 🌸 KESAR (SAFFRON)
+// ========================================
+{
+  name: 'Jagat Store Kesar Baby Saffron',
+  weight: '50mg',
+  price: 45,
+  oldPrice: 65,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.w-iO_gdP1m1mMh3dhEPo7QHaE7?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Kesar | Kashmiri Saffron',
+  stock: 50
+},
+{
+  name: 'Jagat Store Kesar Baby Saffron',
+  weight: '1g',
+  price: 185,
+  oldPrice: 250,
+  discount: '26% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP._7I3Vnv5dn9-tnVOOZBgAwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Kesar | Kashmiri Saffron',
+  stock: 40
+},
+
+// ========================================
+// 🎨 FOOD COLOURS
+// ========================================
+{
+  name: 'Jagat Store Green Colour (Food Grade)',
+  weight: '25g',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.YFUT7WH13KuuUQIma8090AHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Green Food Colour | Edible',
+  stock: 100
+},
+{
+  name: 'Jagat Store Red Colour (Food Grade)',
+  weight: '25g',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.p1PsZ3_HyUmaTgtKr5wlagHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Red Food Colour | Edible',
+  stock: 100
+},
+{
+  name: 'Jagat Store Yellow Colour (Food Grade)',
+  weight: '25g',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.ocDujaz4P7fkq-WCowIpIgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Yellow Food Colour | Edible',
+  stock: 100
+},
+
+// ========================================
+// 🫒 OILS
+// ========================================
+{
+  name: 'Jagat Store Castor Oil (Arandi Tel)',
+  weight: '100ml',
+  price: 65,
+  oldPrice: 95,
+  discount: '32% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.gerpE61kTS1GdYkZ9UO2MwHaHa?pid=Api&P=0&w=400&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Pure Castor Oil | For Hair & Skin',
+  stock: 80
+},
+
+
+// ========================================
+// 🌴 KIMIA DATES
+// ========================================
+{
+  name: 'Jagat Store Kimia Khajoor',
+  weight: '500g',
+  price: 225,
+  oldPrice: 310,
+  discount: '27% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ehfbB9fohyc5MiC8HdxxJAHaE8?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Kimia Dates | Soft & Juicy Iranian',
+  stock: 60
+},
+{
+  name: 'Jagat Store Makhana 1st Quality (Premium)',
+  weight: '250g',
+  price: 285,
+  oldPrice: 399,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.cQXPjcquNHU5A2UdO_nHrwHaE8?pid=Api&P=0&w=600&h=400',
+  inStock: true,
+  description: '🏪 Jagat Store | Makhana Premium | Big Size | Fasting Snack',
+  stock: 60
+},
+{
+  name: 'Jagat Store Makhana 2nd Quality',
+  weight: '250g',
+  price: 195,
+  oldPrice: 275,
+  discount: '29% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.NDxl94RLBtcTdX8-iyYGsgHaEK?pid=Api&H=89&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Makhana Regular | Medium Size | Value Pack',
+  stock: 80
+},
+
+{
+  name: 'Farmley Premium Makhana',
+  weight: '200g',
+  price: 215,
+  oldPrice: 289,
+  discount: '26% OFF',
+  category: "Jagat Store",
+  brand: 'Farmley',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.94u6NCCQ2tFaeus9Lm1pTQHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: 'Farmley | Premium Phool Makhana | Handpicked',
+  stock: 50
+},
+{
+  name: 'Jagat Store Amla Sabut (Dry Gooseberry)',
+  weight: '100g',
+  price: 45,
+  oldPrice: 65,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.OV-E8s0G8VSeCXZ_xfMAyQAAAA?pid=Api&P=0&w=400&h=402',
+  inStock: true,
+  description: '🏪 Jagat Store | Sukha Amla | Hair & Health',
+  stock: 100
+},
+{
+  name: 'Jagat Store Shikakai Sabut (Whole)',
+  weight: '100g',
+  price: 48,
+  oldPrice: 70,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.B9y2dxv9DCZ3QFDVYb8jzgHaEx?pid=Api&H=102&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Shikakai Whole | Natural Shampoo',
+  stock: 100
+},
+{
+  name: 'Jagat Store Reetha Sabut (Soap Nut)',
+  weight: '100g',
+  price: 42,
+  oldPrice: 60,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ihWblcKvXrTPhvDa9HCTxAHaIV?pid=Api&H=179&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Reetha Whole | Natural Cleanser',
+  stock: 100
+},
+
+
+
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========
