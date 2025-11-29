@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from './CartContext';
 import api from '../utils/api';
@@ -7,15 +7,18 @@ import './ProductPage.css';
 
 const ProductPage = ({ category, title, subtitle }) => {
   const [products, setProducts] = useState([]);
+  const [displayedProducts, setDisplayedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [productQuantities, setProductQuantities] = useState({});
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  
+  const PRODUCTS_PER_PAGE = 20; // Load 20 products at a time
+  
   const { addToCart, removeFromCart, updateQuantity, getCart, refreshCart } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Fallback image (base64 encoded placeholder)
-  const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Crect fill="%23f0f0f0" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" font-size="16" text-anchor="middle" dy=".3em" fill="%23999"%3ENo Image%3C/text%3E%3C/svg%3E';
 
   // Get search query from URL
   const queryParams = new URLSearchParams(location.search);
@@ -26,15 +29,21 @@ const ProductPage = ({ category, title, subtitle }) => {
     loadCartQuantities();
   }, [category, searchQuery]);
 
+  // Update displayed products when page changes
+  useEffect(() => {
+    const endIndex = page * PRODUCTS_PER_PAGE;
+    setDisplayedProducts(products.slice(0, endIndex));
+    setHasMore(endIndex < products.length);
+  }, [products, page]);
+
   const fetchProducts = async () => {
     try {
       setLoading(true);
       setError('');
+      setPage(1); // Reset page on new fetch
       
-      // Build API URL with category filter
       let url = `/products?category=${encodeURIComponent(category)}`;
       
-      // Add search query if exists
       if (searchQuery) {
         url += `&search=${encodeURIComponent(searchQuery)}`;
       }
@@ -42,8 +51,13 @@ const ProductPage = ({ category, title, subtitle }) => {
       console.log('Fetching products:', url);
       const response = await api.get(url);
       
-      console.log('Products fetched:', response.data);
-      setProducts(response.data.products || []);
+      const fetchedProducts = response.data.products || [];
+      console.log('Products fetched:', fetchedProducts.length);
+      
+      setProducts(fetchedProducts);
+      // Initially show only first batch
+      setDisplayedProducts(fetchedProducts.slice(0, PRODUCTS_PER_PAGE));
+      setHasMore(fetchedProducts.length > PRODUCTS_PER_PAGE);
     } catch (err) {
       setError('Failed to load products');
       console.error('Error fetching products:', err);
@@ -59,7 +73,9 @@ const ProductPage = ({ category, title, subtitle }) => {
       
       if (cart && cart.items) {
         cart.items.forEach(item => {
-          quantities[item.product._id] = item.quantity;
+          if (item.product && item.product._id) {
+            quantities[item.product._id] = item.quantity;
+          }
         });
       }
       
@@ -68,6 +84,28 @@ const ProductPage = ({ category, title, subtitle }) => {
       console.error('Error loading cart quantities:', error);
     }
   };
+
+  // Load more products
+  const loadMore = useCallback(() => {
+    if (hasMore) {
+      setPage(prev => prev + 1);
+    }
+  }, [hasMore]);
+
+  // Infinite scroll handler
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        >= document.documentElement.offsetHeight - 500
+      ) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loadMore]);
 
   const handleAddToCart = async (product) => {
     try {
@@ -79,25 +117,34 @@ const ProductPage = ({ category, title, subtitle }) => {
         return;
       }
 
-      console.log('Adding product to cart:', product._id);
+      // Optimistic update
+      setProductQuantities(prev => ({
+        ...prev,
+        [product._id]: 1
+      }));
 
-      // Add to cart
       const result = await addToCart(product._id, 1);
 
       if (result.success) {
-        // Update local quantity
-        setProductQuantities(prev => ({
-          ...prev,
-          [product._id]: 1
-        }));
-        
-        // Refresh cart
         await refreshCart();
       } else {
+        // Revert on error
+        setProductQuantities(prev => {
+          const newQty = { ...prev };
+          delete newQty[product._id];
+          return newQty;
+        });
         alert('❌ ' + result.message);
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
+      // Revert on error
+      setProductQuantities(prev => {
+        const newQty = { ...prev };
+        delete newQty[product._id];
+        return newQty;
+      });
+      
       if (error.response?.status === 401) {
         alert('Please login first');
         navigate('/login');
@@ -118,12 +165,10 @@ const ProductPage = ({ category, title, subtitle }) => {
         [product._id]: newQty
       }));
       
-      // Update in backend
       await updateQuantity(product._id, newQty);
       await refreshCart();
     } catch (error) {
       console.error('Error increasing quantity:', error);
-      // Revert on error
       await loadCartQuantities();
     }
   };
@@ -133,37 +178,54 @@ const ProductPage = ({ category, title, subtitle }) => {
       const currentQty = productQuantities[product._id] || 0;
       
       if (currentQty <= 1) {
-        // Remove from cart
-        await removeFromCart(product._id);
+        // Optimistic update
         setProductQuantities(prev => {
           const newQty = { ...prev };
           delete newQty[product._id];
           return newQty;
         });
+        
+        await removeFromCart(product._id);
       } else {
-        // Decrease quantity
         const newQty = currentQty - 1;
+        
+        // Optimistic update
         setProductQuantities(prev => ({
           ...prev,
           [product._id]: newQty
         }));
+        
         await updateQuantity(product._id, newQty);
       }
       
       await refreshCart();
     } catch (error) {
       console.error('Error decreasing quantity:', error);
-      // Revert on error
       await loadCartQuantities();
     }
   };
 
-
+  // Skeleton loader for initial load
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Loading products...</p>
+      <div className="product-page">
+        <div className="page-header">
+          <h1>{title || category}</h1>
+          <p>{subtitle || `Shop ${category} products`}</p>
+        </div>
+        <div className="products-grid">
+          {[...Array(12)].map((_, index) => (
+            <div key={index} className="product-card skeleton-card">
+              <div className="skeleton-image"></div>
+              <div className="skeleton-content">
+                <div className="skeleton-title"></div>
+                <div className="skeleton-brand"></div>
+                <div className="skeleton-price"></div>
+                <div className="skeleton-button"></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -204,82 +266,98 @@ const ProductPage = ({ category, title, subtitle }) => {
           )}
         </div>
       ) : (
-        <div className="products-grid">
-          {products.map((product) => {
-            const quantity = productQuantities[product._id] || 0;
-            const isInCart = quantity > 0;
+        <>
+          <div className="products-grid">
+            {displayedProducts.map((product) => {
+              const quantity = productQuantities[product._id] || 0;
+              const isInCart = quantity > 0;
 
-            return (
-              <div key={product._id} className="product-card">
-                <div className="product-image">
-                  <ProductImage 
-                    src={product.image || FALLBACK_IMAGE} 
-                    alt={product.name}
-                  />
-                  {product.discount && (
-                    <span className="discount-badge">{product.discount}</span>
-                  )}
-                </div>
+              return (
+                <div key={product._id} className="product-card">
+                  <div className="product-image">
+                    <ProductImage 
+                      src={product.image} 
+                      alt={product.name}
+                    />
+                    {product.discount && (
+                      <span className="discount-badge">{product.discount}</span>
+                    )}
+                  </div>
 
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  
-                  {product.brand && (
-                    <p className="product-brand">{product.brand}</p>
-                  )}
-                  
-                  {product.weight && (
-                    <p className="product-quantity">{product.weight}</p>
-                  )}
+                  <div className="product-info">
+                    <h3 className="product-name">{product.name}</h3>
+                    
+                    {product.brand && (
+                      <p className="product-brand">{product.brand}</p>
+                    )}
+                    
+                    {product.weight && (
+                      <p className="product-quantity">{product.weight}</p>
+                    )}
 
-                  <div className="product-pricing">
-                    <div className="price-row">
-                      <span className="current-price">₹{product.price}</span>
-                      {product.oldPrice && product.oldPrice > product.price && (
-                        <span className="original-price">₹{product.oldPrice}</span>
+                    <div className="product-pricing">
+                      <div className="price-row">
+                        <span className="current-price">₹{product.price}</span>
+                        {product.oldPrice && product.oldPrice > product.price && (
+                          <span className="original-price">₹{product.oldPrice}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="product-actions">
+                      {product.inStock && product.stock > 0 ? (
+                        <>
+                          {!isInCart ? (
+                            <button 
+                              className="add-to-cart-btn"
+                              onClick={() => handleAddToCart(product)}
+                            >
+                              ADD TO CART
+                            </button>
+                          ) : (
+                            <div className="quantity-controls">
+                              <button 
+                                className="quantity-btn decrease"
+                                onClick={() => handleDecreaseQuantity(product)}
+                              >
+                                −
+                              </button>
+                              <span className="quantity-display">{quantity}</span>
+                              <button 
+                                className="quantity-btn increase"
+                                onClick={() => handleIncreaseQuantity(product)}
+                              >
+                                +
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <button className="out-of-stock-btn" disabled>
+                          Out of Stock
+                        </button>
                       )}
                     </div>
                   </div>
-
-                  <div className="product-actions">
-                    {product.inStock && product.stock > 0 ? (
-                      <>
-                        {!isInCart ? (
-                          <button 
-                            className="add-to-cart-btn"
-                            onClick={() => handleAddToCart(product)}
-                          >
-                            ADD TO CART
-                          </button>
-                        ) : (
-                          <div className="quantity-controls">
-                            <button 
-                              className="quantity-btn decrease"
-                              onClick={() => handleDecreaseQuantity(product)}
-                            >
-                              −
-                            </button>
-                            <span className="quantity-display">{quantity}</span>
-                            <button 
-                              className="quantity-btn increase"
-                              onClick={() => handleIncreaseQuantity(product)}
-                            >
-                              +
-                            </button>
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <button className="out-of-stock-btn" disabled>
-                        Out of Stock
-                      </button>
-                    )}
-                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+
+          {/* Load More / Loading indicator */}
+          {hasMore && (
+            <div className="load-more-container">
+              <button className="load-more-btn" onClick={loadMore}>
+                Load More Products
+              </button>
+            </div>
+          )}
+
+          {/* Showing count */}
+          <div className="products-count">
+            Showing {displayedProducts.length} of {products.length} products
+          </div>
+        </>
       )}
     </div>
   );
