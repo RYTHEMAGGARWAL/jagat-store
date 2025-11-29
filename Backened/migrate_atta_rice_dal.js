@@ -1120,6 +1120,19 @@ category: "Atta Rice Dal",
   description: "Catch | Himalayan Pink Rock Salt | 100% Natural",
   stock: 100
 },
+{
+  name: 'Sugar Lite Low Calorie Sugar',
+  weight: '500g',
+  price: 275,
+  oldPrice: 335,
+  discount: '18% OFF',
+  category: 'Grocery',
+  brand: 'Sugar Lite',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.1OSgUknJHluRadAFCcavdQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Sugar Lite | Low Calorie Sugar | 50% Fewer Calories | 500g',
+  stock: 60
+},
 
 // ========================================
 // 🟢 PURO SALT
