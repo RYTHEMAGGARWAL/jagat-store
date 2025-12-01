@@ -1,10 +1,9 @@
-console.log('NEW ORDERCONTROLLER LOADED - WITH GIFT FEATURE 🎁');
+console.log('NEW ORDERCONTROLLER LOADED - WITH RESEND EMAIL 📧');
 
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 const User = require('../models/User');
-const nodemailer = require('nodemailer');
 
 // 🎁 GIFT CONFIGURATION
 const GIFT_THRESHOLD = 999;
@@ -20,7 +19,39 @@ const GIFT_PRODUCT = {
   isGift: true
 };
 
-// FIXED & OPTIMIZED createOrder - 3 सेकंड में Order Place!
+// 📧 SEND EMAIL USING RESEND API (Works on Render!)
+async function sendEmail(to, subject, html) {
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Jagat Store <onboarding@resend.dev>',
+        to: to,
+        subject: subject,
+        html: html
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      console.log('✅ Email sent to:', to);
+      return true;
+    } else {
+      console.error('❌ Resend error:', data);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Email failed:', error.message);
+    return false;
+  }
+}
+
+// FIXED & OPTIMIZED createOrder
 exports.createOrder = async (req, res) => {
   console.log('NEW ORDER FROM:', req.user.email);
 
@@ -33,7 +64,6 @@ exports.createOrder = async (req, res) => {
       taxPrice,
       shippingPrice,
       totalPrice,
-      // 🎁 GIFT DATA FROM FRONTEND
       hasGift,
       giftItem
     } = req.body;
@@ -49,7 +79,7 @@ exports.createOrder = async (req, res) => {
       }
     }
 
-    // 🎁 VALIDATE GIFT - Check if eligible
+    // 🎁 VALIDATE GIFT
     let finalHasGift = false;
     let finalGiftItem = null;
     let giftSavings = 0;
@@ -71,20 +101,19 @@ exports.createOrder = async (req, res) => {
       taxPrice, 
       shippingPrice, 
       totalPrice,
-      // 🎁 GIFT DATA
       hasGift: finalHasGift,
       giftItem: finalGiftItem,
       giftSavings: giftSavings,
       orderStatus: 'Processing'
     });
 
-    // Clear cart (background) - Also clear gift
+    // Clear cart
     Cart.findOneAndUpdate(
       { user: req.user._id }, 
       { items: [], totalPrice: 0, hasGift: false, giftItem: null }
     ).catch(() => {});
 
-    // TURANT RESPONSE → 3 सेकंड में success page!
+    // TURANT RESPONSE
     res.json({
       success: true,
       message: finalHasGift ? '🎉 Order placed with FREE gift!' : 'Order placed!',
@@ -96,13 +125,12 @@ exports.createOrder = async (req, res) => {
       }
     });
 
-    // BACKGROUND MEIN SAB KUCH (email + stock)
+    // BACKGROUND - Email + Stock
     process.nextTick(async () => {
       const user = await User.findById(req.user._id).catch(() => null);
       const shortId = order._id.toString().slice(-8).toUpperCase();
       const date = new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
 
-      // Items HTML for both emails
       const itemsHTML = orderItems.map((item, i) => `
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:12px 8px;">${i + 1}. ${item.name}</td>
@@ -112,7 +140,6 @@ exports.createOrder = async (req, res) => {
         </tr>
       `).join('');
 
-      // 🎁 GIFT ROW FOR EMAIL
       const giftHTML = finalHasGift ? `
         <tr style="border-bottom:1px solid #eee; background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
           <td style="padding:12px 8px; color:#2e7d32;">
@@ -124,7 +151,6 @@ exports.createOrder = async (req, res) => {
         </tr>
       ` : '';
 
-      // 🎁 GIFT SAVINGS BADGE
       const savingsBadge = finalHasGift ? `
         <div style="background:linear-gradient(135deg, #4caf50, #2e7d32); color:white; padding:15px; text-align:center; margin:15px 0; border-radius:8px;">
           🎉 Customer saved ₹${giftSavings} with FREE gift!
@@ -132,31 +158,13 @@ exports.createOrder = async (req, res) => {
       ` : '';
 
       try {
-        // ✅ FIXED: Using port 465 with SSL
-        const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true,  // SSL
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
-          },
-          connectionTimeout: 60000,  // 60 seconds
-          greetingTimeout: 60000,
-          socketTimeout: 60000,
-          tls: {
-            rejectUnauthorized: false
-          }
-        });
+        const adminEmail = process.env.ADMIN_EMAIL || 'Rythemaggarwal7840@gmail.com';
 
-        const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
-
-        // ADMIN EMAIL - Pro & Detailed with Gift
-        await transporter.sendMail({
-          from: `"Jagat Store" <${process.env.EMAIL_USER}>`,
-          to: adminEmail,
-          subject: `${finalHasGift ? '🎁 ' : ''}NEW ORDER #${shortId} | ₹${totalPrice} | ${user?.name || 'Guest'}`,
-          html: `
+        // ADMIN EMAIL
+        await sendEmail(
+          adminEmail,
+          `${finalHasGift ? '🎁 ' : ''}NEW ORDER #${shortId} | ₹${totalPrice} | ${user?.name || 'Guest'}`,
+          `
             <div style="font-family:Arial,sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; border-radius:12px; overflow:hidden;">
               <div style="background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:20px; text-align:center;">
                 <h1 style="margin:0;">NEW ORDER RECEIVED!</h1>
@@ -205,17 +213,14 @@ exports.createOrder = async (req, res) => {
               </div>
             </div>
           `
-        });
+        );
 
-        console.log('✅ Admin email sent!');
-
-        // CUSTOMER EMAIL - Sweet & Thank You with Gift
+        // CUSTOMER EMAIL
         if (user?.email) {
-          await transporter.sendMail({
-            from: `"Jagat Store" <${process.env.EMAIL_USER}>`,
-            to: user.email,
-            subject: `${finalHasGift ? '🎁 ' : ''}Order Confirmed #${shortId} | Thank You ${user.name.split(' ')[0]}!`,
-            html: `
+          await sendEmail(
+            user.email,
+            `${finalHasGift ? '🎁 ' : ''}Order Confirmed #${shortId} | Thank You ${user.name.split(' ')[0]}!`,
+            `
               <div style="font-family:Arial,sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; border-radius:12px; overflow:hidden;">
                 <div style="background:linear-gradient(135deg,#11998e,#38ef7d); color:white; padding:30px; text-align:center;">
                   <h1 style="margin:0;">Thank You for Your Order!</h1>
@@ -260,19 +265,18 @@ exports.createOrder = async (req, res) => {
                 </div>
               </div>
             `
-          });
-          console.log('✅ Customer email sent to:', user.email);
+          );
         }
 
-        console.log('✅ BOTH EMAILS SENT SUCCESSFULLY!');
+        console.log('✅ ALL EMAILS SENT SUCCESSFULLY!');
 
-        // Stock update (last mein)
+        // Stock update
         for (let item of orderItems) {
           await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
         }
 
       } catch (err) {
-        console.error('❌ Email/Background tasks failed:', err.message);
+        console.error('❌ Background tasks failed:', err.message);
       }
     });
 
@@ -291,16 +295,10 @@ exports.getMyOrders = async (req, res) => {
       .populate('orderItems.product')
       .sort({ createdAt: -1 });
     
-    res.json({
-      success: true,
-      orders
-    });
+    res.json({ success: true, orders });
   } catch (error) {
     console.error('❌ Get my orders error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -312,16 +310,10 @@ exports.getAllOrders = async (req, res) => {
       .populate('orderItems.product')
       .sort({ createdAt: -1 });
     
-    res.json({
-      success: true,
-      orders
-    });
+    res.json({ success: true, orders });
   } catch (error) {
     console.error('❌ Get all orders error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -332,29 +324,17 @@ exports.getOrderById = async (req, res) => {
       .populate('user', 'name email phone');
 
     if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: 'Order not found'
-      });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
     if (order.user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-      return res.status(403).json({
-        success: false,
-        message: 'Not authorized'
-      });
+      return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
-    res.json({
-      success: true,
-      order
-    });
+    res.json({ success: true, order });
   } catch (error) {
     console.error('❌ Get order error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -362,21 +342,15 @@ exports.getOrderById = async (req, res) => {
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { status, note } = req.body;
-    
     const order = await Order.findById(req.params.id);
     
     if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: 'Order not found'
-      });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
     
     order.orderStatus = status;
     
-    if (!order.statusHistory) {
-      order.statusHistory = [];
-    }
+    if (!order.statusHistory) order.statusHistory = [];
     
     order.statusHistory.push({
       status,
@@ -406,18 +380,10 @@ exports.updateOrderStatus = async (req, res) => {
     }
     
     await order.save();
-    
-    res.json({
-      success: true,
-      message: 'Order status updated successfully',
-      order
-    });
+    res.json({ success: true, message: 'Order status updated successfully', order });
   } catch (error) {
     console.error('❌ Update status error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -425,37 +391,25 @@ exports.updateOrderStatus = async (req, res) => {
 exports.cancelOrder = async (req, res) => {
   try {
     const { reason } = req.body;
-    
     const order = await Order.findById(req.params.id);
     
     if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: 'Order not found'
-      });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
     
     if (order.user.toString() !== req.user._id.toString()) {
-      return res.status(403).json({
-        success: false,
-        message: 'Not authorized'
-      });
+      return res.status(403).json({ success: false, message: 'Not authorized' });
     }
     
     if (['Delivered', 'Cancelled'].includes(order.orderStatus)) {
-      return res.status(400).json({
-        success: false,
-        message: `Cannot cancel order with status: ${order.orderStatus}`
-      });
+      return res.status(400).json({ success: false, message: `Cannot cancel order with status: ${order.orderStatus}` });
     }
     
     order.orderStatus = 'Cancelled';
     order.cancelledAt = Date.now();
     order.cancellationReason = reason || 'Cancelled by user';
     
-    if (!order.statusHistory) {
-      order.statusHistory = [];
-    }
+    if (!order.statusHistory) order.statusHistory = [];
     
     order.statusHistory.push({
       status: 'Cancelled',
@@ -472,18 +426,10 @@ exports.cancelOrder = async (req, res) => {
     }
     
     await order.save();
-    
-    res.json({
-      success: true,
-      message: 'Order cancelled successfully',
-      order
-    });
+    res.json({ success: true, message: 'Order cancelled successfully', order });
   } catch (error) {
     console.error('❌ Cancel order error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -493,23 +439,13 @@ exports.deleteOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
     
     if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: 'Order not found'
-      });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
     
     await order.deleteOne();
-    
-    res.json({
-      success: true,
-      message: 'Order deleted successfully'
-    });
+    res.json({ success: true, message: 'Order deleted successfully' });
   } catch (error) {
     console.error('❌ Delete order error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
