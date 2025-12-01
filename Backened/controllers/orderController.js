@@ -132,18 +132,21 @@ exports.createOrder = async (req, res) => {
       ` : '';
 
       try {
-        // ✅ FIXED: Using environment variables with increased timeout
+        // ✅ FIXED: Using port 465 with SSL
         const transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
-          port: 587,
-          secure: false,
+          port: 465,
+          secure: true,  // SSL
           auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASSWORD
           },
-          connectionTimeout: 30000,  // 30 seconds
-          greetingTimeout: 30000,
-          socketTimeout: 30000
+          connectionTimeout: 60000,  // 60 seconds
+          greetingTimeout: 60000,
+          socketTimeout: 60000,
+          tls: {
+            rejectUnauthorized: false
+          }
         });
 
         const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
