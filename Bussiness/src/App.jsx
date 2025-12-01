@@ -38,6 +38,8 @@ import WhatsAppButton from './Components/WhatsAppButton';
 
 // 👇 NEW: Import ScrollToTop
 import ScrollToTop from './Components/ScrollToTop';
+import AdminProducts from './Components/AdminProducts';
+import AdminAddProduct from './Components/AdminAddProduct';
 
 function App() {
   return (
@@ -57,6 +59,7 @@ function App() {
         <Route path="/MasalaOil" element={<MasalaOil />} />
         <Route path="/PetCare" element={<PetCare />} />
         <Route path="/BabyCare" element={<BabyCare />} />
+        
    
         <Route path="/JagatStore" element={<JagatStore />} />
         <Route path="/SaucesSpreads" element={<SaucesSpreads />} />
@@ -84,6 +87,8 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/admin/orders/:orderId" element={<AdminOrderDetail />} />
+       <Route path="/admin/products" element={<AdminProducts />} />
+       <Route path="/admin/add-product" element={<AdminAddProduct />} />
         
         {/* Cart */}
         <Route path="/Cart" element={<Cart />} />

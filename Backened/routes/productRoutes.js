@@ -1,14 +1,15 @@
-// Backend/routes/productRoutes.js - FIXED WITH REGEX ESCAPING
+// Backend/routes/productRoutes.js - WITH CLOUDINARY IMAGE UPLOAD
 
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const { upload, deleteImage } = require('../config/cloudinary'); // ✅ Cloudinary
 
 // ====================================
 // HELPER FUNCTIONS
 // ====================================
 
-// 🔥 ESCAPE REGEX SPECIAL CHARACTERS - THIS WAS MISSING!
+// 🔥 ESCAPE REGEX SPECIAL CHARACTERS
 const escapeRegex = (string) => {
   if (!string) return '';
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -176,11 +177,11 @@ router.get('/search/suggestions', async (req, res) => {
     res.json(suggestionList);
   } catch (error) {
     console.error('❌ Suggestions Error:', error);
-    res.json([]); // Return empty array instead of error
+    res.json([]);
   }
 });
 
-// ✅ 2. SEARCH ROUTE - FIXED WITH REGEX ESCAPING 🔥
+// ✅ 2. SEARCH ROUTE
 router.get('/search', async (req, res) => {
   try {
     const { q } = req.query;
@@ -194,14 +195,8 @@ router.get('/search', async (req, res) => {
     const cleanedQuery = cleanSearchQuery(q);
     const searchWords = cleanedQuery.split(' ').filter(word => word && word.length >= 2);
     
-    console.log('🔍 Cleaned:', cleanedQuery);
-    console.log('🔍 Words:', searchWords);
-
-    // 🔥 ESCAPE REGEX SPECIAL CHARACTERS - CRITICAL FIX!
     const escapedQuery = escapeRegex(cleanedQuery);
     const escapedWords = searchWords.map(w => escapeRegex(w));
-
-    console.log('🔍 Escaped Query:', escapedQuery);
 
     const orConditions = [];
     
@@ -224,17 +219,12 @@ router.get('/search', async (req, res) => {
     }
 
     if (orConditions.length === 0) {
-      console.log('⚠️ No conditions');
       return res.json([]);
     }
-
-    console.log('🔍 Conditions count:', orConditions.length);
 
     const products = await Product.find({
       $or: orConditions
     }).limit(500);
-
-    console.log('📦 Found:', products.length);
 
     if (products.length === 0) {
       return res.json([]);
@@ -249,30 +239,23 @@ router.get('/search', async (req, res) => {
         const score = calculateRelevanceScore(product, cleanedQuery, searchWords);
         scoredProducts.push({ ...normalized, _relevanceScore: score });
       } catch (err) {
-        console.error('Product error:', err);
         scoredProducts.push({ ...product.toObject(), _relevanceScore: 0 });
       }
     }
 
-    // Sort by score
     scoredProducts.sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
 
-    // Remove score and limit
     const finalProducts = scoredProducts.slice(0, 250).map(p => {
       const { _relevanceScore, ...product } = p;
       return product;
     });
 
-    console.log('✅ Returning:', finalProducts.length);
+    console.log('✅ Search Results:', finalProducts.length);
 
     res.json(finalProducts);
   } catch (error) {
     console.error('❌ Search Error:', error.message);
-    console.error('❌ Stack:', error.stack);
-    res.status(500).json({ 
-      message: 'Search failed', 
-      error: error.message 
-    });
+    res.status(500).json({ message: 'Search failed', error: error.message });
   }
 });
 
@@ -283,7 +266,6 @@ router.get('/category/:category', async (req, res) => {
     
     console.log('📂 Category:', requestedCategory);
     
-    // 🔥 ESCAPE REGEX
     const escapedCategory = escapeRegex(requestedCategory);
     
     const products = await Product.find({ 
@@ -346,43 +328,59 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ 5. CREATE PRODUCT
-router.post('/', async (req, res) => {
+// ✅ 5. CREATE PRODUCT WITH IMAGE UPLOAD 📸
+router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { name, brand, category, price, oldPrice, weight, image, stock, inStock, discount } = req.body;
+    const { name, brand, category, price, oldPrice, weight, image, stock, inStock, discount, description } = req.body;
+    
+    console.log('📦 Creating product:', name);
     
     if (!name || !category || !price) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide name, category, and price'
+        message: 'Name, Category aur Price required hai!'
       });
     }
     
-    const product = new Product({
+    const productData = {
       name,
       brand: brand || '',
       category,
-      price,
-      oldPrice: oldPrice || price,
+      price: parseFloat(price),
+      oldPrice: oldPrice ? parseFloat(oldPrice) : parseFloat(price),
       weight: weight || '',
-      image: image || '',
-      stock: stock || 100,
-      inStock: inStock !== undefined ? inStock : true,
-      discount: discount || ''
-    });
+      stock: stock ? parseInt(stock) : 100,
+      inStock: inStock === 'true' || inStock === true || inStock === undefined,
+      discount: discount || '',
+      description: description || ''
+    };
     
+    // ✅ Cloudinary Image Upload
+    if (req.file) {
+      productData.image = req.file.path; // Cloudinary URL
+      productData.imagePublicId = req.file.filename; // For deletion
+      console.log('📸 Image uploaded:', req.file.path);
+    } else if (image) {
+      // Direct URL provided (for manual entry)
+      productData.image = image;
+    }
+    
+    const product = new Product(productData);
     await product.save();
+    
+    console.log('✅ Product created:', product.name);
     
     res.status(201).json({
       success: true,
-      message: 'Product created successfully',
+      message: 'Product add ho gaya!',
       product: normalizeProduct(product)
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('❌ Create Error:', error);
     res.status(500).json({
       success: false,
-      message: 'Error creating product'
+      message: 'Product add nahi hua',
+      error: error.message
     });
   }
 });
@@ -412,14 +410,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ✅ 7. UPDATE PRODUCT
-router.put('/:id', async (req, res) => {
+// ✅ 7. UPDATE PRODUCT WITH IMAGE 📸
+router.put('/:id', upload.single('image'), async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const product = await Product.findById(req.params.id);
     
     if (!product) {
       return res.status(404).json({
@@ -428,13 +422,45 @@ router.put('/:id', async (req, res) => {
       });
     }
     
+    // Delete old image if new one uploaded
+    if (req.file && product.imagePublicId) {
+      try {
+        await deleteImage(product.imagePublicId);
+        console.log('🗑️ Old image deleted');
+      } catch (err) {
+        console.log('Old image delete error:', err.message);
+      }
+    }
+    
+    const updateData = { ...req.body };
+    
+    // Parse numeric fields
+    if (updateData.price) updateData.price = parseFloat(updateData.price);
+    if (updateData.oldPrice) updateData.oldPrice = parseFloat(updateData.oldPrice);
+    if (updateData.stock) updateData.stock = parseInt(updateData.stock);
+    
+    // New image uploaded
+    if (req.file) {
+      updateData.image = req.file.path;
+      updateData.imagePublicId = req.file.filename;
+      console.log('📸 New image uploaded:', req.file.path);
+    }
+    
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true, runValidators: true }
+    );
+    
+    console.log('✅ Product updated:', updatedProduct.name);
+    
     res.json({
       success: true,
-      message: 'Product updated successfully',
-      product: normalizeProduct(product)
+      message: 'Product update ho gaya!',
+      product: normalizeProduct(updatedProduct)
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Update Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error updating product'
@@ -442,10 +468,10 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ✅ 8. DELETE PRODUCT
+// ✅ 8. DELETE PRODUCT (Also deletes image from Cloudinary)
 router.delete('/:id', async (req, res) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
+    const product = await Product.findById(req.params.id);
     
     if (!product) {
       return res.status(404).json({
@@ -454,12 +480,26 @@ router.delete('/:id', async (req, res) => {
       });
     }
     
+    // Delete image from Cloudinary
+    if (product.imagePublicId) {
+      try {
+        await deleteImage(product.imagePublicId);
+        console.log('🗑️ Image deleted from Cloudinary');
+      } catch (err) {
+        console.log('Image delete error:', err.message);
+      }
+    }
+    
+    await Product.findByIdAndDelete(req.params.id);
+    
+    console.log('✅ Product deleted:', product.name);
+    
     res.json({
       success: true,
-      message: 'Product deleted successfully'
+      message: 'Product delete ho gaya!'
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Delete Error:', error);
     res.status(500).json({
       success: false,
       message: 'Error deleting product'
