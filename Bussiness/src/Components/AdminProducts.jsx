@@ -21,16 +21,22 @@ const AdminProducts = () => {
   const categories = [
     'Atta Rice Dal',
     'Masala Oil',
+    'Dairy Bread Eggs',
+    'Sauces Spreads',
+    'Sweet Tooth',
+    'Baby Care',
+    'Bakery Biscuits',
+    'Cold Drinks Juices',
+    'Breakfast Instant Foods',
+    'Pharmacy',
     'Cleaning Essentials',
     'Personal Care',
     'Snacks Munchies',
-    'Tea Coffee',
-    'Dairy Bakery',
     'Home and Offices',
     'Organic & Healthy Living',
     'Baby Care',
     'Pet Care',
-    'Beverages'
+   
   ];
 
   useEffect(() => {

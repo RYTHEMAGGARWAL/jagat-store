@@ -33,7 +33,127 @@ const Product = mongoose.model('Product', productSchema);
 // ========== SNACKS & MUNCHIES PRODUCTS ==========
 const snacksMunchiesProducts = [
   // CHIPS - LAYS
- 
+ {
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g',
+  price: 14,
+  oldPrice: 17,
+  discount: '18% OFF',
+ category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.YlCrzPhIVtJ5uHUF0sH-eAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Single Pack | 70g',
+  stock: 300
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 4',
+  price: 56,
+  oldPrice: 68,
+  discount: '18% OFF',
+category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.MrH6KdkCcD1rSRiVX_EY_gHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Pack of 4',
+  stock: 200
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 6',
+  price: 84,
+  oldPrice: 102,
+  discount: '18% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.VcjR5Jvl05HKKlAiiSJd5wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Pack of 6',
+  stock: 150
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 8',
+  price: 112,
+  oldPrice: 136,
+  discount: '18% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.W-S4ZHXW4Q-zqOhTfyg2QgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Family Pack of 8',
+  stock: 120
+},
+
+// ATTA MAGGI (WHOLE WHEAT)
+{
+  name: 'Maggi Atta Noodles',
+  weight: '70g',
+  price: 15,
+  oldPrice: 18,
+  discount: '17% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.vTtbCYEuomwUMPlCMpciogHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Nutri-licious Atta Noodles | Whole Wheat | Single Pack',
+  stock: 180
+},
+{
+  name: 'Maggi Atta Noodles',
+  weight: '70g x 4',
+  price: 60,
+  oldPrice: 72,
+  discount: '17% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.8JUuAk13XJHADManzw_lDwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Nutri-licious Atta Noodles | Whole Wheat | Pack of 4',
+  stock: 120
+},
+
+// MAGGI PASTA (WHITE & RED MASALA)
+{
+  name: 'Maggi Pazzta Cheese Macaroni',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.p8un027z54cQrGHX7ONUXwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Pazzta | Cheese Macaroni | White Sauce | Instant | 70g',
+  stock: 130
+},
+{
+  name: 'Maggi Pazzta Masala Penne',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.0PG3wUETLaUyE0r0fMJXjAHaEK?pid=Api&H=89&W=160',
+  inStock: true,
+  description: 'Maggi Pazzta | Masala Penne | Red Sauce | Instant | 70g',
+  stock: 130
+},
+{
+  name: 'Maggi Pazzta Tomato',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks & Munchies',
+  brand: 'Maggi',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.5TuB8QpoeC2q2EbOLpXtSQHaES?pid=Api&P=0&w=692&h=400',
+  inStock: true,
+  description: 'Maggi Pazzta | Tomato | Red Sauce | Instant | 70g',
+  stock: 130
+}
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========
