@@ -132,13 +132,18 @@ exports.createOrder = async (req, res) => {
       ` : '';
 
       try {
-        // ✅ FIXED: Using environment variables for email credentials
+        // ✅ FIXED: Using environment variables with increased timeout
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          host: 'smtp.gmail.com',
+          port: 587,
+          secure: false,
           auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASSWORD
-          }
+          },
+          connectionTimeout: 30000,  // 30 seconds
+          greetingTimeout: 30000,
+          socketTimeout: 30000
         });
 
         const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
