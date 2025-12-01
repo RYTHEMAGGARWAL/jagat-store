@@ -18,6 +18,22 @@ const Checkout = () => {
     paymentMethod: 'COD'
   });
 
+  // Manual area selection (backup if GPS fails)
+  const [manualAreaSelected, setManualAreaSelected] = useState(false);
+  const [selectedArea, setSelectedArea] = useState('');
+
+  // Delivery areas list
+  const DELIVERY_AREAS = [
+    'Vijay Nagar',
+    'Pratap Vihar', 
+    'Kailash Nagar',
+    'Siddharth Vihar',
+    'Brahmaputra',
+    'Hindon Vihar',
+    'Gaushala',
+    'Jassipura'
+  ];
+
   const [placing, setPlacing] = useState(false);
   const [storeStatus, setStoreStatus] = useState(getStoreStatusMessage());
   const [deliveryCheck, setDeliveryCheck] = useState(null);
@@ -266,6 +282,9 @@ const Checkout = () => {
 
           // 📍 CHECK ONLY DISTANCE - 5km radius
           if (distance <= MAX_DELIVERY_RADIUS) {
+            // Reset manual selection since GPS works
+            setManualAreaSelected(false);
+            setSelectedArea('');
             setDeliveryCheck({
               available: true,
               message: `✅ Great! You're ${distance} km away. Delivery available!`,
@@ -274,7 +293,7 @@ const Checkout = () => {
           } else {
             setDeliveryCheck({
               available: false,
-              message: `❌ Sorry! You're ${distance} km away. We deliver within ${MAX_DELIVERY_RADIUS} km only.`,
+              message: `❌ GPS shows ${distance} km away. Select your area below if you're in our delivery zone.`,
               color: '#c62828'
             });
           }
@@ -316,6 +335,23 @@ const Checkout = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle manual area selection
+  const handleManualAreaSelect = (area) => {
+    setSelectedArea(area);
+    setManualAreaSelected(true);
+    setFormData(prev => ({ ...prev, detectedArea: area + ', Ghaziabad, Uttar Pradesh' }));
+    setDeliveryCheck({
+      available: true,
+      message: `✅ ${area} - Delivery Available!`,
+      color: '#2e7d32'
+    });
+  };
+
+  // Check if delivery is available (GPS or Manual)
+  const isDeliveryAvailable = () => {
+    return (userDistance !== null && userDistance <= MAX_DELIVERY_RADIUS) || manualAreaSelected;
+  };
+
   // Get full address for order
   const getFullAddress = () => {
     let parts = [];
@@ -343,14 +379,9 @@ const Checkout = () => {
       return;
     }
 
-    // 📍 CHECK GPS DISTANCE ONLY!
-    if (userDistance === null) {
-      alert('📍 Please click "Detect My Location" first to verify delivery availability.');
-      return;
-    }
-
-    if (userDistance > MAX_DELIVERY_RADIUS) {
-      alert(`Sorry! We deliver within ${MAX_DELIVERY_RADIUS} km only.\n\nYou're ${userDistance} km away from our store.`);
+    // 📍 CHECK GPS DISTANCE OR MANUAL AREA SELECTION
+    if (!isDeliveryAvailable()) {
+      alert('📍 Please detect your location or select your area to verify delivery availability.');
       return;
     }
 
@@ -382,6 +413,7 @@ const Checkout = () => {
           houseNo: formData.houseNo,
           landmark: formData.landmark,
           detectedArea: formData.detectedArea,
+          selectedArea: manualAreaSelected ? selectedArea : null,
           city: 'Ghaziabad',
           state: 'Uttar Pradesh',
           pincode: '201009',
@@ -395,7 +427,8 @@ const Checkout = () => {
         totalPrice: finalTotal,
         hasGift: hasGift,
         giftItem: giftItem,
-        deliveryDistance: userDistance
+        deliveryDistance: userDistance,
+        manualAreaSelected: manualAreaSelected
       };
 
       console.log('📤 Sending order:', orderData);
@@ -565,12 +598,15 @@ const Checkout = () => {
             
             <form onSubmit={handleSubmit} className="checkout-form">
               
-              {/* 🔒 FIELDS ONLY SHOW WHEN LOCATION IS WITHIN 5KM */}
-              {userDistance !== null && userDistance <= MAX_DELIVERY_RADIUS ? (
+              {/* 🔒 FIELDS ONLY SHOW WHEN LOCATION IS WITHIN 5KM OR MANUAL AREA SELECTED */}
+              {isDeliveryAvailable() ? (
                 <>
                   {/* ✅ LOCATION VERIFIED - SHOW ALL FIELDS */}
                   <div className="location-verified-badge">
-                    ✅ Location Verified! You're {userDistance} km away - Delivery Available
+                    {manualAreaSelected 
+                      ? `✅ ${selectedArea} - Delivery Available!`
+                      : `✅ Location Verified! You're ${userDistance} km away - Delivery Available`
+                    }
                   </div>
 
                   <div className="form-group">
@@ -693,18 +729,33 @@ const Checkout = () => {
               ) : (
                 <>
                   {/* ❌ LOCATION NOT VERIFIED OR OUTSIDE 5KM - SHOW DISABLED STATE */}
-                  {userDistance !== null && userDistance > MAX_DELIVERY_RADIUS ? (
+                  {userDistance !== null && userDistance > MAX_DELIVERY_RADIUS && !manualAreaSelected ? (
                     <div className="location-out-of-range">
                       <div className="out-range-icon">😔</div>
-                      <h3>Outside Delivery Range</h3>
-                      <p>You're <strong>{userDistance} km</strong> away from our store.</p>
-                      <p>We currently deliver within <strong>{MAX_DELIVERY_RADIUS} km</strong> radius only.</p>
+                      <h3>GPS shows {userDistance} km away</h3>
+                      <p>But don't worry! Select your area if you're in our delivery zone:</p>
                       
+                      {/* Manual Area Selection */}
+                      <div className="manual-area-selection">
+                        <h4>📍 Select Your Area:</h4>
+                        <div className="area-buttons">
+                          {DELIVERY_AREAS.map((area) => (
+                            <button
+                              key={area}
+                              type="button"
+                              className={`area-btn ${selectedArea === area ? 'selected' : ''}`}
+                              onClick={() => handleManualAreaSelect(area)}
+                            >
+                              {area}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
                       {/* WhatsApp Contact Message */}
                       <div className="whatsapp-pointer-box">
-                        <div className="pointer-arrow">👇</div>
                         <div className="pointer-message">
-                          <span className="highlight-msg">🌟 Don't Worry!</span>
+                          <span className="highlight-msg">🏠 Area नहीं मिला?</span>
                           <p>नीचे <strong>WhatsApp icon</strong> पर click करें</p>
                           <p className="sub-msg">Owner से बात करें - अगर delivery possible हुई तो वो solution दे देंगे!</p>
                         </div>
@@ -713,19 +764,30 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-                  ) : (
+                  ) : userDistance === null && !manualAreaSelected ? (
                     <div className="location-required-message">
-                      <div className="lock-icon">🔒</div>
-                      <h3>Location Required</h3>
-                      <p>Please detect your location first to check delivery availability and unlock checkout.</p>
-                      <div className="disabled-fields-preview">
-                        <div className="disabled-field">👤 Name</div>
-                        <div className="disabled-field">📱 Phone</div>
-                        <div className="disabled-field">🏠 Address</div>
-                        <div className="disabled-field">💵 Payment</div>
+                      <div className="lock-icon">📍</div>
+                      <h3>Detect Location or Select Area</h3>
+                      <p>Location detect करें या नीचे से अपना area select करें</p>
+                      
+                      {/* Manual Area Selection */}
+                      <div className="manual-area-selection">
+                        <h4>🏠 अपना Area Select करें:</h4>
+                        <div className="area-buttons">
+                          {DELIVERY_AREAS.map((area) => (
+                            <button
+                              key={area}
+                              type="button"
+                              className={`area-btn ${selectedArea === area ? 'selected' : ''}`}
+                              onClick={() => handleManualAreaSelect(area)}
+                            >
+                              {area}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </>
               )}
             </form>
@@ -826,6 +888,7 @@ const Checkout = () => {
               <p>🚚 Delivery in 40 minutes</p>
               <p>📍 {getFullAddress()}</p>
               {userDistance !== null && <p>📏 Distance: {userDistance} km</p>}
+              {manualAreaSelected && <p>🏠 Area: {selectedArea}</p>}
               <p>💵 Cash on Delivery</p>
               {hasGift && <p>🎁 Includes FREE Gift!</p>}
             </div>
