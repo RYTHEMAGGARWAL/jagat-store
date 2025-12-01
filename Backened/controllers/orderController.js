@@ -450,3 +450,50 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+// 💰 Mark Order as Paid (Admin only)
+exports.markOrderAsPaid = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Order not found' 
+      });
+    }
+
+    // Update payment status
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    
+    // Also update paymentInfo if exists
+    if (order.paymentInfo) {
+      order.paymentInfo.status = 'Success';
+      order.paymentInfo.paidAt = Date.now();
+    }
+
+    // Add to status history
+    if (!order.statusHistory) order.statusHistory = [];
+    order.statusHistory.push({
+      status: order.orderStatus,
+      note: 'Payment collected - Marked as Paid by admin',
+      timestamp: new Date()
+    });
+
+    const updatedOrder = await order.save();
+
+    console.log('💰 Order marked as paid:', order._id);
+
+    res.status(200).json({
+      success: true,
+      message: 'Order marked as paid',
+      order: updatedOrder
+    });
+  } catch (error) {
+    console.error('❌ Mark as paid error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error updating payment status' 
+    });
+  }
+};

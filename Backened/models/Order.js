@@ -48,7 +48,7 @@ const orderSchema = new mongoose.Schema({
     }
   }],
   
-  // 🎁 GIFT FIELDS - NEW!
+  // 🎁 GIFT FIELDS
   hasGift: {
     type: Boolean,
     default: false
@@ -56,6 +56,9 @@ const orderSchema = new mongoose.Schema({
   giftItem: giftItemSchema,
   
   shippingAddress: {
+    name: {
+      type: String
+    },
     fullAddress: {
       type: String,
       required: true
@@ -88,7 +91,19 @@ const orderSchema = new mongoose.Schema({
       type: String,
       enum: ['Pending', 'Success', 'Failed'],
       default: 'Pending'
+    },
+    paidAt: {
+      type: Date
     }
+  },
+  
+  // 💰 PAYMENT STATUS FIELDS - NEW!
+  isPaid: {
+    type: Boolean,
+    default: false
+  },
+  paidAt: {
+    type: Date
   },
   
   itemsPrice: {
@@ -134,7 +149,9 @@ const orderSchema = new mongoose.Schema({
     }
   }],
   
-  deliveredAt: Date
+  deliveredAt: Date,
+  cancelledAt: Date,
+  cancellationReason: String
   
 }, {
   timestamps: true

@@ -375,6 +375,169 @@ const organicHealthyProducts = [
   inStock: true,
   description: 'Organic India Tulsi Green Tea | Loose Leaf Container | 250g Tin',
   stock: 40
+},
+// ============ PATANJALI HONEY ============
+{
+  name: 'Patanjali Pure Honey',
+  weight: '100g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.MrY87H2zJW3Sx9m3UjvbbgHaHZ?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Patanjali Pure Natural Honey | 100% Pure | Rich in Minerals & Vitamins | 100g',
+  stock: 120
+},
+{
+  name: 'Patanjali Pure Honey',
+  weight: '250g',
+  price: 95,
+  oldPrice: 110,
+  discount: '14% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.w-W_qZd7m334aChN9xUhDAAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Patanjali Pure Natural Honey | 100% Pure | Rich in Minerals & Vitamins | 250g',
+  stock: 85
+},
+{
+  name: 'Patanjali Pure Honey',
+  weight: '500g',
+  price: 178,
+  oldPrice: 210,
+  discount: '15% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.FZmp0wTz8HJ8L8H_nsJKyQAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Patanjali Pure Natural Honey | 100% Pure | Rich in Minerals & Vitamins | 500g',
+  stock: 75
+},
+{
+  name: 'Patanjali Pure Honey',
+  weight: '1kg',
+  price: 325,
+  oldPrice: 380,
+  discount: '14% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.Y3CjqAcDiY44hgc3v5m82QAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Patanjali Pure Natural Honey | 100% Pure | Rich in Minerals & Vitamins | 1kg',
+  stock: 60
+},
+
+// ============ DABUR HONEY ============
+{
+  name: 'Dabur Pure Honey',
+  weight: '100g',
+  price: 66,
+  oldPrice: 70,
+  discount: '6% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.-xUr2jAnX2vxLSWGArcxEwAAAA?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Dabur 100% Pure Honey | World\'s No.1 Honey Brand | No Sugar Adulteration | 100g',
+  stock: 100
+},
+{
+  name: 'Dabur Pure Honey',
+  weight: '250g',
+  price: 109,
+  oldPrice: 125,
+  discount: '13% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.IpmMS34ina7D-eNBV6RMagHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Dabur 100% Pure Honey | World\'s No.1 Honey Brand | No Sugar Adulteration | 250g',
+  stock: 90
+},
+{
+  name: 'Dabur Pure Honey',
+  weight: '500g',
+  price: 210,
+  oldPrice: 250,
+  discount: '16% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.KZOGeJEbvTqlxIi93iq58AHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Dabur 100% Pure Honey | World\'s No.1 Honey Brand | No Sugar Adulteration | 500g',
+  stock: 70
+},
+{
+  name: 'Dabur Pure Honey',
+  weight: '1kg',
+  price: 377,
+  oldPrice: 495,
+  discount: '24% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ntf8vC1jAN4TkjXcD4DVhgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Dabur 100% Pure Honey | World\'s No.1 Honey Brand | No Sugar Adulteration | 1kg',
+  stock: 55
+},
+
+// ============ DABUR CHYAWANPRASH ============
+{
+  name: 'Dabur Chyawanprash',
+  weight: '500g',
+  price: 240,
+  oldPrice: 260,
+  discount: '8% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.q5k9pkIb4fLFq4vni9x8BQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Dabur Chyawanprash | 3X Immunity Action | 40+ Ayurvedic Herbs | 500g',
+  stock: 80
+},
+{
+  name: 'Dabur Chyawanprash',
+  weight: '1kg',
+  price: 365,
+  oldPrice: 410,
+  discount: '11% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Dabur',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.lHmuVx6cQTrRl6pZdekeNwHaLW?pid=Api&H=245&W=160',
+  inStock: true,
+  description: 'Dabur Chyawanprash | 3X Immunity Action | 40+ Ayurvedic Herbs | 950g',
+  stock: 65
+},
+
+// ============ PATANJALI CHYAWANPRASH ============
+{
+  name: 'Patanjali Special Chyawanprash',
+  weight: '500g',
+  price: 173,
+  oldPrice: 185,
+  discount: '6% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.qYoLbvtJ-0OMbvkXoB41vwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Patanjali Special Chyawanprash with Saffron | Immunity Booster | Ayurvedic | 500g',
+  stock: 85
+},
+{
+  name: 'Patanjali Special Chyawanprash',
+  weight: '1kg',
+  price: 262,
+  oldPrice: 310,
+  discount: '15% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Patanjali',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.UO0I0Db_MrX1CFiMn8WYEAAAAA?pid=Api&H=200&W=160',
+  inStock: true,
+  description: 'Patanjali Special Chyawanprash with Saffron | Immunity Booster | Ayurvedic | 1kg',
+  stock: 50
 }
 
 

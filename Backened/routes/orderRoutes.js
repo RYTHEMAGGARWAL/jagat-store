@@ -31,6 +31,14 @@ router.put('/:id/status', auth, async (req, res, next) => {
   return orderController.updateOrderStatus(req, res, next);
 });
 
+// 💰 Mark order as Paid (admin only) - NEW ROUTE
+router.put('/:id/pay', auth, async (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ success: false, message: 'Admin only' });
+  }
+  return orderController.markOrderAsPaid(req, res, next);
+});
+
 // Cancel order
 router.put('/:id/cancel', auth, orderController.cancelOrder);
 

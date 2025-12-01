@@ -409,6 +409,7 @@ const Checkout = () => {
       const orderData = {
         orderItems,
         shippingAddress: {
+          name: formData.name,
           fullAddress: fullAddress,
           houseNo: formData.houseNo,
           landmark: formData.landmark,

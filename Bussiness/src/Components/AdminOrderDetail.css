@@ -1,4 +1,4 @@
-/* AdminOrderDetail.css - Beautiful Modern Design */
+/* AdminOrderDetail.css - Beautiful Modern Design with Print Receipt */
 
 .admin-order-detail {
   max-width: 1400px;
@@ -228,6 +228,36 @@
 .payment-status.failed {
   background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
   color: #f44336;
+}
+
+/* Payment Status Row */
+.payment-status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mark-paid-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #4caf50 0%, #43a047 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.mark-paid-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.mark-paid-btn:active {
+  transform: translateY(0);
 }
 
 /* Order Items */
@@ -492,22 +522,529 @@
 .action-btn {
   width: 100%;
   padding: 14px;
-  border: 2px solid #2196f3;
+  border: 2px solid #667eea;
   border-radius: 12px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s;
   background: white;
-  color: #2196f3;
+  color: #667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .action-btn:hover {
-  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
+
+.print-receipt-btn {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 16px;
+}
+
+.print-receipt-btn:hover {
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.whatsapp-btn {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+  border: none;
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #128c7e 0%, #075e54 100%);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Gift Styles */
+.header-gift-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.gift-alert-banner {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.gift-alert-icon {
+  font-size: 40px;
+}
+
+.gift-alert-text {
+  flex: 1;
+}
+
+.gift-alert-text strong {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gift-alert-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.gift-alert-value {
+  background: white;
+  color: #ff5722;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.order-item.gift-item-row {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 2px dashed #4caf50;
+  border-radius: 12px;
+  position: relative;
+  margin-top: 12px;
+}
+
+.gift-item-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.item-name.gift-name {
+  color: #2e7d32 !important;
+}
+
+.item-price.gift-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.item-price.gift-price .free-text {
+  color: #2e7d32;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.item-price.gift-price .original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 13px;
+}
+
+.summary-row.gift-summary-row {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border: 1px dashed #4caf50;
+}
+
+.summary-row .gift-free {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.gift-pack-reminder {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #4caf50;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* 🧾 PRINT RECEIPT STYLES                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* Hide receipt on screen */
+.print-receipt-container {
+  display: none;
+}
+
+/* Print-specific styles */
+@media print {
+  /* Hide everything except receipt */
+  body * {
+    visibility: hidden;
+  }
+
+  .print-receipt-container,
+  .print-receipt-container * {
+    visibility: visible !important;
+  }
+
+  .print-receipt-container {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* Hide screen elements */
+  .admin-order-detail > *:not(.print-receipt-container) {
+    display: none !important;
+  }
+
+  /* Receipt Container */
+  .receipt {
+    width: 80mm;
+    max-width: 80mm;
+    margin: 0 auto;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Receipt Header */
+  .receipt-header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed #000;
+  }
+
+  .store-logo {
+    font-size: 40px;
+    margin-bottom: 5px;
+  }
+
+  .store-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  .store-tagline {
+    font-size: 10px;
+    margin: 2px 0 8px 0;
+    color: #666;
+  }
+
+  .store-contact {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .store-contact p {
+    margin: 2px 0;
+  }
+
+  .store-tax-info {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #ccc;
+    font-size: 10px;
+  }
+
+  .store-tax-info p {
+    margin: 2px 0;
+  }
+
+  /* Receipt Divider */
+  .receipt-divider {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-top: 2px dashed #000;
+    border-bottom: 2px dashed #000;
+    margin: 10px 0;
+  }
+
+  .receipt-divider-line {
+    border-top: 1px dashed #999;
+    margin: 10px 0;
+  }
+
+  /* Order Info */
+  .receipt-order-info {
+    padding: 8px 0;
+  }
+
+  .receipt-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+    font-size: 11px;
+  }
+
+  .receipt-status {
+    font-weight: bold;
+    padding: 2px 8px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+
+  /* Customer Details */
+  .receipt-customer {
+    padding: 10px 0;
+  }
+
+  .receipt-customer h3 {
+    font-size: 12px;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
+  }
+
+  .receipt-customer p {
+    margin: 3px 0;
+    font-size: 11px;
+  }
+
+  .customer-name {
+    font-weight: bold;
+    font-size: 13px !important;
+  }
+
+  /* Items Table */
+  .receipt-items {
+    padding: 10px 0;
+  }
+
+  .receipt-items table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+
+  .receipt-items th {
+    border-bottom: 2px solid #000;
+    padding: 5px 2px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .receipt-items td {
+    padding: 5px 2px;
+    border-bottom: 1px dashed #ccc;
+    vertical-align: top;
+  }
+
+  .item-col {
+    width: 45%;
+  }
+
+  .qty-col {
+    width: 10%;
+    text-align: center;
+  }
+
+  .rate-col {
+    width: 20%;
+    text-align: right;
+  }
+
+  .amount-col {
+    width: 25%;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .item-weight-small {
+    display: block;
+    font-size: 9px;
+    color: #666;
+  }
+
+  .gift-row {
+    background: #f0f0f0 !important;
+  }
+
+  .gift-row td {
+    font-style: italic;
+  }
+
+  .gift-free {
+    font-weight: bold;
+    color: #000;
+  }
+
+  /* Totals */
+  .receipt-totals {
+    padding: 10px 0;
+  }
+
+  .receipt-totals .receipt-row {
+    font-size: 12px;
+    padding: 3px 0;
+  }
+
+  .free-text {
+    font-weight: bold;
+  }
+
+  .discount-row {
+    color: #c00;
+  }
+
+  .gift-savings-row {
+    color: #060;
+    font-style: italic;
+  }
+
+  .total-row {
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    padding: 8px 0 !important;
+    margin-top: 5px;
+  }
+
+  /* Payment Info */
+  .receipt-payment {
+    padding: 10px 0;
+    font-size: 11px;
+  }
+
+  .payment-badge {
+    padding: 2px 8px;
+    border: 1px solid;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+
+  .payment-badge.paid {
+    border-color: #0a0;
+  }
+
+  .payment-badge.pending {
+    border-color: #f80;
+  }
+
+  /* Savings */
+  .receipt-savings {
+    text-align: center;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px dashed #000;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  /* Terms */
+  .receipt-terms {
+    padding: 10px 0;
+    font-size: 9px;
+    color: #666;
+  }
+
+  .receipt-terms h4 {
+    font-size: 10px;
+    margin: 0 0 5px 0;
+    color: #000;
+  }
+
+  .receipt-terms ul {
+    margin: 0;
+    padding-left: 15px;
+  }
+
+  .receipt-terms li {
+    margin: 3px 0;
+  }
+
+  /* Footer */
+  .receipt-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 2px dashed #000;
+  }
+
+  .thank-you {
+    padding: 10px 0;
+  }
+
+  .thank-you p:first-child {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .visit-again {
+    font-size: 12px;
+    color: #666;
+    margin: 5px 0 0 0;
+  }
+
+  .receipt-barcode {
+    font-family: 'Libre Barcode 39', cursive;
+    font-size: 30px;
+    letter-spacing: 5px;
+    margin: 10px 0;
+  }
+
+  .receipt-barcode p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .receipt-generated {
+    font-size: 8px;
+    color: #999;
+    margin-top: 10px;
+  }
+
+  .receipt-generated p {
+    margin: 2px 0;
+  }
+
+  /* Page settings */
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 1024px) {
@@ -554,190 +1091,7 @@
   .card-content {
     padding: 16px;
   }
-}
 
-/* Print Styles */
-@media print {
-  .back-btn,
-  .update-btn,
-  .quick-actions-card,
-  .update-status-card {
-    display: none !important;
-  }
-
-  .admin-order-detail {
-    background: white;
-  }
-
-  .info-card,
-  .status-history-card {
-    box-shadow: none;
-    border: 1px solid #e0e0e0;
-  }
-}
-* ================================================== */
-/* 4. ADD TO AdminOrderDetail.css                      */
-/* ================================================== */
-
-/* 🎁 Header Gift Badge */
-.header-gift-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: linear-gradient(135deg, #4caf50, #2e7d32);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-}
-
-/* 🎁 Gift Alert Banner */
-.gift-alert-banner {
-  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
-  color: white;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-  animation: gift-pulse 2s ease-in-out infinite;
-}
-
-@keyframes gift-pulse {
-  0%, 100% { box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
-  50% { box-shadow: 0 4px 25px rgba(255, 152, 0, 0.5); }
-}
-
-.gift-alert-icon {
-  font-size: 40px;
-  animation: gift-bounce 1s ease-in-out infinite;
-}
-
-@keyframes gift-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.gift-alert-text {
-  flex: 1;
-}
-
-.gift-alert-text strong {
-  font-size: 18px;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.gift-alert-text p {
-  margin: 0;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-.gift-alert-value {
-  background: white;
-  color: #ff5722;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 16px;
-}
-
-/* 🎁 Gift Item Row */
-.order-item.gift-item-row {
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  border: 2px dashed #4caf50;
-  border-radius: 12px;
-  position: relative;
-  margin-top: 12px;
-}
-
-.gift-item-ribbon {
-  position: absolute;
-  top: -12px;
-  left: 20px;
-  background: linear-gradient(135deg, #4caf50, #2e7d32);
-  color: white;
-  padding: 6px 16px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-}
-
-.item-name.gift-name {
-  color: #2e7d32 !important;
-}
-
-.item-price.gift-price {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.item-price.gift-price .free-text {
-  color: #2e7d32;
-  font-weight: 800;
-  font-size: 18px;
-}
-
-.item-price.gift-price .original-price {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 13px;
-}
-
-/* 🎁 Gift Summary Row */
-.summary-row.gift-summary-row {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin: 8px 0;
-  border: 1px dashed #4caf50;
-}
-
-.summary-row .gift-free {
-  color: #2e7d32;
-  font-weight: 700;
-}
-
-/* 🎁 Admin Savings Badge */
-.admin-savings-badge {
-  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-  color: #e65100;
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 14px;
-  margin-top: 16px;
-  border: 2px dashed #ff9800;
-}
-
-/* 🎁 Gift Pack Reminder */
-.gift-pack-reminder {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  color: #2e7d32;
-  padding: 12px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  font-weight: 600;
-  font-size: 14px;
-  border: 1px solid #4caf50;
-}
-
-.gift-pack-reminder span:first-child {
-  font-size: 20px;
-}
-@media (max-width: 768px) {
   .gift-alert-banner {
     flex-direction: column;
     text-align: center;
@@ -746,18 +1100,5 @@
   .gift-alert-value {
     width: 100%;
     text-align: center;
-  }
-
-  .order-gift-row {
-    flex-wrap: wrap;
-  }
-
-  .gift-stats-banner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .header-gift-badge {
-    margin-top: 10px;
   }
 }
