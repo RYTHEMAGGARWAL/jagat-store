@@ -40,7 +40,7 @@ const organicHealthyProducts = [
   price: 52,
   oldPrice: 62,
   discount: '16% OFF',
-  category: 'Organic & Healthy Living',
+  category: 'Tea Coffee',
   brand: 'Tata Tea',
   image: '	https://tse1.mm.bing.net/th/id/OIP.WZaTNVDgGy9eRKeWp6rofgHaJy?pid=Api&P=0&h=180',
   inStock: true,

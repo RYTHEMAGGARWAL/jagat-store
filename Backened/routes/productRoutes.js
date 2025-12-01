@@ -167,10 +167,24 @@ router.get('/search/suggestions', async (req, res) => {
         name: p.name,
         score: calculateRelevanceScore({ name: p.name }, cleanedQuery, searchWords)
       }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5);
+      .sort((a, b) => b.score - a.score);
 
-    const suggestionList = sortedProducts.map(p => p.name);
+    // 🔥 REMOVE DUPLICATE SUGGESTIONS (exact same name only)
+    const seenNames = new Set();
+    const uniqueSuggestions = [];
+    
+    for (const p of sortedProducts) {
+      const normalizedName = String(p.name || '').toLowerCase().trim();
+      
+      if (!seenNames.has(normalizedName)) {
+        seenNames.add(normalizedName);
+        uniqueSuggestions.push(p.name);
+        
+        if (uniqueSuggestions.length >= 5) break;
+      }
+    }
+
+    const suggestionList = uniqueSuggestions;
     
     console.log('✅ Suggestions:', suggestionList);
 
@@ -245,7 +259,24 @@ router.get('/search', async (req, res) => {
 
     scoredProducts.sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
 
-    const finalProducts = scoredProducts.slice(0, 250).map(p => {
+    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand (not just name)
+    const seenProducts = new Set();
+    const uniqueProducts = [];
+    
+    for (const product of scoredProducts) {
+      // Create unique key from name + weight + brand
+      const name = String(product.name || '').toLowerCase().trim();
+      const weight = String(product.weight || '').toLowerCase().trim();
+      const brand = String(product.brand || '').toLowerCase().trim();
+      const uniqueKey = `${name}|${weight}|${brand}`;
+      
+      if (!seenProducts.has(uniqueKey)) {
+        seenProducts.add(uniqueKey);
+        uniqueProducts.push(product);
+      }
+    }
+
+    const finalProducts = uniqueProducts.slice(0, 250).map(p => {
       const { _relevanceScore, ...product } = p;
       return product;
     });
@@ -274,11 +305,27 @@ router.get('/category/:category', async (req, res) => {
     
     console.log('✅ Found:', products.length);
     
-    const normalizedProducts = products.map(normalizeProduct);
+    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand
+    const seenProducts = new Set();
+    const uniqueProducts = [];
+    
+    for (const product of products) {
+      const name = String(product.name || '').toLowerCase().trim();
+      const weight = String(product.weight || '').toLowerCase().trim();
+      const brand = String(product.brand || '').toLowerCase().trim();
+      const uniqueKey = `${name}|${weight}|${brand}`;
+      
+      if (!seenProducts.has(uniqueKey)) {
+        seenProducts.add(uniqueKey);
+        uniqueProducts.push(normalizeProduct(product));
+      }
+    }
+    
+    console.log('✅ After dedup:', uniqueProducts.length);
     
     res.json({
       success: true,
-      products: normalizedProducts
+      products: uniqueProducts
     });
   } catch (error) {
     console.error('Category Error:', error);
@@ -313,11 +360,27 @@ router.get('/', async (req, res) => {
     
     console.log('✅ Found:', products.length);
     
-    const normalizedProducts = products.map(normalizeProduct);
+    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand
+    const seenProducts = new Set();
+    const uniqueProducts = [];
+    
+    for (const product of products) {
+      const name = String(product.name || '').toLowerCase().trim();
+      const weight = String(product.weight || '').toLowerCase().trim();
+      const brand = String(product.brand || '').toLowerCase().trim();
+      const uniqueKey = `${name}|${weight}|${brand}`;
+      
+      if (!seenProducts.has(uniqueKey)) {
+        seenProducts.add(uniqueKey);
+        uniqueProducts.push(normalizeProduct(product));
+      }
+    }
+    
+    console.log('✅ After dedup:', uniqueProducts.length);
     
     res.json({
       success: true,
-      products: normalizedProducts
+      products: uniqueProducts
     });
   } catch (error) {
     console.error('Error:', error);
