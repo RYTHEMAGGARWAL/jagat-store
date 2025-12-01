@@ -45,9 +45,9 @@ const response = await fetch(
     fetchSearchResults();
   }, [query]);
 
-  // ✅ Get quantity from backend cart
+  // ✅ Get quantity from backend cart (with null safety)
   const getQuantity = (productId) => {
-    const item = cartItems.find(item => item.product._id === productId);
+    const item = cartItems.find(item => item?.product?._id === productId);
     return item ? item.quantity : 0;
   };
 
