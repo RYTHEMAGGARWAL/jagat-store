@@ -29,7 +29,7 @@ async function sendEmail(to, subject, html) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Jagat Store <onboarding@resend.dev>',
+        from: 'Jagat Store <orders@jagatstore.in>',
         to: to,
         subject: subject,
         html: html
@@ -158,7 +158,8 @@ exports.createOrder = async (req, res) => {
       ` : '';
 
       try {
-        const adminEmail = process.env.ADMIN_EMAIL || 'Rythemaggarwal7840@gmail.com';
+        // Admin email
+        const adminEmail = process.env.ADMIN_EMAIL || 'rythemaggarwal7840@gmail.com';
 
         // ADMIN EMAIL
         await sendEmail(
@@ -215,7 +216,7 @@ exports.createOrder = async (req, res) => {
           `
         );
 
-        // CUSTOMER EMAIL
+        // CUSTOMER EMAIL - Now works for all users!
         if (user?.email) {
           await sendEmail(
             user.email,
