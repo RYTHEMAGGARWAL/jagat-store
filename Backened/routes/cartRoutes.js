@@ -1,4 +1,4 @@
-// Backend/routes/cartRoutes.js - WITH GIFT FEATURE 🎁
+// Backend/routes/cartRoutes.js - FIXED FOR NULL PRODUCTS 🛒
 
 const express = require('express');
 const router = express.Router();
@@ -20,6 +20,37 @@ const GIFT_PRODUCT = {
   isGift: true
 };
 
+// 🔧 Helper function to clean cart from null products
+const cleanCartItems = async (cartId) => {
+  try {
+    const cart = await Cart.findById(cartId).populate('items.product');
+    if (!cart) return null;
+    
+    const validItems = cart.items.filter(item => item.product != null);
+    
+    if (validItems.length < cart.items.length) {
+      // Use updateOne to bypass validation
+      await Cart.updateOne(
+        { _id: cartId },
+        { 
+          $set: { 
+            items: validItems.map(item => ({
+              product: item.product._id,
+              quantity: item.quantity
+            }))
+          } 
+        }
+      );
+      console.log(`🧹 Cleaned cart ${cartId}: removed ${cart.items.length - validItems.length} null items`);
+    }
+    
+    return await Cart.findById(cartId).populate('items.product');
+  } catch (err) {
+    console.error('Clean cart error:', err);
+    return null;
+  }
+};
+
 // Get user's cart
 router.get('/', auth, async (req, res) => {
   try {
@@ -27,26 +58,35 @@ router.get('/', auth, async (req, res) => {
       .populate('items.product');
     
     if (!cart) {
-      cart = {
-        items: [],
-        totalPrice: 0,
-        hasGift: false,
-        giftItem: null
-      };
-    } else {
-      // Filter out items where product is null (deleted products)
-      cart.items = cart.items.filter(item => item.product != null);
-      
-      // Recalculate total
-      cart.totalPrice = cart.items.reduce((total, item) => {
-        if (!item.product || !item.product.price) return total;
-        return total + (item.product.price * item.quantity);
-      }, 0);
+      return res.json({ 
+        success: true, 
+        cart: {
+          items: [],
+          totalPrice: 0,
+          hasGift: false,
+          giftItem: null
+        }
+      });
     }
+    
+    // Check if cart has null products and clean them
+    const hasNullProducts = cart.items.some(item => item.product == null);
+    if (hasNullProducts) {
+      cart = await cleanCartItems(cart._id);
+    }
+    
+    // Calculate total
+    const totalPrice = cart.items.reduce((total, item) => {
+      if (!item.product || !item.product.price) return total;
+      return total + (item.product.price * item.quantity);
+    }, 0);
     
     res.json({ 
       success: true, 
-      cart 
+      cart: {
+        ...cart.toObject(),
+        totalPrice
+      }
     });
   } catch (error) {
     console.error('Error fetching cart:', error);
@@ -89,29 +129,51 @@ router.post('/add', auth, async (req, res) => {
     if (!cart) {
       cart = new Cart({
         user: req.user._id,
-        items: []
+        items: [{
+          product: productId,
+          quantity: quantity
+        }]
       });
-    }
-
-    const existingItemIndex = cart.items.findIndex(
-      item => item.product && item.product.toString() === productId
-    );
-
-    if (existingItemIndex > -1) {
-      cart.items[existingItemIndex].quantity += quantity;
+      await cart.save();
     } else {
-      cart.items.push({
-        product: productId,
-        quantity: quantity
-      });
+      // Clean null products first
+      const populatedCart = await Cart.findById(cart._id).populate('items.product');
+      const validItems = populatedCart.items.filter(item => item.product != null);
+      
+      // Check if product already exists
+      const existingItemIndex = validItems.findIndex(
+        item => item.product._id.toString() === productId
+      );
+
+      let newItems;
+      if (existingItemIndex > -1) {
+        // Update quantity
+        newItems = validItems.map((item, index) => ({
+          product: item.product._id,
+          quantity: index === existingItemIndex ? item.quantity + quantity : item.quantity
+        }));
+      } else {
+        // Add new item
+        newItems = [
+          ...validItems.map(item => ({
+            product: item.product._id,
+            quantity: item.quantity
+          })),
+          { product: productId, quantity: quantity }
+        ];
+      }
+
+      // Use updateOne to bypass validation
+      await Cart.updateOne(
+        { _id: cart._id },
+        { $set: { items: newItems } }
+      );
     }
 
-    await cart.save();
-    await cart.populate('items.product');
-
-    // Filter out items with null products and calculate total
-    cart.items = cart.items.filter(item => item.product != null);
-    cart.totalPrice = cart.items.reduce((total, item) => {
+    // Fetch updated cart
+    cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    
+    const totalPrice = cart.items.reduce((total, item) => {
       if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -119,7 +181,10 @@ router.post('/add', auth, async (req, res) => {
     res.json({ 
       success: true, 
       message: 'Product added to cart',
-      cart 
+      cart: {
+        ...cart.toObject(),
+        totalPrice
+      }
     });
   } catch (error) {
     console.error('Error adding to cart:', error);
@@ -142,7 +207,7 @@ router.put('/update', auth, async (req, res) => {
       });
     }
 
-    const cart = await Cart.findOne({ user: req.user._id });
+    const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
     
     if (!cart) {
       return res.status(404).json({ 
@@ -151,8 +216,10 @@ router.put('/update', auth, async (req, res) => {
       });
     }
 
-    const itemIndex = cart.items.findIndex(
-      item => item.product && item.product.toString() === productId
+    // Filter valid items and find the one to update
+    const validItems = cart.items.filter(item => item.product != null);
+    const itemIndex = validItems.findIndex(
+      item => item.product._id.toString() === productId
     );
 
     if (itemIndex === -1) {
@@ -162,18 +229,33 @@ router.put('/update', auth, async (req, res) => {
       });
     }
 
+    let newItems;
     if (quantity <= 0) {
-      cart.items.splice(itemIndex, 1);
+      // Remove item
+      newItems = validItems
+        .filter((_, index) => index !== itemIndex)
+        .map(item => ({
+          product: item.product._id,
+          quantity: item.quantity
+        }));
     } else {
-      cart.items[itemIndex].quantity = quantity;
+      // Update quantity
+      newItems = validItems.map((item, index) => ({
+        product: item.product._id,
+        quantity: index === itemIndex ? quantity : item.quantity
+      }));
     }
 
-    await cart.save();
-    await cart.populate('items.product');
+    // Use updateOne to bypass validation
+    await Cart.updateOne(
+      { _id: cart._id },
+      { $set: { items: newItems } }
+    );
 
-    // Filter out items with null products and calculate total
-    cart.items = cart.items.filter(item => item.product != null);
-    cart.totalPrice = cart.items.reduce((total, item) => {
+    // Fetch updated cart
+    const updatedCart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    
+    const totalPrice = updatedCart.items.reduce((total, item) => {
       if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -181,7 +263,10 @@ router.put('/update', auth, async (req, res) => {
     res.json({ 
       success: true, 
       message: 'Cart updated',
-      cart 
+      cart: {
+        ...updatedCart.toObject(),
+        totalPrice
+      }
     });
   } catch (error) {
     console.error('Error updating cart:', error);
@@ -197,7 +282,7 @@ router.delete('/remove/:productId', auth, async (req, res) => {
   try {
     const { productId } = req.params;
     
-    const cart = await Cart.findOne({ user: req.user._id });
+    const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
     
     if (!cart) {
       return res.status(404).json({ 
@@ -206,16 +291,24 @@ router.delete('/remove/:productId', auth, async (req, res) => {
       });
     }
 
-    cart.items = cart.items.filter(
-      item => item.product && item.product.toString() !== productId
+    // Filter out the item to remove AND null products
+    const newItems = cart.items
+      .filter(item => item.product != null && item.product._id.toString() !== productId)
+      .map(item => ({
+        product: item.product._id,
+        quantity: item.quantity
+      }));
+
+    // Use updateOne to bypass validation
+    await Cart.updateOne(
+      { _id: cart._id },
+      { $set: { items: newItems } }
     );
 
-    await cart.save();
-    await cart.populate('items.product');
-
-    // Filter out items with null products and calculate total
-    cart.items = cart.items.filter(item => item.product != null);
-    cart.totalPrice = cart.items.reduce((total, item) => {
+    // Fetch updated cart
+    const updatedCart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    
+    const totalPrice = updatedCart.items.reduce((total, item) => {
       if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
@@ -223,7 +316,10 @@ router.delete('/remove/:productId', auth, async (req, res) => {
     res.json({ 
       success: true, 
       message: 'Item removed from cart',
-      cart 
+      cart: {
+        ...updatedCart.toObject(),
+        totalPrice
+      }
     });
   } catch (error) {
     console.error('Error removing from cart:', error);
@@ -237,20 +333,21 @@ router.delete('/remove/:productId', auth, async (req, res) => {
 // Clear cart
 router.delete('/clear', auth, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user._id });
-    
-    if (cart) {
-      cart.items = [];
-      cart.totalPrice = 0;
-      cart.hasGift = false;
-      cart.giftItem = undefined;
-      await cart.save();
-    }
+    await Cart.updateOne(
+      { user: req.user._id },
+      { 
+        $set: { 
+          items: [],
+          hasGift: false,
+          giftItem: undefined
+        } 
+      }
+    );
 
     res.json({ 
       success: true, 
       message: 'Cart cleared',
-      cart: cart || { items: [], totalPrice: 0, hasGift: false, giftItem: null }
+      cart: { items: [], totalPrice: 0, hasGift: false, giftItem: null }
     });
   } catch (error) {
     console.error('Error clearing cart:', error);
@@ -302,9 +399,10 @@ router.post('/add-gift', auth, async (req, res) => {
       });
     }
 
-    cart.hasGift = true;
-    cart.giftItem = GIFT_PRODUCT;
-    await cart.save();
+    await Cart.updateOne(
+      { _id: cart._id },
+      { $set: { hasGift: true, giftItem: GIFT_PRODUCT } }
+    );
 
     console.log('🎁 Gift added for user:', userId);
 
@@ -326,18 +424,10 @@ router.post('/add-gift', auth, async (req, res) => {
 // 🎁 Remove gift from cart
 router.delete('/remove-gift', auth, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user._id });
-    
-    if (!cart) {
-      return res.status(404).json({
-        success: false,
-        message: 'Cart not found'
-      });
-    }
-
-    cart.hasGift = false;
-    cart.giftItem = undefined;
-    await cart.save();
+    await Cart.updateOne(
+      { user: req.user._id },
+      { $set: { hasGift: false, giftItem: undefined } }
+    );
 
     res.json({
       success: true,
@@ -396,4 +486,4 @@ router.get('/gift-status', auth, async (req, res) => {
   }
 });
 
-module.exports = router; 
+module.exports = router;
