@@ -41,7 +41,8 @@ export const CartProvider = ({ children }) => {
       console.log('Cart response:', response.data);
       
       if (response.data.success && response.data.cart) {
-        const items = response.data.cart.items || [];
+        // Filter out items where product is null (deleted products)
+        const items = (response.data.cart.items || []).filter(item => item?.product);
         console.log('Cart items:', items);
         setCartItems(items);
         
@@ -179,9 +180,10 @@ export const CartProvider = ({ children }) => {
     await fetchCart();
   };
 
-  // Get cart total
+  // Get cart total (with null safety)
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
+      if (!item?.product?.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
   };
