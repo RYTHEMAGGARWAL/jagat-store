@@ -132,18 +132,21 @@ exports.createOrder = async (req, res) => {
       ` : '';
 
       try {
+        // ✅ FIXED: Using environment variables for email credentials
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'Rythemaggarwal7840@gmail.com',
-            pass: 'falfhjejmjbwkohy'
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
           }
         });
 
+        const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+
         // ADMIN EMAIL - Pro & Detailed with Gift
         await transporter.sendMail({
-          from: '"Jagat Store" <Rythemaggarwal7840@gmail.com>',
-          to: 'Rythemaggarwal7840@gmail.com',
+          from: `"Jagat Store" <${process.env.EMAIL_USER}>`,
+          to: adminEmail,
           subject: `${finalHasGift ? '🎁 ' : ''}NEW ORDER #${shortId} | ₹${totalPrice} | ${user?.name || 'Guest'}`,
           html: `
             <div style="font-family:Arial,sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; border-radius:12px; overflow:hidden;">
@@ -196,10 +199,12 @@ exports.createOrder = async (req, res) => {
           `
         });
 
+        console.log('✅ Admin email sent!');
+
         // CUSTOMER EMAIL - Sweet & Thank You with Gift
         if (user?.email) {
           await transporter.sendMail({
-            from: '"Jagat Store" <Rythemaggarwal7840@gmail.com>',
+            from: `"Jagat Store" <${process.env.EMAIL_USER}>`,
             to: user.email,
             subject: `${finalHasGift ? '🎁 ' : ''}Order Confirmed #${shortId} | Thank You ${user.name.split(' ')[0]}!`,
             html: `
@@ -248,9 +253,10 @@ exports.createOrder = async (req, res) => {
               </div>
             `
           });
+          console.log('✅ Customer email sent to:', user.email);
         }
 
-        console.log('BOTH EMAILS SENT SUCCESSFULLY!');
+        console.log('✅ BOTH EMAILS SENT SUCCESSFULLY!');
 
         // Stock update (last mein)
         for (let item of orderItems) {
@@ -258,7 +264,7 @@ exports.createOrder = async (req, res) => {
         }
 
       } catch (err) {
-        console.error('Background tasks failed (no issue):', err.message);
+        console.error('❌ Email/Background tasks failed:', err.message);
       }
     });
 
