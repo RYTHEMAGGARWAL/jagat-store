@@ -27,7 +27,7 @@ const Cart = () => {
   // 🎁 Gift Configuration
   const GIFT_THRESHOLD = 999;
   const DEFAULT_GIFT = {
-    name: '🎁 FREE Gift - Premium Ice Cream Pack',
+    name: '🎁 FREE Gift - Premium Ice Cream Pac',
     brand: 'Jagat Store',
     price: 0,
     oldPrice: 149,
@@ -359,7 +359,7 @@ const Cart = () => {
             {/* 🎁 Gift Progress - Shows when NOT unlocked */}
             {!showGift && subtotal > 0 && (
               <div className="gift-progress-mini">
-                <span>🎁 Add ₹{remainingForGift.toFixed(0)} more for FREE Ice Cream!</span>
+                <span>🎁 Add ₹{remainingForGift.toFixed(0)} more for FREE</span>
                 <div className="mini-progress-bar">
                   <div 
                     className="mini-progress-fill"

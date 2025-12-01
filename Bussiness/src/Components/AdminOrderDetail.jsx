@@ -332,7 +332,7 @@ const AdminOrderDetail = () => {
                       }}
                     />
                     <div className="item-info">
-                      <p className="item-name gift-name">🎁 {order.giftItem?.name || 'FREE Gift - Premium Ice Cream Pack'}</p>
+                      <p className="item-name gift-name">🎁 {order.giftItem?.name || 'FREE Gift'}</p>
                       <p className="item-qty">Quantity: 1 | 🎁 Complimentary</p>
                       <p className="item-weight" style={{ color: '#2e7d32', fontSize: '13px', marginTop: '2px' }}>
                         Weight: {order.giftItem?.weight || '500ml'}

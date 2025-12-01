@@ -84,7 +84,7 @@ const Checkout = () => {
           setGiftItem(JSON.parse(storedGift));
         } catch (e) {
           setGiftItem({
-            name: '🎁 FREE Gift - Premium Ice Cream Pack',
+            name: '🎁 FREE Gift',
             brand: 'Jagat Store',
             price: 0,
             oldPrice: 149,

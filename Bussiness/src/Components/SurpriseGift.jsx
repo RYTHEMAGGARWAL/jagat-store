@@ -17,7 +17,7 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
 
   // 🍨 GIFT PRODUCT DETAILS
   const GIFT_PRODUCT = {
-    name: '🎁 FREE Gift - Premium Ice Cream Pack',
+    name: '🎁 FREE Gift ',
     brand: 'Jagat Store',
     category: 'Gift',
     price: 0,
@@ -212,7 +212,7 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
               </div>
               <div className="gift-details">
                 <h4>🎊 Your FREE Gift!</h4>
-                <p className="gift-name">Premium Ice Cream Pack</p>
+                <p className="gift-name"></p>
                 <p className="gift-value">Worth ₹149 - FREE!</p>
                 
                 {/* ADD TO CART BUTTON */}

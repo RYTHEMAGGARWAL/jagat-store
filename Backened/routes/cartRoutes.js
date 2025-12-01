@@ -9,7 +9,7 @@ const auth = require('../middleware/auth');
 // 🎁 GIFT CONFIGURATION
 const GIFT_THRESHOLD = 999;
 const GIFT_PRODUCT = {
-  name: '🎁 FREE Gift - Premium Ice Cream Pack',
+  name: '🎁 FREE Gift - Premium Ice Cream P',
   brand: 'Jagat Store',
   category: 'Gift',
   price: 0,

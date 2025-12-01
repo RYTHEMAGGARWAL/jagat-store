@@ -8,7 +8,7 @@ const User = require('../models/User');
 // 🎁 GIFT CONFIGURATION
 const GIFT_THRESHOLD = 999;
 const GIFT_PRODUCT = {
-  name: '🎁 FREE Gift - Premium Ice Cream Pack',
+  name: '🎁 FREE Gift',
   brand: 'Jagat Store',
   category: 'Gift',
   price: 0,
