@@ -33,6 +33,15 @@ router.get('/', auth, async (req, res) => {
         hasGift: false,
         giftItem: null
       };
+    } else {
+      // Filter out items where product is null (deleted products)
+      cart.items = cart.items.filter(item => item.product != null);
+      
+      // Recalculate total
+      cart.totalPrice = cart.items.reduce((total, item) => {
+        if (!item.product || !item.product.price) return total;
+        return total + (item.product.price * item.quantity);
+      }, 0);
     }
     
     res.json({ 
@@ -85,7 +94,7 @@ router.post('/add', auth, async (req, res) => {
     }
 
     const existingItemIndex = cart.items.findIndex(
-      item => item.product.toString() === productId
+      item => item.product && item.product.toString() === productId
     );
 
     if (existingItemIndex > -1) {
@@ -100,7 +109,10 @@ router.post('/add', auth, async (req, res) => {
     await cart.save();
     await cart.populate('items.product');
 
+    // Filter out items with null products and calculate total
+    cart.items = cart.items.filter(item => item.product != null);
     cart.totalPrice = cart.items.reduce((total, item) => {
+      if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
 
@@ -140,7 +152,7 @@ router.put('/update', auth, async (req, res) => {
     }
 
     const itemIndex = cart.items.findIndex(
-      item => item.product.toString() === productId
+      item => item.product && item.product.toString() === productId
     );
 
     if (itemIndex === -1) {
@@ -159,7 +171,10 @@ router.put('/update', auth, async (req, res) => {
     await cart.save();
     await cart.populate('items.product');
 
+    // Filter out items with null products and calculate total
+    cart.items = cart.items.filter(item => item.product != null);
     cart.totalPrice = cart.items.reduce((total, item) => {
+      if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
 
@@ -192,13 +207,16 @@ router.delete('/remove/:productId', auth, async (req, res) => {
     }
 
     cart.items = cart.items.filter(
-      item => item.product.toString() !== productId
+      item => item.product && item.product.toString() !== productId
     );
 
     await cart.save();
     await cart.populate('items.product');
 
+    // Filter out items with null products and calculate total
+    cart.items = cart.items.filter(item => item.product != null);
     cart.totalPrice = cart.items.reduce((total, item) => {
+      if (!item.product || !item.product.price) return total;
       return total + (item.product.price * item.quantity);
     }, 0);
 
