@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const Cart = require('../models/Cart');
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
 
 // Store OTPs temporarily (in production, use Redis)
 const otpStore = new Map();
@@ -11,22 +10,36 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Send Email Function
+// 📧 Send Email using Resend API (Works on Render!)
 const sendEmail = async (to, subject, html) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'Rythemaggarwal7840@gmail.com',
-      pass: 'falfhjejmjbwkohy'
-    }
-  });
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Jagat Store <orders@jagatstore.in>',
+        to: to,
+        subject: subject,
+        html: html
+      })
+    });
 
-  await transporter.sendMail({
-    from: '"Jagat Store 🔐" <Rythemaggarwal7840@gmail.com>',
-    to,
-    subject,
-    html
-  });
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Email sent to:', to);
+      return true;
+    } else {
+      console.error('❌ Resend error:', data);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Email failed:', error.message);
+    return false;
+  }
 };
 
 // Send token in cookie
@@ -140,10 +153,10 @@ exports.forgotPassword = async (req, res) => {
       expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
     });
 
-    console.log(`🔐 OTP for ${email}: ${otp}`); // For testing
+    console.log(`🔑 OTP for ${email}: ${otp}`); // For testing
 
     // Send OTP Email
-    await sendEmail(
+    const emailSent = await sendEmail(
       email,
       '🔐 Password Reset OTP - Jagat Store',
       `
@@ -190,6 +203,13 @@ exports.forgotPassword = async (req, res) => {
 </html>
       `
     );
+
+    if (!emailSent) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to send OTP email. Please try again.'
+      });
+    }
 
     res.json({
       success: true,
@@ -292,7 +312,7 @@ exports.resetPassword = async (req, res) => {
     // Send confirmation email to user
     await sendEmail(
       email,
-      '✅ Password Changed Successfully',
+      '✅ Password Changed Successfully - Jagat Store',
       `
 <!DOCTYPE html>
 <html>
@@ -323,7 +343,7 @@ exports.resetPassword = async (req, res) => {
                 You can now login with your new password.
               </p>
               <div style="text-align: center; margin: 30px 0;">
-                <a href="http://localhost:5173/login" 
+                <a href="https://jagatstore.in/login" 
                    style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: bold;">
                   Login Now
                 </a>
@@ -348,8 +368,9 @@ exports.resetPassword = async (req, res) => {
     );
 
     // Send notification to admin
+    const adminEmail = process.env.ADMIN_EMAIL || 'rythemaggarwal7840@gmail.com';
     await sendEmail(
-      'Rythemaggarwal7840@gmail.com',
+      adminEmail,
       '🔐 User Password Reset - Admin Notification',
       `
 <!DOCTYPE html>
