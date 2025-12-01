@@ -25,15 +25,16 @@ const { io, notifyAdmins } = setupSocketIO(server);
 global.notifyAdmins = notifyAdmins;
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://www.jagatstore.in',        // ✅ Add this
+    'https://www.jagatstore.in',
     'https://jagatstore.in',
-    /\.vercel\.app$/  // Allow all Vercel domains
+    /\.vercel\.app$/
   ],
   credentials: true
 }));
@@ -43,6 +44,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes')); // ✅ CLOUDINARY UPLOAD ROUTE
 
 // Health check
 app.get('/', (req, res) => {
@@ -51,6 +53,11 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     status: 'active'
   });
+});
+
+// Health check for keep-alive
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date() });
 });
 
 // Error handling middleware
@@ -69,4 +76,22 @@ server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔔 Socket.IO ready for real-time notifications`);
+  console.log(`📸 Cloudinary upload ready at /api/upload`);
 });
+
+// ========================================
+// 🏓 KEEP SERVER ALIVE (Render Free Tier)
+// ========================================
+const https = require('https');
+const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.com';
+
+// Ping every 14 minutes to prevent sleep
+if (process.env.NODE_ENV === 'production') {
+  setInterval(() => {
+    https.get(`${BACKEND_URL}/health`, (res) => {
+      console.log('🏓 Keep-alive ping sent');
+    }).on('error', (err) => {
+      console.log('Ping error:', err.message);
+    });
+  }, 14 * 60 * 1000);
+}

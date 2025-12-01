@@ -1252,6 +1252,640 @@ category: "Atta Rice Dal",
   inStock: true,
   description: "Catch | Chaat Masala Sprinkler | Tangy & Spicy | Table Top",
   stock: 80
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BESAN (RAJDHANI)
+{
+  name: 'Rajdhani Besan',
+  weight: '500g',
+  price: 65,
+  oldPrice: 78,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.LO2tbhcdvJEDvKAeflp_YgHaGw?pid=Api&H=145&W=160',
+  inStock: true,
+  description: 'Rajdhani Besan | Pure Gram Flour | 500g',
+  stock: 150
+},
+{
+  name: 'Rajdhani Besan',
+  weight: '1kg',
+  price: 125,
+  oldPrice: 150,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.tgp6-GRoIkZekcZ5nlGodgHaJK?pid=Api&H=197&W=160',
+  inStock: true,
+  description: 'Rajdhani Besan | Pure Gram Flour | 1kg',
+  stock: 120
+},
+
+// SOOJI (RAJDHANI)
+{
+  name: 'Rajdhani Sooji',
+  weight: '500g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.8KWqUYahsMqIaEY6nIG2-AHaKr?pid=Api&H=230&W=160',
+  inStock: true,
+  description: 'Rajdhani Sooji | Semolina | Rava | 500g',
+  stock: 140
+},
+
+// MAIDA (RAJDHANI)
+{
+  name: 'Rajdhani Maida',
+  weight: '500g',
+  price: 40,
+  oldPrice: 48,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.fi7e8jIMhCntDx7xH6ZtnAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Rajdhani Maida | All Purpose Flour | Refined | 500g',
+  stock: 130
+},
+
+// DALIA (RAJDHANI)
+{
+  name: 'Rajdhani Dalia',
+  weight: '500g',
+  price: 42,
+  oldPrice: 50,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.TQqbqMTAxKlB0D4hHKZlSAAAAA?pid=Api&H=162&W=160',
+  inStock: true,
+  description: 'Rajdhani Dalia | Broken Wheat | High Fiber | 500g',
+  stock: 100
+},
+{
+  name: 'Rajdhani Roasted Dalia',
+  weight: '500g',
+  price: 48,
+  oldPrice: 58,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.xdaoNDygR17zWpFqkCKKhAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Rajdhani Roasted Dalia | Broken Wheat | Ready to Cook | 500g',
+  stock: 90
+},
+
+// MOONGFALI (PEANUTS)
+{
+  name: 'Moongfali (Peanuts)',
+  weight: '250g',
+  price: 35,
+  oldPrice: 42,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.BOC0rkJ47sm3w_JQgWySDgHaG5?pid=Api&H=148&W=160',
+  inStock: true,
+  description: 'Raw Peanuts | Moongfali | Premium Quality | 250g',
+  stock: 180
+},
+
+
+// GEHU, BAJRA, MAKKA (LOOSE)
+{
+  name: 'Gehu (Wheat) Loose',
+  weight: '1kg',
+  price: 35,
+  oldPrice: 42,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.CUalj9eUhzvADo3zFNXf1AHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Premium Wheat Grain | Gehu | Loose | 1kg',
+  stock: 200
+},
+{
+  name: 'Bajra (Pearl Millet) Loose',
+  weight: '1kg',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.P0TSVuDzCoiAxTtK4hC_qgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bajra | Pearl Millet | Whole Grain | Loose | 1kg',
+  stock: 100
+},
+{
+  name: 'Makka (Corn) Loose',
+  weight: '1kg',
+  price: 40,
+  oldPrice: 48,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.FdRFOR4yYCrFB3C08aDGUgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Makka | Corn Grain | Whole | Loose | 1kg',
+  stock: 120
+},
+
+// POPCORN MAKKA
+{
+  name: 'Popcorn Makka Loose',
+  weight: '250g',
+  price: 30,
+  oldPrice: 36,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.BlnyQsmKctAYvVxJgoNm0wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Popcorn Corn Kernels | Makka | Ready to Pop | 250g',
+  stock: 150
+},
+
+
+// POHA (RAJDHANI)
+{
+  name: 'Rajdhani Poha',
+  weight: '500g',
+  price: 45,
+  oldPrice: 54,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.xtqRc1B_4yzNeth_MvRvPQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Rajdhani Poha | Flattened Rice | Chiwda | 500g',
+  stock: 130
+},
+{
+  name: 'GM Poha',
+  weight: '500g',
+  price: 45,
+  oldPrice: 54,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Rajdhani',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.aDsxPFMDA71q4xDK13Gu4gAAAA?pid=Api&H=199&W=160',
+  inStock: true,
+  description: 'GM Poha | Flattened Rice | Chiwda | 500g',
+  stock: 130
+},
+
+// POHA (JAGAT STORE LOOSE)
+{
+  name: 'Poha Mota (Thick) Loose',
+  weight: '500g',
+  price: 35,
+  oldPrice: 42,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.thG78WcOqh37Qpdcr_kuqwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Jagat Store Poha | Thick Flattened Rice | Mota Chiwda | 500g',
+  stock: 140
+},
+{
+  name: 'Poha Patla (Thin) Loose',
+  weight: '500g',
+  price: 35,
+  oldPrice: 42,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.bOTYkMvVUCuUto98T_Jz5QAAAA?pid=Api&H=120&W=160',
+  inStock: true,
+  description: 'Jagat Store Poha | Thin Flattened Rice | Patla Chiwda | 500g',
+  stock: 140
+},
+
+// SOYABEAN BADI (JAGAT STORE)
+{
+  name: 'Soyabean Badi Big Size',
+  weight: '200g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.u42l7Rjj1rfF4ZIPEuU4qwHaHB?pid=Api&H=151&W=160',
+  inStock: true,
+  description: 'Jagat Store Soya Chunks | Big Size Badi | High Protein | 200g',
+  stock: 120
+},
+{
+  name: 'Soyabean Badi Small Size',
+  weight: '200g',
+  price: 42,
+  oldPrice: 50,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.J7L9XMJ06LVq3xFVakmR2wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Jagat Store Soya Chunks | Small Size Badi | High Protein | 200g',
+  stock: 120
+},
+
+// NUTRELA SOYA (RED & GREEN)
+{
+  name: 'Nutrela Soya Chunks',
+  weight: '200g',
+  price: 55,
+  oldPrice: 66,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Nutrela',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.l8tmITFsbAXx99CSC4y2mAAAAA?pid=Api&H=259&W=160',
+  inStock: true,
+  description: 'Nutrela Soya Chunks | High Protein | Red Pack | 200g',
+  stock: 100
+},
+{
+  name: 'Nutrela Soya Mini Chunks',
+  weight: '200g',
+  price: 52,
+  oldPrice: 62,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Nutrela',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.5lQqSlS_AE2ndjrYdsWUgQHaJF?pid=Api&H=196&W=160',
+  inStock: true,
+  description: 'Nutrela Soya Mini Chunks | High Protein | Green Pack | 200g',
+  stock: 100
+},
+
+// JAGAT STORE PASTA
+{
+  name: 'Jagat Store Pasta Spiral',
+  weight: '400g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.H2lhQtBT9-z9qdtQoOBEzwHaGT?pid=Api&H=136&W=160',
+  inStock: true,
+  description: 'Jagat Store Spiral Pasta | Fusilli | Macaroni | 400g',
+  stock: 110
+},
+{
+  name: 'Jagat Store Pasta Penne',
+  weight: '400g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.CL-WGztMcQgHcJTC-tWV6gHaE8?pid=Api&P=0&w=600&h=400',
+  inStock: true,
+  description: 'Jagat Store Penne Pasta | Tube Shape | 400g',
+  stock: 110
+},
+
+// COMPANY PASTA (BRANDED)
+{
+  name: 'Pasta Penne Branded',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Sunfeast',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.mQWONPlHcX2pK-xand8k_QHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Sunfeast Pasta Treat | Masala | Instant | 70g',
+  stock: 150
+},
+{
+  name: 'Pasta Spiral Branded',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Sunfeast',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.HhRvMYO98oZYLXS0Oi0dcQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Sunfeast Pasta Treat | Masala | Instant | 70g',
+  stock: 150
+},
+{
+  name: 'Bambino Macaroni',
+  weight: '400g',
+  price: 52,
+  oldPrice: 62,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.x3o0Wazg0PPd4M8TE5LD9wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bambino Premium Macaroni | Pasta | 400g',
+  stock: 100
+},
+{
+  name: 'Bambino Macaroni',
+  weight: '800g',
+  price: 52,
+  oldPrice: 62,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.DUsgJROiY8oJSR55bvyjmQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bambino Premium Macaroni | Pasta | 400g',
+  stock: 100
+},
+
+// VERMICELLI (BAMBINO)
+{
+  name: 'Bambino Vermicelli Plain',
+  weight: '500g',
+  price: 48,
+  oldPrice: 58,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.OV7xgBHyqmRevChEIPmNOQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bambino Vermicelli | Plain | Seviyan | 500g',
+  stock: 120
+},
+{
+  name: 'Bambino Vermicelli Plain',
+  weight: '1kg',
+  price: 92,
+  oldPrice: 110,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.Cb--16xaWlVGLkFJDhgrgQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bambino Vermicelli | Plain | Seviyan | 1kg',
+  stock: 80
+},
+{
+  name: 'Bambino Vermicelli Roasted',
+  weight: '500g',
+  price: 52,
+  oldPrice: 62,
+  discount: '16% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.pQKjKdC_zHPoAqappMYqCQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bambino Roasted Vermicelli | Seviyan | 500g',
+  stock: 100
+},
+{
+  name: 'Bambino Vermicelli Roasted',
+  weight: '1kg',
+  price: 99,
+  oldPrice: 120,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Bambino',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.58AC4-v5Ygl8NrEsHOb7UAHaKv?pid=Api&H=231&W=160',
+  inStock: true,
+  description: 'Bambino Roasted Vermicelli | Seviyan | 1kg',
+  stock: 70
+},
+
+// JAGAT STORE BADI (URAD & MOONG)
+{
+  name: 'Urad Badi',
+  weight: '250g',
+  price: 65,
+  oldPrice: 78,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP._ejmypahnCQvFTw5eH7TlwHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: 'Jagat Store Urad Badi | Black Gram Vadi | 250g',
+  stock: 80
+},
+{
+  name: 'Moong Badi',
+  weight: '250g',
+  price: 70,
+  oldPrice: 85,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.1Tmrg2kQFp7r2q9o9jF9GQAAAA?pid=Api&H=146&W=160',
+  inStock: true,
+  description: 'Jagat Store Moong Badi | Green Gram Vadi | 250g',
+  stock: 80
+},
+
+// BHUNA CHANA
+{
+  name: 'Bhuna Chana (Roasted Chickpeas)',
+  weight: '200g',
+  price: 30,
+  oldPrice: 36,
+  discount: '17% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.YoAGcMYzZpgNjbwW0nSVegHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bhuna Chana | Roasted Chickpeas | Healthy Snack | 200g',
+  stock: 150
+},
+{
+  name: 'Bhuna Chana (Roasted Chickpeas)',
+  weight: '1kg',
+  price: 140,
+  oldPrice: 170,
+  discount: '18% OFF',
+  category: 'Atta Rice Dal',
+  brand: 'Jagat Store',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ckWDrPHUhq2z3e9FsgCSggHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Bhuna Chana | Roasted Chickpeas | Healthy Snack | 1kg',
+  stock: 80
+},
+
+// AJINOMOTO
+
+{
+  name: 'Ajinomoto (MSG) Loose',
+  weight: '250g',
+  price: 55,
+  oldPrice: 65,
+  discount: '15% OFF',
+  category: 'Masala Oil',
+  brand: 'Jagat Store',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.yRJJ7QGRxIPL7KOr2CCt4gHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Ajinomoto | Monosodium Glutamate | Taste Enhancer | 250g',
+  stock: 80
+},
+
+// MAGGI MASALA (TASTEMAKER)
+{
+  name: 'Maggi Masala-ae-Magic',
+  weight: '6g x 10',
+  price: 30,
+  oldPrice: 36,
+  discount: '17% OFF',
+  category: 'Masala Oil',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.5KuYD2XDFlQ_aPlaeDWNmAHaEl?pid=Api&P=0&w=647&h=400',
+  inStock: true,
+  description: 'Maggi Masala-ae-Magic | Seasoning | Pack of 10 Sachets',
+  stock: 150
+},
+
+// MAGGI NOODLES
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g',
+  price: 14,
+  oldPrice: 17,
+  discount: '18% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.YlCrzPhIVtJ5uHUF0sH-eAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Single Pack | 70g',
+  stock: 300
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 4',
+  price: 56,
+  oldPrice: 68,
+  discount: '18% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.MrH6KdkCcD1rSRiVX_EY_gHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Pack of 4',
+  stock: 200
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 6',
+  price: 84,
+  oldPrice: 102,
+  discount: '18% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.VcjR5Jvl05HKKlAiiSJd5wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Pack of 6',
+  stock: 150
+},
+{
+  name: 'Maggi 2-Minute Noodles',
+  weight: '70g x 8',
+  price: 112,
+  oldPrice: 136,
+  discount: '18% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.W-S4ZHXW4Q-zqOhTfyg2QgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi 2-Minute Masala Noodles | Family Pack of 8',
+  stock: 120
+},
+
+// ATTA MAGGI (WHOLE WHEAT)
+{
+  name: 'Maggi Atta Noodles',
+  weight: '70g',
+  price: 15,
+  oldPrice: 18,
+  discount: '17% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.vTtbCYEuomwUMPlCMpciogHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Nutri-licious Atta Noodles | Whole Wheat | Single Pack',
+  stock: 180
+},
+{
+  name: 'Maggi Atta Noodles',
+  weight: '70g x 4',
+  price: 60,
+  oldPrice: 72,
+  discount: '17% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.8JUuAk13XJHADManzw_lDwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Nutri-licious Atta Noodles | Whole Wheat | Pack of 4',
+  stock: 120
+},
+
+// MAGGI PASTA (WHITE & RED MASALA)
+{
+  name: 'Maggi Pazzta Cheese Macaroni',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.p8un027z54cQrGHX7ONUXwHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'Maggi Pazzta | Cheese Macaroni | White Sauce | Instant | 70g',
+  stock: 130
+},
+{
+  name: 'Maggi Pazzta Masala Penne',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.0PG3wUETLaUyE0r0fMJXjAHaEK?pid=Api&H=89&W=160',
+  inStock: true,
+  description: 'Maggi Pazzta | Masala Penne | Red Sauce | Instant | 70g',
+  stock: 130
+},
+{
+  name: 'Maggi Pazzta Tomato',
+  weight: '70g',
+  price: 25,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Snacks Munchies',
+  brand: 'Maggi',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.5TuB8QpoeC2q2EbOLpXtSQHaES?pid=Api&P=0&w=692&h=400',
+  inStock: true,
+  description: 'Maggi Pazzta | Tomato | Red Sauce | Instant | 70g',
+  stock: 130
 }
 
 

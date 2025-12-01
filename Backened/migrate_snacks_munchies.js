@@ -33,50 +33,7 @@ const Product = mongoose.model('Product', productSchema);
 // ========== SNACKS & MUNCHIES PRODUCTS ==========
 const snacksMunchiesProducts = [
   // CHIPS - LAYS
-  { name: 'Lay\'s Classic Salted', weight: '95g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71a1rByk7tL._SL1500_.jpg', inStock: true, description: 'India\'s favorite potato chips', stock: 200 },
-  { name: 'Lay\'s Magic Masala', weight: '95g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71b2sCzl8uL._SL1500_.jpg', inStock: true, description: 'Masala flavored chips', stock: 190 },
-  { name: 'Lay\'s American Style Cream & Onion', weight: '90g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Lay\'s', image: 'https://m.media-amazon.com/images/I/71c3tDam9vL._SL1500_.jpg', inStock: true, description: 'Creamy and tangy chips', stock: 180 },
-
-  // KURKURE
-  { name: 'Kurkure Masala Munch', weight: '90g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Kurkure', image: 'https://m.media-amazon.com/images/I/71d4uEbn0wL._SL1500_.jpg', inStock: true, description: 'Crunchy masala snack', stock: 180 },
-  { name: 'Kurkure Chilli Chatka', weight: '85g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Kurkure', image: 'https://m.media-amazon.com/images/I/71e5vFco1xL._SL1500_.jpg', inStock: true, description: 'Spicy chilli kurkure', stock: 170 },
-
-  // BINGO
-  { name: 'Bingo Mad Angles', weight: '95g', price: 38, oldPrice: 42, discount: '10% OFF', category: 'Snacks & Munchies', brand: 'Bingo', image: 'https://m.media-amazon.com/images/I/71f6wGdp2yL._SL1500_.jpg', inStock: true, description: 'Tangy tomato chips', stock: 170 },
-  { name: 'Bingo Original Style', weight: '90g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bingo', image: 'https://m.media-amazon.com/images/I/71g7xHer3zL._SL1500_.jpg', inStock: true, description: 'Salted potato chips', stock: 160 },
-
-  // NAMKEEN - HALDIRAM'S
-  { name: 'Haldiram\'s Aloo Bhujia', weight: '400g', price: 110, oldPrice: 125, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71h8yIfq4AL._SL1500_.jpg', inStock: true, description: 'Classic aloo bhujia', stock: 140 },
-  { name: 'Haldiram\'s Namkeen Mix', weight: '400g', price: 105, oldPrice: 120, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71i9zJgr5BL._SL1500_.jpg', inStock: true, description: 'Crunchy namkeen mixture', stock: 130 },
-  { name: 'Haldiram\'s Moong Dal', weight: '350g', price: 95, oldPrice: 110, discount: '14% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71j0AKhs6CL._SL1500_.jpg', inStock: true, description: 'Crispy moong dal', stock: 125 },
-  { name: 'Haldiram\'s Khatta Meetha', weight: '400g', price: 115, oldPrice: 130, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Haldiram\'s', image: 'https://m.media-amazon.com/images/I/71k1BLit7DL._SL1500_.jpg', inStock: true, description: 'Sweet and sour mix', stock: 120 },
-
-  // BIKAJI
-  { name: 'Bikaji Bhujia', weight: '400g', price: 100, oldPrice: 115, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bikaji', image: 'https://m.media-amazon.com/images/I/71l2CMju8EL._SL1500_.jpg', inStock: true, description: 'Traditional Rajasthani bhujia', stock: 120 },
-  { name: 'Bikaji All in One', weight: '400g', price: 105, oldPrice: 120, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Bikaji', image: 'https://m.media-amazon.com/images/I/71m3DNkv9FL._SL1500_.jpg', inStock: true, description: 'Mix of favorite namkeens', stock: 110 },
-
-  // HEALTHY CHIPS
-  { name: 'Too Yumm Multigrain Chips', weight: '54g', price: 30, oldPrice: 35, discount: '14% OFF', category: 'Snacks & Munchies', brand: 'Too Yumm', image: 'https://m.media-amazon.com/images/I/71n4EOlw0GL._SL1500_.jpg', inStock: true, description: 'Baked multigrain chips', stock: 150 },
-
-  // PREMIUM CHIPS
-  { name: 'Pringles Original', weight: '110g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Pringles', image: 'https://m.media-amazon.com/images/I/71o5FPmx1HL._SL1500_.jpg', inStock: true, description: 'Perfectly stacked crisps', stock: 90 },
-  { name: 'Pringles Sour Cream & Onion', weight: '110g', price: 120, oldPrice: 135, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Pringles', image: 'https://m.media-amazon.com/images/I/71p6GQny2IL._SL1500_.jpg', inStock: true, description: 'Tangy sour cream flavor', stock: 85 },
-
-  // DORITOS & CHEETOS
-  { name: 'Doritos Nachos', weight: '90g', price: 55, oldPrice: 62, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Doritos', image: 'https://m.media-amazon.com/images/I/71q7HRoz3JL._SL1500_.jpg', inStock: true, description: 'Crunchy nacho cheese', stock: 110 },
-  { name: 'Cheetos Crunchy', weight: '70g', price: 40, oldPrice: 45, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Cheetos', image: 'https://m.media-amazon.com/images/I/71r8ISp04KL._SL1500_.jpg', inStock: true, description: 'Cheese flavored puffs', stock: 130 },
-
-  // NUTS & SEEDS
-  { name: 'Yellow Diamond Roasted Peanuts', weight: '200g', price: 60, oldPrice: 68, discount: '12% OFF', category: 'Snacks & Munchies', brand: 'Yellow Diamond', image: 'https://m.media-amazon.com/images/I/71s9JTq15LL._SL1500_.jpg', inStock: true, description: 'Salted roasted peanuts', stock: 100 },
-  { name: 'Yellow Diamond Cashews', weight: '200g', price: 195, oldPrice: 220, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Yellow Diamond', image: 'https://m.media-amazon.com/images/I/71t0KUr26ML._SL1500_.jpg', inStock: true, description: 'Premium roasted cashews', stock: 70 },
-
-  // BISCUIT SNACKS
-  { name: 'Britannia Little Hearts', weight: '75g', price: 25, oldPrice: 30, discount: '17% OFF', category: 'Snacks & Munchies', brand: 'Britannia', image: 'https://m.media-amazon.com/images/I/71u1LVs37NL._SL1500_.jpg', inStock: true, description: 'Sweet heart biscuits', stock: 160 },
-  { name: 'Parle Monaco Classic', weight: '200g', price: 35, oldPrice: 40, discount: '13% OFF', category: 'Snacks & Munchies', brand: 'Parle', image: 'https://m.media-amazon.com/images/I/71v2MWt48OL._SL1500_.jpg', inStock: true, description: 'Salted crackers', stock: 150 },
-  { name: 'Britannia Treat Cream Wafers', weight: '150g', price: 50, oldPrice: 55, discount: '9% OFF', category: 'Snacks & Munchies', brand: 'Britannia', image: 'https://m.media-amazon.com/images/I/71w3NXu59PL._SL1500_.jpg', inStock: true, description: 'Vanilla cream wafers', stock: 120 },
-
-  // POPCORN
-  { name: 'Act II Popcorn Golden Sizzle', weight: '70g', price: 55, oldPrice: 62, discount: '11% OFF', category: 'Snacks & Munchies', brand: 'Act II', image: 'https://m.media-amazon.com/images/I/71x4OYv60QL._SL1500_.jpg', inStock: true, description: 'Microwave popcorn', stock: 95 }
+ 
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========

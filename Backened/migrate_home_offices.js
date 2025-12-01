@@ -32,292 +32,287 @@ const Product = mongoose.model('Product', productSchema);
 
 // ========== HOME AND OFFICES PRODUCTS ==========
 const homeOfficesProducts = [
+
+
+
+
+// GOOD KNIGHT REFILL & MACHINE
+{
+  name: 'Good Knight Activ+ Refill',
+  weight: '45ml',
+  price: 72,
+  oldPrice: 86,
+  discount: '16% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Good Knight',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.DoVgIW4TZ71U3HxjNlM3ugHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Good Knight Activ+ | Liquid Mosquito Refill | 60 Nights | 45ml',
+  stock: 150
+},
+
+{
+  name: 'Good Knight Activ+ Machine + Refill Combo',
+  weight: '1 Set',
+  price: 95,
+  oldPrice: 115,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Good Knight',
+  image: 'https://tse4.mm.bing.net/th/id/OIP.eTMi6kBG3xtanqqMkw8pHgHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Good Knight Activ+ | Machine + Refill Combo | Mosquito Repellent',
+  stock: 80
+},
+
+
+// ALL OUT REFILL & MACHINE
+{
+  name: 'All Out Ultra Refill',
+  weight: '45ml',
+  price: 72,
+  oldPrice: 86,
+  discount: '16% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'All Out',
+  image: 'https://tse4.mm.bing.net/th/id/OIP.4LUCOn981OQ9rGloWMMP_wHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'All Out Ultra | Liquid Mosquito Refill | 60 Nights | 45ml',
+  stock: 140
+},
+
+{
+  name: 'All Out Ultra Machine + Refill Combo',
+  weight: '1 Set',
+  price: 95,
+  oldPrice: 115,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'All Out',
+  image: 'https://tse4.mm.bing.net/th/id/OIP.gezZT1XeniDqoP7Ii_rpiwHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'All Out Ultra | Machine + Refill Combo | Mosquito Repellent',
+  stock: 75
+},
+
+
+// MAXO REFILL & MACHINE
+{
+  name: 'Maxo A Grade Refill',
+  weight: '45ml',
+  price: 65,
+  oldPrice: 78,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Maxo',
+  image: 'https://tse3.mm.bing.net/th/id/OIP.0fTWeA9OzpN1BPI43yrDnQHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Maxo A Grade | Liquid Mosquito Refill | 60 Nights | 45ml',
+  stock: 120
+},
+
+{
+  name: 'Maxo Machine + Refill Combo',
+  weight: '1 Set',
+  price: 85,
+  oldPrice: 102,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Maxo',
+  image: 'https://tse3.mm.bing.net/th/id/OIP.Kab8R_KQK_hLmDYjFqdvSQAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Maxo A Grade | Machine + Refill Combo | Mosquito Repellent',
+  stock: 70
+},
+
+
+// GOOD KNIGHT AGARBATTI (INCENSE STICKS)
+{
+  name: 'Good Knight Neem Agarbatti',
+  weight: '12 Sticks',
+  price: 110,
+  oldPrice: 30,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Good Knight',
+  image: 'https://tse4.mm.bing.net/th/id/OIP.pGl5hgsJz961eaR-KJtqsgAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Good Knight Neem | Mosquito Repellent Agarbatti | 20 Sticks',
+  stock: 180
+},
+
+{
+  name: 'Comfort Mosquito Repellent Agarbatti',
+  weight: '20 Sticks',
+  price: 22,
+  oldPrice: 26,
+  discount: '15% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Comfort',
+  image: '	https://5.imimg.com/data5/IOS/Default/2023/9/340900702/GU/XB/OB/45700625/product-jpeg-1000x1000.png',
+  inStock: true,
+  description: 'Comfort | Mosquito Repellent Agarbatti | Herbal | 20 Sticks',
+  stock: 160
+},
+
+// GOOD KNIGHT NEEM COIL
+{
+  name: 'Good Knight Neem Power Coil',
+  weight: '10 Coils',
+  price: 55,
+  oldPrice: 66,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Good Knight',
+  image: '	https://tse3.mm.bing.net/th/id/OIP._gUHuuoiBHhtBpjssoa8HAHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Good Knight Neem Power | Mosquito Coil | 10 Coils Pack',
+  stock: 130
+},
+
+
+// MOSQUITO COIL (GENERIC/MORTEIN)
+{
+  name: 'Mortein Mosquito Coil',
+  weight: '10 Coils',
+  price: 52,
+  oldPrice: 62,
+  discount: '16% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Mortein',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.HLxnsG2KcNgNXoxsXNzaoQHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Mortein Peaceful Nights | Mosquito Coil | 10 Coils Pack',
+  stock: 140
+},
+
+
+// HIT BLACK (MOSQUITO & FLY KILLER)
+
+{
+  name: 'Hit Black Mosquito & Fly Killer',
+  weight: '400ml',
+  price: 265,
+  oldPrice: 320,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Hit',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.cjs6qPxjlKLh7wpY54tTUQHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Hit Black | Mosquito & Fly Killer Spray | Medium | 400ml',
+  stock: 90
+},
+{
+  name: 'Hit Black Mosquito & Fly Killer',
+  weight: '625ml',
+  price: 385,
+  oldPrice: 465,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Hit',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.CFMI8NJ4AkSrliovXXs24AHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Hit Black | Mosquito & Fly Killer Spray | Big | 625ml',
+  stock: 60
+},
+
+// HIT RED (COCKROACH & CRAWLING INSECT)
+
+{
+  name: 'Hit Red Crawling Insect Killer',
+  weight: '400ml',
+  price: 265,
+  oldPrice: 320,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Hit',
+  image: '	https://tse4.mm.bing.net/th/id/OIP.ayCy0o97YkncqWp6GCn8fgAAAA?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Hit Red | Crawling Insect Killer Spray | Medium | 400ml',
+  stock: 80
+},
+{
+  name: 'Hit Red Crawling Insect Killer',
+  weight: '625ml',
+  price: 385,
+  oldPrice: 465,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Hit',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.XH_JEH8iP8Mnrh_yAC55mAHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Hit Red | Crawling Insect Killer Spray | Big | 625ml',
+  stock: 55
+},
+
+// HIT ANTI ROACH GEL (COCKROACH INJECTION)
+{
+  name: 'Hit Anti Roach Gel',
+  weight: '20g',
+  price: 125,
+  oldPrice: 150,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'Hit',
+  image: '	https://tse4.mm.bing.net/th/id/OIP.WTOVkEPwp1foDdSEP3CYWQHaF6?pid=Api&P=0&h=180',
+  inStock: true,
+  description: 'Hit Anti Roach Gel | Cockroach Killer | Syringe Injection | 20g',
+  stock: 90
+},
+,
+
+// PCI RAT MAT (GLUE TRAP)
+{
+  name: 'PCI Rat Glue Trap Small',
+  weight: '1 Pc',
+  price: 35,
+  oldPrice: 42,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'PCI',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.QFdwFo0Z-l6CDVI5B8ZuOQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'PCI Rat Glue Trap | Mouse Catcher | Small Size | Non-Toxic',
+  stock: 150
+},
+{
+  name: 'PCI Rat Glue Trap Big',
+  weight: '1 Pc',
+  price: 65,
+  oldPrice: 78,
+  discount: '17% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'PCI',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.ZiBVYA-XpU-yHVAzEM20JQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: 'PCI Rat Glue Trap | Mouse Catcher | Big Size | Non-Toxic',
+  stock: 100
+},
+
+
+// PCI RAT KILLER (DAWAI/POISON)
+
+{
+  name: 'PCI Rat Killer Cake',
+  weight: '50g',
+  price: 45,
+  oldPrice: 55,
+  discount: '18% OFF',
+  category: 'Cleaning Essentials',
+  brand: 'PCI',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.UbxdKTWmFkPRQv79j502XgHaEl?pid=Api&H=98&W=160',
+  inStock: true,
+  description: 'PCI Roban Rat Killer | Rodent Control | Cake | 50g',
+  stock: 140
+},
+
+
+
+
+
   // STATIONERY - PENS & PENCILS
-  {
-    name: 'Reynolds Ball Pen',
-    weight: '10 pcs',
-    price: 80,
-    oldPrice: 90,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Reynolds',
-    image: 'https://m.media-amazon.com/images/I/61f1KPyYUxL._SL1500_.jpg',
-    inStock: true,
-    description: 'Smooth writing ball pens',
-    stock: 100
-  },
-  {
-    name: 'Cello Butterflow Pens',
-    weight: '10 pcs',
-    price: 70,
-    oldPrice: 80,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Cello',
-    image: 'https://m.media-amazon.com/images/I/61M8ZnF8+HL._SL1500_.jpg',
-    inStock: true,
-    description: 'Blue ink ball pens',
-    stock: 95
-  },
-  {
-    name: 'Apsara Pencils',
-    weight: '10 pcs',
-    price: 60,
-    oldPrice: 70,
-    discount: '14% OFF',
-    category: 'Home and Offices',
-    brand: 'Apsara',
-    image: 'https://m.media-amazon.com/images/I/61DUcLmOqHL._SL1500_.jpg',
-    inStock: true,
-    description: 'Extra dark pencils',
-    stock: 110
-  },
-
-  // NOTEBOOKS & PAPER
-  {
-    name: 'Classmate Notebook',
-    weight: '6 pcs',
-    price: 195,
-    oldPrice: 220,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Classmate',
-    image: 'https://m.media-amazon.com/images/I/71gSXqhCkEL._SL1500_.jpg',
-    inStock: true,
-    description: 'Single line ruled notebooks',
-    stock: 80
-  },
-  {
-    name: 'A4 Paper Ream',
-    weight: '500 Sheets',
-    price: 280,
-    oldPrice: 320,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'JK Copier',
-    image: 'https://m.media-amazon.com/images/I/61JztcPBSZL._SL1500_.jpg',
-    inStock: true,
-    description: 'Premium quality copier paper',
-    stock: 50
-  },
-  {
-    name: 'Spiral Notebooks',
-    weight: '3 pcs',
-    price: 165,
-    oldPrice: 185,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Navneet',
-    image: 'https://m.media-amazon.com/images/I/71Dw5nL+5yL._SL1500_.jpg',
-    inStock: true,
-    description: 'Hard bound spiral notebooks',
-    stock: 75
-  },
-
-  // ADHESIVES & TAPE
-  {
-    name: 'Fevicol MR',
-    weight: '200g',
-    price: 65,
-    oldPrice: 75,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Fevicol',
-    image: 'https://m.media-amazon.com/images/I/61b+vpG0v7L._SL1500_.jpg',
-    inStock: true,
-    description: 'All-purpose adhesive',
-    stock: 90
-  },
-  {
-    name: 'Fevistik Glue Stick',
-    weight: '3 pcs',
-    price: 85,
-    oldPrice: 95,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Fevicol',
-    image: 'https://m.media-amazon.com/images/I/61Q0fFTvQCL._SL1500_.jpg',
-    inStock: true,
-    description: 'Non-toxic glue sticks',
-    stock: 85
-  },
-  {
-    name: 'Scotch Tape',
-    weight: '2 pcs',
-    price: 85,
-    oldPrice: 95,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: '3M',
-    image: 'https://m.media-amazon.com/images/I/61PklGKVsJL._SL1500_.jpg',
-    inStock: true,
-    description: 'Clear adhesive tape',
-    stock: 70
-  },
-  {
-    name: 'Double Sided Tape',
-    weight: '1 pc',
-    price: 55,
-    oldPrice: 65,
-    discount: '15% OFF',
-    category: 'Home and Offices',
-    brand: '3M',
-    image: 'https://m.media-amazon.com/images/I/61lI8yyXBLL._SL1500_.jpg',
-    inStock: true,
-    description: 'Strong double-sided adhesive',
-    stock: 65
-  },
-
-  // OFFICE SUPPLIES
-  {
-    name: 'Stapler + Pins Set',
-    weight: '1 set',
-    price: 120,
-    oldPrice: 140,
-    discount: '14% OFF',
-    category: 'Home and Offices',
-    brand: 'Kangaro',
-    image: 'https://m.media-amazon.com/images/I/61xV+wJ0a4L._SL1500_.jpg',
-    inStock: true,
-    description: 'Full strip stapler with 1000 pins',
-    stock: 60
-  },
-  {
-    name: 'Stapler Pins',
-    weight: '1 box',
-    price: 45,
-    oldPrice: 52,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Kangaro',
-    image: 'https://m.media-amazon.com/images/I/61cJqCGPfSL._SL1500_.jpg',
-    inStock: true,
-    description: '5000 stapler pins',
-    stock: 80
-  },
-  {
-    name: 'Paper Clips Box',
-    weight: '100 pcs',
-    price: 35,
-    oldPrice: 40,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Kangaro',
-    image: 'https://m.media-amazon.com/images/I/61u3GNZG+HL._SL1500_.jpg',
-    inStock: true,
-    description: 'Metal paper clips',
-    stock: 85
-  },
-  {
-    name: 'Binder Clips Set',
-    weight: '12 pcs',
-    price: 65,
-    oldPrice: 75,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Kangaro',
-    image: 'https://m.media-amazon.com/images/I/71N8aKKKqBL._SL1500_.jpg',
-    inStock: true,
-    description: 'Assorted size binder clips',
-    stock: 70
-  },
-
-  // MARKERS & COLORS
-  {
-    name: 'Marker Pen Set',
-    weight: '12 Colors',
-    price: 195,
-    oldPrice: 220,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Camlin',
-    image: 'https://m.media-amazon.com/images/I/71tHYwVCwUL._SL1500_.jpg',
-    inStock: true,
-    description: 'Permanent marker pens',
-    stock: 65
-  },
-  {
-    name: 'Highlighter Set',
-    weight: '4 Colors',
-    price: 120,
-    oldPrice: 135,
-    discount: '11% OFF',
-    category: 'Home and Offices',
-    brand: 'Camlin',
-    image: 'https://m.media-amazon.com/images/I/61SixmQqgWL._SL1500_.jpg',
-    inStock: true,
-    description: 'Fluorescent highlighter pens',
-    stock: 75
-  },
-  {
-    name: 'Whiteboard Marker',
-    weight: '4 pcs',
-    price: 140,
-    oldPrice: 160,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Camlin',
-    image: 'https://m.media-amazon.com/images/I/61k5nJSCpfL._SL1500_.jpg',
-    inStock: true,
-    description: 'Board marker pens',
-    stock: 60
-  },
-
-  // FILES & FOLDERS
-  {
-    name: 'File Folder Set',
-    weight: '10 pcs',
-    price: 165,
-    oldPrice: 190,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Solo',
-    image: 'https://m.media-amazon.com/images/I/71iO8wQN3QL._SL1500_.jpg',
-    inStock: true,
-    description: 'Plastic file folders',
-    stock: 70
-  },
-  {
-    name: 'Box Files',
-    weight: '3 pcs',
-    price: 280,
-    oldPrice: 320,
-    discount: '13% OFF',
-    category: 'Home and Offices',
-    brand: 'Solo',
-    image: 'https://m.media-amazon.com/images/I/61dNO4OQKEL._SL1500_.jpg',
-    inStock: true,
-    description: 'Heavy-duty box files',
-    stock: 45
-  },
-
-  // SCISSORS & CUTTERS
-  {
-    name: 'Scissor Premium',
-    weight: '1 pc',
-    price: 95,
-    oldPrice: 110,
-    discount: '14% OFF',
-    category: 'Home and Offices',
-    brand: 'Maped',
-    image: 'https://m.media-amazon.com/images/I/51rJ+pWb8EL._SL1500_.jpg',
-    inStock: true,
-    description: 'Stainless steel scissors',
-    stock: 55
-  },
-  {
-    name: 'Paper Cutter',
-    weight: '1 pc',
-    price: 140,
-    oldPrice: 165,
-    discount: '15% OFF',
-    category: 'Home and Offices',
-    brand: 'Maped',
-    image: 'https://m.media-amazon.com/images/I/61Y8WjLsVCL._SL1500_.jpg',
-    inStock: true,
-    description: 'Safe blade paper cutter',
-    stock: 50
-  }
+ 
+  
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========
