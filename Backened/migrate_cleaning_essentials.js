@@ -504,303 +504,7 @@ const cleaningEssentialsProducts = [
 
 
 
-{
-  name: 'Fiama Gel Bar Celebration Pack',
-  weight: '125g x 4',
-  price: 199,
-  oldPrice: 240,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Fiama',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.fNfk-dK5rISlDmnmn_SEcgHaE9?pid=Api&H=107&W=160',
-  inStock: true,
-  description: 'Fiama Gel Bar | Assorted Fragrances | Pack of 4',
-  stock: 80
-},
 
-// PEARS
-{
-  name: 'Pears Pure & Gentle Soap Set',
-  weight: '125g x 4',
-  price: 245,
-  oldPrice: 290,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Pears',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.MAt1GjOD7bACHWprJwHTwwHaGC?pid=Api&P=0&w=491&h=400',
-  inStock: true,
-  description: 'Pears | Pure & Gentle | Glycerin Soap | Pack of 4',
-  stock: 80
-},
-{
-  name: 'Pears Soft & Fresh Blue Soap',
-  weight: '125g x 4',
-  price: 235,
-  oldPrice: 280,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Pears',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.d9R9zPLmOuNczz2RfCq4DgHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Pears | Soft & Fresh | Mint Extract | Blue Pack of 4',
-  stock: 80
-},
-
-// LIRIL
-{
-  name: 'Liril Lemon & Tea Tree Soap',
-  weight: '125g x 4',
-  price: 145,
-  oldPrice: 175,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Liril',
-  image: '	https://tse2.mm.bing.net/th/id/OIP.4XWuDuqzV5CGhk-jNdtpGwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Liril | Lemon Fresh | Tea Tree Oil | Pack of 4',
-  stock: 80
-},
-
-// WILDSTONE
-{
-  name: 'Wildstone Soap Set For Men',
-  weight: '125g x 4',
-  price: 185,
-  oldPrice: 220,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Wildstone',
-  image: '	https://tse2.mm.bing.net/th/id/OIP.GivsF3nbgYnjlVkHCIsDbwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Wildstone | For Men | Long Lasting Fragrance | Pack of 4',
-  stock: 80
-},
-
-// MEDIMIX
-{
-  name: 'Medimix Ayurvedic Classic Neem Soap',
-  weight: '125g x 4',
-  price: 165,
-  oldPrice: 199,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Medimix',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.RhhsL55RUw8WlTAQj3qT9wHaFT?pid=Api&H=114&W=160',
-  inStock: true,
-  description: 'Medimix | 18 Herbs | Ayurvedic Neem Soap | Pack of 4',
-  stock: 80
-},
-
-// VIVEL
-{
-  name: 'Vivel Aloe Vera Soap Set',
-  weight: '100g x 4',
-  price: 125,
-  oldPrice: 150,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Vivel',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.YfhpdQZJq_DBnbu6VKcUUwHaHa?pid=Api&P=0&w=400&h=400',
-  inStock: true,
-  description: 'Vivel | Aloe Vera | Soft Moisturizing | Pink Pack of 4',
-  stock: 80
-},
-
-// DOVE
-{
-  name: 'Dove Cream Beauty Bathing Bar Set',
-  weight: '100g x 4',
-  price: 235,
-  oldPrice: 280,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Dove',
-  image: '	https://tse4.mm.bing.net/th/id/OIP.4k9-VWLL_eu553GzONHkMQHaH5?pid=Api&P=0&h=180',
-  inStock: true,
-  description: 'Dove | Cream Beauty Bar | 1/4 Moisturizing Cream | Pack of 4',
-  stock: 80
-},
-
-// LUX
-{
-  name: 'Lux Soft Touch Pink Soap',
-  weight: '150g x 4',
-  price: 175,
-  oldPrice: 210,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Lux',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.b456EDYJ6b6430pXppJv8AHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Lux | Soft Touch | French Rose | Pink Pack of 4',
-  stock: 80
-},
-{
-  name: 'Lux White Soap',
-  weight: '125g x 4',
-  price: 185,
-  oldPrice: 220,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Lux',
-  image: '	https://tse2.mm.bing.net/th/id/OIP.YTmuVx2k_tx8wSuypaPWGAHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Lux | Creamy White | Pack of 4',
-  stock: 80
-},
-
-// CINTHOL
-{
-  name: 'Cinthol Lemon Soap Set',
-  weight: '100g x 4',
-  price: 145,
-  oldPrice: 175,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Cinthol',
-  image: '	https://tse2.mm.bing.net/th/id/OIP.eh-pHi7kkeLF2MCdvKv5wAAAAA?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Cinthol | Original | Deodorant & Complexion | Yellow Pack of 4',
-  stock: 80
-},
-
-// DETTOL
-{
-  name: 'Dettol Original Soap Set',
-  weight: '125g x 4',
-  price: 195,
-  oldPrice: 235,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: '	https://tse2.mm.bing.net/th/id/OIP.eh-pHi7kkeLF2MCdvKv5wAAAAA?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol | Original | Trusted Protection | Pack of 4',
-  stock: 80
-},
-{
-  name: 'Dettol Original Soap Set (Small)',
-  weight: '75g x 4',
-  price: 125,
-  oldPrice: 150,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.hLNvE8a9fQi68ZA35UoaBAHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol | Original | Small Pack | Pack of 4',
-  stock: 80
-},
-{
-  name: 'Dettol Skincare Pink Soap Set',
-  weight: '125g x 4',
-  price: 195,
-  oldPrice: 235,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.DNX9FVpSrHOGhID_ycYzBgHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol | Skincare | Moisturizing | Pink Pack of 4',
-  stock: 80
-},
-{
-  name: 'Dettol Cool Soap Set',
-  weight: '125g x 4',
-  price: 195,
-  oldPrice: 235,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.4zSua1-uu7aHurBhjlDCbQHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol | Cool | Menthol Freshness | Blue Pack of 4',
-  stock: 80
-},
-
-// NO.1 SOAP
-{
-  name: 'No.1 Sandal & Turmeric Soap Set',
-  weight: '100g x 4',
-  price: 95,
-  oldPrice: 115,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'No.1',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.BvblM5be35P8b6CTX3440wHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'No.1 | Sandal Haldi | Yellow Pack of 4',
-  stock: 100
-},
-{
-  name: 'No.1 lemon & lime Soap Set',
-  weight: '100g x 4',
-  price: 95,
-  oldPrice: 115,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'No.1',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.C4auaH29w1urY8UxMXbXygHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'No.1 | Kesar Milk Cream | Orange Pack of 4',
-  stock: 100
-},
-{
-  name: 'No.1 Jasmine Soap Set',
-  weight: '100g x 4',
-  price: 95,
-  oldPrice: 115,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'No.1',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.FC4Vshp6UHdQcReJnHayMwHaF9?pid=Api&H=128&W=160',
-  inStock: true,
-  description: 'No.1 | Kesar Milk Cream | Orange Pack of 4',
-  stock: 100
-},
-
-// ========================================
-// 🌿 PATANJALI SOAPS
-// ========================================
-{
-  name: 'Patanjali Aloe Vera Kanti Soap Set',
-  weight: '75g x 4',
-  price: 85,
-  oldPrice: 100,
-  discount: '15% OFF',
-  category: 'Personal Care',
-  brand: 'Patanjali',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.PZcmHEcsJgUCbRh22houCwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Patanjali | Aloe Vera Kanti | Natural | Pack of 4',
-  stock: 100
-},
-{
-  name: 'Patanjali Haldi Chandan Kanti Soap Set',
-  weight: '75g x 4',
-  price: 85,
-  oldPrice: 100,
-  discount: '15% OFF',
-  category: 'Personal Care',
-  brand: 'Patanjali',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.Rdw_I8NRQjb20gFE8qxZ4AHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Patanjali | Haldi Chandan | Turmeric Sandalwood | Pack of 4',
-  stock: 100
-},
-{
-  name: 'Patanjali Neem Kanti Soap Set',
-  weight: '75g x 4',
-  price: 85,
-  oldPrice: 100,
-  discount: '15% OFF',
-  category: 'Personal Care',
-  brand: 'Patanjali',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.D37Osy9GVklACpkDn0To7wHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Patanjali | Neem Kanti | Antibacterial | Pack of 4',
-  stock: 100
-},
 
 // ========================================
 // 🍋 DISH WASH BARS
@@ -924,58 +628,7 @@ const cleaningEssentialsProducts = [
   description: 'Fena | Superwash Bar | Extra Foam | Pack of 4',
   stock: 100
 },
-{
-  name: 'Margo Original Neem Soap',
-  weight: '100g x 4',
-  price: 145,
-  oldPrice: 172,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Margo',
-  image: 'https://tse2.mm.bing.net/th/id/OIP.EM24HCj1VaZgC2Cy3W5ppwHaF5?pid=Api&H=127&W=160',
-  inStock: true,
-  description: 'Margo Original Neem Soap | Antibacterial | Pack of 4',
-  stock: 75
-},
-{
-  name: 'Lux International Creamy Perfection Soap',
-  weight: '125g x 4',
-  price: 199,
-  oldPrice: 240,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Lux',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.x6ibuGuzfFg2SnCtUFsmYQHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Lux International | Creamy Perfection | Swiss Moisturizers | Pack of 4',
-  stock: 120
-},
-{
-  name: 'Savlon Moisturizing Glycerin Soap',
-  weight: '125g x 5',
-  price: 182,
-  oldPrice: 225,
-  discount: '19% OFF',
-  category: 'Personal Care',
-  brand: 'Savlon',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.3WnEGeBPXVcdeYPpHnB_pwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Savlon | Moisturizing Glycerin Soap | Germ Protection | Pack of 5',
-  stock: 90
-},
-{
-  name: 'Lifebuoy Total 10 Soap',
-  weight: '100g x 4',
-  price: 152,
-  oldPrice: 180,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Lifebuoy',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.ckniEO0QuCF3ChxbRXyvXwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Lifebuoy Total 10 | 100% Germ Protection | Pack of 4',
-  stock: 150
-},
+
 {
   name: 'Drainex Drain Cleaner Powder',
   weight: '50g x 3',
@@ -1210,45 +863,7 @@ const cleaningEssentialsProducts = [
 },
 
 // DETTOL ANTISEPTIC
-{
-  name: 'Dettol Antiseptic Liquid',
-  weight: '200ml',
-  price: 105,
-  oldPrice: 125,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.dWRQ1IdsgX_VfosjpRfRjQHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol Antiseptic Liquid | First Aid | Disinfectant | 200ml',
-  stock: 150
-},
-{
-  name: 'Dettol Antiseptic Liquid',
-  weight: '500ml',
-  price: 235,
-  oldPrice: 280,
-  discount: '16% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: 'https://tse1.mm.bing.net/th/id/OIP.vDvtjajPjp2OJJHoODbiHwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol Antiseptic Liquid | First Aid | Disinfectant | 500ml',
-  stock: 100
-},
-{
-  name: 'Dettol Antiseptic Liquid',
-  weight: '1L',
-  price: 450,
-  oldPrice: 540,
-  discount: '17% OFF',
-  category: 'Personal Care',
-  brand: 'Dettol',
-  image: '	https://tse1.mm.bing.net/th/id/OIP.0x8BMpPffIGsuLnp6XwebwHaHa?pid=Api&H=160&W=160',
-  inStock: true,
-  description: 'Dettol Antiseptic Liquid | First Aid | Disinfectant | 1 Litre',
-  stock: 60
-},
+
 
 // EZEE
 {
@@ -1878,6 +1493,19 @@ const cleaningEssentialsProducts = [
     image: '	https://tse2.mm.bing.net/th/id/OIP.yQpyxrGfaDEabq5u9VKo9QHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Scotch Brite Kitchen Wiper | Platform Cleaning | Non-Scratch | Absorbent Sponge',
+    stock: 50
+  },
+    {
+    name: 'Toilet Brush',
+    weight: '1 Pc',
+    price: 125,
+    oldPrice: 145,
+    discount: '14% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Normal',
+    image: '		https://tse2.mm.bing.net/th/id/OIP.cA9MqGjQc6-jZoH9cpwfFwHaG_?pid=Api&H=150&W=160',
+    inStock: true,
+    description: 'ToiletBrush | Platform Cleaning ',
     stock: 50
   },
 

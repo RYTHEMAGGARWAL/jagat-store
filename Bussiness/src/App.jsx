@@ -8,7 +8,6 @@ import AttaRiceDal from './Components/AttaRiceDal';
 import MasalaOil from './Components/MasalaOil';
 import PetCare from './Components/PetCare';
 import BabyCare from './Components/BabyCare';
-
 import Pharmacy from './Components/Pharmacy';
 import Cart from './Components/Cart';
 import Login from './Components/Login';
@@ -18,6 +17,7 @@ import MyOrders from './Components/MyOrders';
 import OrderSuccess from './Components/OrderSuccess';
 import AdminDashboard from './Components/AdminDashboard';
 import AdminOrders from './Components/AdminOrders';
+
 
 import AdminOrderDetail from './Components/AdminOrderDetail';
 import JagatStore from './Components/JagatStore';
@@ -29,6 +29,7 @@ import SweetTooth from './Components/SweetTooth';
 import BakeryBiscuits from './Components/BakeryBiscuits';
 import CleaningEssentials from './Components/CleaningEssentials';
 import OrganicHealthyLiving from './Components/OrganicHealthyLiving';
+
 import ColdDrinksJuices from './Components/ColdDrinksJuices';
 import BreakfastInstantFoods from './Components/BreakfastInstantFoods';
 import OrderDetails from './Components/OrderDetails';
@@ -36,10 +37,12 @@ import OrderDetails from './Components/OrderDetails';
 import HomeOffices from './Components/HomeOffices';
 import WhatsAppButton from './Components/WhatsAppButton';
 
+
 // 👇 NEW: Import ScrollToTop
 import ScrollToTop from './Components/ScrollToTop';
 import AdminProducts from './Components/AdminProducts';
 import AdminAddProduct from './Components/AdminAddProduct';
+import PaanCorner from './Components/PaanCorner';
 
 function App() {
   return (
@@ -77,6 +80,7 @@ function App() {
         <Route path="/BreakfastInstantFoods" element={<BreakfastInstantFoods />} />
         <Route path="/HomeOffices" element={<HomeOffices />} />
         <Route path="/order-details/:orderId" element={<OrderDetails />} />
+        <Route path="/PaanCorner" element={<PaanCorner />} />
 
           
         <Route path="/orders" element={<MyOrders />} />

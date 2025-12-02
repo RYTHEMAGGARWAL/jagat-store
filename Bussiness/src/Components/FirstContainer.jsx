@@ -229,6 +229,12 @@ const FirstContainer = () => {
       alt: "Home and Offices",
       link: "/HomeOffices"
     },
+    {
+      id: 18,
+      src: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=225/layout-engine/2022-12/paan-corner_web.png",
+      alt: "Paan Corner",
+      link: "/PaanCorner"
+    }
    
   ];
 
