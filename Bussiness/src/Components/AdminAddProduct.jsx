@@ -41,6 +41,7 @@ const AdminAddProduct = () => {
     'Organic & Healthy Living',
     'Baby Care',
     'Pet Care',
+    'Snacks Munchies'
   ];
 
   const handleChange = (e) => {

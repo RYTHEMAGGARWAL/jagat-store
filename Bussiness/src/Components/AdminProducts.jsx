@@ -24,6 +24,7 @@ const AdminProducts = () => {
     'Dairy Bread & Eggs',
     'Sauces & Spreads',
     'Sweet Tooth',
+    'Snacks Munchies',
     
     'Bakery Biscuits',
     'Cold Drinks & Juices',
