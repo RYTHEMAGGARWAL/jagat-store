@@ -34,6 +34,359 @@ const Product = mongoose.model('Product', productSchema);
 const dairyBreadEggsProducts = [
   // MILK - AMUL
 
+ {
+    name: 'Amul Cheese Slices',
+    weight: '10 Slices',
+    price: 125,
+    oldPrice: 140,
+    discount: '11% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.XTlKbQPi5kZSk8FNbWhgnAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Cheese Slices | 10 Slices Pack | Perfect for Sandwiches & Burgers | 200g',
+    stock: 100
+  },
+  {
+    name: 'Amul Mozzarella Cheese',
+    weight: '200g',
+    price: 150,
+    oldPrice: 170,
+    discount: '12% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.CW1GV0UUBPoELmwBJR9NfwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Mozzarella Cheese | Perfect for Pizza & Pasta | Stretchy & Melty | 200g Block',
+    stock: 80
+  },
+  {
+    name: 'Amul Cheese Cubes',
+    weight: '200g',
+    price: 115,
+    oldPrice: 130,
+    discount: '12% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.YWJgRM4Bsd0IXkQPo67f4gHaES?pid=Api&H=92&W=160',
+    inStock: true,
+    description: 'Amul Cheese Cubes | 8 Cubes Pack | Ready to Eat | Snacking & Cooking | 200g',
+    stock: 100
+  },
+  {
+    name: 'Amul Cheese Spread',
+    weight: '200g',
+    price: 99,
+    oldPrice: 115,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Sjqh8Wgeoa7-epOFbea7tQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Cheese Spread | Creamy & Smooth | Perfect for Bread & Crackers | 200g Jar',
+    stock: 100
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧈 AMUL BUTTER
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Amul Butter',
+    weight: '100g',
+    price: 56,
+    oldPrice: 62,
+    discount: '10% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.UiG8BdKDvgh0ev_hfa_6mwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Butter | Pasteurised | Made from Fresh Cream | Utterly Butterly | 100g Pack',
+    stock: 150
+  },
+  {
+    name: 'Amul Butter',
+    weight: '200g',
+    price: 108,
+    oldPrice: 120,
+    discount: '10% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.NAttLismaw8dnTYtV7z5cgHaFE?pid=Api&H=109&W=160',
+    inStock: true,
+    description: 'Amul Butter | Pasteurised | Made from Fresh Cream | Utterly Butterly | 200g Pack',
+    stock: 120
+  },
+  {
+    name: 'Amul Butter',
+    weight: '500g',
+    price: 265,
+    oldPrice: 295,
+    discount: '10% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: '	https://tse1.mm.bing.net/th/id/OIP._776ACVrlRRdVDgPil4BPQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Butter | Pasteurised | Made from Fresh Cream | Utterly Butterly | 500g Family Pack',
+    stock: 80
+  },
+    {
+    name: 'Amul Butter',
+    weight: '20g',
+    price: 15,
+    oldPrice: 18,
+    discount: '10% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.QlQ6RHjSrAbP6KVzBjUZEwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Butter | Pasteurised | Made from Fresh Cream | Utterly Butterly | 100g Pack',
+    stock: 150
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧈 DELICIOUS BUTTER
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Delicious Butter',
+    weight: '100g',
+    price: 52,
+    oldPrice: 60,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Delicious',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.3dkofF0PohpY0MIFDFXNrAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Delicious Table Butter | Fresh & Creamy | Made from Pure Milk | 100g Pack',
+    stock: 150
+  },
+  {
+    name: 'Delicious Butter',
+    weight: '500g',
+    price: 245,
+    oldPrice: 280,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Delicious',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.NbU9NdF84R9X2FMM-_LMyQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Delicious Table Butter | Fresh & Creamy | Made from Pure Milk | 500g Family Pack',
+    stock: 80
+  },
+
+
+
+   // ════════════════════════════════════════════════════════════════
+  // 🍞 ENGLISH OVEN BREADS
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'English Oven Pav',
+    weight: '6 Pcs',
+    price: 30,
+    oldPrice: 35,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.v0D5lBXdsr27gQ9deeVJWAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Pav | Soft & Fresh | Perfect for Pav Bhaji & Vada Pav | 6 Pieces Pack',
+    stock: 100
+  },
+  {
+    name: 'English Oven Burger Bun',
+    weight: '4 Pcs',
+    price: 45,
+    oldPrice: 52,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.LSMS0F419DHdXh4NTvtrYwHaID?pid=Api&H=173&W=160',
+    inStock: true,
+    description: 'English Oven Burger Bun | Soft Sesame Topped | Perfect for Burgers | 4 Pieces Pack',
+    stock: 80
+  },
+  {
+    name: 'English Oven Pizza Base',
+    weight: '2 Pcs',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.8ODbr1HlKRDaMjCZf1vRWwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Pizza Base | Ready to Use | Thin Crust | Make Pizza at Home | 2 Pieces Pack',
+    stock: 60
+  },
+  {
+    name: 'English Oven Brown Bread',
+    weight: '400g',
+    price: 45,
+    oldPrice: 52,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Vcv4uacyIkRNn386A9983gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Brown Bread | High Fiber | Healthy Choice | Whole Wheat | 400g Pack',
+    stock: 100
+  },
+  {
+    name: 'English Oven Atta Bread',
+    weight: '400g',
+    price: 42,
+    oldPrice: 50,
+    discount: '16% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xUUEMf7Enl14JtHu_VNFlAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Atta Bread | 100% Whole Wheat | No Maida | Healthy & Tasty | 400g Pack',
+    stock: 100
+  },
+  {
+    name: 'English Oven Sandwich Bread',
+    weight: '400g',
+    price: 40,
+    oldPrice: 48,
+    discount: '17% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.WvsVzIiS8D3lPIHBSeta_QAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Sandwich Bread | Soft & Fresh | Perfect for Sandwiches | 400g Pack',
+    stock: 100
+  },
+  {
+    name: 'English Oven White Bread Small',
+    weight: '200g',
+    price: 22,
+    oldPrice: 26,
+    discount: '15% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.U7AIjf6kyS7wSnGSzLidXQAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven White Bread Small | Soft & Fluffy | Daily Fresh | 200g Pack',
+    stock: 120
+  },
+  {
+    name: 'English Oven White Bread Big',
+    weight: '400g',
+    price: 38,
+    oldPrice: 45,
+    discount: '16% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.35yDJGf6w2skZEmw8qLcFAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven White Bread Big | Soft & Fluffy | Family Pack | 400g Pack',
+    stock: 100
+  },
+  {
+    name: 'English Oven Fruit Bun',
+    weight: '2 Pcs',
+    price: 48,
+    oldPrice: 56,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.HI6nTheBVMTJXuQwdqiwPAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Fruit Bun | Sweet & Soft | With Tutti Frutti | 4 Pieces Pack',
+    stock: 80
+  },
+  {
+    name: 'English Oven Fruit Bread',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.ZttHatj85_OLomaMm8wdYwHaN-?pid=Api&H=301&W=160',
+    inStock: true,
+    description: 'English Oven Fruit Bread | Sweet Bread with Dry Fruits | Tea Time Snack | 200g Pack',
+    stock: 80
+  },
+
+
+   {
+    name: 'English Oven Multigrain Bread',
+    weight: '400g',
+    price: 70,
+    oldPrice: 80,
+    discount: '16% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'English Oven',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.rbJCzGkGoiT2QGU2NLwEmAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'English Oven Atta Bread | 100% Multigrain | No Maida | Healthy & Tasty | 400g Pack',
+    stock: 100
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🥚 EGGS
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Eggoz Fresh Eggs',
+    weight: '6 Pcs',
+    price: 54,
+    oldPrice: 62,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Eggoz',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.pEmHj9W7SDnx3C2gp4tziQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Eggoz Fresh Eggs | Farm Fresh | Protein Rich | 6 Pieces Box',
+    stock: 150
+  },
+  {
+    name: 'Farm Fresh Eggs Tray',
+    weight: '30 Pcs',
+    price: 210,
+    oldPrice: 240,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Farm Fresh',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.gLXpQTQ4ZwEV0o6zdx_dSgHaFy?pid=Api&H=124&W=160',
+    inStock: true,
+    description: 'Farm Fresh Eggs Tray | White Eggs | Full Tray | 30 Pieces',
+    stock: 100
+  },
+  {
+    name: 'Desi Eggs Tray Nagpal',
+    weight: '30 Pcs',
+    price: 280,
+    oldPrice: 320,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Farm Fresh Nagpal',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.PORsudaRnS0sj8xVjkFDQgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Desi Eggs Tray | Country Brown Eggs | Free Range | Natural | 30 Pieces',
+    stock: 80
+  },
+  {
+    name: 'Desi Eggs Box Nagpal',
+    weight: '6 Pcs',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Farm Fresh Nagpal',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Ulcs1JscNT_Ut4rO4cA4jgHaJQ?pid=Api&H=199&W=160',
+    inStock: true,
+    description: 'Desi Eggs Box | Country Brown Eggs | Free Range | Natural | 6 Pieces Box',
+    stock: 120
+  }
+
+
+
+
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========
@@ -44,7 +397,7 @@ const smartMigrate = async () => {
     
     let added = 0, updated = 0, unchanged = 0;
     
-    const existingProducts = await Product.find({ category: "Dairy Bread Eggs" });
+    const existingProducts = await Product.find({ category: "Dairy Bread & Eggs" });
     
     const existingMap = new Map();
     existingProducts.forEach(product => {
@@ -105,7 +458,7 @@ const smartMigrate = async () => {
     console.log(`   🔄 Updated: ${updated}`);
     console.log(`   ⏭️  Unchanged: ${unchanged}`);
     console.log(`   ❌ Deleted: ${deleted}`);
-    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Dairy Bread Eggs" })}`);
+    console.log(`   📦 Total in DB: ${await Product.countDocuments({ category: "Dairy Bread & Eggs" })}`);
     console.log('\n✅ Migration Complete!\n');
     
     process.exit(0);

@@ -27,7 +27,12 @@ cloudinary.config({
 // ═══════════════════════════════════════════════════════════════════
 
 const products = [
-  // ============ PATANJALI HONEY ============
+ 
+
+
+    
+  
+
 
 
   // -------- YAHAN AUR PRODUCTS ADD KARO --------

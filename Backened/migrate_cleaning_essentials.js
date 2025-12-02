@@ -1734,6 +1734,281 @@ const cleaningEssentialsProducts = [
 
 
 
+// ════════════════════════════════════════════════════════════════
+  // 🧹 FOOLJHADU (GRASS BROOM)
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Mahalaxmi Fooljhadu',
+    weight: '1 Pc',
+    price: 110,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Mahalaxmi',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.UTT9niwa61rqA6YdPvptEQHaHg?pid=Api&P=0&w=400&h=406',
+    inStock: true,
+    description: 'Mahalaxmi Fooljhadu | Grass Broom | Soft Bristles | Floor Cleaning | Premium Quality',
+    stock: 50
+  },
+  {
+    name: 'Thukral Fooljhadu',
+    weight: '1 Pc',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Thukral',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.YWQTRzkGM5ZTb5gBPWMgDwHaHy?pid=Api&P=0&w=400&h=420',
+    inStock: true,
+    description: 'Thukral Fooljhadu | Premium Grass Broom | Durable & Long Lasting | Floor Sweeping',
+    stock: 50
+  },
+  {
+    name: 'Hari Ram Gulab Rai Fooljhadu Yellow',
+    weight: '1 Pc',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Hari Ram Gulab Rai',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.b3pV0hC2MIgPBaO_bHINPgAAAA?pid=Api&P=0&w=180&h=500',
+    inStock: true,
+    description: 'Hari Ram Gulab Rai Yellow Fooljhadu | Traditional Grass Broom | Soft & Effective',
+    stock: 50
+  },
+  {
+    name: 'Hari Ram Gulab Rai Fooljhadu Bhuni',
+    weight: '1 Pc',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Hari Ram Gulab Rai',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.nOHD7H00dDZg_4bjus1siQHaIq?pid=Api&P=0&w=400&h=468',
+    inStock: true,
+    description: 'Hari Ram Gulab Rai Bhuni Fooljhadu | Roasted Grass Broom | Extra Durable | Floor Cleaning',
+    stock: 50
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧹 SEEKH JHADU (STICK BROOM)
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Seekh Jhadu Small',
+    weight: '1 Pc',
+    price: 35,
+    oldPrice: 42,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.EADfLiUtiIddJCVRtM5s3gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Seekh Jhadu Choti | Coconut Stick Broom Small | Outdoor Cleaning | Durable',
+    stock: 50
+  },
+  {
+    name: 'Seekh Jhadu Big',
+    weight: '1 Pc',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.AVJxn_h4jEfr-6X8BV6sxwAAAA?pid=Api&P=0&w=174&h=832',
+    inStock: true,
+    description: 'Seekh Jhadu Badi | Coconut Stick Broom Large | Heavy Duty | Outdoor & Garden Cleaning',
+    stock: 50
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧽 WIPER (FLOOR WIPER)
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'National Floor Wiper',
+    weight: '1 Pc',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'National',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.KFwc3ZIp5Ff3tbXnIAeVfAHaJ4?pid=Api&P=0&w=400&h=533',
+    inStock: true,
+    description: 'National Floor Wiper | Durable Rubber Blade | Bathroom & Floor Cleaning | Long Handle',
+    stock: 50
+  },
+  {
+    name: 'Scotch Brite Floor Wiper Small',
+    weight: '1 Pc',
+    price: 145,
+    oldPrice: 169,
+    discount: '14% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Scotch Brite',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.UnfuHhw3UZlNWi_8DEiWzAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Scotch Brite Floor Wiper Small | Premium Quality | Easy Cleaning | Durable Rubber',
+    stock: 50
+  },
+  {
+    name: 'Scotch Brite Floor Wiper Big',
+    weight: '1 Pc',
+    price: 199,
+    oldPrice: 229,
+    discount: '13% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Scotch Brite',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.3ikQHlDnV7brtX68tPHUQAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Scotch Brite Floor Wiper Big | Large Size | Quick Drying | Professional Cleaning',
+    stock: 50
+  },
+
+
+   {
+    name: 'Scotch Brite Kitchen Wiper',
+    weight: '1 Pc',
+    price: 125,
+    oldPrice: 145,
+    discount: '14% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Scotch Brite',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.yQpyxrGfaDEabq5u9VKo9QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Scotch Brite Kitchen Wiper | Platform Cleaning | Non-Scratch | Absorbent Sponge',
+    stock: 50
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧽 BATHROOM WIPER - NORMAL
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Bathroom Wiper Normal',
+    weight: '1 Pc',
+    price: 65,
+    oldPrice: 78,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.ZPZSdt9XCkKznNrvOysJsAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Bathroom Wiper Normal | Plastic Handle | Rubber Blade | Toilet & Bathroom Cleaning',
+    stock: 50
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  // 🧹 GALA JHADU
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Gala Jhadu',
+    weight: '1 Pc',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Gala',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.XLZccHVRb4p-Bej0WTqrqAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gala Jhadu | No Dust Broom | Plastic Bristles | Indoor Floor Cleaning | Long Handle',
+    stock: 50
+  },
+  // ════════════════════════════════════════════════════════════════
+  // 🧹 POOCHA (FLOOR MOP / POCHA) - HARI RAM GULAB RAI
+  // ════════════════════════════════════════════════════════════════
+
+ 
+  {
+    name: 'Hari Ram Gulab Rai Poocha',
+    weight: '30 Wala',
+    price: 30,
+    oldPrice: 38,
+    discount: '21% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Hari Ram Gulab Rai',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.AoNR8Zvq8auSLCZdEkfcgQHaH1?pid=Api&H=169&W=160',
+    inStock: true,
+    description: 'Hari Ram Gulab Rai Poocha 30 Wala | Cotton Floor Mop | Good Absorbency | Daily Use',
+    stock: 100
+  },
+  {
+    name: 'Hari Ram Gulab Rai Poocha',
+    weight: '45 Wala',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Hari Ram Gulab Rai',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.GG1C5VktgoqpFPjSxD5S4gAAAA?pid=Api&H=241&W=160',
+    inStock: true,
+    description: 'Hari Ram Gulab Rai Poocha 45 Wala | Heavy Duty Cotton Mop | Extra Absorbent | Long Lasting',
+    stock: 100
+  },
+    {
+    name: 'Plastic Dustpan Big',
+    weight: '1 Pc',
+    price: 40,
+    oldPrice: 48,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.shoDl3xzoakK9ZMMvqfpMwAAAA?pid=Api&H=217&W=160',
+    inStock: true,
+    description: 'Plastic Dustpan Big | Koodadaan Large | Heavy Duty | Wide Mouth | Easy Cleaning',
+    stock: 100
+  },
+
+
+  // ════════════════════════════════════════════════════════════════
+  // 🗑️ GARBAGE BAGS
+  // ════════════════════════════════════════════════════════════════
+
+  {
+    name: 'Garbage Bags Small',
+    weight: '17x23 inch',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.NqP-KUn4SCrxG1P8S0DuCAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Garbage Bags Small 17x23 inch | 30 Bags Pack | Dustbin Liner | Leak Proof | Black',
+    stock: 100
+  },
+  {
+    name: 'Garbage Bags Medium',
+    weight: '20x26 inch',
+    price: 60,
+    oldPrice: 72,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.zAIAZrw1gPaqvl2Ap-b8PgHaJB?pid=Api&H=194&W=160',
+    inStock: true,
+    description: 'Garbage Bags Medium 20x26 inch | 30 Bags Pack | Dustbin Liner | Leak Proof | Black',
+    stock: 100
+  },
+  {
+    name: 'Garbage Bags Roll',
+    weight: '30 Bags',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Local',
+    image: '	https://tse2.mm.bing.net/th/id/OIP._VGfQmo7hCccyvetEIGKOwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Garbage Bags Roll | 30 Bags | Large Size | Easy Tear | Biodegradable | Black',
+    stock: 100
+  }
+
+
+
+
 
 
 

@@ -24,12 +24,11 @@ const CATEGORIES_TO_DELETE = [
   // 'Jagat Store',
   // 'Home and Offices',
   // 'Organic & Healthy Living',
-  'Masala & Spices',
+  
   'Tea Coffee',
-  'Dairy',
-  'Home & Offices',
-  'Herbs & Ayurveda',
-  'Grocery'
+  'Dairy Bread Eggs',
+  ' Snacks Munchies'
+
 
 
 ];

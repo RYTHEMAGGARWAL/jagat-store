@@ -25,13 +25,22 @@ const AdminAddProduct = () => {
   const categories = [
     'Atta Rice Dal',
     'Masala Oil',
+    'Dairy Bread & Eggs',
+    'Sauces & Spreads',
+    'Sweet Tooth',
+    
+    'Bakery Biscuits',
+    'Cold Drinks & Juices',
+    'Jagat Store',
+    'Breakfast & Instant Foods',
+    'Pharmacy',
     'Cleaning Essentials',
     'Personal Care',
-    'Snacks Munchies',
-    'Tea Coffee',
-    'Dairy Bakery',
+    'Snacks & Munchies',
     'Home and Offices',
-    'Organic & Healthy Living'
+    'Organic & Healthy Living',
+    'Baby Care',
+    'Pet Care',
   ];
 
   const handleChange = (e) => {

@@ -134,7 +134,7 @@ category: 'Snacks & Munchies',
   price: 25,
   oldPrice: 30,
   discount: '17% OFF',
-  category: 'Snacks Munchies',
+  category: 'Snacks & Munchies',
   brand: 'Maggi',
   image: 'https://tse1.mm.bing.net/th/id/OIP.0PG3wUETLaUyE0r0fMJXjAHaEK?pid=Api&H=89&W=160',
   inStock: true,
@@ -147,13 +147,806 @@ category: 'Snacks & Munchies',
   price: 25,
   oldPrice: 30,
   discount: '17% OFF',
-  category: 'Snacks Munchies',
+  category: 'Snacks & Munchies',
   brand: 'Maggi',
   image: '	https://tse1.mm.bing.net/th/id/OIP.5TuB8QpoeC2q2EbOLpXtSQHaES?pid=Api&P=0&w=692&h=400',
   inStock: true,
   description: 'Maggi Pazzta | Tomato | Red Sauce | Instant | 70g',
   stock: 130
-}
+},
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    name: 'Haldirams Aloo Bhujia',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.MO4hoqFiQLYRwcxBRsrWXAHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Haldirams Aloo Bhujia | Crispy Potato Sev | Classic Indian Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Aloo Bhujia',
+    weight: '400g',
+    price: 115,
+    oldPrice: 135,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.QRb-gRVmYEBPNG5ypagYuwHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Haldirams Aloo Bhujia | Crispy Potato Sev | Classic Indian Namkeen | 400g Pack',
+    stock: 80
+  },
+  {
+    name: 'Haldirams Aloo Bhujia',
+    weight: '1kg',
+    price: 275,
+    oldPrice: 320,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse3.mm.bing.net/th/id/OIP.f0ewJ2qMJXXSZdAq819CDAHaKc?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Haldirams Aloo Bhujia | Crispy Potato Sev | Classic Indian Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ BHUJIA SEV ============
+  {
+    name: 'Haldirams Bhujia Sev',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP._qfw-eOkev8HvnYn8lFBoAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Bhujia Sev | Crispy Besan Sev | Traditional Bikaneri Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Bhujia Sev',
+    weight: '400g',
+    price: 105,
+    oldPrice: 125,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.hkUF3ED6F9UdjW6wJ9GTXwHaKN?pid=Api&H=220&W=160',
+    inStock: true,
+    description: 'Haldirams Bhujia Sev | Crispy Besan Sev | Traditional Bikaneri Namkeen | 400g Pack',
+    stock: 80
+  },
+  {
+    name: 'Haldirams Bhujia Sev',
+    weight: '1kg',
+    price: 250,
+    oldPrice: 295,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Z6AO3lhhlFrq95mSBLbWIAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Bhujia Sev | Crispy Besan Sev | Traditional Bikaneri Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ MOONG DAL ============
+  {
+    name: 'Haldirams Moong Dal',
+    weight: '200g',
+    price: 58,
+    oldPrice: 68,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.EZHKm0dxBZTXl1G4FD4PVgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Moong Dal | Crispy Fried Moong Dal | Salted Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Moong Dal',
+    weight: '400g',
+    price: 110,
+    oldPrice: 130,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.IOLQF_Ex1Ca33dCgkDL9AwHaKM?pid=Api&H=220&W=160',
+    inStock: true,
+    description: 'Haldirams Moong Dal | Crispy Fried Moong Dal | Salted Namkeen | 400g Pack',
+    stock: 80
+  },
+  
+
+  // ============ KHATTA MEETHA ============
+  {
+    name: 'Haldirams Khatta Meetha',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.zXgRNOywUEHkYsAeKBUFiAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Khatta Meetha | Sweet & Tangy Mix | Popular Indian Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Khatta Meetha',
+    weight: '400g',
+    price: 105,
+    oldPrice: 125,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.fnAfHVJAsJpq-t_CoYR1WAHaJ9?pid=Api&H=215&W=160',
+    inStock: true,
+    description: 'Haldirams Khatta Meetha | Sweet & Tangy Mix | Popular Indian Namkeen | 400g Pack',
+    stock: 80
+  },
+  {
+    name: 'Haldirams Khatta Meetha',
+    weight: '1kg',
+    price: 250,
+    oldPrice: 295,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.VQdWz4UjaUDkQSRkmxWUqwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Khatta Meetha | Sweet & Tangy Mix | Popular Indian Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ NAVRATAN MIX ============
+  {
+    name: 'Haldirams Navratan Mix',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.OQETHVeD5V9evZBJtc62-wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Navratan Mix | Premium 9-in-1 Mixture | Assorted Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Navratan Mix',
+    weight: '400g',
+    price: 115,
+    oldPrice: 135,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP._enWbXNZW_ewfELAiJ2OtAAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Navratan Mix | Premium 9-in-1 Mixture | Assorted Namkeen | 400g Pack',
+    stock: 80
+  },
+  {
+    name: 'Haldirams Navratan Mix',
+    weight: '1kg',
+    price: 275,
+    oldPrice: 320,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.oCUhorxYriMcvpFM-csW4wAAAA?pid=Api&H=241&W=160',
+    inStock: true,
+    description: 'Haldirams Navratan Mix | Premium 9-in-1 Mixture | Assorted Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ CHANA DAL ============
+  {
+    name: 'Haldirams Chana Dal',
+    weight: '200g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Nk6SFO5pNAwhpQ55POJ-DwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Chana Dal | Crispy Fried Chana | Protein Rich Namkeen | 200g Pack',
+    stock: 100
+  },
+  
+
+  // ============ PEANUTS (MUNGFALI) ============
+  {
+    name: 'Haldirams Classic Salted Peanuts',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.l4E_rUUIqLYE0QRi1QFImQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Classic Salted Peanuts | Roasted & Salted | Healthy Snack | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Classic Salted Peanuts',
+    weight: '400g',
+    price: 105,
+    oldPrice: 125,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.2SRJ7vxjmj7F_uQclOeBSgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Classic Salted Peanuts | Roasted & Salted | Healthy Snack | 400g Pack',
+    stock: 80
+  },
+
+
+
+  // ============ CORNFLAKES MIXTURE ============
+  {
+    name: 'Haldirams Cornflakes Mixture',
+    weight: '200g',
+    price: 58,
+    oldPrice: 68,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.vWxD3EPelyD7aMDtJ8MzZgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Cornflakes Mixture | Crispy Cornflakes with Namkeen | Light Snack | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Cornflakes Mixture',
+    weight: '400g',
+    price: 110,
+    oldPrice: 130,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.jCVRZkUYORjvPbE9aeDhDwHaJ4?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Haldirams Cornflakes Mixture | Crispy Cornflakes with Namkeen | Light Snack | 400g Pack',
+    stock: 80
+  },
+  
+
+
+  // ============ DAL BIJI ============
+  {
+    name: 'Haldirams Dal Biji',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.rRUgIqsq4P3-TA3xfLIu2wHaFj?pid=Api&H=119&W=160',
+    inStock: true,
+    description: 'Haldirams Dal Biji | Crispy Mini Dal Snack | Traditional Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Dal Biji',
+    weight: '400g',
+    price: 95,
+    oldPrice: 115,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.AC9pnMfYrRil1CHWSpJm7AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Dal Biji | Crispy Mini Dal Snack | Traditional Namkeen | 400g Pack',
+    stock: 80
+  },
+
+   {
+    name: 'Haldirams Plain Bhujia',
+    weight: '200g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.obCg8uNh6uQFdxHRTkDw-gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Plain Bhujia | Classic Besan Sev | No Spice | Light Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Plain Bhujia',
+    weight: '400g',
+    price: 99,
+    oldPrice: 118,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.6r6ezhKR-Q2COr-ekbWeyAHaJ8?pid=Api&H=214&W=160',
+    inStock: true,
+    description: 'Haldirams Plain Bhujia | Classic Besan Sev | No Spice | Light Namkeen | 400g Pack',
+    stock: 80
+  },
+
+  // ============ NIMBU MASALA ============
+  {
+    name: 'Haldirams Nimbu Masala',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.xUlUjEzF-pPhHqDc1N_uggHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Nimbu Masala | Tangy Lemon Flavored Mix | Refreshing Namkeen | 200g Pack',
+    stock: 100
+  },
+
+
+  // ============ PUNJABI TADKA ============
+  {
+    name: 'Haldirams Punjabi Tadka',
+    weight: '200g',
+    price: 58,
+    oldPrice: 68,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.OtiVLWH3iAu117i-Up7AigHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Punjabi Tadka | Spicy North Indian Mix | Bold Flavors | 200g Pack',
+    stock: 100
+  },
+
+
+  // ============ LITE MIXTURE ============
+  {
+    name: 'Haldirams Lite Mixture',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Ou7iH84vRrqZ1F6TrGN-7wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Lite Mixture | Low Oil Namkeen | Healthy Snacking | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ MURMURA MIXTURE ============
+  {
+    name: 'Haldirams Murmura Mixture',
+    weight: '200g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.rboAH24z88oCDebz-L-5agHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Murmura Mixture | Puffed Rice Mix | Light & Crispy | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ NUT CRACKER ============
+  {
+    name: 'Haldirams Nut Cracker',
+    weight: '200g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.-MS2W6uz8ixOvgjsZAzn2gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Nut Cracker | Crunchy Coated Peanuts | Premium Snack | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Nut Cracker',
+    weight: '400g',
+    price: 125,
+    oldPrice: 145,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.TGjpmP0RQyUY_tri1kEgZQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Nut Cracker | Crunchy Coated Peanuts | Premium Snack | 400g Pack',
+    stock: 80
+  },
+
+  // ============ GUPSHUP ============
+  {
+    name: 'Haldirams Gupshup',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.sXTj8yNTYnoCaodg7PwKLQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Gupshup | Chatpata Mix Namkeen | Party Snack | 200g Pack',
+    stock: 100
+  },
+
+
+  // ============ MASALA SALTED PEANUT ============
+  {
+    name: 'Haldirams Masala Salted Peanuts',
+    weight: '200g',
+    price: 58,
+    oldPrice: 68,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.T6AGK4qPs-gTlRc-fNuX5AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Masala Salted Peanuts | Spicy Roasted Peanuts | Tasty Snack | 200g Pack',
+    stock: 100
+  },
+
+
+  // ============ NUT CRUSHER ROASTED ============
+  {
+    name: 'Haldirams Nut Crusher Roasted',
+    weight: '200g',
+    price: 62,
+    oldPrice: 72,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.9D4SJQa3K_8B-67cD1IOxQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Nut Crusher Roasted | Crushed Spicy Peanuts | Crunchy Snack | 200g Pack',
+    stock: 100
+  },
+  
+
+  // ============ HING JEERA CHANA ============
+  {
+    name: 'Haldirams Hing Jeera Chana',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.FKS4JhfDpyS7s2awXpa9nwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Hing Jeera Chana | Asafoetida Cumin Chickpeas | Digestive Snack | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ KAJU MIXTURE ============
+  {
+    name: 'Haldirams Kaju Mixture',
+    weight: '200g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.UBs1lQQ22EesriNMhHlFowHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Kaju Mixture | Premium Cashew Mix | Rich & Crunchy | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Kaju Mixture',
+    weight: '400g',
+    price: 185,
+    oldPrice: 215,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.k0HHg2HQKNoB5GRa8NGROwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Kaju Mixture | Premium Cashew Mix | Rich & Crunchy | 400g Pack',
+    stock: 80
+  },
+
+  // ============ KASHMIRI MIXTURE ============
+  {
+    name: 'Haldirams Kashmiri Mixture',
+    weight: '200g',
+    price: 75,
+    oldPrice: 88,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Kx-7fAwDwfXyI3kuFy_1CQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Kashmiri Mixture | Dry Fruits Rich Mix | Premium Namkeen | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Kashmiri Mixture',
+    weight: '400g',
+    price: 145,
+    oldPrice: 170,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.aRV-epewiTDxj0fgblvtVQHaJC?pid=Api&H=195&W=160',
+    inStock: true,
+    description: 'Haldirams Kashmiri Mixture | Dry Fruits Rich Mix | Premium Namkeen | 400g Pack',
+    stock: 80
+  },
+
+  // ============ PANCHRATAN ============
+  {
+    name: 'Haldirams Panchratan',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.1Ze51qXD9bEXFzXrlrRbKQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Panchratan | 5-in-1 Mix Namkeen | Assorted Flavors | 200g Pack',
+    stock: 100
+  },
+  {
+    name: 'Haldirams Panchratan',
+    weight: '400g',
+    price: 115,
+    oldPrice: 135,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.p2D0gOHamtIivDPdMP4l5AHaJA?pid=Api&H=194&W=160',
+    inStock: true,
+    description: 'Haldirams Panchratan | 5-in-1 Mix Namkeen | Assorted Flavors | 400g Pack',
+    stock: 80
+  },
+
+  // ============ MINI SAMOSA ============
+  {
+    name: 'Haldirams Mini Samosa',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.cmCa5Sz2_ptuVjvzSj3h-AHaJX?pid=Api&H=202&W=160',
+    inStock: true,
+    description: 'Haldirams Mini Samosa | Crispy Potato Filled | Tea Time Snack | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ MINI KACHORI ============
+  {
+    name: 'Haldirams Mini Kachori',
+    weight: '200g',
+    price: 62,
+    oldPrice: 72,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.iyuyR1I83yujq-ap5uQIuQAAAA?pid=Api&H=200&W=160',
+    inStock: true,
+    description: 'Haldirams Mini Kachori | Spicy Dal Stuffed | Crispy Snack | 200g Pack',
+    stock: 100
+  },
+
+  // ============ CHAKLI ============
+  {
+    name: 'Haldirams Chakli',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xJ8ZHnJKxApFIYYBVtCDCQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Chakli | Spiral Rice Snack | Crispy & Crunchy | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ MATHI ============
+  {
+    name: 'Haldirams Mathi',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP._3as0Gx_WFYhLev5AImsWQHaJ4?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Haldirams Mathi | Flaky Crispy Crackers | Traditional Snack | 200g Pack',
+    stock: 100
+  },
+  
+
+  // ============ MURUKKU ============
+  {
+    name: 'Haldirams Murukku',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.bZ_3PgQQ45knqO_bvAqPnAHaIq?pid=Api&H=187&W=160',
+    inStock: true,
+    description: 'Haldirams Murukku | South Indian Rice Snack | Crispy Spiral | 200g Pack',
+    stock: 100
+  },
+ 
+
+  // ============ CHAIPURI ============
+  {
+    name: 'Haldirams Chaipuri',
+    weight: '200g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.vYprItPhusYDN9fQhZBMIgHaIi?pid=Api&H=184&W=160',
+    inStock: true,
+    description: 'Haldirams Chaipuri | Perfect Tea Time Snack | Light & Crispy | 200g Pack',
+    stock: 100
+  },
+
+
+
+
+
+
+
+  {
+    name: 'Balaji Aloo Bhujia',
+    weight: '1kg',
+    price: 210,
+    oldPrice: 250,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.HBOqH5W5uucQAMNsDGyUkwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Balaji Aloo Bhujia | Crispy Potato Sev | Gujarat Famous Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ KHURJA 1KG ============
+  {
+    name: 'Balaji Khurja',
+    weight: '1kg',
+    price: 195,
+    oldPrice: 230,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.wnUec1o1JjmeJ6aZwUQMBAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Balaji Khurja | Crispy Crunchy Snack | Traditional Gujarati Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ NAVRATAN 1KG ============
+  {
+    name: 'Balaji Navratan Mix',
+    weight: '1kg',
+    price: 220,
+    oldPrice: 260,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.IpI-SGu3aishfocu01k1kAHaJ5?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Balaji Navratan Mix | 9-in-1 Premium Mixture | Assorted Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ KANPURI 1KG ============
+  {
+    name: 'Balaji Kanpuri Mixture',
+    weight: '1kg',
+    price: 205,
+    oldPrice: 245,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.oNHi1RlSow3jIdYnD6kX5wHaJM?pid=Api&H=198&W=160',
+    inStock: true,
+    description: 'Balaji Kanpuri Mixture | Spicy Kanpur Style Mix | Traditional Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ HOT MIX 1KG ============
+  {
+    name: 'Balaji Hot Mix',
+    weight: '1kg',
+    price: 215,
+    oldPrice: 255,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.5y1jfXRiOyT73L-ID4tzHwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Balaji Hot Mix | Extra Spicy Mixture | For Spice Lovers | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ SHALIMAR 1KG ============
+  {
+    name: 'Balaji Shalimar Mix',
+    weight: '1kg',
+    price: 200,
+    oldPrice: 240,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.79DeVlGlpvJS0ajkD90FowHaKX?pid=Api&H=223&W=160',
+    inStock: true,
+    description: 'Balaji Shalimar Mix | Premium Quality Mixture | Mild & Tasty | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ AJWAIN SEV 1KG ============
+  {
+    name: 'Balaji Ajwain Sev',
+    weight: '1kg',
+    price: 190,
+    oldPrice: 225,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.gJUYh8jbiX0fwsSUFv7WBQHaHa?pid=Api&P=0&w=400&h=400https://www.jiomart.com/images/product/original/491349702/balaji-ajwain-sev-400-g-product-images-o491349702-p491349702-0-202205180101.jpg',
+    inStock: true,
+    description: 'Balaji Ajwain Sev | Carom Seeds Flavored Sev | Digestive Namkeen | 1kg Family Pack',
+    stock: 50
+  },
+
+  // ============ DAL SEV 1KG ============
+  {
+    name: 'Balaji Dal Sev',
+    weight: '1kg',
+    price: 185,
+    oldPrice: 220,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Balaji',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xTA1aCXQvGaouYWwIOJy0gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Balaji Dal Sev | Thin Crispy Besan Sev | Light Namkeen | 1kg Family Pack',
+    stock: 50
+  }
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========
