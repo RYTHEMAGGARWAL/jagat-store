@@ -22,6 +22,10 @@ const Checkout = () => {
   const [manualAreaSelected, setManualAreaSelected] = useState(false);
   const [selectedArea, setSelectedArea] = useState('');
 
+  // 🏠 SAVED ADDRESS STATE
+  const [hasSavedAddress, setHasSavedAddress] = useState(false);
+  const [showSavedBadge, setShowSavedBadge] = useState(false);
+
   // Delivery areas list
   const DELIVERY_AREAS = [
     'Vijay Nagar',
@@ -64,6 +68,95 @@ const Checkout = () => {
   // 🚚 DELIVERY CONFIGURATION
   const DELIVERY_THRESHOLD = 399;
   const DELIVERY_CHARGE = 19;
+
+  // 🏠 LOAD SAVED ADDRESS ON MOUNT
+  useEffect(() => {
+    const loadSavedAddress = () => {
+      try {
+        const savedAddress = localStorage.getItem('jagat_saved_address');
+        if (savedAddress) {
+          const addressData = JSON.parse(savedAddress);
+          
+          // Fill form with saved data
+          setFormData(prev => ({
+            ...prev,
+            name: addressData.name || '',
+            phone: addressData.phone || '',
+            houseNo: addressData.houseNo || '',
+            landmark: addressData.landmark || '',
+            detectedArea: addressData.detectedArea || ''
+          }));
+
+          // Restore selected area
+          if (addressData.selectedArea) {
+            setSelectedArea(addressData.selectedArea);
+            setManualAreaSelected(true);
+            setDeliveryCheck({
+              available: true,
+              message: `✅ ${addressData.selectedArea} - Delivery Available!`,
+              color: '#2e7d32'
+            });
+          }
+
+          // Restore coordinates if available
+          if (addressData.coordinates) {
+            setUserCoords(addressData.coordinates);
+          }
+
+          setHasSavedAddress(true);
+          console.log('📍 Loaded saved address:', addressData);
+        }
+      } catch (error) {
+        console.error('Error loading saved address:', error);
+      }
+    };
+
+    loadSavedAddress();
+  }, []);
+
+  // 🏠 SAVE ADDRESS TO LOCALSTORAGE (Auto-save when form changes)
+  const saveAddressToStorage = (data, area, coords) => {
+    try {
+      const addressToSave = {
+        name: data.name,
+        phone: data.phone,
+        houseNo: data.houseNo,
+        landmark: data.landmark,
+        detectedArea: data.detectedArea,
+        selectedArea: area,
+        coordinates: coords,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem('jagat_saved_address', JSON.stringify(addressToSave));
+      setHasSavedAddress(true);
+      
+      // Show saved badge briefly
+      setShowSavedBadge(true);
+      setTimeout(() => setShowSavedBadge(false), 2000);
+      
+      console.log('💾 Address saved:', addressToSave);
+    } catch (error) {
+      console.error('Error saving address:', error);
+    }
+  };
+
+  // 🏠 CLEAR SAVED ADDRESS
+  const clearSavedAddress = () => {
+    localStorage.removeItem('jagat_saved_address');
+    setHasSavedAddress(false);
+    setFormData({
+      name: '',
+      phone: '',
+      houseNo: '',
+      landmark: '',
+      detectedArea: '',
+      paymentMethod: 'COD'
+    });
+    setSelectedArea('');
+    setManualAreaSelected(false);
+    setDeliveryCheck(null);
+    setUserCoords(null);
+  };
 
   // Check store timing every minute
   useEffect(() => {
@@ -279,7 +372,12 @@ const Checkout = () => {
           console.log('📍 Detected Address:', address);
           
           if (address) {
-            setFormData(prev => ({ ...prev, detectedArea: address }));
+            setFormData(prev => {
+              const newData = { ...prev, detectedArea: address };
+              // Auto-save when location is detected
+              saveAddressToStorage(newData, selectedArea, { lat: latitude, lng: longitude });
+              return newData;
+            });
           }
 
           // 📍 CHECK ONLY DISTANCE - 5km radius
@@ -334,14 +432,31 @@ const Checkout = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
+    
+    // 🏠 Auto-save address when important fields are filled
+    if (name === 'houseNo' || name === 'name' || name === 'phone' || name === 'landmark') {
+      // Only save if we have minimum required data
+      if (newFormData.name && newFormData.phone && newFormData.houseNo) {
+        saveAddressToStorage(newFormData, selectedArea, userCoords);
+      }
+    }
   };
 
   // Handle manual area selection
   const handleManualAreaSelect = (area) => {
     setSelectedArea(area);
     setManualAreaSelected(true);
-    setFormData(prev => ({ ...prev, detectedArea: area + ', Ghaziabad, Uttar Pradesh' }));
+    const newDetectedArea = area + ', Ghaziabad, Uttar Pradesh';
+    
+    setFormData(prev => {
+      const newData = { ...prev, detectedArea: newDetectedArea };
+      // Save when area is selected
+      saveAddressToStorage(newData, area, userCoords);
+      return newData;
+    });
+    
     setDeliveryCheck({
       available: true,
       message: `✅ ${area} - Delivery Available!`,
@@ -389,6 +504,9 @@ const Checkout = () => {
 
     // Get full address
     const fullAddress = getFullAddress();
+
+    // 🏠 FINAL SAVE before placing order
+    saveAddressToStorage(formData, selectedArea, userCoords);
 
     setPlacing(true);
 
@@ -534,6 +652,30 @@ const Checkout = () => {
         <div className="checkout-left">
           <div className="checkout-section">
             <h2>📦 Delivery Details</h2>
+
+            {/* 🏠 SAVED ADDRESS INDICATOR */}
+            {hasSavedAddress && (
+              <div className="saved-address-banner">
+                <div className="saved-address-content">
+                  <span className="saved-icon">✅</span>
+                  <span className="saved-text">Address loaded from previous order</span>
+                </div>
+                <button 
+                  type="button" 
+                  className="clear-address-btn"
+                  onClick={clearSavedAddress}
+                >
+                  🗑️ Clear & Enter New
+                </button>
+              </div>
+            )}
+
+            {/* Auto-save indicator */}
+            {showSavedBadge && (
+              <div className="auto-save-badge">
+                💾 Address saved!
+              </div>
+            )}
 
             {/* 📍 AREA SELECTION SECTION - REQUIRED */}
             <div className="area-selection-section">

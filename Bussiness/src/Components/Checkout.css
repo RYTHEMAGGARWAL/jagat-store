@@ -1354,3 +1354,135 @@
     font-size: 0.9rem;
   }
 }
+/* ==================== 🏠 SAVED ADDRESS SECTION ==================== */
+.saved-address-banner {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  animation: slideDown 0.4s ease;
+}
+
+.saved-address-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.saved-icon {
+  font-size: 1.3rem;
+  animation: pulse-check 2s ease-in-out infinite;
+}
+
+@keyframes pulse-check {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.saved-text {
+  font-weight: 600;
+  color: #2e7d32;
+  font-size: 0.95rem;
+}
+
+.clear-address-btn {
+  background: white;
+  color: #c62828;
+  border: 2px solid #ef9a9a;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clear-address-btn:hover {
+  background: #ffebee;
+  border-color: #c62828;
+  transform: translateY(-2px);
+}
+
+/* Auto-save badge */
+.auto-save-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+  animation: saved-toast 2s ease forwards;
+  z-index: 1000;
+}
+
+@keyframes saved-toast {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+}
+
+/* Mobile responsive for saved address */
+@media (max-width: 480px) {
+  .saved-address-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+  
+  .saved-address-content {
+    justify-content: center;
+  }
+  
+  .clear-address-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .auto-save-badge {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: 15px;
+    font-size: 0.85rem;
+    padding: 10px 18px;
+  }
+}
+
+/* ==================== SAVED ADDRESS HIGHLIGHTED FIELDS ==================== */
+.form-group input.has-saved-value,
+.form-group textarea.has-saved-value {
+  background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+  border-color: #8bc34a;
+}
+
+.form-group input:focus.has-saved-value,
+.form-group textarea:focus.has-saved-value {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+}
