@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ServerWakeup from './Components/ServerWakeup';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Components/Navbar';
 import FirstContainer from './Components/FirstContainer';
@@ -46,7 +47,9 @@ import PaanCorner from './Components/PaanCorner';
 
 function App() {
   return (
+    <ServerWakeup>
     <CartProvider>
+    
       {/* 👇 ADD THIS - Page change pe scroll top ho jayega */}
       <ScrollToTop />
       
@@ -107,6 +110,7 @@ function App() {
       {/* 📱 WhatsApp Button */}
       <WhatsAppButton />
     </CartProvider>
+    </ServerWakeup>
   );
 }
 
