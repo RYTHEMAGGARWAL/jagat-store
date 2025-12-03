@@ -650,7 +650,21 @@ const coldDrinksJuicesProducts = [
     inStock: true,
     description: 'Real Coconut Water | 100% Natural | No Added Sugar | Refreshing | 1 Litre',
     stock: 80
-  }
+  },
+
+  {
+    name: 'Monster Ultra Zero - White',
+    weight: '350ml',
+    price: 125,
+    oldPrice: 145,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Monster',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.-FmEcLWzfiLV-Y_m3RSjqAHaHa?pid=Api&H=160&W=160 ',
+    inStock: true,
+    description: 'Monster Ultra Zero White | Zero Sugar | Zero Calories | Light Citrus | 350ml Can',
+    stock: 80
+},
  
 
 ];

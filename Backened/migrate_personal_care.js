@@ -651,30 +651,561 @@ const personalCareProducts = [
     inStock: true,
     description: 'Stayfree Dry Max | XL Size | 100% Dry Feel | Heavy Flow Protection | 16 Pads',
     stock: 100
-}
+},
+
+
+
+//////////////////////
+// ============ GILLETTE BLADES ============
+{
+    name: 'Gillette Mach3 Cartridge',
+    weight: '2 Blades',
+    price: 350,
+    oldPrice: 410,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse3.mm.bing.net/th/id/OIP.NaWgfLIpHI0lLbVek4h9UQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Mach3 Cartridge | 3 Blade Shaving System | Smooth Shave | 2 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Mach3 Cartridge',
+    weight: '4 Blades',
+    price: 650,
+    oldPrice: 765,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse4.mm.bing.net/th/id/OIP.CTOeU7PPmOxlcheoxCah0wHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Mach3 Cartridge | 3 Blade Shaving System | Smooth Shave | 4 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Gallant II Cartridge',
+    weight: '5 Blades',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse3.mm.bing.net/th/id/OIP.bfWRuY5faXBlwVDlJ8iGAQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Gallant II Cartridge | Twin Blade System | Clean Shave | 5 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Vector+ Cartridge',
+    weight: '4 Blades',
+    price: 199,
+    oldPrice: 235,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.WmFxvc_XVXz_koW79ZR46AHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Vector+ Cartridge | Twin Blade System | Comfortable Shave | 4 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Guard Cartridge',
+    weight: '8 Blades',
+    price: 240,
+    oldPrice: 280,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse3.mm.bing.net/th/id/OIP.RfGar3w-S0alOPFEA1KAhQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Guard Cartridge | Single Blade | Safe Shave | 8 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Guard Cartridge',
+    weight: '3 Blades',
+    price: 99,
+    oldPrice: 115,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.A0OdQnQAdUNlENjP_Pl2HAHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Guard Cartridge | Single Blade | Safe Shave | 3 Blades Pack',
+    stock: 100
+},
+{
+    name: 'Wilkinson Sword Blade',
+    weight: '10 Blades',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Wilkinson',
+    image: 'https://tse3.mm.bing.net/th/id/OIP.o91qYWIcZo1PiTS_mjYUvgHaHX?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Wilkinson Sword Blade | Double Edge | Sharp & Durable | 10 Blades Pack',
+    stock: 100
+},
+{
+    name: '7 O\'Clock Super Platinum Blade',
+    weight: '10 Blades',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.PW-xJNaSAdzB1a7D5UqYRQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: '7 O\'Clock Super Platinum Blade | Double Edge | Smooth Shave | 10 Blades Pack',
+    stock: 100
+},
+
+// ============ GILLETTE RAZORS ============
+{
+    name: 'Gillette Mach3 Turbo Razor',
+    weight: '1 Razor',
+    price: 399,
+    oldPrice: 465,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.xz1wQDt8zyTHxLrB9PZbggHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Gillette Mach3 Turbo Razor | 3 Blade Technology | Anti-Friction Blades | 1 Razor',
+    stock: 100
+},
+{
+    name: '7 O\'Clock Sterling Razor',
+    weight: '1 Razor',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse3.mm.bing.net/th/id/OIP.sIDCcF_dSS1Uc4XWbx2GmQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: '7 O\'Clock Sterling Razor | Double Edge | Classic Shave | 1 Razor',
+    stock: 100
+},
+{
+    name: '7 O\'Clock Stainless Razor',
+    weight: '1 Razor',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.3TWsb78WdUG7uKDqJMJeUwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: '7 O\'Clock Stainless Razor | Double Edge | Durable & Sharp | 1 Razor',
+    stock: 100
+},
+{
+    name: 'Gillette Gallant Razor',
+    weight: '1 Razor',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.V_eNI2rMNgSMBsK68etO2QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Gallant Razor | Twin Blade System | Smooth Shave | 1 Razor',
+    stock: 100
+},
+{
+    name: 'Gillette Vector Razor',
+    weight: '1 Razor',
+    price: 125,
+    oldPrice: 145,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.6KW8uJf7g7ffu2s5Utv_qwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Vector Razor | Twin Blade System | Comfortable Grip | 1 Razor',
+    stock: 100
+},
+{
+    name: 'Gillette Guard Razor',
+    weight: '1 Razor',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.XB8Q7ACQBdWYJExDRhY73wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Guard Razor | Single Blade | Safe & Easy Shave | 1 Razor',
+    stock: 100
+},
+{
+    name: 'Gillette Presto Razor',
+    weight: '3+1 Razors',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.AMDZY5NKSriVDiHx4u8zWAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Presto Razor | Disposable | Ready to Use | 3+1 Razors Pack',
+    stock: 100
+},
+{
+    name: 'Gillette Venus Razor',
+    weight: '1 Razor',
+    price: 299,
+    oldPrice: 350,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.XYe2Q_a-TTkyYRQ5N4jM7gAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Venus Razor | For Women | 3 Blade Technology | Smooth Skin | 1 Razor',
+    stock: 100
+},
+
+// ============ SHAVING BRUSH & COMBO PACKS ============
+{
+    name: 'Gillette Shaving Brush',
+    weight: '1 Brush',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.NLZwKPcB8T71rl3Yet682AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Shaving Brush | Soft Bristles | Rich Lather | 1 Brush',
+    stock: 100
+},
+{
+    name: 'Vi-John Shaving Cream + Razor Pack',
+    weight: '1 Pack',
+    price: 99,
+    oldPrice: 120,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Vi-John',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.W1Q95C58T8czAO_shhUSbQHaHg?pid=Api&H=162&W=160',
+    inStock: true,
+    description: 'Vi-John Shaving Cream + Razor Pack | Complete Shaving Kit | Value Pack | 1 Pack',
+    stock: 100
+},
 
 
 
 
 
+// ============ VI-JOHN SHAVING CREAM ============
+{
+    name: 'Vi-John Shaving Cream - Classic',
+    weight: '70g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Vi-John',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.W5AK5NqVNXbhs6ERWkEP5gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vi-John Shaving Cream Classic | Rich Lather | Smooth Shave | 70g Tube',
+    stock: 100
+},
+{
+    name: 'Vi-John Shaving Cream - Classic',
+    weight: '125g',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Vi-John',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.YFrbT3XHGeApEOWXe3w0mwAAAA?pid=Api&H=310&W=160',
+    inStock: true,
+    description: 'Vi-John Shaving Cream Classic | Rich Lather | Smooth Shave | 125g Tube',
+    stock: 100
+},
+
+
+// ============ DETTOL SHAVING CREAM ============
+{
+    name: 'Dettol Shaving Cream - Fresh',
+    weight: '60g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Dettol',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.cbdhH1ebiIJtjzVuJqjocAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Dettol Shaving Cream Fresh | Antibacterial | Protects from Germs | 60g Tube',
+    stock: 100
+},
+
+
+// ============ GILLETTE SHAVING CREAM & GEL ============
+{
+    name: 'Gillette Lime Shaving Cream',
+    weight: '70g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.-cEoa0JlXAlV0FuYtSlSawHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Lime Shaving Cream | Fresh Lime Scent | Rich Lather | 70g Tube',
+    stock: 100
+},
+
+{
+    name: 'Gillette Series Shave Gel - Sensitive',
+    weight: '75g',
+    price: 185,
+    oldPrice: 220,
+    discount: '16% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.2s0zi65Qd8ZX51dGvY_msQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Series Shave Gel Sensitive | For Sensitive Skin | Smooth Glide | 75g Tube',
+    stock: 100
+},
+
+
+// ============ OLD SPICE SHAVING CREAM ============
+{
+    name: 'Old Spice Shaving Cream - Original',
+    weight: '70g',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Old Spice',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.rYUB9aFl78yIEEoesefVUAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Old Spice Shaving Cream Original | Classic Fragrance | Rich Lather | 70g Tube',
+    stock: 100
+},
+
+
+// ============ OLD SPICE AFTER SHAVE LOTION ============
+{
+    name: 'Old Spice After Shave Lotion - Original',
+    weight: '50ml',
+    price: 140,
+    oldPrice: 165,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Old Spice',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.aVVip_0UAc66ejVGPv2X5QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Old Spice After Shave Lotion Original | Classic Scent | Soothes Skin | 50ml Bottle',
+    stock: 100
+},
+
+
+
+// ============ GILLETTE SHAVING FOAM ============
+{
+    name: 'Gillette Classic Shaving Foam - Regular',
+    weight: '418g',
+    price: 299,
+    oldPrice: 350,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.yl4A_tu5QOtZ73IWc7218AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Classic Shaving Foam Regular | Rich Lather | Smooth Shave | 418g Can',
+    stock: 100
+},
+{
+    name: 'Gillette Classic Shaving Foam - Regular',
+    weight: '50g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: 'https://www.bigbasket.com/media/uploads/p/l/40018595_6-gillette-classic-shaving-foam-regular.jpg',
+    inStock: true,
+    description: 'Gillette Classic Shaving Foam Regular | Rich Lather | Travel Size | 50g Can',
+    stock: 100
+},
+{
+    name: 'Gillette Classic Shaving Foam - Sensitive',
+    weight: '418g',
+    price: 320,
+    oldPrice: 375,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Gillette',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.pjD1VLvlukz7PX-KUs5B5AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Gillette Classic Shaving Foam Sensitive | For Sensitive Skin | Smooth Shave | 418g Can',
+    stock: 100
+},
+
+
+// ============ VI-JOHN SHAVING FOAM ============
+
+{
+    name: 'Vi-John Shaving Foam - Regular',
+    weight: '300g',
+    price: 199,
+    oldPrice: 235,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Vi-John',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.ANjmN59rFrPSVooEYwLAdQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vi-John Shaving Foam Regular | Rich Lather | Value Pack | 400g Can',
+    stock: 100
+},
 
 
 
 
+// ============ CHERRY SHOE POLISH ============
+{
+    name: 'Cherry Blossom Shoe Polish - Black',
+    weight: '15g',
+    price: 25,
+    oldPrice: 30,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Cherry',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.POoYD16shhG-UIDY0akVcAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Cherry Blossom Shoe Polish Black | High Shine | Long Lasting | 15g Tin',
+    stock: 100
+},
+{
+    name: 'Cherry Blossom Shoe Polish - Black',
+    weight: '40g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Cherry',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.ZAQl5m7H-1ydZgGYkZBH2AHaHY?pid=Api&H=159&W=160',
+    inStock: true,
+    description: 'Cherry Blossom Shoe Polish Black | High Shine | Long Lasting | 40g Tin',
+    stock: 100
+},
+{
+    name: 'Cherry Blossom Shoe Polish - Brown',
+    weight: '15g',
+    price: 25,
+    oldPrice: 30,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Cherry',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xTwhThnnpBZQKLrkgPfQaAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Cherry Blossom Shoe Polish Brown | High Shine | Long Lasting | 15g Tin',
+    stock: 100
+},
+{
+    name: 'Cherry Blossom Shoe Polish - Brown',
+    weight: '40g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Cherry',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xTwhThnnpBZQKLrkgPfQaAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Cherry Blossom Shoe Polish Brown | High Shine | Long Lasting | 40g Tin',
+    stock: 100
+},
 
+// ============ KIWI SHOE POLISH & SHINER ============
+{
+    name: 'Kiwi Liquid Shoe Polish - Black',
+    weight: '75ml',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Kiwi',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.FCkP1WKBoH3Xu3eYlsKXQAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kiwi Liquid Shoe Polish Black | Instant Shine | Easy Application | 75ml Bottle',
+    stock: 100
+},
+{
+    name: 'Kiwi Liquid Shoe Polish - Brown',
+    weight: '75ml',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Kiwi',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.mCo_d3FCGDuSrjIr4vMqZgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kiwi Liquid Shoe Polish Brown | Instant Shine | Easy Application | 75ml Bottle',
+    stock: 100
+},
+{
+    name: 'Kiwi Shoe Shiner - Natural',
+    weight: '40ml',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Personal Care',
+    brand: 'Kiwi',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.oTToUWVkkXzKn_5oX3mdMQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kiwi Shoe Shiner Natural | For All Colors | Quick Shine | 40ml Sponge',
+    stock: 100
+},
 
+// ============ VALLABH SHOE BRUSHES ============
+{
+    name: 'Vallabh Boot Brush',
+    weight: '1 Piece',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Vallabh',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.XzekG4xT_QhG0srq4QnwUAHaFS?pid=Api&H=114&W=160',
+    inStock: true,
+    description: 'Vallabh Boot Brush | Strong Bristles | Durable Handle | 1 Piece',
+    stock: 100
+},
+{
+    name: 'Vallabh Premium Sapphire Collection Brush',
+    weight: '1 Piece',
+    price: 150,
+    oldPrice: 175,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Vallabh',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.BYQ4ki0pwSuQkihDeORZdQHaHi?pid=Api&H=162&W=160',
+    inStock: true,
+    description: 'Vallabh Premium Sapphire Collection | Soft Bristles | Premium Quality | 1 Piece',
+    stock: 100
+},
 
-
-
-
-
-
-
-
-
-
-
-
+// ============ VENUS SHOE BRUSH ============
+{
+    name: 'Venus Shoe Classic Brush',
+    weight: '1 Piece',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Personal Care',
+    brand: 'Venus',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.MJfC4XOzOF7Cwt0zMYxYzQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Venus Shoe Classic Brush | Wooden Handle | Durable Bristles | 1 Piece',
+    stock: 100
+},
 
 
 
@@ -1259,7 +1790,190 @@ const personalCareProducts = [
     inStock: true,
     description: 'Classic Hard Toothbrush | Hard Bristles | Deep Cleaning | Power Tip | 1 Pc',
     stock: 100
-  }
+  },
+
+
+  // ============ TOOTH POWDER ============
+{
+    name: 'Colgate Tooth Powder',
+    weight: '50g',
+    price: 25,
+    oldPrice: 30,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Colgate',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Imj1KlerEjG7JtNPfVV6EgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Colgate Tooth Powder | Cleans & Whitens Teeth | Fresh Breath | 50g Pack',
+    stock: 100
+},
+{
+    name: 'Colgate Tooth Powder',
+    weight: '100g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Colgate',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.mrGkrAhQBLHyzxTXWLmgBwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Colgate Tooth Powder | Cleans & Whitens Teeth | Fresh Breath | 100g Pack',
+    stock: 100
+},
+// ============ DABUR RED TOOTH POWDER ============
+{
+    name: 'Dabur Red Tooth Powder',
+    weight: '60g',
+    price: 35,
+    oldPrice: 42,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Dabur',
+    image: 'https://tse2.mm.bing.net/th/id/OIP._XcZklJ9cD2sdoMMEYisUQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Dabur Red Tooth Powder | Ayurvedic | Clove & Mint | Strong Teeth | 60g Pack',
+    stock: 100
+},
+{
+    name: 'Dabur Red Tooth Powder',
+    weight: '150g',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Dabur',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.5vHRx_FI4oDtXpxY9SAP3gHaUH?pid=Api&H=434&W=160',
+    inStock: true,
+    description: 'Dabur Red Tooth Powder | Ayurvedic | Clove & Mint | Strong Teeth | 150g Pack',
+    stock: 100
+},
+
+
+{
+    name: 'Vicco Vajradanti Tooth Powder',
+    weight: '100g',
+    price: 75,
+    oldPrice: 88,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Vicco',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.g1YtDOY3oJca1Wbt8MBXAwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vicco Vajradanti Tooth Powder | 18 Ayurvedic Herbs | Gum Care | 100g Pack',
+    stock: 100
+},
+
+
+// ============ BABOOL TOOTHPASTE ============
+{
+    name: 'Dabur Babool Toothpaste',
+    weight: '80g',
+    price: 40,
+    oldPrice: 48,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Dabur',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.N61hPNvblbrMpay7EAuu5AHaJ4?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Dabur Babool Toothpaste | With Babool Extract | Strong Teeth & Gums | 80g Tube',
+    stock: 100
+},
+
+
+// ============ MESWAK TOOTHPASTE ============
+
+{
+    name: 'Dabur Meswak Toothpaste',
+    weight: '100g',
+    price: 65,
+    oldPrice: 78,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Dabur',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.N2H5QBP5lHN3CjRQPdu5AgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Dabur Meswak Toothpaste | Pure Miswak Extract | Complete Oral Care | 100g Tube',
+    stock: 100
+},
+{
+    name: 'Hair Dye Brush - Basic',
+    weight: '1 Piece',
+    price: 25,
+    oldPrice: 30,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.FTZBEQtfdngJha9T9_Jd-gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Hair Dye Brush Basic | Soft Bristles | Easy Application | 1 Piece',
+    stock: 100
+},
+
+
+
+
+
+
+
+
+// ============ MOUSTACHE SCISSORS ============
+{
+    name: 'Moustache Scissor - Curved',
+    weight: '1 Piece',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.8ivD6ZNt4EfRXwk2uX05zAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Moustache Scissor Curved | Stainless Steel | Precision Trimming | 1 Piece',
+    stock: 100
+},
+{
+    name: 'Moustache Scissor - Straight',
+    weight: '1 Piece',
+    price: 40,
+    oldPrice: 50,
+    discount: '20% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Z301Yac9Oliyq3t7I_sDBwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Moustache Scissor Straight | Stainless Steel | Sharp Blades | 1 Piece',
+    stock: 100
+},
+
+
+
+// ============ FITKARI (ALUM) ============
+{
+    name: 'Shaving Fitkari - Alum Block',
+    weight: '50g',
+    price: 30,
+    oldPrice: 35,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.tWFetUjfTjkeAJZdEczcTwAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Shaving Fitkari Alum Block | After Shave | Stops Bleeding | Antiseptic | 50g',
+    stock: 100
+},
+
+{
+    name: 'Desi Fitkari - Natural Alum',
+    weight: '200g',
+    price: 35,
+    oldPrice: 42,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.MKNEWb9a2uW4e6yW122hJAHaHJ?pid=Api&H=154&W=160',
+    inStock: true,
+    description: 'Desi Fitkari Natural Alum | Pure & Natural | Water Purifier | Multi-Use | 100g',
+    stock: 100
+},
 
 
 

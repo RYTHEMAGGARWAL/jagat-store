@@ -263,13 +263,72 @@ const homeOfficesProducts = [
     price: 45,
     oldPrice: 55,
     discount: '18% OFF',
-    category: 'Home & Office',
+   category: 'Home and Offices',
     brand: 'PCI',
     image: 'https://tse1.mm.bing.net/th/id/OIP.UbxdKTWmFkPRQv79j502XgHaEl?pid=Api&H=98&W=160',
     inStock: true,
     description: 'PCI Roban Rat Killer | Rodent Control | Cake | 50g',
     stock: 140
-  }
+  },
+
+
+
+
+  // ============ NOVA KNIVES & KITCHEN TOOLS ============
+{
+    name: 'Nova Spectrum Plain Knife',
+    weight: '1 Piece',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Home and Offices',
+    brand: 'Nova',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.mTPr3gPlpkmsWIzbUyIrPAAAAA?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Nova Spectrum Plain Knife | Stainless Steel | Sharp Blade | Comfortable Grip | 1 Piece',
+    stock: 100
+},
+{
+    name: 'Nova Spectrum Utility Knife',
+    weight: '1 Piece',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Home and Offices',
+    brand: 'Nova',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.0LbWV61pU6uih53CkiQyDQHaC8?pid=Api&H=63&W=160',
+    inStock: true,
+    description: 'Nova Spectrum Utility Knife | Multi-Purpose | Stainless Steel Blade | 1 Piece',
+    stock: 100
+},
+{
+    name: 'Nova Spectrum Regular Peeler',
+    weight: '1 Piece',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Nova',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.pNxrgggzmvHl7nBibbLwXQHaDU?pid=Api&H=71&W=160',
+    inStock: true,
+    description: 'Nova Spectrum Regular Peeler | Sharp Blade | Easy Grip Handle | 1 Piece',
+    stock: 100
+},
+// ============ NOVA LIGHTER ============
+{
+    name: 'Nova Gas Lighter - Regular',
+    weight: '1 Piece',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Home and Offices',
+    brand: 'Nova',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.NwqYtdkIpVv2ifNnyDq-oQAAAA?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Nova Gas Lighter Regular | Refillable | Easy Ignition | Kitchen Essential | 1 Piece',
+    stock: 100
+},
+
 
 ];
 

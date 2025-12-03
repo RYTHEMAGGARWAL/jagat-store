@@ -1053,6 +1053,96 @@ category: 'Snacks & Munchies',
     inStock: true,
     description: 'Haldirams Chatpata Mixture | Tangy & Spicy Mix | Perfect Tea Time Snack | 200g Pack',
     stock: 100
+},
+
+
+
+
+
+
+
+{
+    name: 'Adarsh Khurja Original Namkeen',
+    weight: '400g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Adarsh',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.1PEuvQ36Atug7x9JO7MifQHaJf?pid=Api&P=0&w=400&h=512',
+    inStock: true,
+    description: 'Adarsh Khurja Original Namkeen | Crispy & Spicy | Traditional Recipe | 400g Pack',
+    stock: 100
+},
+{
+    name: 'Shudh Sev Namkeen - Plain',
+    weight: '400g',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Shudh',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.aq0K14KLkqmI2fX8pTFJtQHaJ4?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Shudh Sev Namkeen Plain | Thin & Crispy | Perfect Tea Time Snack | 400g Pack',
+    stock: 100
+},
+
+
+// ============ HALDIRAM'S BOONDI ============
+{
+    name: 'Haldirams Boondi - Masala',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.jg6ZXmU27ORvU633bKlLLQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Haldirams Boondi Masala | Spicy & Crunchy | Perfect Snack | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Boondi - Plain',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.ijZsf2dztHP4CyjpVcIjvwHaIq?pid=Api&H=187&W=160',
+    inStock: true,
+    description: 'Haldirams Boondi Plain | Crispy & Light | For Raita & Snacking | 200g Pack',
+    stock: 100
+},
+
+// ============ ASHUJI BOONDI ============
+{
+    name: 'Ashuji Boondi - Masala',
+    weight: '350g',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Ashuji',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.nkddgb8jId9N1cn2dA8vrAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Ashuji Boondi Masala | Spicy & Tasty | Traditional Recipe | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Ashuji Boondi - Plain',
+    weight: '350g',
+    price: 80,
+    oldPrice: 95,
+    discount: '16% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Ashuji',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.-IInJsUdRx6W4VZbD-j8-QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Ashuji Boondi Plain | Crispy & Light | For Raita & Dahi Vada | 350g Pack',
+    stock: 100
 }
 
 

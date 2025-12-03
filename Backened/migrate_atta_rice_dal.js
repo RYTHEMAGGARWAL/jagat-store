@@ -1777,6 +1777,20 @@ category: "Atta Rice Dal",
     description: "Own brand Gud Powder",
     stock: 50
   },
+  {
+    name: 'Jagat Store Khane Ka Soda',
+    weight: '100g',
+    price: 15,
+    oldPrice: 20,
+    discount: '25% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Jagat Store',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.iyEZE_lFywC6D4V3WgAJBQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jagat Store Khane Ka Soda | Cooking Soda | For Soft Pakoras & Bhajis | 100g Pack',
+    stock: 50
+},
+
 // MAGGI NOODLES
 
 
