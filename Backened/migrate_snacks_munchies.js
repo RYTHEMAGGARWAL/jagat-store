@@ -946,7 +946,116 @@ category: 'Snacks & Munchies',
     inStock: true,
     description: 'Balaji Dal Sev | Thin Crispy Besan Sev | Light Namkeen | 1kg Family Pack',
     stock: 50
-  }
+  },
+
+
+  // ============ HALDIRAM'S NAMKEEN ============
+{
+    name: 'Haldirams All In One Namkeen',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.MxFxktl_-vcJBlh9bx-A3QHaGh?pid=Api&H=140&W=160',
+    inStock: true,
+    description: 'Haldirams All In One Namkeen | Mix of Sev, Boondi & More | Tasty Snack | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams All In One Namkeen',
+    weight: '400g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '		https://tse2.mm.bing.net/th/id/OIP.TNTs-FFrF3EoaAzYWUVxPwAAAA?pid=Api&H=196&W=160',
+    inStock: true,
+    description: 'Haldirams All In One Namkeen | Mix of Sev, Boondi & More | Tasty Snack | 400g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Fatafat Bhel',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.O5go8Qh_ENrEZoj2weB8lAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Fatafat Bhel | Ready to Eat | Tangy & Crunchy | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Golden Mixture',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Th-j5J5oVZA_J42POfxfpgAAAA?pid=Api&H=200&W=160',
+    inStock: true,
+    description: 'Haldirams Golden Mixture | Crunchy & Spicy | Premium Namkeen | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Chana Jor Garam',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.RiRBYD3zjckq7IdFV11RYwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Chana Jor Garam | Flattened Spiced Chana | Crunchy Snack | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Mint Lachha',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.GqSc4hm3qQzieMBNkwIVnwHaGx?pid=Api&H=146&W=160',
+    inStock: true,
+    description: 'Haldirams Mint Lachha | Refreshing Mint Flavour | Crispy Snack | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Bhel Puri',
+    weight: '200g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.ds3o8wkEbquVNkNxfIZ15AHaJZ?pid=Api&H=202&W=160',
+    inStock: true,
+    description: 'Haldirams Bhel Puri | Ready to Eat | Tangy & Spicy | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldirams Chatpata Mixture',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Haldirams',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.cY8_K5SXv1Q6P0-C-Hg5wAAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldirams Chatpata Mixture | Tangy & Spicy Mix | Perfect Tea Time Snack | 200g Pack',
+    stock: 100
+}
+
+
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========

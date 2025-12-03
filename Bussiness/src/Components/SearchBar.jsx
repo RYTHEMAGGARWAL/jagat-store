@@ -8,6 +8,7 @@ const SearchBar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -15,27 +16,57 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 📱 Track mobile viewport
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // 🔥 Close dropdown and reset when route changes
   useEffect(() => {
     setShowSuggestions(false);
     setSuggestions([]);
-    setSearchQuery('');  // 🔥 Clear input
+    setSearchQuery('');
     isNavigatingRef.current = false;
     
-    // 🔥 Blur the input to remove focus
     if (inputRef.current) {
       inputRef.current.blur();
     }
   }, [location]);
 
-  // Update dropdown position when input moves
+  // Update dropdown position with viewport constraints
   const updateDropdownPosition = () => {
     if (inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const padding = 10; // Padding from screen edges
+      
+      // Calculate width - on mobile, use almost full screen width
+      let dropdownWidth = rect.width;
+      let dropdownLeft = rect.left + window.scrollX;
+      
+      if (isMobile) {
+        // On mobile, make dropdown wider and centered
+        dropdownWidth = viewportWidth - (padding * 2);
+        dropdownLeft = padding;
+      } else {
+        // On desktop, ensure dropdown doesn't overflow right edge
+        if (dropdownLeft + dropdownWidth > viewportWidth - padding) {
+          dropdownLeft = viewportWidth - dropdownWidth - padding;
+        }
+        // Ensure dropdown doesn't overflow left edge
+        if (dropdownLeft < padding) {
+          dropdownLeft = padding;
+        }
+      }
+      
       setDropdownPosition({
         top: rect.bottom + window.scrollY + 8,
-        left: rect.left + window.scrollX,
-        width: rect.width
+        left: dropdownLeft,
+        width: dropdownWidth
       });
     }
   };
@@ -68,12 +99,11 @@ const SearchBar = () => {
         window.removeEventListener('resize', updateDropdownPosition);
       };
     }
-  }, [showSuggestions]);
+  }, [showSuggestions, isMobile]);
 
   // Fetch suggestions as user types
   useEffect(() => {
     const fetchSuggestions = async () => {
-      // 🔥 Don't fetch if we're navigating
       if (isNavigatingRef.current) {
         return;
       }
@@ -93,7 +123,6 @@ const SearchBar = () => {
         if (response.ok) {
           const data = await response.json();
           
-          // 🔥 Check again before setting state
           if (isNavigatingRef.current) {
             return;
           }
@@ -134,7 +163,6 @@ const SearchBar = () => {
       setShowSuggestions(false);
       setSuggestions([]);
       
-      // 🔥 Blur input
       if (inputRef.current) {
         inputRef.current.blur();
       }
@@ -152,28 +180,19 @@ const SearchBar = () => {
     
     console.log('🖱️ Clicked:', suggestion);
     
-    // 🔥 STEP 1: Set navigation flag immediately
     isNavigatingRef.current = true;
-    
-    // 🔥 STEP 2: Close and clear everything
     setShowSuggestions(false);
     setSuggestions([]);
     
-    // 🔥 STEP 3: Blur the input to remove focus
     if (inputRef.current) {
       inputRef.current.blur();
     }
     
-    // 🔥 STEP 4: Update query (optional - can keep for display)
-    // setSearchQuery(suggestion);  // Comment this out if you want to clear input
-    
-    // 🔥 STEP 5: Navigate immediately
     navigate(`/search?q=${encodeURIComponent(suggestion)}`);
   };
 
-  // Render dropdown using Portal
+  // Render dropdown using Portal - RESPONSIVE VERSION
   const renderDropdown = () => {
-    // 🔥 Don't show if navigating or no suggestions
     if (!showSuggestions || suggestions.length === 0 || isNavigatingRef.current) {
       return null;
     }
@@ -181,18 +200,21 @@ const SearchBar = () => {
     const dropdown = (
       <div 
         ref={dropdownRef}
+        className="suggestions-dropdown-portal"
         style={{
           position: 'absolute',
           top: `${dropdownPosition.top}px`,
           left: `${dropdownPosition.left}px`,
           width: `${dropdownPosition.width}px`,
+          maxWidth: isMobile ? `calc(100vw - 20px)` : '500px',
           backgroundColor: 'white',
-          borderRadius: '12px',
+          borderRadius: isMobile ? '10px' : '12px',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)',
-          maxHeight: '400px',
+          maxHeight: isMobile ? '60vh' : '400px',
           overflowY: 'auto',
           zIndex: 999999,
           border: '2px solid #ddd',
+          boxSizing: 'border-box',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -200,31 +222,48 @@ const SearchBar = () => {
           <div
             key={index}
             onClick={(e) => handleSuggestionClick(e, suggestion)}
+            className="suggestion-item-portal"
             style={{ 
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              padding: '14px 16px',
+              gap: isMobile ? '10px' : '12px',
+              padding: isMobile ? '12px 14px' : '14px 16px',
               cursor: 'pointer',
               borderBottom: index < suggestions.length - 1 ? '1px solid #f0f0f0' : 'none',
               backgroundColor: 'white',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
+              minHeight: isMobile ? '44px' : '48px',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#f0f7ff';
-              e.currentTarget.style.transform = 'translateX(4px)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'white';
-              e.currentTarget.style.transform = 'translateX(0)';
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = '#f0f7ff';
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'white';
             }}
           >
-            <span style={{ fontSize: '16px', color: '#000' }}>🔍</span>
             <span style={{ 
-              fontSize: '14px', 
+              fontSize: isMobile ? '14px' : '16px', 
+              color: '#666',
+              flexShrink: 0 
+            }}>🔍</span>
+            <span style={{ 
+              fontSize: isMobile ? '13px' : '14px', 
               color: '#000', 
               fontWeight: '500',
-              flex: 1
+              flex: 1,
+              wordBreak: 'break-word',
+              lineHeight: '1.4',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
             }}>
               {suggestion}
             </span>
@@ -257,11 +296,9 @@ const SearchBar = () => {
               }
             }}
             onBlur={() => {
-              // 🔥 Small delay to allow click events to fire first
               setTimeout(() => {
                 if (!isNavigatingRef.current) {
-                  // Only close if not navigating
-                  // This is backup cleanup
+                  // Backup cleanup
                 }
               }, 150);
             }}

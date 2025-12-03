@@ -1,9 +1,9 @@
-/* SearchBar.css - DROPDOWN FIX */
+/* SearchBar.css - RESPONSIVE MOBILE FIX */
 
 .search-bar-container {
   position: relative;
   width: 100%;
-  z-index: 100;  /* ✅ Container z-index */
+  z-index: 100;
 }
 
 .search-form {
@@ -38,6 +38,7 @@
   background: transparent;
   font-family: Arial, sans-serif;
   padding: 0 8px;
+  min-width: 0; /* 📱 Fix for flex items overflow */
 }
 
 .search-input::placeholder {
@@ -53,6 +54,7 @@
   padding: 4px 8px;
   transition: transform 0.2s;
   color: #333;
+  flex-shrink: 0;
 }
 
 .search-button:hover {
@@ -60,196 +62,117 @@
 }
 
 /* ========================================= */
-/* 🔥 DROPDOWN - FIXED FOR VISIBILITY */
+/* 🔥 PORTAL DROPDOWN - RESPONSIVE STYLES  */
 /* ========================================= */
 
-.suggestions-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background: white !important;  /* ✅ Force white */
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;  /* ✅ Stronger shadow */
-  max-height: 400px;
-  overflow-y: auto;
-  z-index: 9999 !important;  /* ✅ Maximum z-index */
-  border: 2px solid #ddd !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  margin-top: 4px;
+/* These styles target the portal dropdown */
+.suggestions-dropdown-portal {
+  font-family: Arial, sans-serif;
 }
 
-.suggestion-item {
-  display: flex !important;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-bottom: 1px solid #f0f0f0;
-  min-height: 48px;
-  background: white !important;
-  color: #000 !important;
+.suggestion-item-portal {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-.suggestion-item:last-child {
-  border-bottom: none;
+/* ========================================= */
+/* 📱 RESPONSIVE BREAKPOINTS               */
+/* ========================================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .search-input-wrapper {
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 8px;
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 0 6px;
+  }
+
+  .search-input::placeholder {
+    font-size: 12px;
+  }
+
+  .search-button {
+    font-size: 16px;
+    padding: 4px 6px;
+  }
 }
 
-.suggestion-item:hover {
-  background: #f0f7ff !important;  /* ✅ Light blue hover */
-  transform: translateX(4px);
+/* Mobile */
+@media (max-width: 480px) {
+  .search-input-wrapper {
+    height: 36px;
+    padding: 0 8px;
+  }
+
+  .search-input {
+    font-size: 13px;
+    padding: 0 4px;
+  }
+
+  .search-input::placeholder {
+    font-size: 11px;
+  }
+
+  .search-button {
+    font-size: 15px;
+    padding: 2px 4px;
+  }
 }
 
-/* ✅ SEARCH ICON - BLACK & VISIBLE */
-.suggestion-icon {
-  flex-shrink: 0;
-  font-size: 16px;
-  color: #000000 !important;
-  display: inline-block !important;
+/* Small Mobile */
+@media (max-width: 360px) {
+  .search-input-wrapper {
+    height: 34px;
+    padding: 0 6px;
+  }
+
+  .search-input {
+    font-size: 12px;
+  }
+
+  .search-input::placeholder {
+    font-size: 10px;
+  }
+
+  .search-button {
+    font-size: 14px;
+  }
 }
 
-/* ✅ TEXT - BLACK & VISIBLE */
-.suggestion-text {
-  flex: 1;
-  font-size: 14px;
-  color: #000000 !important;
-  font-weight: 500;
-  line-height: 1.4;
-  word-break: break-word;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
+/* ========================================= */
+/* 🎨 SCROLLBAR STYLING                    */
+/* ========================================= */
 
-/* No suggestions message */
-.no-suggestions {
-  color: #666 !important;
-  text-align: center;
-  font-style: italic;
-  cursor: default;
-  background: #f9f9f9;
-  padding: 16px;
-}
-
-.no-suggestions:hover {
-  background: #f9f9f9 !important;
-  transform: none;
-}
-
-/* Scrollbar styling */
-.suggestions-dropdown::-webkit-scrollbar {
+.suggestions-dropdown-portal::-webkit-scrollbar {
   width: 6px;
 }
 
-.suggestions-dropdown::-webkit-scrollbar-track {
+.suggestions-dropdown-portal::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-.suggestions-dropdown::-webkit-scrollbar-thumb {
-  background: #888;
+.suggestions-dropdown-portal::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 10px;
 }
 
-.suggestions-dropdown::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.suggestions-dropdown-portal::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
 
-/* Responsive */
+/* Hide scrollbar on mobile for cleaner look */
 @media (max-width: 768px) {
-  .search-input-wrapper {
-    height: 36px;
-    padding: 0 10px;
+  .suggestions-dropdown-portal::-webkit-scrollbar {
+    width: 4px;
   }
-
-  .search-input {
-    font-size: 13px;
-  }
-
-  .suggestion-item {
-    padding: 12px 14px;
-    min-height: 44px;
-  }
-
-  .suggestion-text {
-    font-size: 13px;
-  }
-
-  .suggestion-icon {
-    font-size: 14px;
-  }
-}
-/* SearchBar.css - SIMPLIFIED (Portal handles dropdown) */
-
-.search-bar-container {
-  position: relative;
-  width: 100%;
-}
-
-.search-form {
-  position: relative;
-  width: 100%;
-}
-
-.search-input-wrapper {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 10px;
-  padding: 0 12px;
-  height: 40px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.25s ease;
-  border: 2px solid transparent;
-}
-
-.search-input-wrapper:focus-within {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  border-color: #54b226;
-  transform: translateY(-1px);
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  color: #333 !important;
-  background: transparent;
-  font-family: Arial, sans-serif;
-  padding: 0 8px;
-}
-
-.search-input::placeholder {
-  color: #999;
-  font-size: 13px;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 4px 8px;
-  transition: transform 0.2s;
-  color: #333;
-}
-
-.search-button:hover {
-  transform: scale(1.1);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .search-input-wrapper {
-    height: 36px;
-    padding: 0 10px;
-  }
-
-  .search-input {
-    font-size: 13px;
+  
+  .suggestions-dropdown-portal::-webkit-scrollbar-thumb {
+    background: #ddd;
   }
 }

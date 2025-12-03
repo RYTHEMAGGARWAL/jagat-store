@@ -34,6 +34,341 @@ const Product = mongoose.model('Product', productSchema);
 // ADD/EDIT/DELETE products here and run the script
 const bakeryBiscuitsProducts = [
   // MARIE BISCUITS
+
+// ============ JUGAL RUSK ============
+{
+    name: 'Jugal Premium Rusk',
+    weight: '300g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.jfWcz-ntBGltw10KujC5mwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jugal Premium Rusk | Crispy & Crunchy | Perfect with Tea | 300g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Custom Rusk',
+    weight: '350g',
+    price: 70,
+    oldPrice: 85,
+    discount: '18% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.gbC_i037Zhxkz-eZdTG05AHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Jugal Custom Rusk | Extra Crispy | Tea Time Snack | 350g Pack',
+    stock: 100
+},
+
+// ============ MADHURIMA RUSK ============
+{
+    name: 'Madhurima Premium Rusk',
+    weight: '300g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.hTIpXh8hLTh2GOHHcHZc5gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Madhurima Premium Rusk | Crispy & Tasty | Perfect with Chai | 300g Pack',
+    stock: 100
+},
+{
+    name: 'Madhurima Ilaichi Rusk',
+    weight: '350g',
+    price: 70,
+    oldPrice: 85,
+    discount: '18% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.S5XgpOe0Vvxwwgetiy5C4QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Madhurima Ilaichi Rusk | Crunchy & Delicious | Tea Time Snack | 350g Pack',
+    stock: 100
+},
+
+// ============ MADHURIMA CAKE RUSK - EGGLESS ============
+{
+    name: 'Madhurima Cake Rusk Eggless - Cherry',
+    weight: '300g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.UeR5SiQMo0tt-03t3CdANAHaEN?pid=Api&H=90&W=160',
+    inStock: true,
+    description: 'Madhurima Cake Rusk Eggless | Cherry Flavour | Soft & Crunchy | 300g Pack',
+    stock: 100
+},
+{
+    name: 'Madhurima Cake Rusk Eggless - Plain',
+    weight: '300g',
+    price: 80,
+    oldPrice: 95,
+    discount: '16% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.PG6_t7AQnOn79e1S4zPgFAHaDp?pid=Api&H=78&W=160',
+    inStock: true,
+    description: 'Madhurima Cake Rusk Eggless | Plain Flavour | Soft & Tasty | 300g Pack',
+    stock: 100
+},
+
+// ============ MADHURIMA CAKE RUSK - EGG ============
+{
+    name: 'Madhurima Cake Rusk - Cherry',
+    weight: '300g',
+    price: 90,
+    oldPrice: 105,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.FpgE8mqndT0q4EJEB9RIegHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Madhurima Cake Rusk | Cherry Flavour with Egg | Rich & Crunchy | 300g Pack',
+    stock: 100
+},
+{
+    name: 'Madhurima Cake Rusk - Plain',
+    weight: '300g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.zz51z-q7MJfl9PnDIc0XkwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Madhurima Cake Rusk | Plain Flavour with Egg | Soft & Tasty | 300g Pack',
+    stock: 100
+},
+
+// ============ FAN BISCUITS ============
+{
+    name: 'Madhurima Fan Biscuit - Big',
+    weight: '400g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Madhurima',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.IRykBknbg-Uxeg8CI7nUHwHaKW?pid=Api&H=223&W=160',
+    inStock: true,
+    description: 'Madhurima Fan Biscuit Big | Crispy & Sweet | Traditional Taste | 400g Pack',
+    stock: 100
+},
+{
+    name: 'Muskan Fan Biscuit - Small',
+    weight: '200g',
+    price: 35,
+    oldPrice: 40,
+    discount: '13% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Muskan',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.EkvbD3DPbTJhF1g-rqw8YQAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Muskan Fan Biscuit Small | Crunchy & Tasty | Tea Time Snack | 200g Pack',
+    stock: 100
+},
+
+// ============ JUGAL TRADITIONAL SNACKS ============
+{
+    name: 'Jugal Mattapare',
+    weight: '250g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.8ARbbVRrlhZ24sN4T-V_YQHaKL?pid=Api&H=219&W=160',
+    inStock: true,
+    description: 'Jugal Mattapare | Sweet & Crispy | Traditional Indian Snack | 250g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Mathi',
+    weight: '250g',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.dpqBmhVVO6_fMKSEjrcpvgHaFF?pid=Api&H=109&W=160',
+    inStock: true,
+    description: 'Jugal Mathi | Flaky & Crispy | Namkeen Snack | 250g Pack',
+    stock: 100
+},
+
+// ============ JUGAL BUTTER BAKERY BISCUITS ============
+{
+    name: 'Jugal Butter Badam Elaichi Biscuit',
+    weight: '350g',
+    price: 90,
+    oldPrice: 105,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: '			https://tse2.mm.bing.net/th/id/OIP.NCttG7aNbDeiD51Le_kYBwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jugal Butter Badam Elaichi | Rich Butter & Cardamom Flavour | Premium Biscuit | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Butter Pista Biscuit',
+    weight: '350g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.6bHG5_1a6K4k9Fp8eHfCZgHaDf?pid=Api&H=75&W=160',
+    inStock: true,
+    description: 'Jugal Butter Pista Biscuit | Rich Pistachio Flavour | Melt in Mouth | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Kaju Nutty Biscuit',
+    weight: '350g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.UzGRf94zCa_GPQv5K9jwvQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jugal Kaju Nutty Biscuit | Crunchy Cashew Flavour | Premium Quality | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Badam Nutty Biscuit',
+    weight: '350g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.fIDvvBiKhlhKCPu0xAE0hAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jugal Badam Nutty Biscuit | Rich Almond Flavour | Healthy & Tasty | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Jugal Besan Khatai Biscuit',
+    weight: '350g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Jugal',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.hWalFiW1Ac8juCnxuGMa3QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jugal Besan Khatai | Traditional Gram Flour Biscuit | Melt in Mouth | 350g Pack',
+    stock: 100
+},
+// ============ KIDYS BAKERY BISCUITS ============
+{
+    name: 'Kidys Dryfruit Biscuit',
+    weight: '350g',
+    price: 110,
+    oldPrice: 130,
+    discount: '15% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.73UlWAdACu1OZ_Hk3JmAMAHaIW?pid=Api&H=180&W=160',
+    inStock: true,
+    description: 'Kidys Dryfruit Biscuit | Loaded with Nuts | Rich & Crunchy | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Badam Biscuit',
+    weight: '350g',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.70y9j535981Wkcc-U3XK_AAAAA?pid=Api&H=274&W=160',
+    inStock: true,
+    description: 'Kidys Badam Biscuit | Big Size | Crispy & Tasty | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Kaju Biscuit',
+    weight: '350g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.HvQQMJUjPAYbvfZ6nRMrVwHaIW?pid=Api&H=180&W=160',
+    inStock: true,
+    description: 'Kidys Kaju Biscuit | Rich Cashew Flavour | Melt in Mouth | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Jeera Biscuit',
+    weight: '350g',
+    price: 70,
+    oldPrice: 85,
+    discount: '18% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Tk6KxwxwQaLAifSl4popEgAAAA?pid=Api&H=271&W=160',
+    inStock: true,
+    description: 'Kidys Jeera Biscuit | Cumin Flavour | Crispy & Namkeen | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Ajwain Biscuit',
+    weight: '350g',
+    price: 70,
+    oldPrice: 85,
+    discount: '18% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.5rZvCCYa6ihfoh8bPhCihAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kidys Ajwain Biscuit | Carom Seeds Flavour | Digestive & Crunchy | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Coconut Biscuit',
+    weight: '350g',
+    price: 80,
+    oldPrice: 95,
+    discount: '16% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.MwdBgKbsbEolhtH478NS0wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kidys Coconut Biscuit | Rich Coconut Flavour | Sweet & Crispy | 350g Pack',
+    stock: 100
+},
+{
+    name: 'Kidys Chocolate Chips Biscuit',
+    weight: '350g',
+    price: 90,
+    oldPrice: 105,
+    discount: '14% OFF',
+    category: 'Bakery Biscuits',
+    brand: 'Kidys',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.qfxdcmIHJOIc5SESSw9pvQHaER?pid=Api&P=0&w=694&h=400',
+    inStock: true,
+    description: 'Kidys Chocolate Chips Biscuit | Loaded with Choco Chips | Kids Favourite | 350g Pack',
+    stock: 100
+},
+
+
+
+
+
+
+
+
  
 ];
 

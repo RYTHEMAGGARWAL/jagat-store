@@ -1764,7 +1764,19 @@ category: "Atta Rice Dal",
   description: 'Maggi Masala-ae-Magic | Seasoning | Pack of 10 Sachets',
   stock: 150
 },
-
+ { 
+    name: "Jagat Store Jaggery Powder", 
+    weight: "1kg", 
+    price: 75, 
+    oldPrice: 90, 
+    discount: "15% OFF", 
+    category: "Atta Rice Dal", 
+    brand: "Jagat Store", 
+    image: "https://tse1.mm.bing.net/th/id/OIP.F_oBJygAwbpGYJ6H1JtxlAHaHa?pid=Api&H=160&W=160", 
+    inStock: true, 
+    description: "Own brand Gud Powder",
+    stock: 50
+  },
 // MAGGI NOODLES
 
 

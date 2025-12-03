@@ -34,6 +34,111 @@ const Product = mongoose.model('Product', productSchema);
 // ADD/EDIT/DELETE products here and run the script
 const babyCareProducts = [
   // DIAPERS
+
+// ============ MAMY POKO PANTS - ALL NIGHT ABSORB ============
+{
+    name: 'Mamy Poko Pants All Night Absorb - M',
+    weight: '30 Pants',
+    price: 399,
+    oldPrice: 470,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Tlgc_ueL0MNo970_rjJmGQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Mamy Poko Pants All Night Absorb | Medium Size (7-12 kg) | 12 Hours Absorption | 30 Pants',
+    stock: 100
+},
+{
+    name: 'Mamy Poko Pants All Night Absorb - L',
+    weight: '28 Pants',
+    price: 399,
+    oldPrice: 470,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.DnHra3Aa0mcUkce7j7EaqQAAAA?pid=Api&P=0&w=300&h=120',
+    inStock: true,
+    description: 'Mamy Poko Pants All Night Absorb | Large Size (9-14 kg) | 12 Hours Absorption | 28 Pants',
+    stock: 100
+},
+{
+    name: 'Mamy Poko Pants All Night Absorb - XL',
+    weight: '22 Pants',
+    price: 399,
+    oldPrice: 470,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.bkt-JxFTFyYau26unTfotQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Mamy Poko Pants All Night Absorb | Extra Large Size (12-17 kg) | 12 Hours Absorption | 22 Pants',
+    stock: 100
+},
+{
+    name: 'Mamy Poko Pants All Night Absorb - XXL',
+    weight: '17 Pants',
+    price: 399,
+    oldPrice: 470,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.bkt-JxFTFyYau26unTfotQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Mamy Poko Pants All Night Absorb | XXL Size (15-25 kg) | 12 Hours Absorption | 17 Pants',
+    stock: 100
+},
+{
+    name: 'Mamy Poko Pants All Night Absorb - New Born',
+    weight: '42 Pants',
+    price: 399,
+    oldPrice: 470,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.EqtkowL0CHeefUiy7LNdywAAAA?pid=Api&P=0&w=300&h=300',
+    inStock: true,
+    description: 'Mamy Poko Pants All Night Absorb | New Born Size (Up to 5 kg) | 12 Hours Absorption | 42 Pants',
+    stock: 100
+},
+
+// ============ MAMY POKO PANTS - SMALL PACKS ============
+{
+    name: 'Mamy Poko Pants - S',
+    weight: '20 Pants',
+    price: 210,
+    oldPrice: 250,
+    discount: '16% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.g8x9ki5s_MMhjdU0bntqBwAAAA?pid=Api&P=0&w=407&h=383',
+    inStock: true,
+    description: 'Mamy Poko Pants | Small Size (4-8 kg) | Soft & Comfortable | 20 Pants',
+    stock: 100
+},
+{
+    name: 'Mamy Poko Pants - L',
+    weight: '14 Pants',
+    price: 210,
+    oldPrice: 250,
+    discount: '16% OFF',
+    category: 'Baby Care',
+    brand: 'Mamy Poko',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.w8bGvnaP9PRDf9UKRolVXgHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Mamy Poko Pants | Large Size (9-14 kg) | Soft & Comfortable | 14 Pants',
+    stock: 100
+},
+
+
+
+
+
+
+
+
+
+
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========

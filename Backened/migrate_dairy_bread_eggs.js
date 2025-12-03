@@ -233,19 +233,7 @@ const dairyBreadEggsProducts = [
     description: 'English Oven Brown Bread | High Fiber | Healthy Choice | Whole Wheat | 400g Pack',
     stock: 100
   },
-  {
-    name: 'English Oven Atta Bread',
-    weight: '400g',
-    price: 42,
-    oldPrice: 50,
-    discount: '16% OFF',
-    category: 'Dairy Bread & Eggs',
-    brand: 'English Oven',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.xUUEMf7Enl14JtHu_VNFlAHaHa?pid=Api&H=160&W=160',
-    inStock: true,
-    description: 'English Oven Atta Bread | 100% Whole Wheat | No Maida | Healthy & Tasty | 400g Pack',
-    stock: 100
-  },
+ 
   {
     name: 'English Oven Sandwich Bread',
     weight: '400g',
@@ -382,7 +370,277 @@ const dairyBreadEggsProducts = [
     inStock: true,
     description: 'Desi Eggs Box | Country Brown Eggs | Free Range | Natural | 6 Pieces Box',
     stock: 120
-  }
+  },
+
+
+  // ============ FROZEN VEGETABLES ============
+{
+    name: ' Frozen Green Peas',
+    weight: '200g',
+    price: 42,
+    oldPrice: 50,
+    discount: '16% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Pea',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.aWME-FzlbGzykKaQqxKN7AHaHK?pid=Api&H=154&W=160',
+    inStock: true,
+    description: ' Frozen Green Peas | Fresh & Nutritious | Ready to Cook | 200g Pack',
+    stock: 100
+},
+{
+    name: ' Frozen Green Peas',
+    weight: '500g',
+    price: 95,
+    oldPrice: 110,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Pea',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.SSNjukkRlwNmFtXONj4QKgHaHf?pid=Api&H=161&W=160',
+    inStock: true,
+    description: ' Frozen Green Peas | Fresh & Nutritious | Ready to Cook | 500g Pack',
+    stock: 100
+},
+{
+    name: ' Frozen Sweet Corn',
+    weight: '500g',
+    price: 130,
+    oldPrice: 150,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Sweet Corn',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.3jhrEuImYx5LOZBg4VIv-QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: ' Frozen Sweet Corn | Golden Kernels | Ready to Cook | 500g Pack',
+    stock: 100
+},
+{
+    name: 'Maharaja Soya Chaap',
+    weight: '500g',
+    price: 250,
+    oldPrice: 290,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Vezlay',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.9QwIu4IINjvxm7iwzkLNrAHaHU?pid=Api&H=157&W=160',
+    inStock: true,
+    description: 'Maharaja Soya Chaap | High Protein | Ready to Cook | 500g Pack',
+    stock: 100
+},
+
+// ============ McCAIN'S FROZEN SNACKS ============
+{
+    name: 'McCain French Fries',
+    weight: '420g',
+    price: 175,
+    oldPrice: 199,
+    discount: '12% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.SVK-gppwOjYJ1gMP3l9KGgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'McCain French Fries | Crispy & Golden | Ready to Fry | 420g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Aloo Tikki',
+    weight: '400g',
+    price: 165,
+    oldPrice: 190,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.mA7EVUYQ3jrw_86ycFpeWwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'McCain Aloo Tikki | Crispy Outside Soft Inside | Ready to Fry | 400g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Burger Tikki',
+    weight: '360g',
+    price: 185,
+    oldPrice: 215,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse2.mm.bing.net/th/id/OIP._5eoLYt8JTZEk4kXTrn0TgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'McCain Burger Tikki | Perfect for Burgers | Crispy & Tasty | 360g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Masala Fries',
+    weight: '375g',
+    price: 180,
+    oldPrice: 210,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.ZgKdGMLDYyV4SFWlAQdNLgHaIS?pid=Api&H=178&W=160',
+    inStock: true,
+    description: 'McCain Masala Fries | Spicy & Crispy | Indian Flavour | 375g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Veggie Fingers',
+    weight: '400g',
+    price: 199,
+    oldPrice: 230,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.4Nve9T92Bu16gXQUl9SdsAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'McCain Veggie Fingers | Crunchy Coating | Mixed Veggies | 400g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Chilli Garlic Potato Bites',
+    weight: '420g',
+    price: 210,
+    oldPrice: 245,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.KTJS1NmsPm2SzxgtcmgE6gHaIT?pid=Api&H=179&W=160',
+    inStock: true,
+    description: 'McCain Chilli Garlic Potato Bites | Spicy Flavour | Party Snack | 420g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Cheese Nuggets',
+    weight: '325g',
+    price: 225,
+    oldPrice: 260,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.2drT0aAWZdDYDnwqHCOZawHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'McCain Cheese Nuggets | Cheesy & Crispy | Kids Favourite | 325g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Mini Samosa - Cheese Pizza',
+    weight: '240g',
+    price: 135,
+    oldPrice: 155,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.DmoQYJu8f3qScigrRLqS0QHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'McCain Mini Samosa Cheese Pizza | Classic Indian Snack | Ready to Fry | 240g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Mini Samosa - Cheese Corn',
+    weight: '240g',
+    price: 145,
+    oldPrice: 170,
+    discount: '15% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.brGhk7xJJAWh3CMSHBlTzAHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'McCain Mini Samosa Cheese Corn | Cheesy Filling | Ready to Fry | 240g Pack',
+    stock: 100
+},
+{
+    name: 'McCain Smiles',
+    weight: '415g',
+    price: 199,
+    oldPrice: 225,
+    discount: '12% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'McCain',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.8f9lNy4T5MU25QX4D4gDpgHaFV?pid=Api&H=115&W=160',
+    inStock: true,
+    description: 'McCain Smiles | Fun Shaped Potato Snack | Kids Favourite | 415g Pack',
+    stock: 100
+},
+
+
+{
+    name: 'Nestle a+ Nourish Dahi',
+    weight: '200g',
+    price: 32,
+    oldPrice: 38,
+    discount: '16% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Nestle',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Dx1A6DpkCiOtZpBBMJCmTAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nestle a+ Nourish Dahi | Thick & Creamy | Fresh | 200g Cup',
+    stock: 4
+},
+{
+    name: 'Nestle a+ Nourish Dahi',
+    weight: '400g',
+    price: 58,
+    oldPrice: 68,
+    discount: '15% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Nestle',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.CHhQy72fxOYeL_13CV1K4gHaF4?pid=Api&H=126&W=160',
+    inStock: true,
+    description: 'Nestle a+ Nourish Dahi | Thick & Creamy | Fresh | 400g Cup',
+    stock: 4
+},
+// ============ NESTLE YOGURT ============
+{
+    name: 'Nestle a+ Grekyo Greek Yogurt - Plain',
+    weight: '100g',
+    price: 35,
+    oldPrice: 40,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Nestle',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.MGwvFTMvD4EEU8sqHBPeGQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nestle a+ Grekyo Greek Yogurt Plain | High Protein | Thick & Creamy | 100g Cup',
+    stock: 3
+},
+
+{
+    name: 'Nestle a+ Grekyo Greek Yogurt - Strawberry',
+    weight: '100g',
+    price: 40,
+    oldPrice: 45,
+    discount: '11% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Nestle',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.bPKX4PH2cUbNc4w9Op8LjAHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Nestle a+ Grekyo Greek Yogurt Strawberry | Fruity & Creamy | High Protein | 100g Cup',
+    stock: 3
+},
+
+{
+    name: 'Nestle a+ Grekyo Greek Yogurt - Mango',
+    weight: '100g',
+    price: 40,
+    oldPrice: 45,
+    discount: '11% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Nestle',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.N81OI-TWevmm600iNseTYwHaHa?pid=Api&H=160&W=160ttps://www.bigbasket.com/media/uploads/p/l/40173498_4-nestle-a-grekyo-greek-yoghurt-mango.jpg',
+    inStock: true,
+    description: 'Nestle a+ Grekyo Greek Yogurt Mango | Fruity & Creamy | High Protein | 100g Cup',
+    stock: 3
+},
+{
+    name: 'Ananda Fresh Paneer',
+    weight: '200g',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Ananda',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.bTnM3qQwa21gKWuosOXY5wHaFG?pid=Api&H=110&W=160',
+    inStock: true,
+    description: 'Ananda Fresh Paneer | Soft & Creamy | Rich in Protein | 200g Pack',
+    stock: 100
+},
 
 
 

@@ -475,6 +475,189 @@ const personalCareProducts = [
 
 
 
+// ============ WHISPER SANITARY PADS ============
+{
+    name: 'Whisper Maxi Fit - L',
+    weight: '15 Pads',
+    price: 143,
+    oldPrice: 170,
+    discount: '16% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.C7uvzBaS80XWU6cFxShyFgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Whisper Maxi Fit | Large Size | Heavy Flow Protection | Dry Top Sheet | 15 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Maxi Fit Regular - L',
+    weight: '8 Pads',
+    price: 100,
+    oldPrice: 120,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.C7cfImItRJU-dOSgZV5z5AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Whisper Maxi Fit Regular | Large Size | Daily Comfort | Dry Top Sheet | 8 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Bindazzz Nights - XL+',
+    weight: '7 Pads',
+    price: 99,
+    oldPrice: 120,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.9KGOQVxwR-DxqLvcUIvbiQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Whisper Bindazzz Nights | XL+ Size | All Night Protection | No Leakage | 7 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Ultra Choice - XL',
+    weight: '6 Pads',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.ZhdiXDme5kxDFn2lDlmq_gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Whisper Ultra Choice | XL Size | Soft Cover | Quick Absorption | 6 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Skin Love Soft - XL+',
+    weight: '6 Pads',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.nKFuN6imTCZ_htbEi_USnQAAAA?pid=Api&P=0&w=300&h=220',
+    inStock: true,
+    description: 'Whisper Skin Love Soft | XL+ Size | Soft Cotton Feel | Gentle on Skin | 6 Pads',
+    stock: 100
+},
+
+
+
+
+// ============ WHISPER SANITARY PADS ============
+{
+    name: 'Whisper Choice - XL',
+    weight: '18 Pads',
+    price: 120,
+    oldPrice: 145,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.cs4g6n-0Sv_ICuoEL2lLGQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Whisper Choice | XL Size | Wings for Protection | Everyday Use | 18 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Bindazzz Nights - XXXL',
+    weight: '10 Pads',
+    price: 350,
+    oldPrice: 410,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.sxDQ0-PWKrEDOVtR5LbkCAHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Whisper Bindazzz Nights | XXXL Size | 0% Leakage | Full Back Coverage | 10 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Bindazzz Nights Koala Soft - XXL+',
+    weight: '5 Pads',
+    price: 150,
+    oldPrice: 175,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: 'https://tse2.mm.bing.net/th/id/OIP._qu6Ku0AQ01D5PMRlv2thwHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Whisper Bindazzz Nights Koala Soft | XXL+ Size | Extra Soft Cover | All Night Protection | 5 Pads',
+    stock: 100
+},
+{
+    name: 'Whisper Ultra Clean - XL',
+    weight: '6 Pads',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Whisper',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Ds7dFHuPvCSGWMXmH3r_KgHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Whisper Ultra Clean | XL Size | Soft Wings | Quick Dry | 6 Pads',
+    stock: 100
+},
+
+// ============ STAYFREE SANITARY PADS ============
+{
+    name: 'Stayfree Secure - XL',
+    weight: '18 Pads',
+    price: 124,
+    oldPrice: 150,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Stayfree',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.DBaHifATDhkmXZQWMTYogAHaH7?pid=Api&P=0&w=400&h=429',
+    inStock: true,
+    description: 'Stayfree Secure | XL Size | Cottony Soft Cover | 4x Absorption | 18 Pads',
+    stock: 100
+},
+{
+    name: 'Stayfree Secure Nights - XXL',
+    weight: '6 Pads',
+    price: 50,
+    oldPrice: 60,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Stayfree',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.jDMItO_vzvyrDMq_ZAXv6gHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Stayfree Secure Nights | XXL Size | All Night Protection | Extra Long | 6 Pads',
+    stock: 100
+},
+{
+    name: 'Stayfree Secure Regular',
+    weight: '6 Pads',
+    price: 37,
+    oldPrice: 45,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Stayfree',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.a5Hgx0wiqaAJLkzhnweXQwHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Stayfree Secure Regular | Normal Size | Daily Use | Cottony Soft | 6 Pads',
+    stock: 100
+},
+{
+    name: 'Stayfree Dry Max - XL',
+    weight: '16 Pads',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Stayfree',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.wRXeDyQ-VJukkRKk_AcdLAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Stayfree Dry Max | XL Size | 100% Dry Feel | Heavy Flow Protection | 16 Pads',
+    stock: 100
+}
+
+
+
+
+
+
 
 
 
