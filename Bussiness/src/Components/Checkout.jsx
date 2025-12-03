@@ -26,12 +26,14 @@ const Checkout = () => {
   const DELIVERY_AREAS = [
     'Vijay Nagar',
     'Pratap Vihar', 
-    'Kailash Nagar',
     'Siddharth Vihar',
-    'Brahmaputra',
     'Hindon Vihar',
     'Gaushala',
-    'Jassipura'
+    'Jassipura',
+    'Old Bus Stand',
+    'Nandgram',
+    'Ghukna',
+    'Ambedkar Road'
   ];
 
   const [placing, setPlacing] = useState(false);
@@ -349,7 +351,7 @@ const Checkout = () => {
 
   // Check if delivery is available (GPS or Manual)
   const isDeliveryAvailable = () => {
-    return (userDistance !== null && userDistance <= MAX_DELIVERY_RADIUS) || manualAreaSelected;
+    return manualAreaSelected; // Delivery available only when area is selected
   };
 
   // Get full address for order
@@ -533,82 +535,40 @@ const Checkout = () => {
           <div className="checkout-section">
             <h2>📦 Delivery Details</h2>
 
-            {/* 📍 LOCATION DETECTION SECTION - REQUIRED! */}
-            <div className="location-section">
-              <div className="location-header">
-                <span className="location-icon">📍</span>
-                <span>Detect your location (Required for delivery)</span>
+            {/* 📍 AREA SELECTION SECTION - REQUIRED */}
+            <div className="area-selection-section">
+              <div className="area-header">
+                <span className="area-icon">📍</span>
+                <span>Select Your Delivery Area *</span>
               </div>
               
-              <button 
-                type="button" 
-                className={`detect-location-btn ${userDistance !== null && userDistance <= MAX_DELIVERY_RADIUS ? 'success' : ''}`}
-                onClick={detectLocation}
-                disabled={locationLoading}
-              >
-                {locationLoading ? (
-                  <>
-                    <span className="btn-spinner"></span>
-                    Detecting Location...
-                  </>
-                ) : userDistance !== null ? (
-                  userDistance <= MAX_DELIVERY_RADIUS ? (
-                    <>✅ Location Detected - {userDistance} km away</>
-                  ) : (
-                    <>❌ {userDistance} km away - Outside delivery range</>
-                  )
-                ) : (
-                  <>📍 Detect My Location</>
-                )}
-              </button>
-
-              {/* Location Error */}
-              {locationError && (
-                <div className="location-error">
-                  {locationError}
-                </div>
-              )}
-
-              {/* Distance Info - Only show when detected */}
-              {userDistance !== null && (
-                <div className={`distance-info ${userDistance <= MAX_DELIVERY_RADIUS ? 'in-range' : 'out-range'}`}>
-                  <span className="distance-icon">
-                    {userDistance <= MAX_DELIVERY_RADIUS ? '✅' : '❌'}
-                  </span>
-                  <div className="distance-text">
-                    <strong>Distance from store: {userDistance} km</strong>
-                    <span>
-                      {userDistance <= MAX_DELIVERY_RADIUS 
-                        ? `✅ Delivery available! (Within ${MAX_DELIVERY_RADIUS} km)` 
-                        : `❌ Outside delivery range (${MAX_DELIVERY_RADIUS} km limit)`}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* DELIVERY RADIUS INFO */}
-            <div className="delivery-areas-info">
-              <div className="info-icon">🚚</div>
-              <div className="info-text">
-                <strong>Delivery within {MAX_DELIVERY_RADIUS} km radius</strong>
-                <br/>
-                <small>Gaushala, Jassipura, Pratap Vihar, Siddharth Vihar, and all nearby areas covered!</small>
+              <div className="area-buttons-grid">
+                {DELIVERY_AREAS.map((area) => (
+                  <button
+                    key={area}
+                    type="button"
+                    className={`area-select-btn ${selectedArea === area ? 'selected' : ''}`}
+                    onClick={() => handleManualAreaSelect(area)}
+                  >
+                    {selectedArea === area && '✅ '}{area}
+                  </button>
+                ))}
               </div>
+
+              {selectedArea && (
+                <div className="selected-area-badge">
+                  ✅ Delivery available in {selectedArea}!
+                </div>
+              )}
             </div>
+
             
             <form onSubmit={handleSubmit} className="checkout-form">
               
-              {/* 🔒 FIELDS ONLY SHOW WHEN LOCATION IS WITHIN 5KM OR MANUAL AREA SELECTED */}
+              {/* Show form fields only when area is selected */}
               {isDeliveryAvailable() ? (
                 <>
-                  {/* ✅ LOCATION VERIFIED - SHOW ALL FIELDS */}
-                  <div className="location-verified-badge">
-                    {manualAreaSelected 
-                      ? `✅ ${selectedArea} - Delivery Available!`
-                      : `✅ Location Verified! You're ${userDistance} km away - Delivery Available`
-                    }
-                  </div>
+                  {/* DELIVERY FORM FIELDS */}
 
                   <div className="form-group">
                     <label>Full Name *</label>
@@ -728,68 +688,10 @@ const Checkout = () => {
                   </button>
                 </>
               ) : (
-                <>
-                  {/* ❌ LOCATION NOT VERIFIED OR OUTSIDE 5KM - SHOW DISABLED STATE */}
-                  {userDistance !== null && userDistance > MAX_DELIVERY_RADIUS && !manualAreaSelected ? (
-                    <div className="location-out-of-range">
-                      <div className="out-range-icon">😔</div>
-                      <h3>GPS shows {userDistance} km away</h3>
-                      <p>But don't worry! Select your area if you're in our delivery zone:</p>
-                      
-                      {/* Manual Area Selection */}
-                      <div className="manual-area-selection">
-                        <h4>📍 Select Your Area:</h4>
-                        <div className="area-buttons">
-                          {DELIVERY_AREAS.map((area) => (
-                            <button
-                              key={area}
-                              type="button"
-                              className={`area-btn ${selectedArea === area ? 'selected' : ''}`}
-                              onClick={() => handleManualAreaSelect(area)}
-                            >
-                              {area}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* WhatsApp Contact Message */}
-                      <div className="whatsapp-pointer-box">
-                        <div className="pointer-message">
-                          <span className="highlight-msg">🏠 Area नहीं मिला?</span>
-                          <p>नीचे <strong>WhatsApp icon</strong> पर click करें</p>
-                          <p className="sub-msg">Owner से बात करें - अगर delivery possible हुई तो वो solution दे देंगे!</p>
-                        </div>
-                        <div className="whatsapp-arrow-animation">
-                          <span>↘️</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : userDistance === null && !manualAreaSelected ? (
-                    <div className="location-required-message">
-                      <div className="lock-icon">📍</div>
-                      <h3>Detect Location or Select Area</h3>
-                      <p>Location detect करें या नीचे से अपना area select करें</p>
-                      
-                      {/* Manual Area Selection */}
-                      <div className="manual-area-selection">
-                        <h4>🏠 अपना Area Select करें:</h4>
-                        <div className="area-buttons">
-                          {DELIVERY_AREAS.map((area) => (
-                            <button
-                              key={area}
-                              type="button"
-                              className={`area-btn ${selectedArea === area ? 'selected' : ''}`}
-                              onClick={() => handleManualAreaSelect(area)}
-                            >
-                              {area}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-                </>
+                <div className="select-area-message">
+                  <div className="message-icon">👆</div>
+                  <p>Please select your delivery area above to continue</p>
+                </div>
               )}
             </form>
           </div>
@@ -888,8 +790,7 @@ const Checkout = () => {
             <div className="delivery-info-checkout">
               <p>🚚 Delivery in 40 minutes</p>
               <p>📍 {getFullAddress()}</p>
-              {userDistance !== null && <p>📏 Distance: {userDistance} km</p>}
-              {manualAreaSelected && <p>🏠 Area: {selectedArea}</p>}
+              {selectedArea && <p>🏠 Area: {selectedArea}</p>}
               <p>💵 Cash on Delivery</p>
               {hasGift && <p>🎁 Includes FREE Gift!</p>}
             </div>
