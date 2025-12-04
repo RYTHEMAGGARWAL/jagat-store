@@ -840,7 +840,7 @@ const sweetToothProducts = [
     discount: '14% OFF',
     category: 'Sweet Tooth',
     brand: 'Haldiram\'s',
-    image: 'hhttps://tse2.mm.bing.net/th/id/OIP.xqq1OsXh38RjIeK-UCcbsAHaHa?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.xqq1OsXh38RjIeK-UCcbsAHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Haldiram\'s Rasgulla | Soft & Spongy | Tin Pack | 1kg (12-14 Pieces)',
     stock: 100

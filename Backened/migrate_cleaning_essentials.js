@@ -252,7 +252,7 @@ const cleaningEssentialsProducts = [
   discount: '17% OFF',
   category: 'Cleaning Essentials',
   brand: 'Fena',
-  image: 'hhttps://tse2.mm.bing.net/th/id/OIP.TymqN3PNztVBieAqmGGyWgHaJ4?pid=Api&H=213&W=160',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.TymqN3PNztVBieAqmGGyWgHaJ4?pid=Api&H=213&W=160',
   inStock: true,
   description: 'Fena Superwash | Rose Fragrance | Extra Foam',
   stock: 100
@@ -623,7 +623,7 @@ const cleaningEssentialsProducts = [
   discount: '17% OFF',
   category: 'Cleaning Essentials',
   brand: 'Fena',
-  image: 'https://m.media-amazon.com/images/I/61YQlZPbURL._SL1200_.jpg',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.IlNEQw0QX1BQRXfDoYhmOgHaHa?pid=Api&P=0&h=180',
   inStock: true,
   description: 'Fena | Superwash Bar | Extra Foam | Pack of 4',
   stock: 100

@@ -1,11 +1,13 @@
 /**
  * ╔════════════════════════════════════════════════════════════════╗
- * ║        UNIVERSAL PRODUCT MIGRATION SCRIPT - JAGAT STORE       ║
+ * ║     🚀 JAGAT STORE - ADD/UPDATE PRODUCTS + CLOUDINARY         ║
  * ║                                                                 ║
  * ║   📌 HOW TO USE:                                               ║
- * ║   1. Neeche products array mein apne products add karo         ║
- * ║   2. Terminal mein run karo: node add_products.js              ║
- * ║   3. Done! Products database mein + images Cloudinary par      ║
+ * ║   1. Products array mein apne products add karo (neeche)       ║
+ * ║   2. Run karo: node add-products.js                            ║
+ * ║   3. Done! Products DB mein + Images Cloudinary par ✅          ║
+ * ║                                                                 ║
+ * ║   ✨ NEW: Existing products bhi UPDATE hote hain!              ║
  * ╚════════════════════════════════════════════════════════════════╝
  */
 
@@ -14,7 +16,7 @@ const cloudinary = require('cloudinary').v2;
 const mongoose = require('mongoose');
 
 // ═══════════════════════════════════════════════════════════════════
-// 🔧 CLOUDINARY CONFIGURATION (Built-in)
+// 🔧 CONFIGURATION (Auto from .env)
 // ═══════════════════════════════════════════════════════════════════
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -22,26 +24,37 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const MONGO_URI = process.env.MONGO_URI;
+
 // ═══════════════════════════════════════════════════════════════════
-// 🎯 YAHAN APNE PRODUCTS ADD KARO - BAS COPY PASTE KARO
+// 🎯 YAHAN APNE PRODUCTS ADD KARO
 // ═══════════════════════════════════════════════════════════════════
 
 const products = [
- 
+  
+  // ✅ EXAMPLE - Aise add karo:
+  // {
+  //   name: "Product Name",
+  //   weight: "500g",
+  //   price: 99,
+  //   oldPrice: 120,
+  //   discount: "18% OFF",
+  //   category: "Grocery",
+  //   brand: "Brand Name",
+  //   image: "https://any-image-url.com/image.jpg",
+  //   description: "Product description here",
+  //   stock: 100
+  // },
 
-
-
-
+  // 👇 APNE PRODUCTS YAHAN ADD KARO 👇
   
 
 
-
-  // -------- YAHAN AUR PRODUCTS ADD KARO --------
   
 ];
 
 // ═══════════════════════════════════════════════════════════════════
-// ⚠️ NEECHE KUCH CHANGE MAT KARNA - YE AUTOMATIC HAI
+// ⚠️ NEECHE KUCH CHANGE MAT KARNA - AUTOMATIC HAI
 // ═══════════════════════════════════════════════════════════════════
 
 // Product Schema
@@ -54,41 +67,76 @@ const productSchema = new mongoose.Schema({
   category: String,
   brand: String,
   image: String,
+  imagePublicId: String,
   inStock: { type: Boolean, default: true },
   description: String,
-  stock: { type: Number, default: 50 }
+  stock: { type: Number, default: 100 }
 }, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);
 
-// Upload image to Cloudinary
-const uploadToCloudinary = async (imageUrl, productName, weight, category) => {
+// Clean URL - handles all edge cases
+const cleanUrl = (url) => {
+  if (!url) return '';
+  
+  let cleaned = url
+    .replace(/^\s+/, '')           // Leading spaces
+    .replace(/\s+$/, '')           // Trailing spaces
+    .replace(/^\t+/, '')           // Leading tabs
+    .replace(/\t+$/, '')           // Trailing tabs
+    .replace(/^h+(?=https?)/, '')  // Extra 'h' before http/https  
+    .replace(/\s+/g, '')           // All spaces in between
+    .trim();
+  
+  // Fix common typos
+  if (cleaned.startsWith('ttps://')) {
+    cleaned = 'h' + cleaned;
+  }
+  if (cleaned.startsWith('tps://')) {
+    cleaned = 'ht' + cleaned;
+  }
+  
+  return cleaned;
+};
+
+// Sleep helper
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Upload to Cloudinary with retry
+const uploadToCloudinary = async (imageUrl, product, retryCount = 0) => {
   try {
-    // Skip if already Cloudinary URL
-    if (imageUrl && imageUrl.includes('cloudinary.com')) {
-      return { success: true, url: imageUrl, skipped: true };
+    const cleanedUrl = cleanUrl(imageUrl);
+    
+    if (!cleanedUrl) {
+      return { success: false, url: '', error: 'Empty URL' };
     }
 
-    // Skip empty URLs
-    if (!imageUrl || imageUrl.trim() === '') {
-      return { success: false, url: imageUrl, error: 'Empty URL' };
+    // Already Cloudinary? Skip upload but mark success
+    if (cleanedUrl.includes('cloudinary.com')) {
+      return { success: true, url: cleanedUrl, publicId: null, skipped: true };
     }
 
-    // Create clean public_id
-    const cleanCategory = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const cleanName = `${productName}-${weight}`
+    // Create unique public ID
+    const cleanCategory = (product.category || 'general')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+    
+    const cleanName = `${product.name}-${product.weight || 'default'}`
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')
-      .substring(0, 80);
+      .substring(0, 60);
+    
+    const timestamp = Date.now();
+    const publicId = `${cleanCategory}/${cleanName}-${timestamp}`;
 
-    const publicId = `${cleanCategory}/${cleanName}`;
-
-    const result = await cloudinary.uploader.upload(imageUrl, {
+    // Upload with optimization
+    const result = await cloudinary.uploader.upload(cleanedUrl, {
       folder: 'jagatstore/products',
       public_id: publicId,
       overwrite: true,
       resource_type: 'image',
+      timeout: 60000,
       transformation: [
         { width: 800, height: 800, crop: 'limit' },
         { quality: 'auto:good' },
@@ -96,125 +144,157 @@ const uploadToCloudinary = async (imageUrl, productName, weight, category) => {
       ]
     });
 
-    return { success: true, url: result.secure_url };
+    return { 
+      success: true, 
+      url: result.secure_url, 
+      publicId: result.public_id 
+    };
 
   } catch (error) {
+    // Retry up to 2 times
+    if (retryCount < 2) {
+      console.log(`      ⏳ Retry ${retryCount + 1}/2...`);
+      await sleep(2000);
+      return uploadToCloudinary(imageUrl, product, retryCount + 1);
+    }
     return { success: false, url: imageUrl, error: error.message };
   }
 };
 
-// Main migration function
-const migrateProducts = async () => {
+// Main Function
+const addProducts = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(MONGO_URI);
+    
     console.log('\n╔════════════════════════════════════════════════════════════════╗');
-    console.log('║        🚀 JAGAT STORE - PRODUCT MIGRATION STARTED             ║');
+    console.log('║     🚀 JAGAT STORE - ADD/UPDATE PRODUCTS + CLOUDINARY         ║');
     console.log('╚════════════════════════════════════════════════════════════════╝\n');
+    
     console.log('✅ MongoDB Connected');
     console.log(`✅ Cloudinary: ${process.env.CLOUDINARY_CLOUD_NAME || '❌ NOT SET'}\n`);
 
-    // Check Cloudinary config
-    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-      console.log('⚠️  WARNING: Cloudinary credentials missing in .env file!');
-      console.log('   Products will be added with original image URLs.\n');
+    if (products.length === 0) {
+      console.log('⚠️  No products to add! Add products in the array first.\n');
+      process.exit(0);
     }
 
-    let successCount = 0;
-    let failCount = 0;
-    let skipCount = 0;
+    console.log(`📦 Products to Process: ${products.length}\n`);
+    console.log('━'.repeat(60) + '\n');
+
+    let addedCount = 0;
+    let updatedCount = 0;
+    let failedCount = 0;
     let cloudinarySuccess = 0;
     let cloudinaryFail = 0;
 
-    console.log(`📦 Total Products to Add: ${products.length}\n`);
-    console.log('━'.repeat(60) + '\n');
-
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
-      const productLabel = `${product.name} (${product.weight})`;
+      const label = `${product.name} (${product.weight || 'N/A'})`.substring(0, 45);
+
+      console.log(`[${i + 1}/${products.length}] ${label}`);
 
       try {
-        // Check if product already exists
+        // Check if already exists
         const existingProduct = await Product.findOne({
           name: product.name,
           weight: product.weight,
           brand: product.brand
         });
 
-        if (existingProduct) {
-          console.log(`⏭️  [${i + 1}/${products.length}] SKIPPED (Already Exists): ${productLabel}`);
-          skipCount++;
-          continue;
-        }
-
         // Upload image to Cloudinary
-        console.log(`📤 [${i + 1}/${products.length}] Uploading: ${productLabel}...`);
+        console.log(`   📤 Uploading image to Cloudinary...`);
         
-        const uploadResult = await uploadToCloudinary(
-          product.image,
-          product.name,
-          product.weight,
-          product.category
-        );
+        const uploadResult = await uploadToCloudinary(product.image, product);
 
-        // Create new product
-        const newProduct = new Product({
-          ...product,
-          image: uploadResult.url
-        });
+        // Prepare product data
+        const productData = {
+          name: product.name,
+          weight: product.weight || '',
+          price: product.price,
+          oldPrice: product.oldPrice || product.price,
+          discount: product.discount || '',
+          category: product.category,
+          brand: product.brand || '',
+          description: product.description || `${product.name} | ${product.brand || ''} | ${product.weight || ''}`,
+          stock: product.stock || 100,
+          inStock: true,
+          image: uploadResult.success ? uploadResult.url : product.image,
+          imagePublicId: uploadResult.publicId || null
+        };
 
-        await newProduct.save();
-
-        if (uploadResult.success && !uploadResult.skipped) {
-          console.log(`✅ [${i + 1}/${products.length}] ADDED + CLOUDINARY: ${productLabel}`);
-          console.log(`   📍 ${uploadResult.url}`);
-          cloudinarySuccess++;
-        } else if (uploadResult.skipped) {
-          console.log(`✅ [${i + 1}/${products.length}] ADDED (Already Cloudinary): ${productLabel}`);
-          cloudinarySuccess++;
+        if (existingProduct) {
+          // ✨ UPDATE existing product
+          await Product.findByIdAndUpdate(existingProduct._id, productData);
+          
+          if (uploadResult.success && !uploadResult.skipped) {
+            console.log(`   🔄 UPDATED + Cloudinary uploaded!`);
+            console.log(`   🔗 ${uploadResult.url.substring(0, 60)}...`);
+            cloudinarySuccess++;
+          } else if (uploadResult.skipped) {
+            console.log(`   🔄 UPDATED (Already Cloudinary URL)`);
+            cloudinarySuccess++;
+          } else {
+            console.log(`   ⚠️  UPDATED but Cloudinary failed: ${uploadResult.error}`);
+            cloudinaryFail++;
+          }
+          updatedCount++;
+          
         } else {
-          console.log(`⚠️  [${i + 1}/${products.length}] ADDED (Original URL): ${productLabel}`);
-          console.log(`   ❌ Cloudinary: ${uploadResult.error}`);
-          cloudinaryFail++;
-        }
-        
-        successCount++;
+          // ➕ ADD new product
+          const newProduct = new Product(productData);
+          await newProduct.save();
 
-        // Small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 500));
+          if (uploadResult.success && !uploadResult.skipped) {
+            console.log(`   ✅ ADDED + Cloudinary uploaded!`);
+            console.log(`   🔗 ${uploadResult.url.substring(0, 60)}...`);
+            cloudinarySuccess++;
+          } else if (uploadResult.skipped) {
+            console.log(`   ✅ ADDED (Already Cloudinary URL)`);
+            cloudinarySuccess++;
+          } else {
+            console.log(`   ⚠️  ADDED but Cloudinary failed: ${uploadResult.error}`);
+            cloudinaryFail++;
+          }
+          addedCount++;
+        }
+
+        console.log('');
+
+        // Small delay
+        await sleep(800);
 
       } catch (error) {
-        console.log(`❌ [${i + 1}/${products.length}] FAILED: ${productLabel}`);
-        console.log(`   Error: ${error.message}`);
-        failCount++;
+        console.log(`   ❌ FAILED: ${error.message}\n`);
+        failedCount++;
       }
-
-      console.log('');
     }
 
     // Summary
-    console.log('━'.repeat(60));
+    console.log('\n' + '━'.repeat(60));
     console.log('\n╔════════════════════════════════════════════════════════════════╗');
-    console.log('║                    📊 MIGRATION SUMMARY                        ║');
+    console.log('║                      📊 SUMMARY                                ║');
     console.log('╠════════════════════════════════════════════════════════════════╣');
-    console.log(`║   ✅ Products Added:       ${successCount.toString().padEnd(34)}║`);
-    console.log(`║   ⏭️  Skipped (Existing):   ${skipCount.toString().padEnd(34)}║`);
-    console.log(`║   ❌ Failed:               ${failCount.toString().padEnd(34)}║`);
+    console.log(`║   ✅ Products Added (New):    ${String(addedCount).padEnd(31)}║`);
+    console.log(`║   🔄 Products Updated:        ${String(updatedCount).padEnd(31)}║`);
+    console.log(`║   ❌ Failed:                  ${String(failedCount).padEnd(31)}║`);
     console.log('╠════════════════════════════════════════════════════════════════╣');
-    console.log(`║   🖼️  Cloudinary Success:   ${cloudinarySuccess.toString().padEnd(34)}║`);
-    console.log(`║   ⚠️  Cloudinary Failed:    ${cloudinaryFail.toString().padEnd(34)}║`);
-    console.log('╠════════════════════════════════════════════════════════════════╣');
-    console.log(`║   📦 Total Processed:      ${products.length.toString().padEnd(34)}║`);
+    console.log(`║   🖼️  Cloudinary Success:      ${String(cloudinarySuccess).padEnd(31)}║`);
+    console.log(`║   ⚠️  Cloudinary Failed:       ${String(cloudinaryFail).padEnd(31)}║`);
     console.log('╚════════════════════════════════════════════════════════════════╝\n');
 
+    if (addedCount > 0 || updatedCount > 0) {
+      console.log('🎉 Products processed successfully!\n');
+    }
+
   } catch (error) {
-    console.error('❌ Migration Error:', error.message);
+    console.error('❌ Error:', error.message);
   } finally {
     await mongoose.connection.close();
-    console.log('🔌 MongoDB Connection Closed\n');
+    console.log('🔌 Done!\n');
     process.exit(0);
   }
 };
 
-// Run migration
-migrateProducts();
+// Run
+addProducts();

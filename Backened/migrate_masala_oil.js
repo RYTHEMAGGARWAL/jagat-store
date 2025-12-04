@@ -1758,7 +1758,7 @@ const masalaOilProducts = [
   discount: '29% OFF',
   category: 'Masala Oil',
   brand: 'Jagat Store',
-  image: 'h	https://tse1.mm.bing.net/th/id/OIP.6VYUET-31cCBXy7YdXtDJQHaEB?pid=Api&P=0&w=737&h=400',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.6VYUET-31cCBXy7YdXtDJQHaEB?pid=Api&P=0&w=737&h=400',
   inStock: true,
   description: '🏪 Jagat Store Own Brand | Premium Javitri | Shudhta Ki Guarantee ✓',
   stock: 50

@@ -278,8 +278,8 @@ const petCareProducts = [
 {
     name: 'Drools Adult Wet Food - Chicken & Liver Chunks in Gravy',
     weight: '80g',
-    price: 30,
-    oldPrice: 35,
+    price: 50,
+    oldPrice: 60,
     discount: '14% OFF',
     category: 'Pet Care',
     brand: 'Drools',

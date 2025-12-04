@@ -1,8 +1,11 @@
 // Backend/config/cloudinary.js
+// ✅ FIXED FOR multer-storage-cloudinary v2.2.1
 
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
+
+// ✅ Version 2.x syntax - NO destructuring
+const CloudinaryStorage = require('multer-storage-cloudinary');
 
 // Configure Cloudinary
 cloudinary.config({
@@ -11,18 +14,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Configure Storage
-const storage = new CloudinaryStorage({
+// ✅ Version 2.x storage syntax
+const storage = CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: 'jagat-store',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
-    transformation: [
-      { width: 500, height: 500, crop: 'limit' },
-      { quality: 'auto:good' },
-      { fetch_format: 'auto' }
-    ]
-  }
+  folder: 'jagat-store',
+  allowedFormats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+  transformation: [
+    { width: 500, height: 500, crop: 'limit' },
+    { quality: 'auto:good' },
+    { fetch_format: 'auto' }
+  ]
 });
 
 // Multer upload
