@@ -1,21 +1,19 @@
-// Backend/routes/productRoutes.js - WITH CLOUDINARY IMAGE UPLOAD
+// Backend/routes/productRoutes.js - WITH CLOUDINARY IMAGE UPLOAD (FIXED DEDUP)
 
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
-const { upload, deleteImage } = require('../config/cloudinary'); // ✅ Cloudinary
+const { upload, deleteImage } = require('../config/cloudinary');
 
 // ====================================
 // HELPER FUNCTIONS
 // ====================================
 
-// 🔥 ESCAPE REGEX SPECIAL CHARACTERS
 const escapeRegex = (string) => {
   if (!string) return '';
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
-// Normalize product data
 const normalizeProduct = (product) => {
   try {
     const normalized = product.toObject ? product.toObject() : { ...product };
@@ -43,7 +41,6 @@ const normalizeProduct = (product) => {
   }
 };
 
-// Clean search query
 const cleanSearchQuery = (query) => {
   if (!query) return '';
   return query
@@ -53,7 +50,6 @@ const cleanSearchQuery = (query) => {
     .trim();
 };
 
-// 🔥 RELEVANCE SCORING FUNCTION
 const calculateRelevanceScore = (product, searchQuery, searchWords) => {
   try {
     let score = 0;
@@ -66,24 +62,18 @@ const calculateRelevanceScore = (product, searchQuery, searchWords) => {
 
     if (!name || !query) return 0;
 
-    // 🏆 Exact name match
     if (name === query) score += 1000;
-    
-    // 🥇 Name starts with search query
     if (name.startsWith(query)) score += 500;
     
-    // 🥈 Name starts with any search word
     if (Array.isArray(searchWords)) {
       searchWords.forEach(word => {
         if (word && name.startsWith(word)) score += 300;
       });
     }
     
-    // 🥉 Search query is a complete word in name
     const nameWords = name.split(/\s+/);
     if (nameWords.some(w => w === query)) score += 200;
     
-    // ✅ Each search word appears in name
     if (Array.isArray(searchWords)) {
       searchWords.forEach(word => {
         if (word && nameWords.some(w => w === word || w.startsWith(word))) {
@@ -92,24 +82,17 @@ const calculateRelevanceScore = (product, searchQuery, searchWords) => {
       });
     }
     
-    // ✅ Name contains search query
     if (name.includes(query)) score += 50;
     
-    // ✅ Name contains search words
     if (Array.isArray(searchWords)) {
       searchWords.forEach(word => {
         if (word && name.includes(word)) score += 30;
       });
     }
     
-    // 📦 Brand match
     if (brand === query) score += 40;
     if (brand.includes(query)) score += 20;
-    
-    // 📂 Category match (lower priority)
     if (category.includes(query)) score += 10;
-    
-    // 📝 Description match
     if (description.includes(query)) score += 5;
     
     return score;
@@ -137,7 +120,6 @@ router.get('/search/suggestions', async (req, res) => {
     const cleanedQuery = cleanSearchQuery(q);
     const searchWords = cleanedQuery.split(' ').filter(word => word && word.length >= 2);
 
-    // 🔥 ESCAPE REGEX SPECIAL CHARACTERS
     const escapedQuery = escapeRegex(cleanedQuery);
     const escapedWords = searchWords.map(w => escapeRegex(w));
 
@@ -161,7 +143,6 @@ router.get('/search/suggestions', async (req, res) => {
     .select('name')
     .limit(20);
 
-    // Sort by relevance
     const sortedProducts = products
       .map(p => ({
         name: p.name,
@@ -169,7 +150,7 @@ router.get('/search/suggestions', async (req, res) => {
       }))
       .sort((a, b) => b.score - a.score);
 
-    // 🔥 REMOVE DUPLICATE SUGGESTIONS (exact same name only)
+    // Remove duplicate suggestions (same name only for suggestions)
     const seenNames = new Set();
     const uniqueSuggestions = [];
     
@@ -184,11 +165,9 @@ router.get('/search/suggestions', async (req, res) => {
       }
     }
 
-    const suggestionList = uniqueSuggestions;
-    
-    console.log('✅ Suggestions:', suggestionList);
+    console.log('✅ Suggestions:', uniqueSuggestions);
 
-    res.json(suggestionList);
+    res.json(uniqueSuggestions);
   } catch (error) {
     console.error('❌ Suggestions Error:', error);
     res.json([]);
@@ -259,45 +238,39 @@ router.get('/search', async (req, res) => {
 
     scoredProducts.sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
 
-    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand (not just name)
-    const seenProducts = new Set();
+    // ✅ FIXED: Remove duplicates using _id (actual database duplicates only)
+    const seenIds = new Set();
     const uniqueProducts = [];
     
     for (const product of scoredProducts) {
-      // Create unique key from name + weight + brand
-      const name = String(product.name || '').toLowerCase().trim();
-      const weight = String(product.weight || '').toLowerCase().trim();
-      const brand = String(product.brand || '').toLowerCase().trim();
-      const uniqueKey = `${name}|${weight}|${brand}`;
+      const productId = String(product._id);
       
-      if (!seenProducts.has(uniqueKey)) {
-        seenProducts.add(uniqueKey);
+      if (!seenIds.has(productId)) {
+        seenIds.add(productId);
         uniqueProducts.push(product);
       }
     }
 
-    const finalProducts = uniqueProducts.slice(0, 250).map(p => {
-      const { _relevanceScore, ...product } = p;
-      return product;
-    });
+    console.log('✅ Search Results:', uniqueProducts.length);
 
-    console.log('✅ Search Results:', finalProducts.length);
-
-    res.json(finalProducts);
+    res.json(uniqueProducts);
   } catch (error) {
-    console.error('❌ Search Error:', error.message);
-    res.status(500).json({ message: 'Search failed', error: error.message });
+    console.error('Search Error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error searching products'
+    });
   }
 });
 
-// ✅ 3. CATEGORY ROUTE
+// ✅ 3. GET PRODUCTS BY CATEGORY
 router.get('/category/:category', async (req, res) => {
   try {
-    const requestedCategory = req.params.category;
+    const { category } = req.params;
     
-    console.log('📂 Category:', requestedCategory);
+    console.log('📦 Category:', category);
     
-    const escapedCategory = escapeRegex(requestedCategory);
+    const escapedCategory = escapeRegex(category);
     
     const products = await Product.find({ 
       category: { $regex: `^${escapedCategory}$`, $options: 'i' }
@@ -305,27 +278,14 @@ router.get('/category/:category', async (req, res) => {
     
     console.log('✅ Found:', products.length);
     
-    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand
-    const seenProducts = new Set();
-    const uniqueProducts = [];
+    // ✅ FIXED: No deduplication - return all products
+    const normalizedProducts = products.map(p => normalizeProduct(p));
     
-    for (const product of products) {
-      const name = String(product.name || '').toLowerCase().trim();
-      const weight = String(product.weight || '').toLowerCase().trim();
-      const brand = String(product.brand || '').toLowerCase().trim();
-      const uniqueKey = `${name}|${weight}|${brand}`;
-      
-      if (!seenProducts.has(uniqueKey)) {
-        seenProducts.add(uniqueKey);
-        uniqueProducts.push(normalizeProduct(product));
-      }
-    }
-    
-    console.log('✅ After dedup:', uniqueProducts.length);
+    console.log('✅ Returning:', normalizedProducts.length);
     
     res.json({
       success: true,
-      products: uniqueProducts
+      products: normalizedProducts
     });
   } catch (error) {
     console.error('Category Error:', error);
@@ -360,27 +320,14 @@ router.get('/', async (req, res) => {
     
     console.log('✅ Found:', products.length);
     
-    // 🔥 REMOVE DUPLICATES - Based on name + weight + brand
-    const seenProducts = new Set();
-    const uniqueProducts = [];
+    // ✅ FIXED: No deduplication - return all products as-is
+    const normalizedProducts = products.map(p => normalizeProduct(p));
     
-    for (const product of products) {
-      const name = String(product.name || '').toLowerCase().trim();
-      const weight = String(product.weight || '').toLowerCase().trim();
-      const brand = String(product.brand || '').toLowerCase().trim();
-      const uniqueKey = `${name}|${weight}|${brand}`;
-      
-      if (!seenProducts.has(uniqueKey)) {
-        seenProducts.add(uniqueKey);
-        uniqueProducts.push(normalizeProduct(product));
-      }
-    }
-    
-    console.log('✅ After dedup:', uniqueProducts.length);
+    console.log('✅ Returning:', normalizedProducts.length);
     
     res.json({
       success: true,
-      products: uniqueProducts
+      products: normalizedProducts
     });
   } catch (error) {
     console.error('Error:', error);
@@ -418,13 +365,11 @@ router.post('/', upload.single('image'), async (req, res) => {
       description: description || ''
     };
     
-    // ✅ Cloudinary Image Upload
     if (req.file) {
-      productData.image = req.file.path; // Cloudinary URL
-      productData.imagePublicId = req.file.filename; // For deletion
+      productData.image = req.file.path;
+      productData.imagePublicId = req.file.filename;
       console.log('📸 Image uploaded:', req.file.path);
     } else if (image) {
-      // Direct URL provided (for manual entry)
       productData.image = image;
     }
     
@@ -485,7 +430,6 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       });
     }
     
-    // Delete old image if new one uploaded
     if (req.file && product.imagePublicId) {
       try {
         await deleteImage(product.imagePublicId);
@@ -497,12 +441,10 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     
     const updateData = { ...req.body };
     
-    // Parse numeric fields
     if (updateData.price) updateData.price = parseFloat(updateData.price);
     if (updateData.oldPrice) updateData.oldPrice = parseFloat(updateData.oldPrice);
     if (updateData.stock) updateData.stock = parseInt(updateData.stock);
     
-    // New image uploaded
     if (req.file) {
       updateData.image = req.file.path;
       updateData.imagePublicId = req.file.filename;
@@ -531,7 +473,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
   }
 });
 
-// ✅ 8. DELETE PRODUCT (Also deletes image from Cloudinary)
+// ✅ 8. DELETE PRODUCT
 router.delete('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -543,7 +485,6 @@ router.delete('/:id', async (req, res) => {
       });
     }
     
-    // Delete image from Cloudinary
     if (product.imagePublicId) {
       try {
         await deleteImage(product.imagePublicId);

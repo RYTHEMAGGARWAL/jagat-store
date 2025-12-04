@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI)
 const productSchema = new mongoose.Schema({}, { strict: false });
 const Product = mongoose.model('Product', productSchema);
 
-// ========== HOME & OFFICES PRODUCTS ==========
+// ========== HOME and OFFICES PRODUCTS ==========
 const homeOfficesProducts = [
 
   // GOOD KNIGHT REFILL & MACHINE
@@ -248,7 +248,7 @@ const homeOfficesProducts = [
     price: 65,
     oldPrice: 78,
     discount: '17% OFF',
-    category: 'Home & Office',
+   category: 'Home and Offices',
     brand: 'PCI',
     image: 'https://tse2.mm.bing.net/th/id/OIP.ZiBVYA-XpU-yHVAzEM20JQHaHa?pid=Api&H=160&W=160',
     inStock: true,
@@ -335,7 +335,7 @@ const homeOfficesProducts = [
 // ========== SMART MIGRATION FUNCTION ==========
 const smartMigrate = async () => {
   try {
-    console.log('\n🏠 Starting Smart Migration for Home & Offices...\n');
+    console.log('\n🏠 Starting Smart Migration for  s...\n');
     console.log('━'.repeat(60));
     
     let added = 0, updated = 0, unchanged = 0;
@@ -389,14 +389,14 @@ const smartMigrate = async () => {
     }
     
     // Count total
-    const totalCount = await Product.countDocuments({ category: 'Home & Office' });
+    const totalCount = await Product.countDocuments({ category: 'Home and Offices' });
     
     console.log('\n' + '━'.repeat(60));
     console.log('\n📊 MIGRATION SUMMARY:');
     console.log(`   ✅ Added: ${added}`);
     console.log(`   🔄 Updated: ${updated}`);
     console.log(`   ⏭️  Unchanged: ${unchanged}`);
-    console.log(`   📦 Total "Home & Offices" products: ${totalCount}`);
+    console.log(`   📦 Total "Home and Offices" products: ${totalCount}`);
     console.log('\n✅ Migration Complete!\n');
     
     mongoose.disconnect();

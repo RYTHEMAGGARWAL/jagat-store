@@ -26,8 +26,11 @@ const CATEGORIES_TO_DELETE = [
   // 'Organic & Healthy Living',
   
   'Tea Coffee',
-  'Dairy Bread Eggs',
-  ' Snacks Munchies'
+  'Grocery',
+  'Home & Office',
+  
+
+  
 
 
 
