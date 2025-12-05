@@ -1819,8 +1819,183 @@ const masalaOilProducts = [
   inStock: true,
   description: '🏪 Jagat Store Own Brand | Premium Supari | Shudhta Ki Guarantee ✓',
   stock: 80
-}
+},
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// 🌿 CATCH HING
+// ========================================
+{
+    name: 'Catch Hing',
+    weight: '50g',
+    price: 185,
+    oldPrice: 220,
+    discount: '16% OFF',
+    category: 'Masala Oil',
+    brand: 'Catch',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.1T31FVSYFLDduzhaxlVqbQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Catch Hing | Compounded Asafoetida | Strong Aroma | Pure & Fresh | 50g Pack',
+    stock: 80
+},
+{
+    name: 'Catch Hing',
+    weight: '100g',
+    price: 350,
+    oldPrice: 410,
+    discount: '15% OFF',
+    category: 'Masala Oil',
+    brand: 'Catch',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.e1WRe2SDi6_KPF9kdrOC2wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Catch Hing | Compounded Asafoetida | Strong Aroma | Pure & Fresh | 100g Pack',
+    stock: 60
+},
+
+// ========================================
+// 🌿 RAMDEV HING
+// ========================================
+{
+    name: 'Ramdev Hing',
+    weight: '25g',
+    price: 95,
+    oldPrice: 115,
+    discount: '17% OFF',
+    category: 'Masala Oil',
+    brand: 'Ramdev',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.xDnfpNdQ5WUj-ZbqqrnJvgAAAA?pid=Api&H=171&W=160',
+    inStock: true,
+    description: 'Ramdev Hing | Premium Asafoetida | Rich Flavour | 25g Pack',
+    stock: 100
+},
+{
+    name: 'Ramdev Hing',
+    weight: '50g',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Masala Oil',
+    brand: 'Ramdev',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.O3R4ievDG1ZIHrsGxbz4tgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Ramdev Hing | Premium Asafoetida | Rich Flavour | 50g Pack',
+    stock: 85
+},
+{
+    name: 'Ramdev Hing',
+    weight: '100g',
+    price: 330,
+    oldPrice: 390,
+    discount: '15% OFF',
+    category: 'Masala Oil',
+    brand: 'Ramdev',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.-_2PuJTDqy6Rg_PO1Ue08wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Ramdev Hing | Premium Asafoetida | Rich Flavour | 100g Pack',
+    stock: 55
+},
+
+// ========================================
+// 🌿 EVEREST HING
+// ========================================
+{
+    name: 'Everest Hing',
+    weight: '25g',
+    price: 90,
+    oldPrice: 108,
+    discount: '17% OFF',
+    category: 'Masala Oil',
+    brand: 'Everest',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.FO8QiLNILVQmTL8cWZqcbAAAAA?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Everest Hing | Compounded Asafoetida | Authentic Flavour | 25g Pack',
+    stock: 95
+},
+{
+    name: 'Everest Hing',
+    weight: '50g',
+    price: 170,
+    oldPrice: 200,
+    discount: '15% OFF',
+    category: 'Masala Oil',
+    brand: 'Everest',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.YtNb5b7ej_KwhK9g9T8aPAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Everest Hing | Compounded Asafoetida | Authentic Flavour | 50g Pack',
+    stock: 75
+},
+{
+    name: 'Everest Hing',
+    weight: '100g',
+    price: 320,
+    oldPrice: 380,
+    discount: '16% OFF',
+    category: 'Masala Oil',
+    brand: 'Everest',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.wqy0Lyzmi76TuSl_wQ9GVwHaK2?pid=Api&H=234&W=160',
+    inStock: true,
+    description: 'Everest Hing | Compounded Asafoetida | Authentic Flavour | 100g Pack',
+    stock: 50
+},
+
+// ========================================
+// 🌿 PATANJALI HING
+// ========================================
+{
+    name: 'Patanjali Hing',
+    weight: '25g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Masala Oil',
+    brand: 'Patanjali',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.NojfWQpWAXfGq9L_QkmQwAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Patanjali Hing | Pure Asafoetida | Natural & Ayurvedic | 25g Pack',
+    stock: 110
+},
+{
+    name: 'Patanjali Hing',
+    weight: '50g',
+    price: 160,
+    oldPrice: 190,
+    discount: '16% OFF',
+    category: 'Masala Oil',
+    brand: 'Patanjali',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.wwlvP_7ZUSirfzKvsUQc0AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Patanjali Hing | Pure Asafoetida | Natural & Ayurvedic | 50g Pack',
+    stock: 90
+},
+
+// ========================================
+// 🌿 MDH HING
+// ========================================
+{
+    name: 'MDH Hing',
+    weight: '10g',
+    price: 42,
+    oldPrice: 50,
+    discount: '16% OFF',
+    category: 'Masala Oil',
+    brand: 'MDH',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.NlsZwIekCrsjnW8ZtcXEZQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'MDH Hing | Premium Quality Asafoetida | Strong Aroma | 10g Pack',
+    stock: 130
+}
 
 
 
