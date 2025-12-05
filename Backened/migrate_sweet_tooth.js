@@ -846,6 +846,32 @@ const sweetToothProducts = [
     stock: 100
 },
 {
+    name: 'Haldiram\'s Gulab Jamun',
+    weight: '1kg',
+    price: 250,
+    oldPrice: 290,
+    discount: '14% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Haldiram\'s',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.iq99zXGZDeH3aQKRHevXGAHaIb?pid=Api&H=181&W=160',
+    inStock: true,
+    description: 'Haldiram\'s Rasgulla | Soft & Spongy | Tin Pack | 1kg (12-14 Pieces)',
+    stock: 100
+},
+{
+    name: 'Bicano Rasgulla',
+    weight: '1kg',
+    price: 250,
+    oldPrice: 290,
+    discount: '14% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Bicano',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.eBv-JGxfogPXtU5EeMzySgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldiram\'s Rasgulla | Soft & Spongy | Tin Pack | 1kg (12-14 Pieces)',
+    stock: 100
+},
+{
     name: 'Haldiram\'s Desi Ghee Soan Papdi',
     weight: '500g',
     price: 180,
@@ -870,7 +896,19 @@ const sweetToothProducts = [
     inStock: true,
     description: 'Haldiram\'s Desi Ghee Soan Papdi | Flaky & Melt in Mouth | Premium Quality | 1kg Box',
     stock: 100
-}
+},{
+    name: 'Lotte Choco Pie',
+    weight: '336g (12 Pcs)',
+    price: 185,
+    oldPrice: 220,
+    discount: '16% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Lotte',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.OyWZ3zsuEOAjOnpHpRLZGAHaGP?pid=Api&H=134&W=160',
+    inStock: true,
+    description: 'Lotte Choco Pie | Soft Cake with Marshmallow | 12 Pieces Family Box',
+    stock: 80
+},
  
   
 ];

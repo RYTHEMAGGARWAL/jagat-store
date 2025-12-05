@@ -665,6 +665,19 @@ const coldDrinksJuicesProducts = [
     description: 'Monster Ultra Zero White | Zero Sugar | Zero Calories | Light Citrus | 350ml Can',
     stock: 80
 },
+{
+    name: 'Hamdard Rooh Afza',
+    weight: '750ml',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Hamdard',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.msE_ElrUTxbX8sWx4ScaTgHaIq?pid=Api&H=187&W=160',
+    inStock: true,
+    description: 'Hamdard Rooh Afza | Rose Sharbat | Refreshing Summer Drink | 750ml Bottle',
+    stock: 80
+},
  
 
 ];

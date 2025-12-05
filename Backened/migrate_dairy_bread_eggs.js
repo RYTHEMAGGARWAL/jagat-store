@@ -644,6 +644,40 @@ const dairyBreadEggsProducts = [
 
 
 
+// 🥛 AMUL CREAM
+// ========================================
+{
+    name: 'Amul Fresh Cream',
+    weight: '200g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.ZQbKrjADEiTMWG4YjEOlMQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Fresh Cream | Rich & Creamy | For Desserts & Curries | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Amul Fresh Cream',
+    weight: '1L',
+    price: 285,
+    oldPrice: 330,
+    discount: '14% OFF',
+    category: 'Dairy Bread & Eggs',
+    brand: 'Amul',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.TQEZakM--bYFsG0xw5O_5QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Fresh Cream | Rich & Creamy | Family Pack | 1 Litre',
+    stock: 50
+},
+
+
+
+
+
+
 
 ];
 

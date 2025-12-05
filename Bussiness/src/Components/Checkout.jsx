@@ -28,6 +28,8 @@ const Checkout = () => {
 
   // Delivery areas list
   const DELIVERY_AREAS = [
+    'Ghaziabad City',
+    'Crossing Republik',
     'Vijay Nagar',
     'Pratap Vihar', 
     'Siddharth Vihar',
@@ -37,7 +39,10 @@ const Checkout = () => {
     'Old Bus Stand',
     'Nandgram',
     'Ghukna',
-    'Ambedkar Road'
+    'Ambedkar Road',
+    'Rajnagar',
+    'Kavinagar',
+    'Indirapuram (nearby areas)'
   ];
 
   const [placing, setPlacing] = useState(false);

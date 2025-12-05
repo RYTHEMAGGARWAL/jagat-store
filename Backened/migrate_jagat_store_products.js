@@ -760,6 +760,71 @@ category: "Jagat Store",
 },
 
 
+// ========================================
+// 🌶️ DAKHNI MIRCH
+// ========================================
+{
+  name: 'Jagat Store Dakhni Mirch (South Indian Red Chilli)',
+  weight: '100g',
+  price: 45,
+  oldPrice: 65,
+  discount: '31% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse3.mm.bing.net/th/id/OIP.Y1l9YUIvVD0xetkV-JTWcwHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: '🏪 Jagat Store | Dakhni Mirch | Mild Heat | For Curries & Chutneys',
+  stock: 100
+},
+
+// ========================================
+// 🌸 KHASKHAS (POPPY SEEDS)
+// ========================================
+{
+  name: 'Jagat Store Khaskhas (Poppy Seeds)',
+  weight: '100g',
+  price: 95,
+  oldPrice: 135,
+  discount: '30% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.qRIuri300jsM_mD9_9uAKgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Khaskhas | Pure Poppy Seeds | For Gravies & Sweets',
+  stock: 80
+},
+{
+  name: 'Jagat Store Mulethi (Licorice Root)',
+  weight: '100g',
+  price: 75,
+  oldPrice: 110,
+  discount: '32% OFF',
+  category: "Jagat Store",
+  brand: 'Jagat Store',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.TlYdv9ItPEZBX9tptHAx9QHaE2?pid=Api&H=104&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Mulethi Sticks | Throat Care | Ayurvedic',
+  stock: 100
+},
+
+// ========================================
+// 🍝 SEVIYAN RAJDHANI
+// ========================================
+{
+  name: 'Rajdhani Seviyan (Vermicelli)',
+  weight: '200g',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: "Jagat Store",
+  brand: 'Rajdhani',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.SsMGN3p2ET5y6Gh9F7aKGQAAAA?pid=Api&H=150&W=160',
+  inStock: true,
+  description: '🏪 Jagat Store | Rajdhani Seviyan | Thin & Tasty | For Kheer & Upma',
+  stock: 100
+},
+
+
 
 ];
 

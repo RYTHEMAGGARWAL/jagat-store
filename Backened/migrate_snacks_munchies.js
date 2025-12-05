@@ -1143,7 +1143,20 @@ category: 'Snacks & Munchies',
     inStock: true,
     description: 'Ashuji Boondi Plain | Crispy & Light | For Raita & Dahi Vada | 350g Pack',
     stock: 100
-}
+},
+{
+    name: 'Act II Instant Popcorn - Butter',
+    weight: '70g',
+    price: 40,
+    oldPrice: 50,
+    discount: '20% OFF',
+    category: 'Snacks & Munchies',
+    brand: 'Act II',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.qPTTKM-Bvgp9Fd9U9u5rlQHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Act II Instant Popcorn Butter | Microwave Ready | Movie Time Snack | 70g Pack',
+    stock: 100
+},
 
 
 ];

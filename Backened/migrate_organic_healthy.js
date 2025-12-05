@@ -538,7 +538,697 @@ const organicHealthyProducts = [
   inStock: true,
   description: 'Patanjali Special Chyawanprash with Saffron | Immunity Booster | Ayurvedic | 1kg',
   stock: 50
-}
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// 🪔 POOJA ESSENTIALS - KALAWA & ROLI
+// ========================================
+{
+  name: 'Pooja Kalawa (Mauli)',
+  weight: '1pc',
+  price: 15,
+  oldPrice: 20,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.T2aPonS76fnHAAovalGN5gAAAA?pid=Api&H=132&W=160',
+  inStock: true,
+  description: '🪔 Pooja Kalawa | Sacred Red Thread | Mauli | For All Pooja',
+  stock: 200
+},
+{
+  name: 'Pooja Roli (Kumkum)',
+  weight: '50g',
+  price: 20,
+  oldPrice: 30,
+  discount: '33% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.4dUMSDIc6-QQcXUl3z7nKAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Roli Kumkum | For Tilak & Pooja | Premium Quality',
+  stock: 150
+},
+
+// ========================================
+// 🪔 KAPOOR (CAMPHOR)
+// ========================================
+{
+  name: 'Saraswati Kapoor (Camphor)',
+  weight: '20g',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ndvTbvZ-TeSibybWz-IIcAHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: '🪔 Pure Kapoor | Camphor Tablets | For Aarti & Pooja | 20g',
+  stock: 150
+},
+{
+  name: 'Kapoor (Camphor)',
+  weight: '50g',
+  price: 55,
+  oldPrice: 75,
+  discount: '27% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.ZspuCWbSpHV8GCVX03BWWQHaHR?pid=Api&H=156&W=160',
+  inStock: true,
+  description: '🪔 Pure Kapoor | Camphor Tablets | For Aarti & Pooja | 50g',
+  stock: 100
+},
+{
+  name: 'Kapoor (Camphor)',
+  weight: '100g',
+  price: 99,
+  oldPrice: 130,
+  discount: '24% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.JrqtxMLCdCTXmm1A9dStDgAAAA?pid=Api&H=194&W=160',
+  inStock: true,
+  description: '🪔 Pure Kapoor | Camphor Tablets | For Aarti & Pooja | 100g',
+  stock: 80
+},
+{
+  name: 'Desi Kapoor (Bhimseni)',
+  weight: '50g',
+  price: 85,
+  oldPrice: 110,
+  discount: '23% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.HE_YpTVdYCqeEMzFhRTVQAHaFX?pid=Api&H=115&W=160',
+  inStock: true,
+  description: '🪔 Desi Bhimseni Kapoor | Pure & Natural | Premium Quality | 50g',
+  stock: 80
+},
+
+// ========================================
+// 🪔 AGARBATTI & DHOOP
+// ========================================
+{
+  name: 'Agarbatti (Incense Sticks)',
+  weight: '100g',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.QJA6Z5g29Z8HM_4T1ko7ZQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Premium Agarbatti | Fragrant Incense Sticks | Long Lasting',
+  stock: 150
+},
+{
+  name: 'Dhoopbatti Geeli (Wet Dhoop)',
+  weight: '1pc',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.Uvyve2aJ9YirSj57RoLyBgHaHC?pid=Api&H=151&W=160',
+  inStock: true,
+  description: '🪔 Geeli Dhoopbatti | Wet Dhoop Stick | Natural Fragrance',
+  stock: 100
+},
+{
+  name: 'Dhoopbatti Geeli (Wet Dhoop)',
+  weight: '1pc',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.gcexhsJxzlLGkdHAPNfNrQHaHf?pid=Api&H=161&W=160',
+  inStock: true,
+  description: '🪔 Geeli Dhoopbatti | Wet Dhoop Stick | Natural Fragrance',
+  stock: 100
+},
+{
+  name: 'Dhoopbatti Sukhi (Dry Dhoop)',
+  weight: '1pc',
+  price: 30,
+  oldPrice: 40,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.5DySlcWp7LMNJ2RUbSAVcwAAAA?pid=Api&H=144&W=160',
+  inStock: true,
+  description: '🪔 Sukhi Dhoopbatti | Dry Dhoop Stick | Pure & Aromatic',
+  stock: 100
+},
+{
+  name: 'Dhoop Cup (Sambrani)',
+  weight: '12pcs',
+  price: 40,
+  oldPrice: 55,
+  discount: '27% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.medkjKxSu2j4TbBVsujD-gHaGy?pid=Api&H=146&W=160',
+  inStock: true,
+  description: '🪔 Dhoop Cup Sambrani | Ready to Use | 12 Cups Pack',
+  stock: 120
+},
+
+
+// ========================================
+// 🪔 JYOT BATTI & WICKS
+// ========================================
+{
+  name: 'Jyot Batti (Cotton Wicks)',
+  weight: '1 Bundle',
+  price: 15,
+  oldPrice: 20,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.WHKiDtsz6qVgKejRRWV4hAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Jyot Batti | Pure Cotton Wicks | For Diya & Pooja',
+  stock: 200
+},
+{
+  name: 'Lambi Batti (Long Wicks)',
+  weight: '1 Bundle',
+  price: 20,
+  oldPrice: 30,
+  discount: '33% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.iEtUbXOS-mbJRsG5j0gloQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Lambi Batti | Long Cotton Wicks | For Akhand Jyot',
+  stock: 150
+},
+{
+  name: 'Akhand Jyot (Brass Diya)',
+  weight: '1pc',
+  price: 85,
+  oldPrice: 110,
+  discount: '23% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.ORQ5KWwjTOExEnpRV8bPiwHaHQ?pid=Api&H=156&W=160',
+  inStock: true,
+  description: '🪔 Akhand Jyot Diya | Continuous Flame | Brass Made',
+  stock: 50
+},
+
+// ========================================
+// 🪔 CHANDAN TIKA
+// ========================================
+{
+  name: 'Chandan Tika Peela (Yellow)',
+  weight: '50g',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP._Zcwp8pPWqQyqRMXU9ndCAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Chandan Tika Peela | Yellow Sandalwood Paste | For Tilak',
+  stock: 100
+},
+{
+  name: 'Chandan Tika Safed (White)',
+  weight: '50g',
+  price: 55,
+  oldPrice: 75,
+  discount: '27% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.RIuJEnFglyUBaSLXXYlwUAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Chandan Tika Safed | White Sandalwood Paste | Premium',
+  stock: 100
+},
+
+// ========================================
+// 🪔 SHRINGAR & SINDOOR
+// ========================================
+{
+  name: 'Shringar Saman Pitari (Pooja Kit)',
+  weight: '1 Set',
+  price: 125,
+  oldPrice: 165,
+  discount: '24% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.4dGDIyjSzkTbPgsLyxaQIAHaFR?pid=Api&H=113&W=160',
+  inStock: true,
+  description: '🪔 Shringar Pitari | Complete Pooja Kit | For Mata Rani',
+  stock: 60
+},
+{
+  name: 'Sindoor (Vermillion)',
+  weight: '50g',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.drkVxQIFRdWd12pXzCOPnQAAAA?pid=Api&H=203&W=160',
+  inStock: true,
+  description: '🪔 Pure Sindoor | Vermillion Powder | For Pooja & Shringar',
+  stock: 150
+},
+
+// ========================================
+// 🪔 GUGAL, LOBAN & DHOOP ITEMS
+// ========================================
+{
+  name: 'Gugal (Guggul)',
+  weight: '50g',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.pOSQhSDO7H4lDTUpKrCp5gHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Gugal | Guggul Resin | For Hawan & Dhoop',
+  stock: 100
+},
+{
+  name: 'Loban (Benzoin)',
+  weight: '50g',
+  price: 40,
+  oldPrice: 55,
+  discount: '27% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.M7iahSAkg_E62Tm2UX5pwgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Loban | Benzoin Resin | Aromatic Dhoop',
+  stock: 100
+},
+{
+  name: 'Gandhak (Sulphur)',
+  weight: '50g',
+  price: 30,
+  oldPrice: 40,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.MsrdkHLyI3z7CNiPKDWupAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Gandhak | Sulphur | For Hawan & Pooja',
+  stock: 80
+},
+{
+  name: 'Panchranga (Five Fragrance Mix)',
+  weight: '50g',
+  price: 35,
+  oldPrice: 50,
+  discount: '30% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.ePCQv1SkzYmBmnyL0tGsZQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Panchranga Mix | Five Fragrance Dhoop | For Hawan',
+  stock: 100
+},
+
+// ========================================
+// 🪔 GANGAJAL & PITAMBARI
+// ========================================
+{
+  name: 'Gangajal (Holy Water)',
+  weight: '100ml',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.iJpg38VArN5Bpo4UnByt9AHaJ4?pid=Api&H=213&W=160',
+  inStock: true,
+  description: '🪔 Pure Gangajal | Holy Ganga Water | For Pooja',
+  stock: 150
+},
+{
+  name: 'Pitambari Powder (Brass Cleaner)',
+  weight: '100g',
+  price: 30,
+  oldPrice: 40,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.yCHESxHhn3G-ARHiI-1wjgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pitambari Powder | Brass & Copper Cleaner | Shining',
+  stock: 100
+},
+
+// ========================================
+// 🪔 JANEU & SACRED THREADS
+// ========================================
+{
+  name: 'Janeu (Sacred Thread)',
+  weight: '1pc',
+  price: 20,
+  oldPrice: 30,
+  discount: '33% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.bAS8a7VBZTB4ojMYwyRnxgHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Janeu | Yagnopavit | Sacred Thread | Cotton',
+  stock: 150
+},
+{
+  name: 'Sutra Dhaga (Sacred String)',
+  weight: '1 Roll',
+  price: 15,
+  oldPrice: 20,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.3E75D1a1tPFCbwcFGYEL9QHaE7?pid=Api&H=106&W=160',
+  inStock: true,
+  description: '🪔 Sutra Dhaga | Cotton String | For Pooja & Hawan',
+  stock: 200
+},
+
+// ========================================
+// 🪔 NARIYAL & HAWAN ITEMS
+// ========================================
+{
+  name: 'Pooja Nariyal (Coconut)',
+  weight: '1pc',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.UvV1PlTyUNON0Suk__AZpQAAAA?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pooja Nariyal | Fresh Coconut | For All Rituals',
+  stock: 100
+},
+{
+  name: 'Hawan Samagri (Homemade Mix)',
+  weight: '200g',
+  price: 65,
+  oldPrice: 85,
+  discount: '24% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.AI235WBAI5bvH_w9srNk2QHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Hawan Samagri | Complete Mix | For Hawan & Pooja',
+  stock: 80
+},
+{
+  name: 'Aam Lakdi (Mango Wood)',
+  weight: '500g',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.R85zRDe_gZu3bS8ZVov10QAAAA?pid=Api&H=111&W=160',
+  inStock: true,
+  description: '🪔 Aam Lakdi | Mango Wood Sticks | For Hawan',
+  stock: 100
+},
+{
+  name: 'Navgrah Samidha',
+  weight: '1 Set',
+  price: 85,
+  oldPrice: 110,
+  discount: '23% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.1pNXdWj9R4IIQVf8S6SLzAHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Navgrah Samidha | 9 Sacred Woods | For Hawan',
+  stock: 50
+},
+{
+  name: 'Joo (Barley) for Hawan',
+  weight: '250g',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.utuB3oIdqon17wo41AlthQHaGL?pid=Api&H=133&W=160',
+  inStock: true,
+  description: '🪔 Joo Barley | For Hawan & Pooja | Pure Quality',
+  stock: 100
+},
+{
+  name: 'Cotton (Rui) for Pooja',
+  weight: '50g',
+  price: 20,
+  oldPrice: 30,
+  discount: '33% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.2bd13_5D9Z2gn8mByuzp8QHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Cotton Rui | For Diya & Pooja | Soft Quality',
+  stock: 150
+},
+
+// ========================================
+// 🪔 KALE TIL (BLACK SESAME)
+// ========================================
+{
+  name: 'Kale Til Pooja Wale (Black Sesame)',
+  weight: '100g',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.lEtEXvCURf1igaeKBcpx-wHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Kale Til | Black Sesame | For Shani Pooja & Hawan',
+  stock: 100
+},
+
+
+// ========================================
+// 🪔 POOJA KAPDA (CLOTH)
+// ========================================
+{
+  name: 'Lal Kapda (Red Cloth)',
+  weight: '1 Meter',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: '	https://tse2.mm.bing.net/th/id/OIP.hPS4LS0AIeSyC0eYdu88XwHaFD?pid=Api&H=109&W=160',
+  inStock: true,
+  description: '🪔 Lal Kapda | Red Pooja Cloth | For Chunari & Asan',
+  stock: 100
+},
+{
+  name: 'Peela Kapda (Yellow Cloth)',
+  weight: '1 Meter',
+  price: 35,
+  oldPrice: 45,
+  discount: '22% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.1lVl75xZ8xH8vL5KQ9zKAHaHa?pid=Api&P=0&h=180',
+  inStock: true,
+  description: '🪔 Peela Kapda | Yellow Pooja Cloth | For Haldi Pooja',
+  stock: 100
+},
+{
+  name: 'Safed Kapda (White Cloth)',
+  weight: '1 Meter',
+  price: 30,
+  oldPrice: 40,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse2.mm.bing.net/th/id/OIP.T9NLjH8by7p0n92afjqjLwAAAA?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Safed Kapda | White Pooja Cloth | For Shanti Pooja',
+  stock: 100
+},
+{
+  name: 'Angocha (Small Towel)',
+  weight: '1pc',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.p1mxqcuYrk0whgiFlaL9QAAAAA?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Angocha | Small Cotton Towel | For Pooja Use',
+  stock: 150
+},
+
+// ========================================
+// 🪔 MATCHES
+// ========================================
+{
+  name: 'Sunflower Safety Matches',
+  weight: '10 Box',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Sunflower',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.VFDGoAj9KpCGJE5XsuXh4AHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Sunflower Matches | Safety Match Box | 10 Boxes Pack',
+  stock: 200
+},
+{
+  name: 'Homelight Safety Matches',
+  weight: '10 Box',
+  price: 25,
+  oldPrice: 35,
+  discount: '29% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Homelight',
+  image: '	https://tse1.mm.bing.net/th/id/OIP.8b18rUW7wW7aruz5Qq0K0AHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Homelight Matches | Safety Match Box | 10 Boxes Pack',
+  stock: 200
+},
+
+// ========================================
+// 🪔 ITTR (PERFUME)
+// ========================================
+{
+  name: 'Ittr (Attar Perfume)',
+  weight: '3ml',
+  price: 45,
+  oldPrice: 60,
+  discount: '25% OFF',
+  category: 'Organic & Healthy Living',
+  brand: 'Pooja Items',
+  image: 'https://tse1.mm.bing.net/th/id/OIP.XHEdfjfaV-wwC4ykgbmKvQHaHa?pid=Api&H=160&W=160',
+  inStock: true,
+  description: '🪔 Pure Ittr | Attar Perfume | For Pooja & Special Occasions',
+  stock: 80
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// 🌿 NEHA MEHNDI
+// ========================================
+{
+    name: 'Neha Herbal Mehndi',
+    weight: '140g',
+    price: 45,
+    oldPrice: 60,
+    discount: '25% OFF',
+    category: 'Organic & Healthy Living',
+    brand: 'Neha',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.1YLNn4HD8JRkq3ZwrQdK2QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: '🌿 Neha Herbal Mehndi | 100% Natural | For Hair & Hands | 140g Pack',
+    stock: 100
+},
+{
+    name: 'Neha Mehndi Bag',
+    weight: '250g',
+    price: 65,
+    oldPrice: 85,
+    discount: '24% OFF',
+    category: 'Organic & Healthy Living',
+    brand: 'Neha',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.2e6U5ar55MvKwBrdP3IxTQHaI4?pid=Api&H=191&W=160',
+    inStock: true,
+    description: '🌿 Neha Mehndi Tahale Wali | Pure Henna Leaves | Natural | 250g Pack',
+    stock: 80
+},
+{
+    name: 'Neha Mehndi Cone - Regular',
+    weight: '1pc',
+    price: 15,
+    oldPrice: 20,
+    discount: '25% OFF',
+    category: 'Organic & Healthy Living',
+    brand: 'Neha',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.0yUbObHLXNYMKTrgLYyxkgAAAA?pid=Api&H=159&W=160',
+    inStock: true,
+    description: '🌿 Neha Mehndi Cone | Ready to Use | Dark Color | 1 Piece',
+    stock: 150
+},
+{
+    name: 'Silver Mehndi Cone',
+    weight: '1pc',
+    price: 25,
+    oldPrice: 35,
+    discount: '29% OFF',
+    category: 'Organic & Healthy Living',
+    brand: 'Neha',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.r2ckgGeisSTundLx15D_QQHaHK?pid=Api&H=154&W=160',
+    inStock: true,
+    description: '🌿 Neha Mehndi Cone Silver | Glitter Finish | For Festive | 1 Piece',
+    stock: 100
+},
+
+
+
+
+
+
+
+
+
+];
+
+
+
+
+
 
 
 
@@ -546,7 +1236,6 @@ const organicHealthyProducts = [
 
   // ORGANIC TEA & COFFEE
  
-];
 
 // ========== SMART MIGRATION FUNCTION ==========
 const smartMigrate = async () => {

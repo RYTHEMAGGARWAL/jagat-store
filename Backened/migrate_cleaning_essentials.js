@@ -613,6 +613,19 @@ const cleaningEssentialsProducts = [
   description: 'Rin | Advanced Bar | Bright Like New | Pack of 4',
   stock: 100
 },
+{
+    name: 'Ujala Supreme Fabric Whitener',
+    weight: '125ml',
+    price: 48,
+    oldPrice: 60,
+    discount: '20% OFF',
+    category: 'Cleaning Essentials',
+    brand: 'Ujala',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.pX1dMe2bvb6oDfCxFs6uiQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Ujala Supreme Fabric Whitener | Bright Clothes | Blue Liquid | 125ml',
+    stock: 120
+},
 
 // FENA
 {

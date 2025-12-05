@@ -1974,6 +1974,35 @@ const personalCareProducts = [
     description: 'Desi Fitkari Natural Alum | Pure & Natural | Water Purifier | Multi-Use | 100g',
     stock: 100
 },
+{
+    name: 'Hair Comb - Black',
+    weight: '1 Piece',
+    price: 15,
+    oldPrice: 20,
+    discount: '25% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.Gbqat1A30uehxOmj5kknEwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Hair Comb Black | Durable Plastic | For Daily Use | 1 Piece',
+    stock: 150
+},
+{
+    name: 'Nail Cutter - Regular',
+    weight: '1 Piece',
+    price: 20,
+    oldPrice: 30,
+    discount: '33% OFF',
+    category: 'Personal Care',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.QDEx8dPgfo5o-XFChXezYwHaIc?pid=Api&H=182&W=160',
+    inStock: true,
+    description: 'Nail Cutter Regular | Stainless Steel | Sharp Blade | 1 Piece',
+    stock: 150
+},
+
+
+
 
 
 

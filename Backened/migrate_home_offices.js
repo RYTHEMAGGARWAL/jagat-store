@@ -330,6 +330,445 @@ const homeOfficesProducts = [
 },
 
 
+
+
+
+
+
+
+
+// ========================================
+// 🍽️ DISPOSABLE PLATES - SUGARCANE (GANNE WALE)
+// ========================================
+{
+    name: 'Sugarcane Disposable Plate - Round',
+    weight: '25pcs',
+    price: 85,
+    oldPrice: 110,
+    discount: '23% OFF',
+    category: 'Home and Offices',
+    brand: 'Eco Friendly',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.tN2YbA8nhJOE9yzzNaAJNgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Sugarcane Disposable Plate | Eco Friendly | Biodegradable | 25 Pieces',
+    stock: 100
+},
+{
+    name: 'Sugarcane Disposable Plate - Round 3',
+    weight: '25pcs',
+    price: 85,
+    oldPrice: 110,
+    discount: '23% OFF',
+    category: 'Home and Offices',
+    brand: 'Eco Friendly',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.j1wNbAQJbgYpNNJp7Sb8XwHaH1?pid=Api&H=169&W=160',
+    inStock: true,
+    description: 'Sugarcane Disposable Plate | Eco Friendly | Biodegradable | 25 Pieces',
+    stock: 100
+},
+{
+    name: 'Sugarcane Disposable Katori (Bowl)',
+    weight: '25pcs',
+    price: 75,
+    oldPrice: 95,
+    discount: '21% OFF',
+    category: 'Home and Offices',
+    brand: 'Eco Friendly',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.kmVcpATAnno1rpDt_qFs4QHaE7?pid=Api&H=106&W=160',
+    inStock: true,
+    description: 'Sugarcane Disposable Katori | Eco Friendly | For Sweets & Curries | 25 Pieces',
+    stock: 100
+},
+
+
+
+// ========================================
+// 🥤 DISPOSABLE GLASS - CARDBOARD
+// ========================================
+{
+    name: 'Disposable Paper Glass - Raita',
+    weight: '50pcs',
+    price: 45,
+    oldPrice: 60,
+    discount: '25% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.f0c3x9obUNjIFTZci86eLAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Disposable Paper Glass Small | For Raita & Chutney | 50 Pieces',
+    stock: 150
+},
+{
+    name: 'Disposable Chai Glass (Tea Cup)',
+    weight: '50pcs',
+    price: 55,
+    oldPrice: 70,
+    discount: '21% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.viDjU380iKCBaVoO2rAfYAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Disposable Chai Glass | Paper Cup | For Hot Tea | 50 Pieces',
+    stock: 150
+},
+{
+    name: 'Disposable Coffee Glass (Large)',
+    weight: '50pcs',
+    price: 75,
+    oldPrice: 95,
+    discount: '21% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.MweLT7d8J_X80A9BSZYIvwHaHk?pid=Api&H=163&W=160',
+    inStock: true,
+    description: 'Disposable Coffee Glass | Large Size | With Lid | 50 Pieces',
+    stock: 100
+},
+{
+    name: 'Disposable Water Glass',
+    weight: '100pcs',
+    price: 85,
+    oldPrice: 110,
+    discount: '23% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.P77lD2KCLQdVeokXlL2lfQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Disposable Water Glass | Transparent | Party Essential | 100 Pieces',
+    stock: 120
+},
+
+// ========================================
+// 🥄 DISPOSABLE SPOON, FORK & TIKKI
+// ========================================
+{
+    name: 'Disposable Plastic Spoon',
+    weight: '100pcs',
+    price: 65,
+    oldPrice: 85,
+    discount: '24% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.a009NVTAfOVbl1_i3BGh2AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Disposable Plastic Spoon | Sturdy Quality | Party Pack | 100 Pieces',
+    stock: 150
+},
+{
+    name: 'Disposable Plastic Fork',
+    weight: '100pcs',
+    price: 65,
+    oldPrice: 85,
+    discount: '24% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.MKUhi9p7D2vbLQST_M9Y1QAAAA?pid=Api&H=168&W=160',
+    inStock: true,
+    description: 'Disposable Plastic Fork | Sturdy Quality | Party Pack | 100 Pieces',
+    stock: 150
+},
+
+
+// ========================================
+// 🧻 NAPKIN
+// ========================================
+{
+    name: 'Paper Napkin - White',
+    weight: '100pcs',
+    price: 45,
+    oldPrice: 60,
+    discount: '25% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.VTtp2freB9ZAVW7_mq1zZwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Paper Napkin White | Soft & Absorbent | Dining Essential | 100 Pieces',
+    stock: 150
+},
+
+
+// ========================================
+// 🧻 TOILET ROLL & KITCHEN ROLL
+// ========================================
+
+{
+    name: 'Toilet Roll - Pack of 6',
+    weight: '4 Rolls',
+    price: 85,
+    oldPrice: 110,
+    discount: '23% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.r7i4THMRCnkSzeF7Se59vAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Toilet Roll Pack | Soft 2-Ply | 4 Rolls | Value Pack',
+    stock: 100
+},
+
+{
+    name: 'Kitchen Roll - Pack of 2',
+    weight: '2 Rolls',
+    price: 115,
+    oldPrice: 145,
+    discount: '21% OFF',
+    category: 'Home and Offices',
+    brand: 'Generic',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.bCTXXjFzth-Jd0i9tEC5VgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Kitchen Roll Pack | Super Absorbent | 2 Rolls | Value Pack',
+    stock: 80
+},
+{
+    name: 'Tulip Cotton Earbuds',
+    weight: '100pcs',
+    price: 35,
+    oldPrice: 45,
+    discount: '22% OFF',
+    category: 'Home and Offices',
+    brand: 'Tulip',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.gbDTWvHwToDa-H1YsvFTWgAAAA?pid=Api&H=157&W=160',
+    inStock: true,
+    description: 'Tulip Cotton Earbuds | Soft & Safe | Double Sided | 100 Sticks',
+    stock: 150
+},
+
+
+{
+    name: 'Tulip Toothpick',
+    weight: '100pcs',
+    price: 20,
+    oldPrice: 30,
+    discount: '33% OFF',
+    category: 'Home and Offices',
+    brand: 'Tulip',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.ce7BKiPJY15CRgdbnigKIAHaHg?pid=Api&H=162&W=160',
+    inStock: true,
+    description: 'Tulip Toothpick | Wooden Sticks | Hygienic | 100 Pieces',
+    stock: 150
+},
+
+
+
+
+
+
+
+// ========================================
+// 🔋 DURACELL BATTERIES
+// ========================================
+{
+    name: 'Duracell AA Battery',
+    weight: '2pcs',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Home and Offices',
+    brand: 'Duracell',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.pR06VeMMoNjwAtr3zpMKAAHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Duracell AA Battery | Long Lasting | Alkaline | 2 Pieces Pack',
+    stock: 100
+},
+
+{
+    name: 'Duracell AAA Battery',
+    weight: '2pcs',
+    price: 85,
+    oldPrice: 99,
+    discount: '14% OFF',
+    category: 'Home and Offices',
+    brand: 'Duracell',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.iHOgKtlZdmAPIj32fz0KzQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Duracell AAA Battery | Long Lasting | Alkaline | 2 Pieces Pack',
+    stock: 100
+},
+
+
+// ========================================
+// 🔋 EVEREADY BATTERIES
+// ========================================
+{
+    name: 'Eveready AA Battery',
+    weight: '2pcs',
+    price: 35,
+    oldPrice: 45,
+    discount: '22% OFF',
+    category: 'Home and Offices',
+    brand: 'Eveready',
+    image: 'https://tse1.mm.bing.net/th/id/OIP._9wqetu9O0lVZYJp8TKzAQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Eveready AA Battery | Zinc Carbon | Value Pack | 2 Pieces',
+    stock: 150
+},
+
+{
+    name: 'Eveready AAA Battery',
+    weight: '2pcs',
+    price: 35,
+    oldPrice: 45,
+    discount: '22% OFF',
+    category: 'Home and Offices',
+    brand: 'Eveready',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.0w1_zK4XvXmC83J8Db5poQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Eveready AAA Battery | Zinc Carbon | Value Pack | 2 Pieces',
+    stock: 150
+},
+
+
+// ========================================
+// 🔋 EVEREADY GEYSER CELL (D SIZE)
+// ========================================
+
+{
+    name: 'Eveready Geyser Cell (D Size)',
+    weight: '2pcs',
+    price: 85,
+    oldPrice: 105,
+    discount: '19% OFF',
+    category: 'Home and Offices',
+    brand: 'Eveready',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Mso2dXZHm1KJ5dM70e1zUAHaF8?pid=Api&H=128&W=160',
+    inStock: true,
+    description: 'Eveready Geyser Cell | D Size Battery | For Gas Geyser | 2 Pieces',
+    stock: 80
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// 🧻 FRESHWRAP ALUMINIUM FOIL PAPER
+// ========================================
+{
+    name: 'Freshwrap Aluminium Foil Paper',
+    weight: '9m',
+    price: 85,
+    oldPrice: 105,
+    discount: '19% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.I_nnpmTs2NZU08fcdOQorwAAAA?pid=Api&P=0&w=300&h=300',
+    inStock: true,
+    description: 'Freshwrap Aluminium Foil Paper | Food Grade | Kitchen Essential | 9 Meters',
+    stock: 100
+},
+{
+    name: 'Freshwrap Aluminium Foil Paper',
+    weight: '18m',
+    price: 155,
+    oldPrice: 185,
+    discount: '16% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.nb7Ed7uOBToxxs66Vx5bWQHaE8?pid=Api&P=0&w=600&h=400',
+    inStock: true,
+    description: 'Freshwrap Aluminium Foil Paper | Food Grade | Kitchen Essential | 18 Meters',
+    stock: 80
+},
+{
+    name: 'Freshwrap Aluminium Foil Paper',
+    weight: '1kg',
+    price: 450,
+    oldPrice: 525,
+    discount: '14% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.k8ABaQ7kQs9GXwAsu98WJwHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Freshwrap Aluminium Foil Paper | Food Grade | Bulk Pack | 1kg Roll',
+    stock: 50
+},
+
+// ========================================
+// 🧻 FRESHWRAP FOOD WRAPPING PAPER
+// ========================================
+{
+    name: 'Freshwrap Food Wrapping Paper',
+    weight: '20m',
+    price: 65,
+    oldPrice: 80,
+    discount: '19% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.9jqmhZV8JQumE9pyXr75IgHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Freshwrap Food Wrapping Paper | Grease Proof | For Roti & Paratha | 20 Meters',
+    stock: 100
+},
+{
+    name: 'Freshwrap Food Wrapping Paper',
+    weight: '65m',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.LcgzdMsqthNEOteD2PFYbQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Freshwrap Food Wrapping Paper | Grease Proof | Jumbo Pack | 65 Meters',
+    stock: 60
+},
+
+// ========================================
+// 🧻 BAKING PAPER
+// ========================================
+{
+    name: 'Freshwrap Baking Paper',
+    weight: '9m',
+    price: 125,
+    oldPrice: 150,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Freshwrap',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.D6vbNdcNMQg9jR8YrHWlmwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Freshwrap Baking Paper | Non-Stick | Oven Safe | For Cakes & Cookies | 9 Meters',
+    stock: 80
+},
+
+// ========================================
+// 🧻 CLING FILM
+// ========================================
+{
+    name: 'Food Fresh Cling Film',
+    weight: '30m',
+    price: 95,
+    oldPrice: 120,
+    discount: '21% OFF',
+    category: 'Home and Offices',
+    brand: 'Food Fresh',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.mBGo3aTsE3jctBFsloyFSgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Food Fresh Cling Film | Transparent | Keeps Food Fresh | Microwave Safe | 30 Meters',
+    stock: 100
+},
+
+
+
+
+
+
+
+
+
+
 ];
 
 // ========== SMART MIGRATION FUNCTION ==========

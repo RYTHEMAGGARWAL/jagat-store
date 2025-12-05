@@ -1016,8 +1016,54 @@ const breakfastInstantProducts = [
     inStock: true,
     description: 'Sugar Free Natura Drops | Made from Natural Stevia | Easy to Use | 200 Drops',
     stock: 100
-}
+},
+// ========================================
+// 🥤 BOURNVITA POUCH - Breakfast & Instant Foods
+// ========================================
+{
+    name: 'Cadbury Bournvita - Pouch',
+    weight: '30g',
+    price: 15,
+    oldPrice: 20,
+    discount: '25% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Cadbury',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.yXtTqvX7sdEvnzx6xP_NTgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Cadbury Bournvita Pouch | Single Serve | Vitamin D for Immunity | 30g',
+    stock: 200
+},
 
+// ========================================
+// 🥤 HORLICKS POUCH - Breakfast & Instant Foods
+// ========================================
+
+{
+    name: 'Horlicks Chocolate - Pouch',
+    weight: '30g',
+    price: 15,
+    oldPrice: 20,
+    discount: '25% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Horlicks',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.E3r6dbEFARulFkh4nxmoWwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Horlicks Chocolate Pouch | Single Serve | Clinically Proven | 30g',
+    stock: 200
+},
+{
+    name: 'Magic Handwash Pouch - Pack of 10',
+    weight: '10ml x 10',
+    price: 18,
+    oldPrice: 25,
+    discount: '28% OFF',
+    category: 'Personal Care',
+    brand: 'Magic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.ucDrV0s4V7d9KyzdswRUMQAAAA?pid=Api&P=0&w=300&h=288',
+    inStock: true,
+    description: 'Magic Handwash Pouch Pack | 10 Sachets | Germ Protection | Value Pack',
+    stock: 150
+},
 
 
 

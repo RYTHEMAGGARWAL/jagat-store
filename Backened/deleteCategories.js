@@ -26,8 +26,7 @@ const CATEGORIES_TO_DELETE = [
   // 'Organic & Healthy Living',
   
   'Tea Coffee',
-  'Grocery',
-  'Home & Office',
+  'Grocery'
   
 
   
