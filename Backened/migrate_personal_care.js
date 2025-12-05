@@ -2042,6 +2042,81 @@ const personalCareProducts = [
     stock: 150
 },
 
+// ========================================
+// 👁️ LAKME EYECONIC KAJAL
+// ========================================
+{
+    name: 'Lakme Eyeconic Kajal',
+    weight: '0.35g',
+    price: 225,
+    oldPrice: 265,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Lakme',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.SJOFEA5us2S_-KVwnXyWRwHaIx?pid=Api&H=189&W=160',
+    inStock: true,
+    description: 'Lakme Eyeconic Kajal | Deep Black | Smudge Proof | 22 Hour Stay | 0.35g',
+    stock: 3
+},
+
+// ========================================
+// 👁️ MAYBELLINE KAJAL
+// ========================================
+{
+    name: 'Maybelline Colossal Kajal',
+    weight: '0.35g',
+    price: 250,
+    oldPrice: 295,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Maybelline',
+    image: '	https://tse2.mm.bing.net/th/id/OIP._fCjTQGLpJrDwZi9ZH6f7gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Maybelline Colossal Kajal | Super Black | Smudge Proof | 24 Hour Stay | 0.35g',
+    stock: 3
+},// ========================================
+// 💋 NIVEA LIP BALM
+// ========================================
+{
+    name: 'Nivea Lip Balm Original Care 24H+ Moisture',
+    weight: '4.8g',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Nivea',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.rIsmHgly6UZFJg8KMWpxCgAAAA?pid=Api&P=0&w=312&h=500',
+    inStock: true,
+    description: 'Nivea Lip Balm Original Care | 24H+ Moisture | Shea Butter & Natural Oils | 4.8g',
+    stock: 3
+},
+{
+    name: 'Nivea Lip Balm Active Care 24H+ Moisture',
+    weight: '4.8g',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Nivea',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Q-13PLOOxVU8ljVYoyp3lAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nivea Lip Balm Active Care | SPF Protection | For Men | Moisturizing | 4.8g',
+    stock: 3
+},
+{
+    name: 'Nivea Lip Balm Strawberry 24H+ Moisture',
+    weight: '4.8g',
+    price: 175,
+    oldPrice: 210,
+    discount: '17% OFF',
+    category: 'Personal Care',
+    brand: 'Nivea',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.-Jwen3SQiPmwFeqXpAZzegHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nivea Lip Balm Strawberry | Fruity Shine | Soft Pink Tint | Moisturizing | 4.8g',
+    stock: 3
+}
+
 
 
 

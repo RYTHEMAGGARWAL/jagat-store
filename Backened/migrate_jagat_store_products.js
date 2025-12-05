@@ -915,6 +915,18 @@ category: "Jagat Store",
     inStock: true,
     description: '🏪 Jagat Store | Kaju Namkeen Masala | Premium Cashews | Spicy Flavour | 200g Pack',
     stock: 55
+},{
+    name: 'Jagat Store Hudda Hing',
+    weight: '10g',
+    price: 38,
+    oldPrice: 48,
+    discount: '21% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.pi5PPqitE_wYEkDzl_NvQAHaGA?pid=Api&P=0&w=493&h=400',
+    inStock: true,
+    description: '🏪 Jagat Store | Hing | Premium Quality Asafoetida | Strong Aroma | 10g Pack',
+    stock: 140
 }
 
 
