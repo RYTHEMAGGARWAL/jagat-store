@@ -1790,6 +1790,45 @@ category: "Atta Rice Dal",
     description: 'Jagat Store Khane Ka Soda | Cooking Soda | For Soft Pakoras & Bhajis | 100g Pack',
     stock: 50
 },
+{
+    name: 'Jagat Store Sama Ke Chawal (Vrat)',
+    weight: '250g',
+    price: 65,
+    oldPrice: 85,
+    discount: '24% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Jagat Store',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.rHL1wLHXl7vFn7cO97EG8AHaEK?pid=Api&P=0&w=711&h=400',
+    inStock: true,
+    description: 'Jagat Store Sama Ke Chawal | Vrat Special | Barnyard Millet | Fasting Rice | 250g',
+    stock: 100
+},
+{
+    name: 'Jagat Store Cholai Bhuni-Rajgiri (Roasted Amaranth)',
+    weight: '250g',
+    price: 85,
+    oldPrice: 105,
+    discount: '19% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.jR6pbfIiPZ6ZxbGe2SlYiwHaJC?pid=Api&P=0&w=400&h=488',
+    inStock: true,
+    description: 'Jagat Store Cholai Bhuni | Roasted Amaranth | Vrat Special | Ready to Eat | 250g',
+    stock: 100
+},
+{
+    name: 'Jagat Store Cholai Plain-Rajgiri (Raw Amaranth)',
+    weight: '250g',
+    price: 65,
+    oldPrice: 85,
+    discount: '24% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.FTF0m17XDp1NJ4JiI2Br9QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Jagat Store Cholai Plain | Raw Amaranth Seeds | Vrat Special | High Protein | 250g',
+    stock: 100
+},
 
 // MAGGI NOODLES
 

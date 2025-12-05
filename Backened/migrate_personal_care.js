@@ -2000,6 +2000,19 @@ const personalCareProducts = [
     description: 'Nail Cutter Regular | Stainless Steel | Sharp Blade | 1 Piece',
     stock: 150
 },
+{
+    name: 'Magic Handwash Pouch - Pack of 10',
+    weight: '10ml x 10',
+    price: 18,
+    oldPrice: 25,
+    discount: '28% OFF',
+    category: 'Personal Care',
+    brand: 'Magic',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.ucDrV0s4V7d9KyzdswRUMQAAAA?pid=Api&P=0&w=300&h=288',
+    inStock: true,
+    description: 'Magic Handwash Pouch Pack | 10 Sachets | Germ Protection | Value Pack',
+    stock: 150
+},
 
 
 

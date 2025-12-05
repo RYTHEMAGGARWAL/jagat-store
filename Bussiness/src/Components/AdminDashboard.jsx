@@ -1,4 +1,4 @@
-// Frontend/src/Components/AdminDashboard.jsx - ENHANCED WITH DATE FILTERS
+// Frontend/src/Components/AdminDashboard.jsx - WITH STORE ON/OFF TOGGLE
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import {
   Filter
 } from 'lucide-react';
 import api from '../utils/api';
+import StoreToggle from './StoreToggle';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -233,6 +234,9 @@ const AdminDashboard = () => {
         <h1>🎯 Admin Dashboard</h1>
         <p>Manage your store from here</p>
       </div>
+
+      {/* 🏪 STORE ON/OFF TOGGLE - NEW! */}
+      <StoreToggle />
 
       {/* 📅 DATE FILTER SECTION */}
       <div className="date-filter-section">

@@ -1051,19 +1051,151 @@ const breakfastInstantProducts = [
     description: 'Horlicks Chocolate Pouch | Single Serve | Clinically Proven | 30g',
     stock: 200
 },
+
+
+
+// ========================================
+// ☕ NESCAFE CLASSIC COFFEE
+// ========================================
 {
-    name: 'Magic Handwash Pouch - Pack of 10',
-    weight: '10ml x 10',
-    price: 18,
-    oldPrice: 25,
-    discount: '28% OFF',
-    category: 'Personal Care',
-    brand: 'Magic',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.ucDrV0s4V7d9KyzdswRUMQAAAA?pid=Api&P=0&w=300&h=288',
+    name: 'Nescafe Classic Coffee',
+    weight: '25g',
+    price: 80,
+    oldPrice: 175,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.kcUpeP7l3blga_vxAdhsvwHaHa?pid=Api&H=160&W=160',
     inStock: true,
-    description: 'Magic Handwash Pouch Pack | 10 Sachets | Germ Protection | Value Pack',
-    stock: 150
+    description: 'Nescafe Classic Coffee | 100% Pure Instant Coffee | Rich Aroma | 25g',
+    stock: 100
 },
+
+{
+    name: 'Nescafe Classic Coffee',
+    weight: '50g',
+    price: 145,
+    oldPrice: 175,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.mGH9hPl0-s84vahOYdT4RwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nescafe Classic Coffee | 100% Pure Instant Coffee | Rich Aroma | 50g',
+    stock: 100
+},
+{
+    name: 'Nescafe Classic Coffee',
+    weight: '5g x 25 Sachets',
+    price: 50,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.31PN4kdFCHxpHYQecC8bsgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nescafe Classic Coffee | 100% Pure Instant Coffee | Rich Aroma | 25pack of 5g Sachets',
+    stock: 120
+},
+{
+    name: 'Nescafe Classic Coffee',
+    weight: '100g',
+    price: 275,
+    oldPrice: 330,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.HBmNa8YDK7c0xoo2d3ELqwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nescafe Classic Coffee | 100% Pure Instant Coffee | Rich Aroma | 100g Jar',
+    stock: 80
+},
+{
+    name: 'Nescafe Classic Coffee',
+    weight: '200g',
+    price: 499,
+    oldPrice: 599,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.JQszI88DiFFB-XsKW6x1AAHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Nescafe Classic Coffee | 100% Pure Instant Coffee | Rich Aroma | 200g Jar',
+    stock: 60
+},
+
+// ========================================
+// ☕ NESCAFE GOLD COFFEE
+// ========================================
+{
+    name: 'Nescafe Gold Coffee',
+    weight: '50g',
+    price: 299,
+    oldPrice: 360,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.oAo3MprPtL91ZXFs3jSXqwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nescafe Gold Coffee | Premium Instant Coffee | Smooth & Rich | 50g Jar',
+    stock: 80
+},
+
+// ========================================
+// ☕ BRU COFFEE
+// ========================================
+{
+    name: 'Bru Instant Coffee',
+    weight: '25g',
+    price: 65,
+    oldPrice: 80,
+    discount: '19% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Bru',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.X_v61WoyK829OPR4Xb99WgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Bru Instant Coffee | Rich & Aromatic | Made for India | 25g',
+    stock: 3
+},
+
+
+
+// ========================================
+// ☕ NESCAFE 3-IN-1 COFFEE
+// ========================================
+{
+    name: 'Nescafe Frappe All-In-One Cold Coffee Sachet',
+    weight: '16g',
+    price: 10,
+    oldPrice: 12,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Nescafe',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.0VyYVtQ0A-KxTPwWyHXmHAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Nescafe Frappe All-In-One Cold Coffee | Coffee + Milk + Sugar | Just Add Water | Single Sachet',
+    stock: 300
+},
+
+
+// ========================================
+// 🍫 WEIKFIELD DRINKING CHOCOLATE
+// ========================================
+{
+    name: 'Weikfield Drinking Chocolate or Coffee Powder',
+    weight: '100g',
+    price: 85,
+    oldPrice: 105,
+    discount: '19% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Weikfield',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.a3XG0atTYNPGFL1cZ59jVQAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Weikfield Drinking Chocolate or Coffee Powder | Rich Cocoa | Hot or Cold | 100g',
+    stock: 100
+},
+
+
 
 
 

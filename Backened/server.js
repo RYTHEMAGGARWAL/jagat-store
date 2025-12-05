@@ -1,3 +1,5 @@
+// Backend/server.js - WITH STORE ON/OFF FEATURE
+
 const orderController = require('./controllers/orderController');
 console.log('✅ Order controller loaded from:', __dirname + '/controllers/orderController.js');
 
@@ -44,7 +46,10 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
-app.use('/api/upload', require('./routes/uploadRoutes')); // ✅ CLOUDINARY UPLOAD ROUTE
+app.use('/api/upload', require('./routes/uploadRoutes'));
+
+// 🏪 STORE SETTINGS ROUTE - NEW!
+app.use('/api/store', require('./routes/storeRoutes'));
 
 // Health check
 app.get('/', (req, res) => {
@@ -74,13 +79,14 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`✅ MongoDB Connected Successfully`);
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔐 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔔 Socket.IO ready for real-time notifications`);
   console.log(`📸 Cloudinary upload ready at /api/upload`);
+  console.log(`🏪 Store settings ready at /api/store`);
 });
 
 // ========================================
-// 🏓 KEEP SERVER ALIVE (Render Free Tier)
+// 🔁 KEEP SERVER ALIVE (Render Free Tier)
 // ========================================
 const https = require('https');
 const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.com';
@@ -89,7 +95,7 @@ const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.co
 if (process.env.NODE_ENV === 'production') {
   setInterval(() => {
     https.get(`${BACKEND_URL}/health`, (res) => {
-      console.log('🏓 Keep-alive ping sent');
+      console.log('🔁 Keep-alive ping sent');
     }).on('error', (err) => {
       console.log('Ping error:', err.message);
     });

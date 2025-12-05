@@ -1,0 +1,290 @@
+/* Frontend/src/Components/StoreBanner.css - With Countdown */
+
+/* ==================== */
+/* MAIN BANNER STYLES */
+/* ==================== */
+
+.store-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 14px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Closed Banner */
+.store-banner.closed {
+  background: linear-gradient(90deg, #ff6b6b 0%, #ee5a5a 100%);
+  color: white;
+}
+
+/* Announcement Banner */
+.store-banner.announcement {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Banner Content */
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.banner-icon {
+  font-size: 18px;
+}
+
+.banner-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.banner-text strong {
+  font-weight: 700;
+}
+
+.banner-separator {
+  opacity: 0.6;
+}
+
+/* ⏱️ Countdown Badge */
+.countdown-badge {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 8px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Close Button */
+.banner-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.banner-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* ==================== */
+/* CHECKOUT BLOCKED */
+/* ==================== */
+
+.checkout-blocked-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.checkout-blocked-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.blocked-emoji {
+  font-size: 60px;
+  margin-bottom: 16px;
+}
+
+.blocked-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d63031;
+  margin-bottom: 12px;
+}
+
+.blocked-message {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.blocked-info {
+  background: #f8f9fa;
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.blocked-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.blocked-btn {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.blocked-btn.primary {
+  background: linear-gradient(135deg, #54b226, #45a01e);
+  color: white;
+}
+
+.blocked-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(84, 178, 38, 0.4);
+}
+
+.blocked-btn.secondary {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.blocked-btn.secondary:hover {
+  background: #e0e0e0;
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .store-banner {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .banner-content {
+    gap: 6px;
+  }
+  
+  .banner-text {
+    gap: 5px;
+  }
+  
+  .countdown-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .banner-icon {
+    font-size: 16px;
+  }
+  
+  .banner-close {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .checkout-blocked-modal {
+    padding: 30px 20px;
+  }
+  
+  .blocked-emoji {
+    font-size: 50px;
+  }
+  
+  .blocked-title {
+    font-size: 20px;
+  }
+  
+  .blocked-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .store-banner {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  
+  .banner-separator {
+    display: none;
+  }
+  
+  .banner-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  
+  .countdown-badge {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}

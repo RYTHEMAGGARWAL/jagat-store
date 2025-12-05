@@ -129,6 +129,34 @@ const babyCareProducts = [
     description: 'Mamy Poko Pants | Large Size (9-14 kg) | Soft & Comfortable | 14 Pants',
     stock: 100
 },
+{
+    name: 'Bonny Silicone Nipple',
+    weight: '1pc',
+    price: 40,
+    oldPrice: 50,
+    discount: '20% OFF',
+    category: 'Baby Care',
+    brand: 'Bonny',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.g521OGIbjlfnzsL8zvlXrgAAAA?pid=Api&P=0&w=400&h=449',
+    inStock: true,
+    description: 'Bonny Silicone Nipple | Medium Size | Soft & Safe | BPA Free | 1 Piece',
+    stock: 100
+},
+{
+    name: 'Bonny Feeding Bottle',
+    weight: '120ml',
+    price: 199,
+    oldPrice: 240,
+    discount: '17% OFF',
+    category: 'Baby Care',
+    brand: 'Bonny',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.g521OGIbjlfnzsL8zvlXrgAAAA?pid=Api&P=0&w=400&h=449',
+    inStock: true,
+    description: 'Bonny Feeding Bottle | 120ml | Peristaltic Nipple | BPA Free',
+    stock: 60
+},
+
+
 
 
 
