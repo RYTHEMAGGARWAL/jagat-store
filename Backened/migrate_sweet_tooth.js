@@ -72,6 +72,48 @@ const sweetToothProducts = [
     description: 'Kinder Creamy | Milky & Cocoa | Smooth Texture | 19g',
     stock: 100
 },
+
+{
+    name: 'Tic Tac Strawberry',
+    weight: '7.7g',
+    price: 20,
+    oldPrice: 25,
+    discount: '20% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Tic Tac',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.I7KVrRK_pYbQP50vpN-JtgHaLP?pid=Api&H=242&W=160',
+    inStock: true,
+    description: 'Tic Tac Strawberry | Refreshing Mint | Pocket Friendly | 7.7g Pack',
+    stock: 15
+},
+{
+    name: 'Tic Tac Orange',
+    weight: '7.7g',
+    price: 20,
+    oldPrice: 25,
+    discount: '20% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Tic Tac',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.1JB_cKB76dAJgK3LET9YuQHaLu?pid=Api&H=253&W=160',
+    inStock: true,
+    description: 'Tic Tac Orange | Refreshing Citrus Flavour | Pocket Friendly | 7.7g Pack',
+    stock: 140
+},
+{
+    name: 'Tic Tac Spearmint',
+    weight: '7.7g',
+    price: 20,
+    oldPrice: 25,
+    discount: '20% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Tic Tac',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Y1_JPMI5bcI-b8ojhJceagHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Tic Tac Spearmint | Cool Minty Fresh | Pocket Friendly | 7.7g Pack',
+    stock: 130
+},
+
+
 {
     name: 'Kinder Schoko Bons',
     weight: '40g',
@@ -85,6 +127,37 @@ const sweetToothProducts = [
     description: 'Kinder Schoko Bons | Crispy Chocolate Balls | Hazelnut Filling | 40g Pack',
     stock: 100
 },
+{
+    name: 'Choki Choki Chocolate Paste Sticks',
+    weight: '32g',
+    price: 20,
+    oldPrice: 25,
+    discount: '20% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Choki Choki',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.fPaGPCXHlYJ2KsJMkpLLxQHaHp?pid=Api&H=165&W=160',
+    inStock: true,
+    description: 'Choki Choki Chocolate Paste Sticks | Creamy Hazelnut | Fun to Eat | 32g Pack (4 Sticks)',
+    stock: 120
+},
+
+// ========================================
+// 🍫 CADBURY CHOCOBAKES
+// ========================================
+{
+    name: 'Cadbury Chocobakes Choco Filled Cookies',
+    weight: '75g',
+    price: 30,
+    oldPrice: 35,
+    discount: '14% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Cadbury',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.VsNBJqv6lh-6jq5miBlrjAHaEl?pid=Api&H=98&W=160',
+    inStock: true,
+    description: 'Cadbury Chocobakes Choc Filled Cookies | Soft Baked | Rich Chocolate Centre | 75g Pack',
+    stock: 100
+},
+
 
 // ============ FERRERO ROCHER ============
 {
@@ -909,6 +982,48 @@ const sweetToothProducts = [
     description: 'Lotte Choco Pie | Soft Cake with Marshmallow | 12 Pieces Family Box',
     stock: 80
 },
+// ========================================
+// 🍬 HAJMOLA JAR
+// ========================================
+{
+    name: 'Hajmola Anardana',
+    weight: '120g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Dabur',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.zRy_PTSg7gWDXzpQGVCB5wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Hajmola Anardana | Digestive Tablets | Pomegranate Flavour | 120g Jar',
+    stock: 90
+},
+{
+    name: 'Hajmola Imli',
+    weight: '120g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Dabur',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.boDZoEtMYb0LUg5-wOSM8wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Hajmola Imli | Digestive Tablets | Tamarind Flavour | 120g Jar',
+    stock: 85
+},
+{
+    name: 'Hajmola Regular',
+    weight: '120g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Sweet Tooth',
+    brand: 'Dabur',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.XZ01W670jmwAnTk0MIzEhAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Hajmola Regular | Digestive Tablets | Classic Flavour | 120g Jar',
+    stock: 95
+}
  
   
 ];

@@ -678,6 +678,107 @@ const coldDrinksJuicesProducts = [
     description: 'Hamdard Rooh Afza | Rose Sharbat | Refreshing Summer Drink | 750ml Bottle',
     stock: 80
 },
+
+
+// Tang Products - 500g
+{
+    name: 'Tang Lemon Instant Drink Mix',
+    weight: '500g',
+    price: 180,
+    oldPrice: 210,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Tang',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.tA7dZ0tuqE40agJKYZ57tAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Tang Lemon Instant Drink Mix | Refreshing Citrus Flavour | Rich in Vitamin C | 500g Pack',
+    stock: 100
+},
+{
+    name: 'Tang Orange Instant Drink Mix',
+    weight: '500g',
+    price: 180,
+    oldPrice: 210,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Tang',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.ojrc0j3iXiDMnWDfnpz6lAHaOa?pid=Api&H=311&W=160',
+    inStock: true,
+    description: 'Tang Orange Instant Drink Mix | Classic Orange Flavour | Rich in Vitamin C | 500g Pack',
+    stock: 120
+},
+{
+    name: 'Tang Mango Instant Drink Mix',
+    weight: '500g',
+    price: 180,
+    oldPrice: 210,
+    discount: '14% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Tang',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.FXbqbGO7ududp7r2pcFkLwHaOa?pid=Api&H=311&W=160',
+    inStock: true,
+    description: 'Tang Mango Instant Drink Mix | Real Mango Flavour | Rich in Vitamin C | 500g Pack',
+    stock: 90
+},
+
+// Glucon-D Products - 1kg
+{
+    name: 'Glucon-D Orange Energy Drink',
+    weight: '1kg',
+    price: 270,
+    oldPrice: 310,
+    discount: '13% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Glucon-D',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.LAWGKikSnHQHuDypFTdA0QHaES?pid=Api&H=92&W=160',
+    inStock: true,
+    description: 'Glucon-D Orange Instant Energy Drink | Glucose Power | Fights Fatigue | 1kg Pack',
+    stock: 75
+},
+{
+    name: 'Glucon-D Lemon Energy Drink',
+    weight: '1kg',
+    price: 270,
+    oldPrice: 310,
+    discount: '13% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Glucon-D',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.OU2nQIP0-nHWgcHP0IA4rQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Glucon-D Lemon Instant Energy Drink | Glucose Power | Refreshing Nimbu Taste | 1kg Pack',
+    stock: 65
+},
+
+// Glucon-D Products - 500g
+{
+    name: 'Glucon-D Orange Energy Drink',
+    weight: '500g',
+    price: 145,
+    oldPrice: 170,
+    discount: '15% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Glucon-D',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.v5JTu7Aty_iGBz9mS4uvSAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Glucon-D Orange Instant Energy Drink | Glucose Power | Fights Fatigue | 500g Pack',
+    stock: 100
+},
+{
+    name: 'Glucon-D Lemon Energy Drink',
+    weight: '500g',
+    price: 145,
+    oldPrice: 170,
+    discount: '15% OFF',
+    category: 'Cold Drinks & Juices',
+    brand: 'Glucon-D',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.h0LyKTcjvfXM32vnouoNjAHaLo?pid=Api&H=251&W=160',
+    inStock: true,
+    description: 'Glucon-D Lemon Instant Energy Drink | Glucose Power | Refreshing Nimbu Taste | 500g Pack',
+    stock: 85
+}
+
+
+
  
 
 ];

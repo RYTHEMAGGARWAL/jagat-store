@@ -65,6 +65,19 @@ const pharmacyProducts = [
     stock: 80
 },
 {
+    name: 'Black Rose Kali Mehndi',
+    weight: '50g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Pharmacy',
+    brand: 'Black Rose',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.G9-cXKrHo--JcTm7_hu-jgAAAA?pid=Api&H=231&W=160',
+    inStock: true,
+    description: 'Black Rose Kali Mehndi | Natural Black Hair Color | Henna Based | 50g Pack',
+    stock: 100
+},
+{
     name: 'L\'Oreal Paris Hair Color - No. 4 (Brown)',
     weight: '100g',
     price: 185,
@@ -554,7 +567,102 @@ const pharmacyProducts = [
     description: 'Zandu Balm | Headache & Body Pain Relief | Ayurvedic | 25g',
     stock: 120
 },
-
+// ========================================
+// 🌿 SAT ISABGOL KI BHUSI
+// ========================================
+{
+    name: 'Sat Isabgol Ki Bhusi',
+    weight: '200g',
+    price: 145,
+    oldPrice: 175,
+    discount: '17% OFF',
+    category: 'Pharmacy',
+    brand: 'Sat Isabgol',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.yl9PY6u5H3AwPTkhSgybMwAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Sat Isabgol Ki Bhusi | Psyllium Husk | Natural Fiber | Digestive Health | 200g Pack',
+    stock: 80
+},
+{
+    name: 'Sat Isabgol Ki Bhusi',
+    weight: '100g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Pharmacy',
+    brand: 'Sat Isabgol',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.yl9PY6u5H3AwPTkhSgybMwAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Sat Isabgol Ki Bhusi | Psyllium Husk | Natural Fiber | Digestive Health | 100g Pack',
+    stock: 100
+},
+{
+    name: 'Sat Isabgol Ki Bhusi',
+    weight: '50g',
+    price: 48,
+    oldPrice: 58,
+    discount: '17% OFF',
+    category: 'Pharmacy',
+    brand: 'Sat Isabgol',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.8GWws3gLLN4EKWd-c9xzUgAAAA?pid=Api&H=337&W=160',
+    inStock: true,
+    description: 'Sat Isabgol Ki Bhusi | Psyllium Husk | Natural Fiber | Digestive Health | 50g Pack',
+    stock: 120
+},
+// ========================================
+// 🧴 VASELINE PETROLEUM JELLY
+// ========================================
+{
+    name: 'Vaseline Petroleum Jelly',
+    weight: '20g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Pharmacy',
+    brand: 'Vaseline',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.66qp1Vt-w5hRh-MChoviswHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vaseline Petroleum Jelly | Original | Pure Skin Care | Moisturizing | 20g Pack',
+    stock: 150
+},
+{
+    name: 'Vaseline Petroleum Jelly',
+    weight: '40g',
+    price: 80,
+    oldPrice: 95,
+    discount: '16% OFF',
+    category: 'Pharmacy',
+    brand: 'Vaseline',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.66qp1Vt-w5hRh-MChoviswHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vaseline Petroleum Jelly | Original | Pure Skin Care | Moisturizing | 40g Pack',
+    stock: 120
+},
+{
+    name: 'Vaseline Petroleum Jelly',
+    weight: '80g',
+    price: 145,
+    oldPrice: 170,
+    discount: '15% OFF',
+    category: 'Pharmacy',
+    brand: 'Vaseline',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.66qp1Vt-w5hRh-MChoviswHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vaseline Petroleum Jelly | Original | Pure Skin Care | Moisturizing | 80g Pack',
+    stock: 100
+},{
+    name: 'Himalaya Lip Balm',
+    weight: '4.5g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Pharmacy',
+    brand: 'Himalaya',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.GWgRuna8VAlDemhVGbEHhwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Lip Balm | Natural Moisturizer | Soft & Smooth Lips | 4.5g',
+    stock: 130
+}
 
 
   // PAIN RELIEF & FEVER

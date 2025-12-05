@@ -203,6 +203,49 @@ const breakfastInstantProducts = [
 
 
 
+{
+    name: 'Maggi Chilli Chow Cuppa Noodles',
+    weight: '70g',
+    price: 50,
+    oldPrice: 55,
+    discount: '9% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Maggi',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.XGwcbIzNHw2doGIE7WV5dwHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Maggi Chilli Chow Cuppa Noodles | Spicy Chinese Flavour | Ready in 5 Minutes | 70g Cup',
+    stock: 150
+},
+{
+    name: 'Patanjali Heeng Peda',
+    weight: '100g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Digestives & Churan',
+    brand: 'Patanjali',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.n4hg4Gk-fR5-WBGpXt0SLAHaHg?pid=Api&H=162&W=160',
+    inStock: true,
+    description: 'Patanjali Heeng Peda | Digestive Candy | Helps in Gas & Bloating Relief | 100g Pack',
+    stock: 80
+},
+{
+    name: 'Patanjali Anardana Goli',
+    weight: '100g',
+    price: 45,
+    oldPrice: 55,
+    discount: '18% OFF',
+    category: 'Digestives & Churan',
+    brand: 'Patanjali',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.cwgPsapM0_cLmB4MNVz3RwHaJj?pid=Api&H=206&W=160',
+    inStock: true,
+    description: 'Patanjali Anardana Goli | Pomegranate Flavoured Digestive | Tangy & Tasty | 100g Pack',
+    stock: 90
+},
+
+
+
+
 
 // ============ GM INSTANT MIX ============
 
@@ -1178,6 +1221,7 @@ const breakfastInstantProducts = [
 },
 
 
+
 // ========================================
 // 🍫 WEIKFIELD DRINKING CHOCOLATE
 // ========================================
@@ -1194,6 +1238,130 @@ const breakfastInstantProducts = [
     description: 'Weikfield Drinking Chocolate or Coffee Powder | Rich Cocoa | Hot or Cold | 100g',
     stock: 100
 },
+
+
+
+// ========================================
+// 🥙 LIJJAT PAPAD
+// ========================================
+{
+    name: 'Lijjat Moong Papad',
+    weight: '200g',
+    price: 65,
+    oldPrice: 75,
+    discount: '13% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Lijjat',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.XVzHXZVrUD9bahpSe3LZawHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Lijjat Moong Papad | Crispy & Tasty | Made with Moong Dal | 200g Pack',
+    stock: 120
+},
+{
+    name: 'Lijjat Urad Papad',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Lijjat',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.x9be64agF9FrfBJuWPw9YQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Lijjat Urad Papad | Classic Taste | Made with Urad Dal | 200g Pack',
+    stock: 130
+},
+
+// ========================================
+// 🥙 BISHAN LAL BABUL LAL PAPAD
+// ========================================
+{
+    name: 'Bishan Lal Babul Lal Papad Chota',
+    weight: '200g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Bishan Lal Babul Lal',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Dl3M0S_X_Xfk_baFZmZ1kQHaGv?pid=Api&H=145&W=160',
+    inStock: true,
+    description: 'Bishan Lal Babul Lal Papad Chota | Small Size | Crispy & Crunchy | 200g Pack',
+    stock: 90
+},
+{
+    name: 'Bishan Lal Babul Lal Papad Bada',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Bishan Lal Babul Lal',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.N0VR4w5pfOD08hbbpupgeAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Bishan Lal Babul Lal Papad Bada | Large Size | Crispy & Crunchy | 200g Pack',
+    stock: 85
+},
+
+// ========================================
+// 🥙 HALDIRAM PAPAD
+// ========================================
+{
+    name: 'Haldiram Papad Punjabi Masala',
+    weight: '200g',
+    price: 70,
+    oldPrice: 85,
+    discount: '18% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Haldiram',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.fhHcN9GDtG48gF2c4pskZQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldiram Papad Punjabi Masala | Spicy & Flavourful | Ready to Fry/Roast | 200g Pack',
+    stock: 100
+},
+{
+    name: 'Haldiram Papad Sada',
+    weight: '200g',
+    price: 60,
+    oldPrice: 70,
+    discount: '14% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Haldiram',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.494_SccaUYTJ6MGj9fP7JQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldiram Papad Sada | Plain & Classic | Ready to Fry/Roast | 200g Pack',
+    stock: 110
+},
+{
+    name: 'Haldiram Papad Medium Masala',
+    weight: '200g',
+    price: 65,
+    oldPrice: 78,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Haldiram',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.Q7yUx8TFSfkEniXZ9CVwBgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Haldiram Papad Medium Masala | Mild Spice | Ready to Fry/Roast | 200g Pack',
+    stock: 95
+},
+
+// ========================================
+// 🥙 SABUDANA PAPAD
+// ========================================
+{
+    name: 'Sabudana Papad',
+    weight: '200g',
+    price: 75,
+    oldPrice: 90,
+    discount: '17% OFF',
+    category: 'Breakfast & Instant Foods',
+    brand: 'Local',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.qxB6TARF4v0Wj0JuVqzMFQHaMQ?pid=Api&H=264&W=160',
+    inStock: true,
+    description: 'Sabudana Papad | Fasting Special | Crispy Sago Papad | 200g Pack',
+    stock: 70
+}
+
+
 
 
 

@@ -331,6 +331,21 @@ const homeOfficesProducts = [
 
 
 
+{
+    name: 'Nupur Henna Mehndi',
+    weight: '150g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Goderj',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.BD1XBBEcepBjKuUGyGtQpAHaKS?pid=Api&H=222&W=160',
+    inStock: true,
+    description: 'Nupur Henna Mehndi | 100% Natural | For Hair & Hands | Conditioning Formula | 150g Pack',
+    stock: 100
+},
+
+
 
 
 
@@ -638,17 +653,201 @@ const homeOfficesProducts = [
 
 
 
+// ========================================
+// 🌸 GODREJ AIR POCKET - 10g
+// ========================================
+{
+    name: 'Godrej Air Pocket Lavender Bloom',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.rZZsMUebwsL3gELBT2tcjgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Godrej Air Pocket Lavender Bloom | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 90
+},
+{
+    name: 'Godrej Air Pocket Sea Breeze',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.atqKILiQ6xdhcmhBstxD_QAAAA?pid=Api&H=277&W=160',
+    inStock: true,
+    description: 'Godrej Air Pocket Sea Breeze | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 85
+},
+{
+    name: 'Godrej Air Pocket Berry Rush',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.zIlWwj70_PiXqfmv864GyQHaHa?pid=Api&P=0&w=400&h=400',
+    inStock: true,
+    description: 'Godrej Air Pocket Berry Rush | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 80
+},
+{
+    name: 'Godrej Air Pocket Lemon Tangy Delight',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.FOfDJYjjmuy1Xk9B4WB1-wHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Godrej Air Pocket Lemon Tangy Delight | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 75
+},
+
+{
+    name: 'Godrej Air Pocket Rose Fresh',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.VFLvWwg_XVK6HmhaaQq8PwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Godrej Air Pocket Rose Fresh | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 70
+},
+{
+    name: 'Godrej Air Pocket Jasmine',
+    weight: '10g',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Home and Offices',
+    brand: 'Godrej',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.iVyKDA_oi0Q-DqFKJ5JnYwHaHg?pid=Api&H=162&W=160',
+    inStock: true,
+    description: 'Godrej Air Pocket Jasmine | Long Lasting Fragrance | Freshens Up Space | 10g Pack',
+    stock: 65
+},
+// ========================================
+// 🌸 POUR HOME AIR FRESHENER - 10g
+// ========================================
+{
+    name: 'Pour Home Just Jasmine Air Pocket',
+    weight: '10g',
+    price: 60,
+    oldPrice: 72,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Pour Home',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.31AM_82IsVe9JthW2O68zAAAAA?pid=Api&H=240&W=160',
+    inStock: true,
+    description: 'Pour Home Just Jasmine | Long Lasting Fragrance | Room Freshener | 10g Pack',
+    stock: 80
+},
+{
+    name: 'Pour Home Tropical Spirit Air Pocket',
+    weight: '10g',
+    price: 60,
+    oldPrice: 72,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Pour Home',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.ilx6-bwU7te-Ot19aGRBGwHaFj?pid=Api&H=119&W=160',
+    inStock: true,
+    description: 'Pour Home Tropical Spirit | Long Lasting Fragrance | Room Freshener | 10g Pack',
+    stock: 75
+},
+{
+    name: 'Pour Home Orchid Blossom Air Pocket',
+    weight: '10g',
+    price: 60,
+    oldPrice: 72,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Pour Home',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.ilx6-bwU7te-Ot19aGRBGwHaFj?pid=Api&H=119&W=160',
+    inStock: true,
+    description: 'Pour Home Orchid Blossom | Long Lasting Fragrance | Room Freshener | 10g Pack',
+    stock: 70
+},
+{
+    name: 'Pour Home Morning Breeze Air Pocket',
+    weight: '10g',
+    price: 60,
+    oldPrice: 72,
+    discount: '17% OFF',
+    category: 'Home and Offices',
+    brand: 'Pour Home',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.ilx6-bwU7te-Ot19aGRBGwHaFj?pid=Api&H=119&W=160',
+    inStock: true,
+    description: 'Pour Home Morning Breeze | Long Lasting Fragrance | Room Freshener | 10g Pack',
+    stock: 65
+},
 
 
 
-
-
-
-
-
-
-
-
+// ========================================
+// 🌸 ODONIL ROOM FRESHENER - 10g
+// ========================================
+{
+    name: 'Odonil Room Freshener Sandal Bouquet',
+    weight: '10g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Home and Offices',
+    brand: 'Odonil',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.7ZO1OoITycmeCxyB3Y3c7gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Odonil Room Freshener Sandal Bouquet | Long Lasting Fragrance | Air Freshener | 10g Pack',
+    stock: 90
+},
+{
+    name: 'Odonil Room Freshener Jasmine Fresh',
+    weight: '10g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Home and Offices',
+    brand: 'Odonil',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.-0quME2V0sOr716-QmqmYAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Odonil Room Freshener Jasmine Fresh | Long Lasting Fragrance | Air Freshener | 10g Pack',
+    stock: 85
+},
+{
+    name: 'Odonil Room Freshener Citrus Fresh',
+    weight: '10g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Home and Offices',
+    brand: 'Odonil',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.NC_7Teovnqk_TW46dXUOYQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Odonil Room Freshener Citrus Fresh | Long Lasting Fragrance | Air Freshener | 10g Pack',
+    stock: 80
+},
+{
+    name: 'Odonil Room Freshener Ocean Breeze',
+    weight: '10g',
+    price: 52,
+    oldPrice: 62,
+    discount: '16% OFF',
+    category: 'Home and Offices',
+    brand: 'Odonil',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.pIVRzuOz3B8SleBW8JqTOgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Odonil Room Freshener Ocean Breeze | Long Lasting Fragrance | Air Freshener | 10g Pack',
+    stock: 75
+},
 
 
 

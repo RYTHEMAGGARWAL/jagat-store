@@ -170,6 +170,34 @@ const personalCareProducts = [
   description: 'Lifebuoy Total 10 | 100% Germ Protection | Pack of 4',
   stock: 150
 },
+// 🧼 DETTOL SOAP - 10 PACK
+// ========================================
+{
+    name: 'Dettol Original Soap',
+    weight: '40g x 10',
+    price: 95,
+    oldPrice: 100,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Dettol',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.xuJEgjKNbDIezOjQmrQ9dQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Dettol Original Soap | Trusted Protection | Antibacterial | Pack of 10',
+    stock: 80
+},
+{
+    name: 'Lifebuoy Total 10 Soap',
+    weight: '40g x 10',
+    price: 95,
+    oldPrice: 100,
+    discount: '14% OFF',
+    category: 'Personal Care',
+    brand: 'Lifebuoy',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.j-qdvTesuI8H0H6D1SYGowHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Lifebuoy Total 10 Soap | 100% Germ Protection | Family Pack | Pack of 10',
+    stock: 70
+},
 
 
 {

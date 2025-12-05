@@ -1103,6 +1103,19 @@ category: "Atta Rice Dal",
   description: "Tata Pink Salt | Himalayan Rock Salt | Natural Minerals",
   stock: 100
 },
+{
+    name: 'Amul Cow Ghee',
+    weight: '1L',
+    price: 650,
+    oldPrice: 750,
+    discount: '13% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Amul',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.MxBzfFcVcaX8b_zLGt-EFwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Amul Cow Ghee | Pure & Natural | Rich Aroma | Traditional Taste | 1L Jar',
+    stock: 50
+},
 
 // ========================================
 // 🟠 CATCH SALT
@@ -1830,7 +1843,32 @@ category: "Atta Rice Dal",
     stock: 100
 },
 
-// MAGGI NOODLES
+{
+    name: 'Chaman Achar Masala',
+    weight: '200g',
+    price: 85,
+    oldPrice: 100,
+    discount: '15% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Chaman',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.hYqEJ06KsjUuAO4kwSMQTQHaEl?pid=Api&H=98&W=160',
+    inStock: true,
+    description: 'Chaman Achar Masala | Traditional Pickle Spice Mix | Authentic Taste | 200g Pack',
+    stock: 80
+},
+{
+    name: 'Chaman Achar Masala',
+    weight: '500g',
+    price: 195,
+    oldPrice: 230,
+    discount: '15% OFF',
+    category: 'Atta Rice Dal',
+    brand: 'Chaman',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.zSF4QMwLY-QCstxQLYxEawAAAA?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Chaman Achar Masala | Traditional Pickle Spice Mix | Authentic Taste | 500g Pack',
+    stock: 60
+}
 
 
 

@@ -137,7 +137,7 @@ const babyCareProducts = [
     discount: '20% OFF',
     category: 'Baby Care',
     brand: 'Bonny',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.g521OGIbjlfnzsL8zvlXrgAAAA?pid=Api&P=0&w=400&h=449',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.QP7jpWfKh4F8mQ5uZI9_9wHaHa?pid=Api&P=0&w=400&h=400',
     inStock: true,
     description: 'Bonny Silicone Nipple | Medium Size | Soft & Safe | BPA Free | 1 Piece',
     stock: 100

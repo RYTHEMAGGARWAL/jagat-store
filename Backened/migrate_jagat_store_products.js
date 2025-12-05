@@ -823,6 +823,99 @@ category: "Jagat Store",
   description: '🏪 Jagat Store | Rajdhani Seviyan | Thin & Tasty | For Kheer & Upma',
   stock: 100
 },
+{
+    name: 'Jagat Store Sizzling Homemade Mix',
+    weight: '100g',
+    price: 45,
+    oldPrice: 60,
+    discount: '25% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.fg3rk2P1TKi0D0-hZ1xAhAHaLH?pid=Api&P=0&w=400&h=600',
+    inStock: true,
+    description: '🏪 Jagat Store | Sizzling Homemade Mix | Perfect for Snacks & Starters',
+    stock: 80
+},{
+    name: 'Jagat Store Sonth Powder (Ginger Powder)',
+    weight: '100g',
+    price: 40,
+    oldPrice: 50,
+    discount: '20% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.txzSAOQpyjoJ8Hi9Zo7aiwHaGr?pid=Api&H=144&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Sonth Powder | Dry Ginger Powder | Pure & Natural | 100g Pack',
+    stock: 100
+},
+{
+    name: 'Jagat Store Sabut Garam Masala',
+    weight: '100g',
+    price: 65,
+    oldPrice: 80,
+    discount: '19% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.1jI4DqIbh8NcO7H-bJtWEAHaFd?pid=Api&H=117&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Sabut Garam Masala | Whole Spices Mix | Pure & Aromatic | 100g Pack',
+    stock: 95
+},
+// ========================================
+// 🏪 JAGAT STORE OWN PRODUCTS
+// ========================================
+{
+    name: 'Jagat Store Gud Sev',
+    weight: '200g',
+    price: 55,
+    oldPrice: 70,
+    discount: '21% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.9pCy4HVZr0c3TZUzhaMVOwHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Gud Sev | Sweet & Crunchy | Homemade Style | 200g Pack',
+    stock: 90
+},
+{
+    name: 'Jagat Store Hari Matar',
+    weight: '200g',
+    price: 60,
+    oldPrice: 75,
+    discount: '20% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.rBkCoR04gaSuD3N-4ZN29AHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Hari Matar | Crispy Green Peas | Tasty Snack | 200g Pack',
+    stock: 85
+},
+{
+    name: 'Jagat Store Kaju Namkeen Salty',
+    weight: '200g',
+    price: 180,
+    oldPrice: 220,
+    discount: '18% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.AIDmz3ZCReDeT1sUXz7QGQHaEK?pid=Api&H=89&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Kaju Namkeen Salty | Premium Cashews | Light Salted | 200g Pack',
+    stock: 60
+},
+{
+    name: 'Jagat Store Kaju Namkeen Masala',
+    weight: '200g',
+    price: 185,
+    oldPrice: 225,
+    discount: '18% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.dvLUKPBl64ByJj1RQEDfawHaE8?pid=Api&H=106&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Kaju Namkeen Masala | Premium Cashews | Spicy Flavour | 200g Pack',
+    stock: 55
+}
 
 
 

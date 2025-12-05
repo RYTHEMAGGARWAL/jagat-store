@@ -67,6 +67,33 @@ const paanCornerProducts = [
     stock: 80
 },
 {
+    name: 'Opel Playing Cards (Patte Tash)',
+    weight: '1 Deck',
+    price: 35,
+    oldPrice: 45,
+    discount: '22% OFF',
+    category: 'Paan Corner',
+    brand: 'Opel',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.svaRv6ZOdw3tzQoIRMztxAHaJ4?pid=Api&H=213&W=160',
+    inStock: true,
+    description: 'Opel Playing Cards | Patte Tash | 52 Cards Deck | Fun & Entertainment',
+    stock: 120
+},
+{
+    name: 'Silver Pearls Rajnigandha',
+    weight: '5.5g',
+    price: 30,
+    oldPrice: 35,
+    discount: '14% OFF',
+    category: 'Paan Corner',
+    brand: 'Rajnigandha',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.nQ0z_w_ezGw0LRSWjKgghAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Silver Pearls Rajnigandha | Premium Mouth Freshener | Silver Coated | 5.5g Pack',
+    stock: 150
+},
+
+{
     name: 'Gold Flake Indie Mint',
     weight: '10 Sticks',
     price: 140,
@@ -74,7 +101,7 @@ const paanCornerProducts = [
     discount: '7% OFF',
     category: 'Paan Corner',
     brand: 'Gold Flake',
-    image: 'hhttps://tse2.mm.bing.net/th/id/OIP.N1h2kKE2kxvtOVl_SGz7JQHaHa?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.N1h2kKE2kxvtOVl_SGz7JQHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Gold Flake Indie Mint | Menthol Flavour | 10 Sticks Pack',
     stock: 100
