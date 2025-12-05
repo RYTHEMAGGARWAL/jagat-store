@@ -334,6 +334,14 @@
   flex: 1;
 }
 
+.time-preview {
+  display: block;
+  margin-top: 6px;
+  color: #54b226;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .settings-actions {
   display: flex;
   gap: 12px;

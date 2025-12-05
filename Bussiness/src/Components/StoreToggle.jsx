@@ -1,4 +1,4 @@
-// Frontend/src/Components/StoreToggle.jsx - Admin Store ON/OFF Toggle
+// Frontend/src/Components/StoreToggle.jsx - TIMEZONE FIXED
 
 import React, { useState, useEffect } from 'react';
 import { useStore } from './StoreContext';
@@ -40,6 +40,47 @@ const StoreToggle = () => {
     setClosedMessage(currentMessage || 'We are currently closed. Please check back later!');
     setOpeningTime(currentOpeningTime || '9:00 AM');
   }, [currentMessage, currentOpeningTime]);
+
+  // 🔧 Convert datetime-local to proper ISO string (keeping local time intent)
+  const convertToISOWithTimezone = (localDateTimeString) => {
+    if (!localDateTimeString) return null;
+    
+    // datetime-local gives: "2025-12-05T12:26"
+    // We need to treat this as IST and convert to proper ISO
+    
+    // Create date from the local string
+    const localDate = new Date(localDateTimeString);
+    
+    // The date is already interpreted as local time by the browser
+    // Just return the ISO string - it will be in UTC
+    return localDate.toISOString();
+  };
+
+  // 🔧 Format reopen date for DISPLAY (in local timezone)
+  const formatReopenDate = (date) => {
+    if (!date) return null;
+    const d = new Date(date);
+    return d.toLocaleString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  // 🔧 Convert stored date back to datetime-local format for input
+  const formatForDateTimeLocal = (isoDate) => {
+    if (!isoDate) return '';
+    const d = new Date(isoDate);
+    // Format as YYYY-MM-DDTHH:MM in local time
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
 
   // Force Open Store NOW
   const handleForceOpen = async () => {
@@ -95,10 +136,17 @@ const StoreToggle = () => {
     
     setIsUpdating(true);
     
+    // Convert local datetime to ISO
+    const isoReopenDate = convertToISOWithTimezone(reopenDate);
+    
+    console.log('📅 Sending reopen date:');
+    console.log('   Input value:', reopenDate);
+    console.log('   ISO converted:', isoReopenDate);
+    
     const result = await toggleStore(false, {
       closedMessage,
       openingTime,
-      reopenDate: reopenDate || null,
+      reopenDate: isoReopenDate,
       reason: reason || 'Admin closed the store'
     });
     
@@ -107,6 +155,7 @@ const StoreToggle = () => {
     if (result.success) {
       setShowSettings(false);
       setReason('');
+      setReopenDate('');
       alert('✅ Store is now CLOSED!');
     } else {
       alert('❌ ' + result.message);
@@ -130,23 +179,14 @@ const StoreToggle = () => {
     setShowHistory(true);
   };
 
-  // Format dates
+  // Format history date
   const formatHistoryDate = (date) => {
     return new Date(date).toLocaleString('en-IN', {
       day: 'numeric',
       month: 'short',
       hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const formatReopenDate = (date) => {
-    if (!date) return null;
-    return new Date(date).toLocaleString('en-IN', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      hour12: true
     });
   };
 
@@ -274,13 +314,24 @@ const StoreToggle = () => {
             <div className="setting-group half">
               <label>
                 <Calendar size={16} />
-                Auto-Reopen Time
+                Auto-Reopen Time (IST)
               </label>
               <input
                 type="datetime-local"
                 value={reopenDate}
                 onChange={(e) => setReopenDate(e.target.value)}
               />
+              {reopenDate && (
+                <small className="time-preview">
+                  Will open at: {new Date(reopenDate).toLocaleString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                  })}
+                </small>
+              )}
             </div>
           </div>
 
