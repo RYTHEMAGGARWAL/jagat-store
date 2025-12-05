@@ -878,7 +878,7 @@ const Checkout = () => {
                     alt="Gift"
                   />
                   <div className="item-details">
-                    <p className="item-name">{giftItem.name || 'Premium Ice Cream Pack'}</p>
+                    <p className="item-name">{giftItem.name || 'Gift Pack'}</p>
                     <p className="item-qty">Complimentary Gift</p>
                   </div>
                   <span className="item-price gift-price-checkout">

@@ -196,7 +196,7 @@ const MyOrders = () => {
                         className="gift-image"
                       />
                       <div className="gift-info">
-                        <p className="gift-name">{order.giftItem.name || 'Premium Ice Cream Pack'}</p>
+                        <p className="gift-name">{order.giftItem.name || ' k'}</p>
                         <p className="gift-label">🎁 Complimentary Gift</p>
                       </div>
                       <span className="gift-free">FREE</span>

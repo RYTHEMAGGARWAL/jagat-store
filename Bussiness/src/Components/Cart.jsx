@@ -27,7 +27,7 @@ const Cart = () => {
   // 🎁 Gift Configuration
   const GIFT_THRESHOLD = 999;
   const DEFAULT_GIFT = {
-    name: '🎁 FREE Gift - Premium Ice Cream Pac',
+    name: '🎁 FREE Gift',
     brand: 'Jagat Store',
     price: 0,
     oldPrice: 149,
@@ -276,7 +276,7 @@ const Cart = () => {
                 </div>
 
                 <div className="product-info-box">
-                  <h3>{currentGiftItem.name || 'Premium Ice Cream Pack'}</h3>
+                  <h3>{currentGiftItem.name || ' k'}</h3>
                   <p className="brand-text">{currentGiftItem.brand || 'Jagat Store'}</p>
                   <p className="weight-text">{currentGiftItem.weight || '500ml'}</p>
                   <div className="price-box">

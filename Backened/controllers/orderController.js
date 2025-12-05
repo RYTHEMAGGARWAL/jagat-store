@@ -143,7 +143,7 @@ exports.createOrder = async (req, res) => {
       const giftHTML = finalHasGift ? `
         <tr style="border-bottom:1px solid #eee; background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
           <td style="padding:12px 8px; color:#2e7d32;">
-            🎁 <strong>FREE GIFT</strong> - ${finalGiftItem?.name || 'Premium Ice Cream Pack'}
+            🎁 <strong>FREE GIFT</strong> - ${finalGiftItem?.name || 'Gift Pack'}
           </td>
           <td style="padding:12px 8px; text-align:center; color:#2e7d32;">1</td>
           <td style="padding:12px 8px; text-align:right; text-decoration:line-through; color:#999;">₹${finalGiftItem?.oldPrice || 149}</td>
@@ -231,7 +231,7 @@ exports.createOrder = async (req, res) => {
                 ${finalHasGift ? `
                   <div style="background:linear-gradient(135deg, #ff9800, #ff5722); color:white; padding:20px; text-align:center;">
                     <h2 style="margin:0;">🎉 Congratulations!</h2>
-                    <p style="margin:10px 0 0; font-size:16px;">You got a FREE Premium Ice Cream Pack (Worth ₹${giftSavings})!</p>
+                    <p style="margin:10px 0 0; font-size:16px;">You got a FREE Prem (Worth ₹${giftSavings})!</p>
                   </div>
                 ` : ''}
                 
