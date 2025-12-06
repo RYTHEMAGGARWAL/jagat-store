@@ -201,15 +201,18 @@ const Checkout = () => {
   }, [cartItems]);
 
   useEffect(() => {
+    // 🔒 CHECK LOGIN FIRST - Before anything else
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to continue checkout');
+      navigate('/login');
+      return; // Stop here, don't check cart
+    }
+
     if (cartLoading) return;
     
     if (!cartItems || cartItems.length === 0) {
       navigate('/cart');
-    }
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
     }
   }, [cartItems, cartLoading, navigate]);
 

@@ -22,9 +22,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
 // 🍪 Cookie configuration for WebView
 const COOKIE_OPTIONS = {
   httpOnly: false,
-  secure: true,
-  sameSite: 'None',
-  maxAge: 30 * 24 * 60 * 60 * 1000,  // 30 days
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+  maxAge: 30 * 24 * 60 * 60 * 1000,
   path: '/'
 };
 
@@ -260,15 +260,7 @@ router.get('/me', async (req, res) => {
 // @route   GET & POST /api/auth/logout
 // @desc    Logout user
 // @access  Public
-router.get('/logout', (req, res) => {
-  res.cookie('token', '', { ...COOKIE_OPTIONS, expires: new Date(0) });
-  res.json({ success: true, message: 'Logged out successfully' });
-});
 
-router.post('/logout', (req, res) => {
-  res.cookie('token', '', { ...COOKIE_OPTIONS, expires: new Date(0) });
-  res.json({ success: true, message: 'Logged out successfully' });
-});
 
 // ============================================================
 // 🔑 FORGOT PASSWORD ROUTES (Email OTP - Existing)
@@ -377,6 +369,23 @@ router.post('/check-phone', async (req, res) => {
       message: 'Server error'
     });
   }
+});
+
+// 🚪 LOGOUT ROUTE
+router.post('/logout', (req, res) => {
+  res.cookie('token', '', {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    expires: new Date(0),
+    path: '/'
+  });
+  
+  res.clearCookie('token');
+  
+  console.log('🚪 User logged out');
+  
+  res.json({ success: true, message: 'Logged out successfully' });
 });
 
 module.exports = router;

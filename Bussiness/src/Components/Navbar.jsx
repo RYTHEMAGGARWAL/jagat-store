@@ -6,11 +6,12 @@ import { useCart } from './CartContext';
 import SearchBar from './SearchBar';
 import logo3 from '../assets/logo3.png';
 import cartIcon from '../assets/cart-icon.png';
+import { tokenHelpers } from '../utils/api';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const { getTotalItems, getCartTotal, cartItems } = useCart();
+  const { getTotalItems, getCartTotal, cartItems, resetCart } = useCart();
   const totalItems = getTotalItems();
   const navigate = useNavigate();
 
@@ -43,21 +44,30 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('userOrders');
+  // 🔐 Handle logout - COMPLETE FIX
+  const handleLogout = async () => {
+    console.log('🚪 Starting logout process...');
     
+    // ✅ Step 1: Reset cart state immediately
+    if (typeof resetCart === 'function') {
+      resetCart();
+    }
+    
+    // ✅ Step 2: Dispatch custom event for CartContext
+    window.dispatchEvent(new Event('user-logout'));
+    
+    // ✅ Step 3: Use tokenHelpers to clear EVERYTHING (calls backend logout API)
+    await tokenHelpers.removeToken();
+    
+    // ✅ Step 4: Update state
     setUser(null);
     setIsMobileMenuOpen(false);
     
-    alert('Logged out successfully!');
-    navigate('/');
+    console.log('✅ Logout complete, redirecting...');
     
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    // ✅ Step 5: Force full page reload to clear everything
+  
+    window.location.href = '/';
   };
 
   // Cart icon component

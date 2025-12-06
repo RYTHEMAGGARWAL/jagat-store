@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import api from '../utils/api';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import api, { tokenHelpers } from '../utils/api';
 
 const CartContext = createContext();
 
@@ -16,37 +16,32 @@ export const CartProvider = ({ children }) => {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // Fetch cart on mount
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      fetchCart();
-    }
+  // ✅ Check if user is logged in
+  const isLoggedIn = useCallback(() => {
+    return tokenHelpers.isLoggedIn();
   }, []);
 
   // Fetch cart from backend
   const fetchCart = async () => {
+    // ✅ Double check token before fetching
+    if (!isLoggedIn()) {
+      console.log('⚠️ No token, clearing cart state');
+      setCartItems([]);
+      setTotalItems(0);
+      return;
+    }
+
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        setCartItems([]);
-        setTotalItems(0);
-        return;
-      }
-
       console.log('Fetching cart from backend...');
       const response = await api.get('/cart');
       console.log('Cart response:', response.data);
       
       if (response.data.success && response.data.cart) {
-        // Filter out items where product is null (deleted products)
         const items = (response.data.cart.items || []).filter(item => item?.product);
         console.log('Cart items:', items);
         setCartItems(items);
         
-        // Calculate total items
         const total = items.reduce((sum, item) => sum + item.quantity, 0);
         setTotalItems(total);
       } else {
@@ -55,15 +50,61 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Error fetching cart:', error);
-      setCartItems([]);
-      setTotalItems(0);
+      // ✅ If 401 error, clear cart
+      if (error.response?.status === 401) {
+        console.log('🔒 Unauthorized, clearing cart');
+        setCartItems([]);
+        setTotalItems(0);
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  // Get cart (returns cart data)
+  // Fetch cart on mount
+  useEffect(() => {
+    if (isLoggedIn()) {
+      fetchCart();
+    } else {
+      setCartItems([]);
+      setTotalItems(0);
+    }
+  }, []);
+
+  // ✅ Listen for storage changes (logout from another tab)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'token') {
+        if (!e.newValue) {
+          console.log('🔄 Token removed, clearing cart');
+          setCartItems([]);
+          setTotalItems(0);
+        } else {
+          fetchCart();
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // ✅ Listen for custom logout event
+  useEffect(() => {
+    const handleLogout = () => {
+      console.log('🚪 Logout event received, clearing cart');
+      setCartItems([]);
+      setTotalItems(0);
+    };
+
+    window.addEventListener('user-logout', handleLogout);
+    return () => window.removeEventListener('user-logout', handleLogout);
+  }, []);
+
+  // Get cart
   const getCart = async () => {
+    if (!isLoggedIn()) return { items: [] };
+    
     try {
       const response = await api.get('/cart');
       return response.data.cart || { items: [] };
@@ -75,24 +116,18 @@ export const CartProvider = ({ children }) => {
 
   // Add to cart
   const addToCart = async (productId, quantity = 1) => {
+    if (!isLoggedIn()) {
+      alert('Please login first');
+      return { success: false, message: 'Please login first' };
+    }
+
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Please login first');
-        return { success: false, message: 'Please login first' };
-      }
-
       console.log('Adding to cart:', { productId, quantity });
-
-      const response = await api.post('/cart/add', {
-        productId,
-        quantity
-      });
-
+      const response = await api.post('/cart/add', { productId, quantity });
       console.log('Add to cart response:', response.data);
 
       if (response.data.success) {
-        await fetchCart(); // Refresh cart
+        await fetchCart();
         return { success: true, message: 'Added to cart' };
       }
 
@@ -108,18 +143,17 @@ export const CartProvider = ({ children }) => {
 
   // Update quantity
   const updateQuantity = async (productId, quantity) => {
+    if (!isLoggedIn()) {
+      return { success: false, message: 'Please login first' };
+    }
+
     try {
       console.log('Updating quantity:', { productId, quantity });
-
-      const response = await api.put('/cart/update', {
-        productId,
-        quantity
-      });
-
+      const response = await api.put('/cart/update', { productId, quantity });
       console.log('Update quantity response:', response.data);
 
       if (response.data.success) {
-        await fetchCart(); // Refresh cart
+        await fetchCart();
         return { success: true, message: 'Quantity updated' };
       }
 
@@ -135,15 +169,17 @@ export const CartProvider = ({ children }) => {
 
   // Remove from cart
   const removeFromCart = async (productId) => {
+    if (!isLoggedIn()) {
+      return { success: false, message: 'Please login first' };
+    }
+
     try {
       console.log('Removing from cart:', productId);
-
       const response = await api.delete(`/cart/remove/${productId}`);
-
       console.log('Remove from cart response:', response.data);
 
       if (response.data.success) {
-        await fetchCart(); // Refresh cart
+        await fetchCart();
         return { success: true, message: 'Item removed' };
       }
 
@@ -157,9 +193,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Clear cart
+  // Clear cart (API call)
   const clearCart = async () => {
     try {
+      if (!isLoggedIn()) {
+        setCartItems([]);
+        setTotalItems(0);
+        return { success: true, message: 'Cart cleared' };
+      }
+
       const response = await api.delete('/cart/clear');
       
       if (response.data.success) {
@@ -171,16 +213,30 @@ export const CartProvider = ({ children }) => {
       return { success: false, message: 'Failed to clear cart' };
     } catch (error) {
       console.error('Error clearing cart:', error);
+      setCartItems([]);
+      setTotalItems(0);
       return { success: false, message: 'Failed to clear cart' };
     }
   };
 
-  // Refresh cart (alias for fetchCart)
-  const refreshCart = async () => {
-    await fetchCart();
+  // ✅ Reset cart state locally (for logout - no API call)
+  const resetCart = () => {
+    console.log('🔄 Resetting cart state (logout)');
+    setCartItems([]);
+    setTotalItems(0);
   };
 
-  // Get cart total (with null safety)
+  // Refresh cart
+  const refreshCart = async () => {
+    if (isLoggedIn()) {
+      await fetchCart();
+    } else {
+      setCartItems([]);
+      setTotalItems(0);
+    }
+  };
+
+  // Get cart total
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
       if (!item?.product?.price) return total;
@@ -201,11 +257,13 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     updateQuantity,
     clearCart,
+    resetCart,
     refreshCart,
     fetchCart,
     getCart,
     getCartTotal,
-    getTotalItems
+    getTotalItems,
+    isLoggedIn
   };
 
   return (

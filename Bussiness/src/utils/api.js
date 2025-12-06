@@ -1,102 +1,11 @@
-// import axios from 'axios';
-
-// // Create axios instance
-// const api = axios.create({
-//   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-//   withCredentials: true,
-//   headers: {
-//     'Content-Type': 'application/json'
-//   },
-//   timeout: 30000 // 30 second timeout for cold starts
-// });
-
-// // Debug log
-// console.log('🔑 API Base URL:', import.meta.env.VITE_API_URL);
-
-// // Add request interceptor
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// // Add response interceptor with better error handling
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const originalRequest = error.config;
-
-//     // 🔄 Retry once on network error (cold start issue)
-//     if (!error.response && !originalRequest._retry) {
-//       originalRequest._retry = true;
-//       console.log('🔄 Network error, retrying request...');
-      
-//       // Wait 2 seconds and retry
-//       await new Promise(resolve => setTimeout(resolve, 2000));
-//       return api(originalRequest);
-//     }
-
-//     // 🔐 Handle 401 - Token expired/invalid
-//     if (error.response?.status === 401) {
-//       console.log('🔐 Token invalid, logging out...');
-//       localStorage.removeItem('token');
-//       localStorage.removeItem('user');
-//       localStorage.removeItem('jagat_gift_added');
-//       localStorage.removeItem('jagat_gift_product');
-      
-//       // Only redirect if not already on login page
-//       if (!window.location.pathname.includes('/login')) {
-//         window.location.href = '/login';
-//       }
-//     }
-
-//     // 🌐 Handle 500 - Server error
-//     if (error.response?.status === 500) {
-//       console.log('⚠️ Server error, may need to retry');
-//     }
-
-//     // 📡 Handle network errors
-//     if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
-//       console.log('⏱️ Request timeout - server may be waking up');
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
-
-// // 🏥 Health check function - call on app start
-// export const checkServerHealth = async () => {
-//   try {
-//     const response = await axios.get(
-//       (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '') + '/health',
-//       { timeout: 45000 } // 45 sec for cold start
-//     );
-//     console.log('✅ Server is awake:', response.data);
-//     return true;
-//   } catch (error) {
-//     console.log('⚠️ Server may be sleeping, waking up...');
-//     return false;
-//   }
-// };
-
-// export default api;
-
-
-// Frontend/src/utils/api.js - With Cookie Support for WebView Apps
+// Frontend/src/utils/api.js - FIXED VERSION
 
 import axios from 'axios';
 
 // Create axios instance
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-  withCredentials: true,  // 🍪 IMPORTANT: Sends cookies with requests
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   },
@@ -105,12 +14,15 @@ const api = axios.create({
 
 console.log('🔑 API Base URL:', import.meta.env.VITE_API_URL);
 
+// ✅ LOGOUT FLAG - prevents token restore after logout
+let isLoggingOut = false;
+
 // 🍪 Helper: Get token from cookie
 const getTokenFromCookie = () => {
   const cookies = document.cookie.split(';');
   for (let cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
-    if (name === 'token') {
+    if (name === 'token' && value) {
       return value;
     }
   }
@@ -120,29 +32,55 @@ const getTokenFromCookie = () => {
 // 🍪 Helper: Set token in cookie
 const setTokenCookie = (token) => {
   const expires = new Date();
-  expires.setDate(expires.getDate() + 30); // 30 days
-  document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; SameSite=None; Secure`;
+  expires.setDate(expires.getDate() + 30);
+  
+  // Set with multiple variations to ensure it works
+  document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
+  
+  // Also try with secure flags for HTTPS
+  if (window.location.protocol === 'https:') {
+    document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; SameSite=None; Secure`;
+  }
 };
 
-// 🍪 Helper: Remove token cookie
+// 🍪 Helper: Remove token cookie - COMPREHENSIVE
 const removeTokenCookie = () => {
-  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  const hostname = window.location.hostname;
+  
+  // Clear with all possible combinations
+  const clearVariations = [
+    'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/',
+    'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;',
+    `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${hostname}`,
+    `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${hostname}`,
+    'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=None; Secure',
+    'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax',
+    'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict',
+    'token=; max-age=0; path=/',
+    'token=; max-age=-1; path=/',
+  ];
+  
+  clearVariations.forEach(cookie => {
+    document.cookie = cookie;
+  });
+  
+  console.log('🍪 Token cookie cleared with all variations');
 };
 
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Try localStorage first, then cookie
+    // ✅ If logging out, don't attach token
+    if (isLoggingOut) {
+      console.log('🚫 Logout in progress, skipping token');
+      return config;
+    }
+    
+    // Get token from localStorage
     let token = localStorage.getItem('token');
     
-    if (!token) {
-      token = getTokenFromCookie();
-      // If found in cookie, also set in localStorage
-      if (token) {
-        localStorage.setItem('token', token);
-        console.log('🍪 Token restored from cookie');
-      }
-    }
+    // ✅ REMOVED: Auto-restore from cookie (this was causing the bug)
+    // Only use localStorage token
     
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -158,12 +96,12 @@ api.interceptors.request.use(
 // Response interceptor
 api.interceptors.response.use(
   (response) => {
-    // 🍪 If login/register response, save token to both localStorage and cookie
-    if (response.data?.token) {
+    // Save token on login/register
+    if (response.data?.token && !isLoggingOut) {
       const token = response.data.token;
       localStorage.setItem('token', token);
       setTokenCookie(token);
-      console.log('✅ Token saved to localStorage and cookie');
+      console.log('✅ Token saved');
     }
     return response;
   },
@@ -178,16 +116,10 @@ api.interceptors.response.use(
       return api(originalRequest);
     }
 
-    // Handle 401
-    if (error.response?.status === 401) {
-      console.log('🔐 Token invalid, logging out...');
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      removeTokenCookie();
-      
-      if (!window.location.pathname.includes('/login')) {
-        window.location.href = '/login';
-      }
+    // Handle 401 - but not during logout
+    if (error.response?.status === 401 && !isLoggingOut) {
+      console.log('🔐 Token invalid');
+      // Don't auto-redirect, let the component handle it
     }
 
     return Promise.reject(error);
@@ -207,17 +139,67 @@ export const checkServerHealth = async () => {
   }
 };
 
-// 🍪 Export helpers for use in auth context
+// ✅ TOKEN HELPERS - Use these in components
 export const tokenHelpers = {
-  getToken: () => localStorage.getItem('token') || getTokenFromCookie(),
+  getToken: () => {
+    return localStorage.getItem('token');
+  },
+  
   setToken: (token) => {
     localStorage.setItem('token', token);
     setTokenCookie(token);
   },
-  removeToken: () => {
+  
+  // ✅ COMPLETE LOGOUT FUNCTION
+  removeToken: async () => {
+    console.log('🚪 removeToken called - clearing everything');
+    
+    // Set logout flag
+    isLoggingOut = true;
+    
+    // ✅ Call backend logout API to clear server-side cookie
+    try {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      await fetch(`${baseUrl}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('✅ Backend logout API called');
+    } catch (e) {
+      console.log('⚠️ Backend logout failed:', e.message);
+    }
+    
+    // Clear localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('userOrders');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('jagat_cart');
+    localStorage.removeItem('jagat_gift_added');
+    localStorage.removeItem('jagat_gift_product');
+    localStorage.removeItem('jagat_saved_address');
+    
+    // Clear sessionStorage
+    sessionStorage.clear();
+    
+    // Clear cookies
     removeTokenCookie();
+    
+    // Reset flag after a short delay
+    setTimeout(() => {
+      isLoggingOut = false;
+    }, 1000);
+    
+    console.log('✅ All auth data cleared');
+  },
+  
+  // Check if logged in
+  isLoggedIn: () => {
+    return !!localStorage.getItem('token');
   }
 };
 
