@@ -1,4 +1,4 @@
-// Backend/server.js - WITH STORE ON/OFF FEATURE
+// Backend/server.js - WITH STORE ON/OFF FEATURE + RATE LIMITING
 
 const orderController = require('./controllers/orderController');
 console.log('✅ Order controller loaded from:', __dirname + '/controllers/orderController.js');
@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const http = require('http');
 const setupSocketIO = require('./utils/socketSetup');
+const rateLimit = require('express-rate-limit');
 
 // Load environment variables
 dotenv.config();
@@ -26,7 +27,62 @@ const { io, notifyAdmins } = setupSocketIO(server);
 // Make notifyAdmins available globally
 global.notifyAdmins = notifyAdmins;
 
-// Middleware
+// ============================================
+// 🔒 RATE LIMITING - SECURITY
+// ============================================
+
+// General API limit - 100 requests per 15 min
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// OTP limit - 5 requests per 15 min (STRICT - prevents SMS abuse)
+const otpLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  message: {
+    success: false,
+    message: 'Too many OTP requests, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Login limit - 10 attempts per 15 min (prevents brute force)
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  message: {
+    success: false,
+    message: 'Too many login attempts, please try again after 15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Order limit - 20 orders per hour (prevents spam orders)
+const orderLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 20,
+  message: {
+    success: false,
+    message: 'Too many orders, please try again later'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// ============================================
+// MIDDLEWARE
+// ============================================
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
@@ -41,14 +97,38 @@ app.use(cors({
   credentials: true
 }));
 
-// Routes
+// ============================================
+// 🔒 APPLY RATE LIMITERS
+// ============================================
+
+// Apply general limiter to all API routes
+app.use('/api', generalLimiter);
+
+// Apply strict OTP limiter
+app.use('/api/auth/send-login-otp', otpLimiter);
+app.use('/api/auth/send-register-otp', otpLimiter);
+app.use('/api/auth/forgot-password', otpLimiter);
+
+// Apply login limiter
+app.use('/api/auth/login', loginLimiter);
+app.use('/api/auth/register', loginLimiter);
+app.use('/api/auth/verify-login-otp', loginLimiter);
+app.use('/api/auth/verify-register-otp', loginLimiter);
+
+// Apply order limiter
+app.use('/api/orders', orderLimiter);
+
+// ============================================
+// ROUTES
+// ============================================
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
-// 🏪 STORE SETTINGS ROUTE - NEW!
+// 🍪 STORE SETTINGS ROUTE
 app.use('/api/store', require('./routes/storeRoutes'));
 
 // Health check
@@ -82,11 +162,16 @@ server.listen(PORT, () => {
   console.log(`🔐 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔔 Socket.IO ready for real-time notifications`);
   console.log(`📸 Cloudinary upload ready at /api/upload`);
-  console.log(`🏪 Store settings ready at /api/store`);
+  console.log(`🍪 Store settings ready at /api/store`);
+  console.log(`🔒 Rate limiting enabled:`);
+  console.log(`   - General API: 100 req/15min`);
+  console.log(`   - OTP routes: 5 req/15min`);
+  console.log(`   - Login routes: 10 req/15min`);
+  console.log(`   - Orders: 20 req/hour`);
 });
 
 // ========================================
-// 🔁 KEEP SERVER ALIVE (Render Free Tier)
+// 🔐 KEEP SERVER ALIVE (Render Free Tier)
 // ========================================
 const https = require('https');
 const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.com';
@@ -95,7 +180,7 @@ const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.co
 if (process.env.NODE_ENV === 'production') {
   setInterval(() => {
     https.get(`${BACKEND_URL}/health`, (res) => {
-      console.log('🔁 Keep-alive ping sent');
+      console.log('🔐 Keep-alive ping sent');
     }).on('error', (err) => {
       console.log('Ping error:', err.message);
     });
