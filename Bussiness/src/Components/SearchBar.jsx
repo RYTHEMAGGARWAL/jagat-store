@@ -213,7 +213,7 @@ const HINDI_ENGLISH = {
   'baccha': 'baby', 'dant': 'tooth', 'baal': 'hair',
 };
 
-// 🔥 POPULAR SEARCHES - Based on common grocery items
+// 🔥 POPULAR SEARCHES - Based on common   items
 const POPULAR_SEARCHES = [
   'Maggi', 'Milk', 'Bread', 'Eggs', 'Chips', 'Biscuits', 'Rice', 'Atta',
   'Paneer', 'Butter', 'Chocolate', 'Juice', 'Cold Drink', 'Dal', 'Oil',

@@ -2115,7 +2115,8 @@ const personalCareProducts = [
     inStock: true,
     description: 'Nivea Lip Balm Strawberry | Fruity Shine | Soft Pink Tint | Moisturizing | 4.8g',
     stock: 3
-}
+},
+
 
 
 

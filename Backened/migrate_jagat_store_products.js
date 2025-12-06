@@ -502,6 +502,7 @@ const jagatStoreProducts = [
   description: '🏪 Jagat Store | Mulethi Sticks | Throat Care',
   stock: 100
 },
+
 {
   name: 'Jagat Store Ashwagandha',
   weight: '100g',

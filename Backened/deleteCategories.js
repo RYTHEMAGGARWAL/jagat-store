@@ -24,9 +24,10 @@ const CATEGORIES_TO_DELETE = [
   // 'Jagat Store',
   // 'Home and Offices',
   // 'Organic & Healthy Living',
+  'Grocery',
   
-  'Tea Coffee',
-  'Grocery'
+  
+
   
 
   

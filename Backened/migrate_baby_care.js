@@ -157,6 +157,275 @@ const babyCareProducts = [
 },
 
 
+// ========================================
+// 🍼 JOHNSON'S BABY SHAMPOO
+// ========================================
+{
+    name: 'Johnsons Baby Shampoo',
+    weight: '50ml',
+    price: 66,
+    oldPrice: 70,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.zrfln9gPrgSSpcshf_P8LwHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Johnsons Baby Shampoo | No More Tears | Gentle & Mild | 50ml Bottle',
+    stock: 100
+},
+{
+    name: 'Johnsons Baby Shampoo',
+    weight: '100ml',
+    price: 110,
+    oldPrice: 115,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse3.mm.bing.net/th/id/OIP.es5BPKwK22upAsvTh64BTgHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Johnsons Baby Shampoo | No More Tears | Gentle & Mild | 100ml Bottle',
+    stock: 90
+},
+{
+    name: 'Johnsons Baby Shampoo',
+    weight: '200ml',
+    price: 228,
+    oldPrice: 240,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.vV1FdWeVHyMZ20Um2vGEIwHaHa?pid=Api&P=0&h=180',
+    inStock: true,
+    description: 'Johnsons Baby Shampoo | No More Tears | Gentle & Mild | 200ml Bottle',
+    stock: 75
+},
+
+// ========================================
+// 🍼 JOHNSON'S BABY CREAM
+// ========================================
+{
+    name: 'Johnsons Baby Cream',
+    weight: '30g',
+    price: 61,
+    oldPrice: 65,
+    discount: '18% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.gAAGMEPNPp7TEgy7l9NFdQHaLH?pid=Api&H=240&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Cream | 24 Hour Moisturizing | Gentle on Skin | 20g Tube',
+    stock: 120
+},
+{
+    name: 'Johnsons Baby Cream',
+    weight: '50g',
+    price: 90,
+    oldPrice: 95,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.3Eo88yJm4DVIy0GiWlw77gHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Cream | 24 Hour Moisturizing | Gentle on Skin | 100g Tube',
+    stock: 85
+},
+
+// ========================================
+// 🍼 JOHNSON'S BABY LOTION
+// ========================================
+{
+    name: 'Johnsons Baby Lotion',
+    weight: '50ml',
+    price: 57,
+    oldPrice: 60,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion20ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 20ml Bottle',
+    stock: 130
+},
+{
+    name: 'Johnsons Baby Lotion',
+    weight: '100ml',
+    price: 118,
+    oldPrice: 124,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion100ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 100ml Bottle',
+    stock: 95
+},
+{
+    name: 'Johnsons Baby Lotion',
+    weight: '200ml',
+    price: 235,
+    oldPrice: 248,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion200ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 200ml Bottle',
+    stock: 70
+},
+
+// ========================================
+// 🍼 JOHNSON'S BABY HAIR OIL
+// ========================================
+{
+    name: 'Johnsons Baby Hair Oil',
+    weight: '50ml',
+    price: 90,
+    oldPrice: 95,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyHairOil50ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Hair Oil | Avocado & Pro-Vitamin B5 | Soft Hair | 50ml Bottle',
+    stock: 110
+},
+{
+    name: 'Johnsons Baby Hair Oil',
+    weight: '100ml',
+    price: 175,
+    oldPrice: 185,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyHairOil100ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Hair Oil | Avocado & Pro-Vitamin B5 | Soft Hair | 100ml Bottle',
+    stock: 90
+},
+
+
+// ========================================
+// 🍼 JOHNSON'S BABY OIL
+// ========================================
+{
+    name: 'Johnsons Baby Oil',
+    weight: '50ml',
+    price: 70,
+    oldPrice: 75,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyOil50ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Oil | Pure Mineral Oil | Gentle Massage | 50ml Bottle',
+    stock: 105
+},
+{
+    name: 'Johnsons Baby Oil',
+    weight: '100ml',
+    price: 142,
+    oldPrice: 150,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyOil100ml?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Oil | Pure Mineral Oil | Gentle Massage | 100ml Bottle',
+    stock: 85
+},
+
+
+// ========================================
+// 🍼 JOHNSON'S BABY POWDER
+// ========================================
+{
+    name: 'Johnsons Baby Powder',
+    weight: '50g',
+    price: 60,
+    oldPrice: 65,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder50g?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 50g Pack',
+    stock: 130
+},
+{
+    name: 'Johnsons Baby Powder',
+    weight: '100g',
+    price: 118,
+    oldPrice: 125,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder100g?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 100g Pack',
+    stock: 110
+},
+{
+    name: 'Johnsons Baby Powder',
+    weight: '200g',
+    price: 218,
+    oldPrice: 230,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder200g?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 200g Pack',
+    stock: 80
+},
+
+// ========================================
+// 🍼 JOHNSON'S BABY SOAP
+// ========================================
+{
+    name: 'Johnsons Baby Soap',
+    weight: '150g',
+    price: 128,
+    oldPrice: 135,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabySoap150g?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Soap | Gentle Cleansing | Mild Formula | 150g Bar',
+    stock: 100
+},
+{
+    name: 'Johnsons Baby Soap',
+    weight: '25g',
+    price: 19,
+    oldPrice: 20,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabySoap25g?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Soap | Gentle Cleansing | Travel Size | 25g Bar',
+    stock: 150
+},
+
+// ========================================
+// 🍼 JOHNSON'S BABY WIPES
+// ========================================
+{
+    name: 'Johnsons Baby Wipes',
+    weight: '60 Units',
+    price: 140,
+    oldPrice: 150,
+    discount: '7% OFF',
+    category: 'Baby Care',
+    brand: 'Johnsons',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyWipes60?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Johnsons Baby Wipes | Gentle Cleansing | Alcohol Free | 60 Wipes Pack',
+    stock: 90
+}
+
+
 
 
 
