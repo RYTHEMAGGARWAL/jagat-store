@@ -30,15 +30,15 @@ const AdminOrderDetail = () => {
   const storeDetails = {
     name: 'JAGAT STORE',
     tagline: 'Your Trusted Grocery Partner',
-    address: 'Shop No. 12, Main Market, Sector 15',
-    city: 'Ghaziabad, Uttar Pradesh - 201001',
-    phone: '+91 98765 43210',
-    altPhone: '+91 98765 43211',
-    email: 'support@jagatstore.in',
+    address: 'F-388 Pratap Vihar Sec-11, near by Police Chowki, Ghaziabad, Uttar-Pradesh, 201009',
+    city: 'Ghaziabad, Uttar Pradesh - 201009',
+    phone: '+91 9599633093',
+    altPhone: '+91 9910864099',
+    email: 'rythemaggarwal7840@gmail.com',
     website: 'www.jagatstore.in',
-    gstin: '09ABCDE1234F1Z5',
-    fssai: '12345678901234',
-    panNo: 'ABCDE1234F'
+    gstin: '09DZBPA0318C1Z5',
+    fssai: 'XXX',
+    panNo: 'ECYPA5237H'
   };
 
   const statusOptions = [
