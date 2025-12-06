@@ -894,6 +894,56 @@ const masalaOilProducts = [
   description: 'Everest Pure Turmeric Powder - Natural Yellow Color',
   stock: 100
 },
+// ========================================
+// 🏪 JAGAT STORE SABUT HALDI
+// ========================================
+{
+    name: 'Jagat Store Sabut Haldi (Whole Turmeric)',
+    weight: '100g',
+    price: 35,
+    oldPrice: 45,
+    discount: '22% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.i2ahix3edgMbBqACsFF08wHaE8?pid=Api&P=0&h=180',
+    inStock: true,
+    description: '🏪 Jagat Store | Sabut Haldi | Whole Turmeric | Pure & Natural | 100g Pack',
+    stock: 100
+},
+
+// ========================================
+// 🏪 JAGAT STORE SABUT DHANIYA
+// ========================================
+{
+    name: 'Jagat Store Sabut Dhaniya (Whole Coriander)',
+    weight: '100g',
+    price: 30,
+    oldPrice: 40,
+    discount: '25% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.FnVVMmh10VMnlMeTuaYxLwHaG4?pid=Api&H=148&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Sabut Dhaniya | Whole Coriander Seeds | Aromatic | 100g Pack',
+    stock: 110
+},
+
+// ========================================
+// 🏪 JAGAT STORE SABUT LAL MIRCH
+// ========================================
+{
+    name: 'Jagat Store Sabut Lal Mirch (Whole Red Chilli)',
+    weight: '100g',
+    price: 45,
+    oldPrice: 58,
+    discount: '22% OFF',
+    category: 'Jagat Store',
+    brand: 'Jagat Store',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.IbtiatptvKR_NUwiyVijwAHaIO?pid=Api&H=177&W=160',
+    inStock: true,
+    description: '🏪 Jagat Store | Sabut Lal Mirch | Whole Red Chilli | Hot & Spicy | 100g Pack',
+    stock: 95
+},
 {
   name: 'Everest Turmeric Powder (Haldi)',
   weight: '200g',

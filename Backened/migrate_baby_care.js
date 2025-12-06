@@ -132,9 +132,9 @@ const babyCareProducts = [
 {
     name: 'Bonny Silicone Nipple',
     weight: '1pc',
-    price: 40,
-    oldPrice: 50,
-    discount: '20% OFF',
+    price: 20,
+    oldPrice: 30,
+    discount: '30% OFF',
     category: 'Baby Care',
     brand: 'Bonny',
     image: '	https://tse2.mm.bing.net/th/id/OIP.QP7jpWfKh4F8mQ5uZI9_9wHaHa?pid=Api&P=0&w=400&h=400',
@@ -145,9 +145,9 @@ const babyCareProducts = [
 {
     name: 'Bonny Feeding Bottle',
     weight: '120ml',
-    price: 199,
-    oldPrice: 240,
-    discount: '17% OFF',
+    price: 90,
+    oldPrice: 150,
+    discount: '40% OFF',
     category: 'Baby Care',
     brand: 'Bonny',
     image: 'https://tse1.mm.bing.net/th/id/OIP.g521OGIbjlfnzsL8zvlXrgAAAA?pid=Api&P=0&w=400&h=449',
@@ -241,7 +241,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion20ml?pid=Api&H=160&W=160',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.onUbTzJ9ZxsfZkQRmIuYOgHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 20ml Bottle',
     stock: 130
@@ -254,7 +254,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion100ml?pid=Api&H=160&W=160',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.Ji2G2JAfiPPYTqvEAAJiyQHaID?pid=Api&H=173&W=160',
     inStock: true,
     description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 100ml Bottle',
     stock: 95
@@ -267,7 +267,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyLotion200ml?pid=Api&H=160&W=160',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.zRPLVM0oiZcLQYkv0XMYCQHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Lotion | Soft & Smooth Skin | Mild Formula | 200ml Bottle',
     stock: 70
@@ -284,7 +284,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyHairOil50ml?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.B6S-wS7F0co2f343xLfFDQHaLH?pid=Api&H=240&W=160',
     inStock: true,
     description: 'Johnsons Baby Hair Oil | Avocado & Pro-Vitamin B5 | Soft Hair | 50ml Bottle',
     stock: 110
@@ -297,7 +297,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyHairOil100ml?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.l78Ki0MCyF9-7WSEm0MmmgHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Hair Oil | Avocado & Pro-Vitamin B5 | Soft Hair | 100ml Bottle',
     stock: 90
@@ -315,7 +315,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyOil50ml?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.4i66nMXGAodqzfKM9L0vOwHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Oil | Pure Mineral Oil | Gentle Massage | 50ml Bottle',
     stock: 105
@@ -328,7 +328,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyOil100ml?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.F6y_PwRPgkfSSkeaOiFLFwHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Oil | Pure Mineral Oil | Gentle Massage | 100ml Bottle',
     stock: 85
@@ -346,7 +346,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder50g?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.sO7RpbV2vS29uEjbvLrNmAHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 50g Pack',
     stock: 130
@@ -359,7 +359,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder100g?pid=Api&H=160&W=160',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.R01sCRA_RbOyBPjidEtp4QHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 100g Pack',
     stock: 110
@@ -372,7 +372,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyPowder200g?pid=Api&H=160&W=160',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.4lPAlss8Ins4Ysus4Y3wjgHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Powder | Mild Formula | Keeps Skin Dry | 200g Pack',
     stock: 80
@@ -389,7 +389,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabySoap150g?pid=Api&H=160&W=160',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.2m7DWH0D339CZVorhhpU7wHaEw?pid=Api&H=102&W=160',
     inStock: true,
     description: 'Johnsons Baby Soap | Gentle Cleansing | Mild Formula | 150g Bar',
     stock: 100
@@ -402,7 +402,7 @@ const babyCareProducts = [
     discount: '5% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabySoap25g?pid=Api&H=160&W=160',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.eTDy_HmwWwJ0DRfOJexzagHaHa?pid=Api&H=160&W=160',
     inStock: true,
     description: 'Johnsons Baby Soap | Gentle Cleansing | Travel Size | 25g Bar',
     stock: 150
@@ -419,10 +419,172 @@ const babyCareProducts = [
     discount: '7% OFF',
     category: 'Baby Care',
     brand: 'Johnsons',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.JohnsonsBabyWipes60?pid=Api&H=160&W=160',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.bgUBn6ijMivQeNdUA_er8QHaDz?pid=Api&H=82&W=160',
     inStock: true,
     description: 'Johnsons Baby Wipes | Gentle Cleansing | Alcohol Free | 60 Wipes Pack',
     stock: 90
+},
+// ========================================
+// 🍼 HIMALAYA SHISHU MASSAGE OIL
+// ========================================
+{
+    name: 'Himalaya Shishu Massage Oil',
+    weight: '50ml',
+    price: 65,
+    oldPrice: 70,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.WNYORBWdrhG0gCRYQwRg-QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Shishu Massage Oil | Olive Oil & Winter Cherry | Gentle Massage | 50ml Bottle',
+    stock: 100
+},
+{
+    name: 'Himalaya Shishu Massage Oil',
+    weight: '100ml',
+    price: 130,
+    oldPrice: 140,
+    discount: '7% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.WNYORBWdrhG0gCRYQwRg-QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Shishu Massage Oil | Olive Oil & Winter Cherry | Gentle Massage | 100ml Bottle',
+    stock: 90
+},
+{
+    name: 'Himalaya Shishu Massage Oil',
+    weight: '200ml',
+    price: 234,
+    oldPrice: 260,
+    discount: '10% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.WNYORBWdrhG0gCRYQwRg-QHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Shishu Massage Oil | Olive Oil & Winter Cherry | Gentle Massage | 200ml Bottle',
+    stock: 70
+},
+
+// ========================================
+// 🍼 HIMALAYA BABY LOTION
+// ========================================
+{
+    name: 'Himalaya Baby Lotion',
+    weight: '200ml',
+    price: 175,
+    oldPrice: 185,
+    discount: '16% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: 'https://tse1.mm.bing.net/th/id/OIP.9PlCHPB9hEiz4kH9wYXv3QHaM1?pid=Api&H=277&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Lotion | Almond & Olive Oil | Soft & Smooth Skin | 200ml Bottle',
+    stock: 85
+},
+{
+    name: 'Himalaya Baby Lotion',
+    weight: '500ml',
+    price: 333,
+    oldPrice: 370,
+    discount: '10% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.sM4prBwU5em1bCag3cQdHAHaMz?pid=Api&H=276&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Lotion | Almond & Olive Oil | Soft & Smooth Skin | 500ml Bottle',
+    stock: 55
+},
+
+// ========================================
+// 🍼 HIMALAYA BABY CREAM
+// ========================================
+{
+    name: 'Himalaya Baby Cream',
+    weight: '100g',
+    price: 138,
+    oldPrice: 145,
+    discount: '17% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.xs3_dCu1o1TPUbpKBWKkwgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Cream | Extra Soft | Gentle Moisturizing | 100g Tube',
+    stock: 95
+},
+{
+    name: 'Himalaya Baby Cream',
+    weight: '200g',
+    price: 279,
+    oldPrice: 310,
+    discount: '10% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.VIEiWBfGq73BdG03lRsmxgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Cream | Extra Soft | Gentle Moisturizing | 200g Tube',
+    stock: 75
+},
+
+// ========================================
+// 🍼 HIMALAYA DIAPER RASH CREAM
+// ========================================
+{
+    name: 'Himalaya Diaper Rash Cream',
+    weight: '50g',
+    price: 133,
+    oldPrice: 140,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.T9BlM80p-vpBpA_mCAwLxQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Diaper Rash Cream | Almond & Yashad Bhasma | Prevents Rashes | 50g Tube',
+    stock: 80
+},
+
+// ========================================
+// 🍼 HIMALAYA BABY SOAP
+// ========================================
+{
+    name: 'Himalaya Baby Soap Moisturizing',
+    weight: '125g',
+    price: 99,
+    oldPrice: 105,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.ZnoT2QC1w4tcICMN7vHGJQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Soap Moisturizing | Aloe Vera & Milk | Soft Skin | 125g Bar',
+    stock: 110
+},
+{
+    name: 'Himalaya Baby Soap Gentle',
+    weight: '125g',
+    price: 99,
+    oldPrice: 105,
+    discount: '5% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.eK8fr37WJmE-RvVt_2jfgQHaFF?pid=Api&H=109&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Soap Gentle | Mild Formula | No Tears | 125g Bar',
+    stock: 105
+},
+{
+    name: 'Himalaya Baby Soap Nourishing',
+    weight: '125g',
+    price: 99,
+    oldPrice: 105,
+    discount: '15% OFF',
+    category: 'Baby Care',
+    brand: 'Himalaya',
+    image: '	https://tse2.mm.bing.net/th/id/OIP.IlZ2gdf1UBU9VQjZAY4_vQHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Baby Soap Nourishing | Honey & Milk | Deep Nourishment | 125g Bar',
+    stock: 100
 }
 
 

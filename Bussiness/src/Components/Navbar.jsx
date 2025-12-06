@@ -40,9 +40,39 @@ const Navbar = () => {
     }
   }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+ const toggleMobileMenu = () => {
+  setIsMobileMenuOpen(!isMobileMenuOpen);
+};
+
+// 📜 Auto-close menu on scroll
+useEffect(() => {
+  const handleScroll = () => {
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
   };
+
+  window.addEventListener('scroll', handleScroll);
+  
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [isMobileMenuOpen]);
+
+// 📱 Close menu when clicking outside
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (isMobileMenuOpen && !e.target.closest('.mobile-menu-dropdown') && !e.target.closest('.mobile-menu-btn')) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  document.addEventListener('click', handleClickOutside);
+  
+  return () => {
+    document.removeEventListener('click', handleClickOutside);
+  };
+}, [isMobileMenuOpen]);
 
   // 🔐 Handle logout - COMPLETE FIX
   const handleLogout = async () => {

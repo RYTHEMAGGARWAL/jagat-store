@@ -32,7 +32,7 @@ const Cart = () => {
     price: 0,
     oldPrice: 149,
     weight: '500ml',
-    image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+   image: 'https://tse2.mm.bing.net/th/id/OIP.0BK9_yGQYmr2f7QjTesVDQHaE8?pid=Api&P=0&h=180',
     isGift: true
   };
 
@@ -144,11 +144,20 @@ const Cart = () => {
   };
 
   // 🎁 Handle gift added callback
-  const handleGiftAdded = () => {
-    setLocalHasGift(true);
-    setLocalGiftItem(DEFAULT_GIFT);
-    refreshCart();
-  };
+  // 🎁 Handle gift added callback
+const handleGiftAdded = () => {
+  setLocalHasGift(true);
+  setLocalGiftItem(DEFAULT_GIFT);
+  refreshCart();
+  
+  // Scroll to checkout button
+  setTimeout(() => {
+    document.querySelector('.checkout-btn-main')?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+  }, 500);
+};
 
   if (loading) {
     return (
@@ -269,7 +278,7 @@ const Cart = () => {
                 
                 <div className="product-img-box">
                   <img 
-                    src={currentGiftItem.image || 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg'}
+                    src={currentGiftItem.image || '	https://tse2.mm.bing.net/th/id/OIP.0BK9_yGQYmr2f7QjTesVDQHaE8?pid=Api&P=0&h=180'}
                     alt={currentGiftItem.name}
                     onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
                   />
@@ -278,7 +287,7 @@ const Cart = () => {
                 <div className="product-info-box">
                   <h3>{currentGiftItem.name || ' k'}</h3>
                   <p className="brand-text">{currentGiftItem.brand || 'Jagat Store'}</p>
-                  <p className="weight-text">{currentGiftItem.weight || '500ml'}</p>
+                  {/* <p className="weight-text">{currentGiftItem.weight || '500ml'}</p> */}
                   <div className="price-box">
                     <span className="current-price gift-price">FREE</span>
                     <span className="old-price">₹{currentGiftItem.oldPrice || 149}</span>
@@ -294,7 +303,7 @@ const Cart = () => {
 
                 <div className="product-total-box">
                   <span className="item-total-price gift-total">₹0.00</span>
-                  <span className="gift-savings">You save ₹{currentGiftItem.oldPrice || 149}!</span>
+                  <span className="gift-savings">Worth ₹{currentGiftItem.oldPrice || 149}!</span>
                 </div>
               </div>
             )}
@@ -352,22 +361,42 @@ const Cart = () => {
             {/* 🎁 Savings Badge */}
             {showGift && (
               <div className="savings-badge">
-                🎉 You're saving ₹{currentGiftItem?.oldPrice || 149} with FREE gift!
+              🎁 FREE Gift Unlocked! Worth ₹{currentGiftItem?.oldPrice || 149}
               </div>
             )}
 
             {/* 🎁 Gift Progress - Shows when NOT unlocked */}
-            {!showGift && subtotal > 0 && (
-              <div className="gift-progress-mini">
-                <span>🎁 Add ₹{remainingForGift.toFixed(0)} more for FREE</span>
-                <div className="mini-progress-bar">
-                  <div 
-                    className="mini-progress-fill"
-                    style={{ width: `${Math.min(100, (subtotal / GIFT_THRESHOLD) * 100)}%` }}
-                  ></div>
-                </div>
-              </div>
-            )}
+           {/* 🎁 Gift Progress */}
+{subtotal > 0 && !showGift && (
+  <div className={`gift-progress-mini ${subtotal >= GIFT_THRESHOLD ? 'gift-unlocked' : ''}`}>
+    {subtotal >= GIFT_THRESHOLD ? (
+      <>
+        <span>🎁 Mystery Gift Unlocked!</span>
+       <div 
+  className="mystery-gift-cta"
+  onClick={() => {
+    document.querySelector('.surprise-gift-container')?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+  }}
+>
+  <span>✨ Tap to Reveal Your Gift Below ⬇️</span>
+</div>
+      </>
+    ) : (
+      <>
+        <span>🎁 ₹{remainingForGift.toFixed(0)} away from a FREE surprise gift!</span>
+        <div className="mini-progress-bar">
+          <div 
+            className="mini-progress-fill"
+            style={{ width: `${Math.min(100, (subtotal / GIFT_THRESHOLD) * 100)}%` }}
+          ></div>
+        </div>
+      </>
+    )}
+  </div>
+)}
 
             <div className="delivery-box">
               <div className="delivery-line">

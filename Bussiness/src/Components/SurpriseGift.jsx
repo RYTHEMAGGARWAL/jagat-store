@@ -24,7 +24,7 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
     oldPrice: 149,
     quantity: 1,
     weight: '500ml',
-    image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.0BK9_yGQYmr2f7QjTesVDQHaE8?pid=Api&P=0&h=180',
     isGift: true
   };
 
@@ -60,9 +60,17 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
     }
   }, [cartTotal]);
 
-  const handleRevealGift = () => {
-    setGiftRevealed(true);
-  };
+ const handleRevealGift = () => {
+  setGiftRevealed(true);
+  
+  // Scroll to Add Gift button
+  setTimeout(() => {
+    document.querySelector('.add-gift-btn')?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+  }, 500);
+};
 
   // 🎁 ADD GIFT TO CART
   const handleAddGiftToCart = async () => {
@@ -206,9 +214,13 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
                   <div className="gift-box-lid"></div>
                   <div className="gift-box-body"></div>
                 </div>
-                <div className="gift-item-popup">
-                  <span className="gift-emoji">🍨</span>
-                </div>
+               <div className="gift-item-popup">
+  <div className="gift-box-open">
+    <span className="box-lid">🎀</span>
+    <span className="box-base">📦</span>
+    <span className="gift-inside">🎁</span>
+  </div>
+</div>
               </div>
               <div className="gift-details">
                 <h4>🎊 Your FREE Gift!</h4>

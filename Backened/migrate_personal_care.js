@@ -2123,6 +2123,57 @@ const personalCareProducts = [
 
 
 
+// price update
+{
+    name: 'Himalaya Anti Hair Fall Shampoo Bhringraj',
+    weight: '180ml',
+    price: 158,
+    oldPrice: 165,
+    discount: '5% OFF',
+    category: 'Personal Care',
+    brand: 'Himalaya',
+    image: '	https://tse1.mm.bing.net/th/id/OIP.OuAiqETlabCvJjlXNtIkagHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Himalaya Anti Hair Fall Shampoo | Bhringraj & Amalaki | Reduces Hair Fall | 180ml Bottle',
+    stock: 85
+},
+// ========================================
+// 🖤 VASMOL KESH KALA
+// ========================================
+{
+    name: 'Vasmol Kesh Kala Hair Oil',
+    weight: '50ml',
+    price: 55,
+    oldPrice: 65,
+    discount: '15% OFF',
+    category: 'Personal Care',
+    brand: 'Vasmol',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.T5rVN1hRkdX97bbLaj77tAHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vasmol Kesh Kala Hair Oil | Natural Black Hair | Gradual Hair Darkening | 50ml Bottle',
+    stock: 100
+},
+{
+    name: 'Vasmol Kesh Kala Hair Oil',
+    weight: '100ml',
+    price: 99,
+    oldPrice: 120,
+    discount: '18% OFF',
+    category: 'Personal Care',
+    brand: 'Vasmol',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.WZ-KYMG4Ltx3GC0xm_kfDgHaHa?pid=Api&H=160&W=160',
+    inStock: true,
+    description: 'Vasmol Kesh Kala Hair Oil | Natural Black Hair | Gradual Hair Darkening | 100ml Bottle',
+    stock: 85
+},
+
+
+
+
+
+
+
+
 
 
 

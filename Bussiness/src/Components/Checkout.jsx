@@ -439,38 +439,57 @@ const Checkout = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    const newFormData = { ...formData, [name]: value };
-    setFormData(newFormData);
-    
-    // 🏠 Auto-save address when important fields are filled
-    if (name === 'houseNo' || name === 'name' || name === 'phone' || name === 'landmark') {
-      // Only save if we have minimum required data
-      if (newFormData.name && newFormData.phone && newFormData.houseNo) {
-        saveAddressToStorage(newFormData, selectedArea, userCoords);
-      }
+  const { name, value } = e.target;
+  const newFormData = { ...formData, [name]: value };
+  setFormData(newFormData);
+  
+  // 🏠 Auto-save address when important fields are filled
+  if (name === 'houseNo' || name === 'name' || name === 'phone' || name === 'landmark') {
+    // Only save if we have minimum required data
+    if (newFormData.name && newFormData.phone && newFormData.houseNo) {
+      saveAddressToStorage(newFormData, selectedArea, userCoords);
     }
-  };
+  }
+
+  // 🎯 Scroll to Place Order when landmark is filled
+  if (name === 'landmark' && value.length >= 3) {
+    setTimeout(() => {
+      document.querySelector('.place-order-btn')?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 500);
+  }
+};
 
   // Handle manual area selection
-  const handleManualAreaSelect = (area) => {
-    setSelectedArea(area);
-    setManualAreaSelected(true);
-    const newDetectedArea = area + ', Ghaziabad, Uttar Pradesh';
-    
-    setFormData(prev => {
-      const newData = { ...prev, detectedArea: newDetectedArea };
-      // Save when area is selected
-      saveAddressToStorage(newData, area, userCoords);
-      return newData;
+ const handleManualAreaSelect = (area) => {
+  setSelectedArea(area);
+  setManualAreaSelected(true);
+  const newDetectedArea = area + ', Ghaziabad, Uttar Pradesh';
+  
+  setFormData(prev => {
+    const newData = { ...prev, detectedArea: newDetectedArea };
+    // Save when area is selected
+    saveAddressToStorage(newData, area, userCoords);
+    return newData;
+  });
+  
+  setDeliveryCheck({
+    available: true,
+    message: `✅ ${area} - Delivery Available!`,
+    color: '#2e7d32'
+  });
+
+  // 🎯 Scroll to Full Name input after area selection
+  setTimeout(() => {
+    document.getElementById('fullname-input')?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
     });
-    
-    setDeliveryCheck({
-      available: true,
-      message: `✅ ${area} - Delivery Available!`,
-      color: '#2e7d32'
-    });
-  };
+    document.getElementById('fullname-input')?.focus();
+  }, 300);
+};
 
   // Check if delivery is available (GPS or Manual)
   const isDeliveryAvailable = () => {
@@ -723,14 +742,15 @@ const Checkout = () => {
                   <div className="form-group">
                     <label>Full Name *</label>
                     <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Enter your name"
-                      required
-                      disabled={placing}
-                    />
+  type="text"
+  id="fullname-input"
+  name="name"
+  value={formData.name}
+  onChange={handleChange}
+  placeholder="Enter your name"
+  required
+  disabled={placing}
+/>
                   </div>
 
                   <div className="form-group">
@@ -764,16 +784,18 @@ const Checkout = () => {
                   </div>
 
                   <div className="form-group">
-                    <label>Landmark (Optional)</label>
-                    <input
-                      type="text"
-                      name="landmark"
-                      value={formData.landmark}
-                      onChange={handleChange}
-                      placeholder="e.g., Near Gaushala, Opposite School"
-                      disabled={placing}
-                    />
-                  </div>
+  <label>Landmark *</label>
+  <input
+    type="text"
+    id="landmark-input"
+    name="landmark"
+    value={formData.landmark}
+    onChange={handleChange}
+    placeholder="e.g., Near Gaushala, Opposite School"
+    required
+    disabled={placing}
+  />
+</div>
 
                   <div className="form-group">
                     <label>
@@ -824,17 +846,19 @@ const Checkout = () => {
                   <button 
                     type="submit" 
                     className={`place-order-btn ${hasGift ? 'has-gift' : ''}`}
-                    disabled={placing || !formData.houseNo || !formData.name || !formData.phone}
+                    disabled={placing || !formData.houseNo || !formData.name || !formData.phone || !formData.landmark}
                   >
-                    {placing ? (
-                      '⏳ Placing Order...'
-                    ) : !formData.name || !formData.phone ? (
-                      '📝 Fill Name & Phone'
-                    ) : !formData.houseNo ? (
-                      '📝 Enter House No. / Address'
-                    ) : (
-                      `✅ Place Order - ₹${total.toFixed(0)} (COD) ${hasGift ? '🎁' : ''}`
-                    )}
+                   {placing ? (
+  '⏳ Placing Order...'
+) : !formData.name || !formData.phone ? (
+  '📝 Fill Name & Phone'
+) : !formData.houseNo ? (
+  '📝 Enter House No. / Address'
+) : !formData.landmark ? (
+  '📝 Enter Landmark'
+) : (
+  `✅ Place Order - ₹${total.toFixed(0)} (COD) ${hasGift ? '🎁' : ''}`
+)}
                   </button>
                 </>
               ) : (

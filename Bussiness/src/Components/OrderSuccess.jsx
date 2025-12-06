@@ -40,12 +40,24 @@ const OrderSuccess = () => {
     <div className="order-success-page">
       <div className="success-container">
         
-        {/* Success Animation */}
-        <div className="success-checkmark">
-          <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-            <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-          </svg>
+        {/* ✅ NEW ATTRACTIVE SUCCESS ANIMATION */}
+        <div className="success-animation-wrapper">
+          <div className="success-checkmark-new">
+            <div className="check-icon">
+              <span className="icon-line line-tip"></span>
+              <span className="icon-line line-long"></span>
+              <div className="icon-circle"></div>
+              <div className="icon-fix"></div>
+            </div>
+          </div>
+          <div className="success-particles">
+            <span>🎉</span>
+            <span>✨</span>
+            <span>🎊</span>
+            <span>⭐</span>
+            <span>💫</span>
+            <span>🌟</span>
+          </div>
         </div>
 
         {/* Success Message */}
@@ -86,7 +98,7 @@ const OrderSuccess = () => {
           </div>
           
           <div className="info-item">
-            <span className="info-icon">💳</span>
+            <span className="info-icon">💵</span>
             <div className="info-text">
               <strong>Cash on Delivery</strong>
               <p>Pay when you receive</p>
@@ -94,37 +106,47 @@ const OrderSuccess = () => {
           </div>
         </div>
 
-        {/* Track Order Section */}
-        <div className="order-status-timeline">
-          <div className="timeline-item active">
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <strong>Order Placed</strong>
-              <p>Your order has been confirmed</p>
-            </div>
-          </div>
+        {/* Track Order Section - NEW ATTRACTIVE */}
+        <div className="order-status-timeline-new">
+          <h3 className="timeline-title">📦 Order Status</h3>
           
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <strong>Preparing</strong>
-              <p>Items being packed</p>
+          <div className="timeline-track">
+            <div className="timeline-step completed">
+              <div className="step-icon">✅</div>
+              <div className="step-content">
+                <span className="step-label">Order Placed</span>
+                <span className="step-desc">Confirmed</span>
+              </div>
             </div>
-          </div>
-          
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <strong>Out for Delivery</strong>
-              <p>On the way to you</p>
+            
+            <div className="timeline-connector active"></div>
+            
+            <div className="timeline-step active">
+              <div className="step-icon">📦</div>
+              <div className="step-content">
+                <span className="step-label">Preparing</span>
+                <span className="step-desc">Packing items</span>
+              </div>
             </div>
-          </div>
-          
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <strong>Delivered</strong>
-              <p>Enjoy your order!</p>
+            
+            <div className="timeline-connector"></div>
+            
+            <div className="timeline-step">
+              <div className="step-icon">🚚</div>
+              <div className="step-content">
+                <span className="step-label">Out for Delivery</span>
+                <span className="step-desc">On the way</span>
+              </div>
+            </div>
+            
+            <div className="timeline-connector"></div>
+            
+            <div className="timeline-step">
+              <div className="step-icon">🎉</div>
+              <div className="step-content">
+                <span className="step-label">Delivered</span>
+                <span className="step-desc">Enjoy!</span>
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +157,7 @@ const OrderSuccess = () => {
             className="btn-primary-success"
             onClick={() => navigate('/')}
           >
-            Continue Shopping
+            🛒 Continue Shopping
           </button>
         </div>
 
