@@ -19,6 +19,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// ✅ TRUST PROXY - For Render/Vercel/Proxy support (Fixes rate limit warning)
+app.set('trust proxy', 1);
+
 const server = http.createServer(app);
 
 // Setup Socket.IO
