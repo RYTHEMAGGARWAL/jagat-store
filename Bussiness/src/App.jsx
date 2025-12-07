@@ -42,6 +42,7 @@ import AdminProducts from './Components/AdminProducts';
 import AdminAddProduct from './Components/AdminAddProduct';
 import PaanCorner from './Components/PaanCorner';
 import CheckoutGuard from './Components/CheckoutGuard';
+import NewYearPopup from './Components/NewYearPopup';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <CartProvider>
           {/* Scroll to top on page change */}
           <ScrollToTop />
+          <NewYearPopup />  {/* ✅ Add this line */}
           
           {/* Navbar */}
           <Navbar />

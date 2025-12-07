@@ -1,0 +1,205 @@
+/* Components/NewYearPopup.css - RESPONSIVE CORNER POPUP */
+
+/* Desktop - Bigger */
+.corner-popup {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  max-width: 360px;
+  transition: all 0.3s ease;
+}
+
+.corner-popup:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+/* Close Button */
+.corner-close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #ff6b6b;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.5);
+}
+
+.corner-close:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+}
+
+/* Gift Icon - Desktop */
+.corner-icon {
+  font-size: 44px;
+  animation: bounce 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* Text Content - Desktop */
+.corner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.corner-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffd700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.corner-offer {
+  font-size: 15px;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.corner-offer strong {
+  color: #ff6b6b;
+  font-size: 18px;
+}
+
+.corner-offer .highlight {
+  color: #6bcb77;
+  font-weight: 600;
+}
+
+.corner-cta {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4d96ff;
+  margin-top: 4px;
+  transition: all 0.3s;
+}
+
+.corner-popup:hover .corner-cta {
+  color: #6bcb77;
+  transform: translateX(5px);
+}
+
+/* Animations */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+}
+
+/* ============================================ */
+/* 📱 MOBILE - Much Smaller */
+/* ============================================ */
+@media (max-width: 768px) {
+  .corner-popup {
+    top: auto;
+    bottom: 70px;
+    right: 10px;
+    left: auto;
+    max-width: 200px;
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+  
+  .corner-close {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    top: -6px;
+    right: -6px;
+  }
+  
+  .corner-icon {
+    font-size: 26px;
+  }
+  
+  .corner-badge {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+  
+  .corner-offer {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  
+  .corner-offer strong {
+    font-size: 12px;
+  }
+  
+  .corner-cta {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .corner-popup {
+    max-width: 180px;
+    padding: 8px 10px;
+    gap: 8px;
+    bottom: 65px;
+    right: 8px;
+  }
+  
+  .corner-icon {
+    font-size: 22px;
+  }
+  
+  .corner-badge {
+    font-size: 7px;
+  }
+  
+  .corner-offer {
+    font-size: 9px;
+  }
+  
+  .corner-offer strong {
+    font-size: 11px;
+  }
+  
+  .corner-cta {
+    font-size: 8px;
+  }
+}
