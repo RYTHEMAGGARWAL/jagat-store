@@ -1,9 +1,11 @@
-// Components/SurpriseGift.jsx - WITH CALLBACK & PROPER ADD TO CART
+// Components/SurpriseGift.jsx - WITH 5 SEC COUNTDOWN TO CHECKOUT
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SurpriseGift.css';
 
 const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
+  const navigate = useNavigate();
   const GIFT_THRESHOLD = 999;
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -11,11 +13,14 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
   const [giftAdded, setGiftAdded] = useState(false);
   const [addingGift, setAddingGift] = useState(false);
   const [prevTotal, setPrevTotal] = useState(0);
+  
+  // ✅ NEW: Countdown state
+  const [countdown, setCountdown] = useState(null);
 
   const remaining = Math.max(0, GIFT_THRESHOLD - cartTotal);
   const progress = Math.min(100, (cartTotal / GIFT_THRESHOLD) * 100);
 
-  // 🍨 GIFT PRODUCT DETAILS
+  // 🎨 GIFT PRODUCT DETAILS
   const GIFT_PRODUCT = {
     name: '🎁 FREE Gift ',
     brand: 'Jagat Store',
@@ -40,6 +45,7 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
       setIsUnlocked(false);
       setGiftRevealed(false);
       setGiftAdded(false);
+      setCountdown(null);
       // Remove gift from localStorage if below threshold
       localStorage.removeItem('jagat_gift_added');
       localStorage.removeItem('jagat_gift_product');
@@ -60,19 +66,19 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
     }
   }, [cartTotal]);
 
- const handleRevealGift = () => {
-  setGiftRevealed(true);
-  
-  // Scroll to Add Gift button
-  setTimeout(() => {
-    document.querySelector('.add-gift-btn')?.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'center' 
-    });
-  }, 500);
-};
+  const handleRevealGift = () => {
+    setGiftRevealed(true);
+    
+    // Scroll to Add Gift button
+    setTimeout(() => {
+      document.querySelector('.add-gift-btn')?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 500);
+  };
 
-  // 🎁 ADD GIFT TO CART
+  // 🎁 ADD GIFT TO CART + 5 SEC COUNTDOWN
   const handleAddGiftToCart = async () => {
     if (addingGift || giftAdded) return;
 
@@ -119,6 +125,20 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
         onGiftAdded();
       }
 
+      // ✅ START 5 SECOND COUNTDOWN
+      setCountdown(5);
+      
+      const timer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            navigate('/checkout');
+            return null;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
     } catch (error) {
       console.error('Error adding gift:', error);
       // Still mark as added
@@ -127,9 +147,30 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
       setGiftAdded(true);
       
       if (onGiftAdded) onGiftAdded();
+      
+      // ✅ START COUNTDOWN EVEN ON ERROR
+      setCountdown(5);
+      
+      const timer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            navigate('/checkout');
+            return null;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      
     } finally {
       setAddingGift(false);
     }
+  };
+
+  // ✅ SKIP COUNTDOWN - Go to checkout immediately
+  const handleSkipCountdown = () => {
+    setCountdown(null);
+    navigate('/checkout');
   };
 
   // Confetti
@@ -214,13 +255,13 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
                   <div className="gift-box-lid"></div>
                   <div className="gift-box-body"></div>
                 </div>
-               <div className="gift-item-popup">
-  <div className="gift-box-open">
-    <span className="box-lid">🎀</span>
-    <span className="box-base">📦</span>
-    <span className="gift-inside">🎁</span>
-  </div>
-</div>
+                <div className="gift-item-popup">
+                  <div className="gift-box-open">
+                    <span className="box-lid">🎀</span>
+                    <span className="box-base">📦</span>
+                    <span className="gift-inside">🎁</span>
+                  </div>
+                </div>
               </div>
               <div className="gift-details">
                 <h4>🎊 Your FREE Gift!</h4>
@@ -247,8 +288,27 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
                     )}
                   </button>
                 ) : (
-                  <div className="gift-badge">
-                    <span>✅ Added to Cart</span>
+                  <div className="gift-added-section">
+                    {/* ✅ ADDED BADGE WITH COUNTDOWN */}
+                    <div className="gift-badge">
+                      <span>✅ Added to Cart</span>
+                    </div>
+                    
+                    {/* ✅ COUNTDOWN DISPLAY */}
+                    {countdown && (
+                      <div className="checkout-countdown">
+                        <div className="countdown-text">
+                          <span className="countdown-icon">🚀</span>
+                          <span>Going to Checkout in <strong>{countdown}s</strong></span>
+                        </div>
+                        <button 
+                          className="skip-btn"
+                          onClick={handleSkipCountdown}
+                        >
+                          Go Now →
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -274,7 +334,7 @@ const SurpriseGift = ({ cartTotal, onGiftAdded }) => {
 
       {/* Jagat Store Badge */}
       <div className="jagat-badge">
-        <span>🏪</span>
+        <span>🪴</span>
         <span>From <strong>Jagat Store</strong> with ❤️</span>
       </div>
     </div>
