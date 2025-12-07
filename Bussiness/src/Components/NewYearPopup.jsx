@@ -67,7 +67,7 @@ const NewYearPopup = () => {
       
       {/* Text Content */}
       <div className="corner-text">
-        <div className="corner-badge">🎉 2025 NEW YEAR SALE</div>
+        <div className="corner-badge">🎉 2026 NEW YEAR SALE</div>
         <div className="corner-offer">
           Above <strong>₹999</strong> get <span className="highlight">FREE Mystery Gift!</span>
         </div>
