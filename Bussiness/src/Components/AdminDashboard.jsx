@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import api from '../utils/api';
 import StoreToggle from './StoreToggle';
+import { MessageSquare } from 'lucide-react';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -237,6 +238,21 @@ const AdminDashboard = () => {
 
       {/* 🏪 STORE ON/OFF TOGGLE - NEW! */}
       <StoreToggle />
+      
+      {/* 📢 PROMOTIONAL SMS BUTTON */}
+      <div 
+        className="promo-sms-btn"
+        onClick={() => navigate('/admin/promo-sms')}
+      >
+        <div className="promo-btn-content">
+          <MessageSquare size={24} />
+          <div>
+            <h3>📢 Promotional SMS</h3>
+            <p>Send marketing messages to customers</p>
+          </div>
+        </div>
+        <span className="promo-arrow">→</span>
+      </div>
 
       {/* 📅 DATE FILTER SECTION */}
       <div className="date-filter-section">

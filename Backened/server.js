@@ -131,6 +131,8 @@ app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
+// 📢 PROMO SMS ROUTE
+app.use('/api/promo', require('./routes/promoRoutes'));
 
 // 🍪 STORE SETTINGS ROUTE
 app.use('/api/store', require('./routes/storeRoutes'));

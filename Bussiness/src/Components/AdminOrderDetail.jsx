@@ -104,7 +104,21 @@ const AdminOrderDetail = () => {
       });
 
       if (response.data.success) {
-        alert('✅ Order status updated successfully!');
+        // ✅ Status updated + Email sent automatically
+        
+        // 📱 Ask to send WhatsApp notification
+        if (response.data.whatsappUrl) {
+          const sendWhatsApp = window.confirm(
+            `✅ Status updated to "${newStatus}"!\n\n📧 Email sent to customer automatically.\n\n📱 Do you want to send WhatsApp notification too?`
+          );
+          
+          if (sendWhatsApp) {
+            window.open(response.data.whatsappUrl, '_blank');
+          }
+        } else {
+          alert('✅ Order status updated! Email sent to customer.');
+        }
+        
         fetchOrderDetails();
       }
     } catch (error) {

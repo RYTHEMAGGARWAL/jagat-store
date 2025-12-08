@@ -534,3 +534,52 @@
     box-shadow: 0 8px 48px rgba(102, 126, 234, 0.6);
   }
 }
+/* ==================== */
+/* PROMOTIONAL SMS BUTTON - Add this to AdminDashboard.css */
+/* ==================== */
+
+.promo-sms-btn {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  border-radius: 12px;
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.promo-sms-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+}
+
+.promo-btn-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: white;
+}
+
+.promo-btn-content svg {
+  color: white;
+}
+
+.promo-btn-content h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.promo-btn-content p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.promo-arrow {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}

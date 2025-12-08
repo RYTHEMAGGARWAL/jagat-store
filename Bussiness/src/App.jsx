@@ -1,6 +1,7 @@
 // Frontend/src/App.jsx - WITH STORE ON/OFF FEATURE
 
 import React from 'react';
+import AdminPromoSMS from './Components/AdminPromoSMS';
 import { Routes, Route } from 'react-router-dom';
 import ServerWakeup from './Components/ServerWakeup';
 import { CartProvider } from './Components/CartContext';
@@ -51,6 +52,7 @@ function App() {
         <CartProvider>
           {/* Scroll to top on page change */}
           <ScrollToTop />
+         
           <NewYearPopup />  {/* ✅ Add this line */}
           
           {/* Navbar */}
@@ -63,6 +65,7 @@ function App() {
             {/* Home Page */}
             <Route path="/" element={<FirstContainer />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/admin/promo-sms" element={<AdminPromoSMS />} />
             
             {/* Category Pages */}
             <Route path="/DairyBreadEggs" element={<DairyBreadEggs />} />

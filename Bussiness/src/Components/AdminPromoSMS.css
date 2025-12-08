@@ -1,0 +1,434 @@
+/* Frontend/src/Components/AdminPromoSMS.css */
+
+.admin-promo-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+/* Header */
+.promo-page-header {
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-title h1 {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.header-title p {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0 0 0;
+}
+
+/* Content Layout */
+.promo-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 24px;
+}
+
+/* Form Cards */
+.form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.form-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Audience Options */
+.audience-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.audience-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.audience-card:hover {
+  border-color: #9c27b0;
+  background: #faf5fc;
+}
+
+.audience-card.active {
+  border-color: #9c27b0;
+  background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+}
+
+.audience-card svg {
+  color: #9c27b0;
+}
+
+.audience-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.audience-count {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.audience-label {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.audience-card input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #9c27b0;
+}
+
+/* Textarea */
+.form-card textarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.3s;
+  line-height: 1.5;
+}
+
+.form-card textarea:focus {
+  outline: none;
+  border-color: #9c27b0;
+}
+
+.form-card textarea::placeholder {
+  color: #aaa;
+}
+
+.textarea-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.char-count {
+  font-size: 13px;
+  color: #888;
+}
+
+.char-count.warning {
+  color: #f44336;
+  font-weight: 600;
+}
+
+/* Cost Card */
+.cost-card {
+  background: linear-gradient(135deg, #fafafa, #f5f5f5);
+}
+
+.cost-summary {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 12px;
+}
+
+.cost-item {
+  text-align: center;
+}
+
+.cost-item span {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.cost-item strong {
+  font-size: 22px;
+  color: #9c27b0;
+}
+
+/* Result Box */
+.result-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.result-box.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.result-box.error {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.result-box p {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+}
+
+.result-box small {
+  opacity: 0.8;
+}
+
+/* Send Button */
+.send-btn {
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s;
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
+}
+
+.send-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Warning Box */
+.warning-box {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 12px;
+}
+
+.warning-box svg {
+  color: #f57f17;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warning-box strong {
+  display: block;
+  color: #e65100;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.warning-box ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #795548;
+  font-size: 13px;
+}
+
+.warning-box li {
+  margin-bottom: 4px;
+}
+
+/* Templates Section */
+.promo-templates-section {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.template-hint {
+  font-size: 13px;
+  color: #888;
+  margin: -10px 0 16px 0;
+}
+
+.templates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.template-item {
+  padding: 16px;
+  background: #f8f9fa;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.template-item:hover {
+  border-color: #9c27b0;
+  background: #fdf5ff;
+}
+
+.template-item.selected {
+  border-color: #9c27b0;
+  background: #f3e5f5;
+}
+
+.template-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.template-text {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.template-chars {
+  font-size: 11px;
+  color: #9c27b0;
+  font-weight: 500;
+}
+
+/* Preview Card */
+.preview-card {
+  margin-top: 20px;
+}
+
+.sms-preview {
+  background: #e8f5e9;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.sms-bubble {
+  background: white;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border-bottom-left-radius: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.sms-info {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #666;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .promo-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .promo-templates-section {
+    position: static;
+    order: -1;
+  }
+  
+  .header-title h1 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-promo-page {
+    padding: 16px;
+  }
+  
+  .form-card {
+    padding: 18px;
+  }
+  
+  .cost-summary {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .audience-card {
+    padding: 14px;
+  }
+  
+  .audience-count {
+    font-size: 22px;
+  }
+}
