@@ -14,6 +14,11 @@ const AdminPromoSMS = () => {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState(null);
+  
+  // 🧪 Test SMS states
+  const [testPhone, setTestPhone] = useState('');
+  const [testSending, setTestSending] = useState(false);
+  const [testResult, setTestResult] = useState(null);
 
   // Sample templates
   const templates = [
@@ -129,6 +134,49 @@ const AdminPromoSMS = () => {
       });
     } finally {
       setSending(false);
+    }
+  };
+
+  // 🧪 TEST SMS FUNCTION
+  const handleTestSMS = async () => {
+    if (!message.trim()) {
+      alert('Pehle message likho!');
+      return;
+    }
+    
+    if (!testPhone.trim()) {
+      alert('Phone number daalo!');
+      return;
+    }
+    
+    const cleanPhone = testPhone.replace(/\D/g, '').slice(-10);
+    if (cleanPhone.length !== 10) {
+      alert('Valid 10 digit phone number daalo!');
+      return;
+    }
+
+    try {
+      setTestSending(true);
+      setTestResult(null);
+      
+      const response = await api.post('/promo/test', {
+        phone: cleanPhone,
+        message: message.trim()
+      });
+
+      if (response.data.success) {
+        setTestResult({
+          type: 'success',
+          message: response.data.message
+        });
+      }
+    } catch (error) {
+      setTestResult({
+        type: 'error',
+        message: error.response?.data?.message || 'Test SMS failed'
+      });
+    } finally {
+      setTestSending(false);
     }
   };
 
@@ -282,6 +330,38 @@ const AdminPromoSMS = () => {
                 <li>Cost: ₹0.10 - ₹0.15 per SMS</li>
               </ul>
             </div>
+          </div>
+
+          {/* 🧪 TEST SMS SECTION */}
+          <div className="form-card test-sms-card">
+            <h3>🧪 Test SMS First</h3>
+            <p style={{ fontSize: '13px', color: '#666', marginBottom: '16px' }}>
+              Pehle apne number pe test karo, phir sabko bhejo
+            </p>
+            
+            <div className="test-input-row">
+              <input
+                type="tel"
+                placeholder="Enter phone (e.g. 9876543210)"
+                value={testPhone}
+                onChange={(e) => setTestPhone(e.target.value)}
+                maxLength={10}
+                className="test-phone-input"
+              />
+              <button 
+                className="test-send-btn"
+                onClick={handleTestSMS}
+                disabled={testSending || !message.trim() || !testPhone.trim()}
+              >
+                {testSending ? '⏳ Sending...' : '🧪 Send Test'}
+              </button>
+            </div>
+            
+            {testResult && (
+              <div className={`test-result ${testResult.type}`}>
+                {testResult.type === 'success' ? '✅' : '❌'} {testResult.message}
+              </div>
+            )}
           </div>
         </div>
 
