@@ -1,242 +1,225 @@
-// Backend/routes/promoRoutes.js
-
+// Backend/routes/promoRoutes.js - ALL 8 PROMO TEMPLATES
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const User = require('../models/User');
 const Order = require('../models/Order');
+const auth = require('../middleware/auth');
 
-// 📱 Send SMS via Fast2SMS (EXACT same as OTP - working code)
-async function sendPromoSMS(phones, message) {
+// ============================================
+// 📱 ALL PROMO MESSAGE IDs (599106)
+// ============================================
+const FAST2SMS_PROMO = {
+  MYSTERY_GIFT: '205111',        // 1 var: Amount
+  FREE_DELIVERY: '205112',       // 1 var: Amount
+  FESTIVAL_SALE: '205113',       // 2 vars: Festival|Discount
+  DISCOUNT_CODE: '205114',       // 2 vars: Discount|Code
+  FESTIVAL_POOJA: '205122',      // 1 var: Festival 🆕
+  WELCOME_PROMO: '205123',       // 0 vars 🆕
+  FREE_DELIVERY_HINDI: '205124', // 1 var: Amount 🆕
+  BUDGET_FRIENDLY: '205125'      // 1 var: Amount 🆕
+};
+
+const SENDER_ID = '599106';
+
+const adminOnly = (req, res, next) => { 
+  if (req.user && req.user.role === 'admin') next(); 
+  else res.status(403).json({ success: false, message: 'Admin only' }); 
+};
+
+async function sendFast2SMS(phone, messageId, variablesValues = null) {
   try {
-    const FAST2SMS_API_KEY = process.env.FAST2SMS_API_KEY;
+    const cleanPhone = phone.toString().replace(/\D/g, '').slice(-10);
+    if (cleanPhone.length !== 10) return { success: false, error: 'Invalid phone' };
     
-    if (!FAST2SMS_API_KEY) {
-      console.log('⚠️ Fast2SMS not configured');
-      return { return: false, message: 'API key missing' };
-    }
+    console.log('📱 Promo SMS:', { phone: cleanPhone, messageId, variables: variablesValues });
     
-    const numbers = phones.join(',');
-    console.log('📱 Sending to:', phones.length, 'numbers');
+    const body = { route: 'dlt', sender_id: SENDER_ID, message: messageId, numbers: cleanPhone, flash: 0 };
+    if (variablesValues) body.variables_values = variablesValues;
     
     const response = await fetch('https://www.fast2sms.com/dev/bulkV2', {
       method: 'POST',
-      headers: {
-        'authorization': FAST2SMS_API_KEY,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        route: 'q',
-        message: message,
-        language: 'english', 
-        flash: 0,
-        numbers: numbers
-      })
+      headers: { 'authorization': process.env.FAST2SMS_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
-
     const data = await response.json();
-    console.log('📱 Fast2SMS Response:', JSON.stringify(data, null, 2));
-    
-    return data;
-  } catch (error) {
-    console.error('❌ Promo SMS error:', error.message);
-    return { return: false, message: error.message };
-  }
+    console.log('📱 Response:', JSON.stringify(data));
+    return { success: data.return === true, data };
+  } catch (error) { return { success: false, error: error.message }; }
 }
 
-// 📊 Get customer stats for promo
-router.get('/stats', auth, async (req, res) => {
-  try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ success: false, message: 'Admin only' });
-    }
-    
-    // All unique phones from ORDERS (same as send logic)
-    const allOrders = await Order.find({}).select('shippingAddress createdAt');
-    
-    const allPhones = new Set();
-    const last30Phones = new Set();
-    const last7Phones = new Set();
-    
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
-    const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
-    
-    allOrders.forEach(order => {
-      if (order.shippingAddress?.phone) {
-        const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '').slice(-10);
-        if (cleanPhone.length === 10) {
-          allPhones.add(cleanPhone);
-          
-          const orderDate = new Date(order.createdAt);
-          if (orderDate >= thirtyDaysAgo) {
-            last30Phones.add(cleanPhone);
-          }
-          if (orderDate >= sevenDaysAgo) {
-            last7Phones.add(cleanPhone);
-          }
-        }
-      }
-    });
-    
-    res.json({
-      success: true,
-      stats: {
-        allCustomers: allPhones.size,
-        last30Days: last30Phones.size,
-        last7Days: last7Phones.size
-      }
-    });
-  } catch (error) {
-    console.error('❌ Stats error:', error);
-    res.status(500).json({ success: false, message: error.message });
+async function sendBulkPromoSMS(phones, messageId, variablesValues = null) {
+  let success = 0, failed = 0;
+  for (const phone of phones) { 
+    const result = await sendFast2SMS(phone, messageId, variablesValues); 
+    if (result.success) success++; else failed++; 
+    await new Promise(r => setTimeout(r, 100)); 
   }
+  return { success, failed };
+}
+
+// Get customer stats
+router.get('/stats', auth, adminOnly, async (req, res) => {
+  try {
+    const allCustomers = await User.countDocuments({ phone: { $exists: true, $ne: null, $ne: '' } });
+    const d30 = new Date(); d30.setDate(d30.getDate() - 30);
+    const d7 = new Date(); d7.setDate(d7.getDate() - 7);
+    const last30 = await Order.distinct('user', { createdAt: { $gte: d30 } });
+    const last7 = await Order.distinct('user', { createdAt: { $gte: d7 } });
+    res.json({ success: true, stats: { allCustomers, last30Days: last30.length, last7Days: last7.length } });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
 });
 
-// 📱 Send promotional SMS
-router.post('/send', auth, async (req, res) => {
-  try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ success: false, message: 'Admin only' });
-    }
-    
-    const { message, targetGroup } = req.body;
-    
-    if (!message || message.length < 10) {
-      return res.status(400).json({ success: false, message: 'Message too short' });
-    }
-    
-    if (message.length > 160) {
-      return res.status(400).json({ success: false, message: 'Message too long (max 160 chars)' });
-    }
-    
-    let phones = new Set();
-    
-    if (targetGroup === 'all') {
-      // All unique phones from orders
-      const orders = await Order.find({}).select('shippingAddress');
-      orders.forEach(order => {
-        if (order.shippingAddress?.phone) {
-          const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '').slice(-10);
-          if (cleanPhone.length === 10) {
-            phones.add(cleanPhone);
-          }
-        }
-      });
-      
-    } else if (targetGroup === 'last30days') {
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      
-      const orders = await Order.find({ createdAt: { $gte: thirtyDaysAgo } }).select('shippingAddress');
-      orders.forEach(order => {
-        if (order.shippingAddress?.phone) {
-          const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '').slice(-10);
-          if (cleanPhone.length === 10) {
-            phones.add(cleanPhone);
-          }
-        }
-      });
-      
-    } else if (targetGroup === 'last7days') {
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      
-      const orders = await Order.find({ createdAt: { $gte: sevenDaysAgo } }).select('shippingAddress');
-      orders.forEach(order => {
-        if (order.shippingAddress?.phone) {
-          const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '').slice(-10);
-          if (cleanPhone.length === 10) {
-            phones.add(cleanPhone);
-          }
-        }
-      });
-    }
-    
-    const phoneArray = Array.from(phones);
-    
-    if (phoneArray.length === 0) {
-      return res.status(400).json({ success: false, message: 'No customers found' });
-    }
-    
-    console.log(`📱 Sending promo SMS to ${phoneArray.length} customers...`);
-    
-    // Send SMS in batches of 50 (Fast2SMS limit)
-    const batchSize = 50;
-    let successCount = 0;
-    let failCount = 0;
-    
-    for (let i = 0; i < phoneArray.length; i += batchSize) {
-      const batch = phoneArray.slice(i, i + batchSize);
-      try {
-        const result = await sendPromoSMS(batch, message);
-        if (result.return === true) {
-          successCount += batch.length;
-        } else {
-          failCount += batch.length;
-        }
-      } catch (err) {
-        failCount += batch.length;
-      }
-    }
-    
-    console.log(`✅ Promo SMS sent: ${successCount} success, ${failCount} failed`);
-    
-    res.json({
-      success: true,
-      message: `SMS sent to ${successCount} customers!`,
-      details: {
-        total: phoneArray.length,
-        success: successCount,
-        failed: failCount,
-        estimatedCost: `₹${(successCount * 0.15).toFixed(2)} - ₹${(successCount * 0.20).toFixed(2)}`
-      }
-    });
-    
-  } catch (error) {
-    console.error('❌ Send promo error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
+// Get all available templates
+router.get('/templates', auth, adminOnly, async (req, res) => {
+  res.json({
+    success: true,
+    templates: [
+      { id: 'mystery_gift', name: '🎁 Mystery Gift', variables: ['amount'], example: '999' },
+      { id: 'free_delivery', name: '🚚 Free Delivery (Eng)', variables: ['amount'], example: '499' },
+      { id: 'festival_sale', name: '🎉 Festival Sale', variables: ['festival', 'discount'], example: 'Winter|50' },
+      { id: 'discount_code', name: '💰 Discount Code', variables: ['discount', 'code'], example: '20|JAGAT20' },
+      { id: 'festival_pooja', name: '🪔 Festival Pooja', variables: ['festival'], example: 'Diwali' },
+      { id: 'welcome_promo', name: '👋 Welcome/Intro', variables: [], example: '' },
+      { id: 'free_delivery_hindi', name: '🚚 Free Delivery (Hindi)', variables: ['amount'], example: '399' },
+      { id: 'budget_friendly', name: '💵 Budget Friendly', variables: ['amount'], example: '299' }
+    ]
+  });
 });
 
-// 🧪 Send TEST SMS to single number
-router.post('/test', auth, async (req, res) => {
+// Test SMS to single number
+router.post('/test', auth, adminOnly, async (req, res) => {
   try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ success: false, message: 'Admin only' });
+    const { phone, templateType = 'welcome_promo', variable1, variable2 } = req.body;
+    if (!phone) return res.status(400).json({ success: false, message: 'Phone required' });
+    
+    let messageId, variablesValues = null;
+    
+    switch (templateType) {
+      case 'mystery_gift':
+        messageId = FAST2SMS_PROMO.MYSTERY_GIFT;
+        variablesValues = variable1 || '999';
+        break;
+      case 'free_delivery':
+        messageId = FAST2SMS_PROMO.FREE_DELIVERY;
+        variablesValues = variable1 || '499';
+        break;
+      case 'festival_sale':
+        messageId = FAST2SMS_PROMO.FESTIVAL_SALE;
+        variablesValues = `${variable1 || 'Winter'}|${variable2 || '50'}`;
+        break;
+      case 'discount_code':
+      case 'discount':
+        messageId = FAST2SMS_PROMO.DISCOUNT_CODE;
+        variablesValues = `${variable1 || '20'}|${variable2 || 'JAGAT20'}`;
+        break;
+      case 'festival_pooja':
+        messageId = FAST2SMS_PROMO.FESTIVAL_POOJA;
+        variablesValues = variable1 || 'Diwali';
+        break;
+      case 'welcome_promo':
+        messageId = FAST2SMS_PROMO.WELCOME_PROMO;
+        variablesValues = null;
+        break;
+      case 'free_delivery_hindi':
+        messageId = FAST2SMS_PROMO.FREE_DELIVERY_HINDI;
+        variablesValues = variable1 || '399';
+        break;
+      case 'budget_friendly':
+        messageId = FAST2SMS_PROMO.BUDGET_FRIENDLY;
+        variablesValues = variable1 || '299';
+        break;
+      case 'festival':
+        messageId = FAST2SMS_PROMO.FESTIVAL_SALE;
+        variablesValues = `${variable1 || 'Winter'}|${variable2 || '50'}`;
+        break;
+      default:
+        messageId = FAST2SMS_PROMO.WELCOME_PROMO;
+        variablesValues = null;
     }
     
-    const { phone, message } = req.body;
+    const result = await sendFast2SMS(phone, messageId, variablesValues);
+    if (result.success) res.json({ success: true, message: `✅ Sent to ${phone}!` });
+    else res.status(400).json({ success: false, message: `❌ Failed: ${result.error || result.data?.message}` });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
+});
+
+// Send bulk promo SMS
+router.post('/send', auth, adminOnly, async (req, res) => {
+  try {
+    const { targetGroup, templateType = 'welcome_promo', variable1, variable2 } = req.body;
+    const hour = new Date().getHours();
+    if (hour < 9 || hour >= 21) return res.status(400).json({ success: false, message: '⏰ Promotional SMS only 9AM-9PM' });
     
-    if (!phone || !message) {
-      return res.status(400).json({ success: false, message: 'Phone and message required' });
+    // Get target phones
+    let phones = [];
+    if (targetGroup === 'all') { 
+      const users = await User.find({ phone: { $exists: true, $ne: null, $ne: '' } }).select('phone'); 
+      phones = users.map(u => u.phone); 
+    }
+    else if (targetGroup === 'last30days') { 
+      const d = new Date(); d.setDate(d.getDate() - 30); 
+      const orders = await Order.find({ createdAt: { $gte: d } }).populate('user', 'phone'); 
+      const s = new Set(); orders.forEach(o => { if (o.user?.phone) s.add(o.user.phone); }); 
+      phones = Array.from(s); 
+    }
+    else if (targetGroup === 'last7days') { 
+      const d = new Date(); d.setDate(d.getDate() - 7); 
+      const orders = await Order.find({ createdAt: { $gte: d } }).populate('user', 'phone'); 
+      const s = new Set(); orders.forEach(o => { if (o.user?.phone) s.add(o.user.phone); }); 
+      phones = Array.from(s); 
+    }
+    if (phones.length === 0) return res.status(400).json({ success: false, message: 'No customers found' });
+    
+    let messageId, variablesValues = null;
+    switch (templateType) {
+      case 'mystery_gift': messageId = FAST2SMS_PROMO.MYSTERY_GIFT; variablesValues = variable1 || '999'; break;
+      case 'free_delivery': messageId = FAST2SMS_PROMO.FREE_DELIVERY; variablesValues = variable1 || '499'; break;
+      case 'festival_sale': case 'festival': messageId = FAST2SMS_PROMO.FESTIVAL_SALE; variablesValues = `${variable1 || 'Winter'}|${variable2 || '50'}`; break;
+      case 'discount_code': case 'discount': messageId = FAST2SMS_PROMO.DISCOUNT_CODE; variablesValues = `${variable1 || '20'}|${variable2 || 'JAGAT20'}`; break;
+      case 'festival_pooja': messageId = FAST2SMS_PROMO.FESTIVAL_POOJA; variablesValues = variable1 || 'Diwali'; break;
+      case 'welcome_promo': messageId = FAST2SMS_PROMO.WELCOME_PROMO; variablesValues = null; break;
+      case 'free_delivery_hindi': messageId = FAST2SMS_PROMO.FREE_DELIVERY_HINDI; variablesValues = variable1 || '399'; break;
+      case 'budget_friendly': messageId = FAST2SMS_PROMO.BUDGET_FRIENDLY; variablesValues = variable1 || '299'; break;
+      default: messageId = FAST2SMS_PROMO.WELCOME_PROMO; variablesValues = null;
     }
     
-    const cleanPhone = phone.replace(/\D/g, '').slice(-10);
+    const results = await sendBulkPromoSMS(phones, messageId, variablesValues);
+    const cost = `₹${(results.success * 0.12).toFixed(2)} - ₹${(results.success * 0.15).toFixed(2)}`;
     
-    if (cleanPhone.length !== 10) {
-      return res.status(400).json({ success: false, message: 'Invalid phone number' });
-    }
-    
-    console.log(`🧪 Sending TEST SMS to: ${cleanPhone}`);
-    
-    const result = await sendPromoSMS([cleanPhone], message);
-    
-    if (result.return === true) {
-      res.json({
-        success: true,
-        message: `✅ Test SMS sent to ${cleanPhone}!`
-      });
-    } else {
-      res.status(400).json({
-        success: false,
-        message: result.message || 'SMS failed. Check Fast2SMS balance.'
-      });
-    }
-    
-  } catch (error) {
-    console.error('❌ Test SMS error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
+    res.json({ 
+      success: true, 
+      message: '📱 Campaign completed!', 
+      details: { total: phones.length, success: results.success, failed: results.failed, estimatedCost: cost } 
+    });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
+});
+
+// Quick routes
+router.post('/mystery-gift', auth, adminOnly, async (req, res) => {
+  try {
+    const { phones, amount = '999' } = req.body;
+    if (!phones || phones.length === 0) return res.status(400).json({ success: false, message: 'Phones required' });
+    const results = await sendBulkPromoSMS(phones, FAST2SMS_PROMO.MYSTERY_GIFT, amount);
+    res.json({ success: true, message: `Sent to ${results.success} customers`, details: results });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
+});
+
+router.post('/free-delivery', auth, adminOnly, async (req, res) => {
+  try {
+    const { phones, amount = '399' } = req.body;
+    if (!phones || phones.length === 0) return res.status(400).json({ success: false, message: 'Phones required' });
+    const results = await sendBulkPromoSMS(phones, FAST2SMS_PROMO.FREE_DELIVERY_HINDI, amount);
+    res.json({ success: true, message: `Sent to ${results.success} customers`, details: results });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
+});
+
+router.post('/festival', auth, adminOnly, async (req, res) => {
+  try {
+    const { phones, festival = 'Diwali' } = req.body;
+    if (!phones || phones.length === 0) return res.status(400).json({ success: false, message: 'Phones required' });
+    const results = await sendBulkPromoSMS(phones, FAST2SMS_PROMO.FESTIVAL_POOJA, festival);
+    res.json({ success: true, message: `Sent to ${results.success} customers`, details: results });
+  } catch (error) { res.status(500).json({ success: false, message: 'Failed' }); }
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-// Frontend/src/Components/AdminPromoSMS.jsx
+// Frontend/src/Components/AdminPromoSMS.jsx - ALL 8 PROMO TEMPLATES
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ const AdminPromoSMS = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [targetGroup, setTargetGroup] = useState('all');
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [stats, setStats] = useState({ allCustomers: 0, last30Days: 0, last7Days: 0 });
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
@@ -20,34 +21,83 @@ const AdminPromoSMS = () => {
   const [testSending, setTestSending] = useState(false);
   const [testResult, setTestResult] = useState(null);
 
-  // Sample templates
+  // ✅ ALL 8 DLT APPROVED PROMO TEMPLATES
   const templates = [
     {
-      name: '🛒 General Store',
-      text: 'JAGAT STORE - Apki apni grocery shop! Pooja samagri, Grocery, Dairy - sab milta hai. Order now: jagatstore.in'
+      id: 'mystery_gift',
+      name: '🎁 Mystery Gift Offer',
+      text: 'JAGAT STORE: Order above Rs.{amount} and get a FREE Mystery Gift! Shop now at jagatstore.in Hurry, limited stock! - JAGAT STORE',
+      variables: { amount: '999' },
+      getMessage: (vars) => `JAGAT STORE: Order above Rs.${vars.amount || '999'} and get a FREE Mystery Gift! Shop now at jagatstore.in Hurry, limited stock! - JAGAT STORE`
     },
     {
-      name: '🚚 Free Delivery',
-      text: 'JAGAT STORE: Free delivery on all orders! Fresh grocery, dairy, pooja items - ghar baithe mangwao. jagatstore.in'
+      id: 'discount',
+      name: '💰 Discount Offer',
+      text: 'JAGAT STORE: Get {percent} percent OFF on all products! Shop now at jagatstore.in Use code: {code} - JAGAT STORE',
+      variables: { percent: '20', code: 'SAVE20' },
+      getMessage: (vars) => `JAGAT STORE: Get ${vars.percent || '20'} percent OFF on all products! Shop now at jagatstore.in Use code: ${vars.code || 'SAVE20'} - JAGAT STORE`
     },
     {
-      name: '🎉 Festival Special',
-      text: 'JAGAT STORE: Festival special! Pooja samagri, sweets, dry fruits - sab available. Order now: jagatstore.in'
+      id: 'festival',
+      name: '🎉 Festival Sale',
+      text: 'JAGAT STORE: {festival} Sale is LIVE! Upto {percent} percent OFF on all items. Shop at jagatstore.in - JAGAT STORE',
+      variables: { festival: 'Winter', percent: '50' },
+      getMessage: (vars) => `JAGAT STORE: ${vars.festival || 'Festival'} Sale is LIVE! Upto ${vars.percent || '50'} percent OFF on all items. Shop at jagatstore.in - JAGAT STORE`
     },
     {
-      name: '🆕 New Arrivals',
-      text: 'JAGAT STORE: Naye products aa gaye! Fresh vegetables, fruits aur daily needs. Check now: jagatstore.in'
+      id: 'free_delivery',
+      name: '🚚 Free Delivery (Eng)',
+      text: 'JAGAT STORE: FREE Delivery on orders above Rs.{amount}! Shop groceries at jagatstore.in Order now! - JAGAT STORE',
+      variables: { amount: '499' },
+      getMessage: (vars) => `JAGAT STORE: FREE Delivery on orders above Rs.${vars.amount || '499'}! Shop groceries at jagatstore.in Order now! - JAGAT STORE`
+    },
+    // 🆕 NEW TEMPLATES
+    {
+      id: 'festival_pooja',
+      name: '🪔 Festival Pooja Special',
+      text: 'JAGAT STORE: {festival} special! Pooja samagri, sweets, dry fruits - sab available. Order now: jagatstore.in - JAGAT STORE',
+      variables: { festival: 'Diwali' },
+      getMessage: (vars) => `JAGAT STORE: ${vars.festival || 'Festival'} special! Pooja samagri, sweets, dry fruits - sab available. Order now: jagatstore.in - JAGAT STORE`
     },
     {
-      name: '💰 Budget Friendly',
-      text: 'JAGAT STORE: Sasta aur accha! Daily grocery at best prices. Free delivery. Order: jagatstore.in'
+      id: 'welcome_promo',
+      name: '👋 Welcome/Intro Message',
+      text: 'JAGAT STORE - Apki apni grocery shop! Pooja samagri, Grocery, Dairy - sab milta hai. Order now: jagatstore.in - JAGAT STORE',
+      variables: {},
+      getMessage: () => `JAGAT STORE - Apki apni grocery shop! Pooja samagri, Grocery, Dairy - sab milta hai. Order now: jagatstore.in - JAGAT STORE`
+    },
+    {
+      id: 'free_delivery_hindi',
+      name: '🚚 Free Delivery (Hindi)',
+      text: 'JAGAT STORE: Free delivery on all orders above Rs.{amount}! Fresh grocery, dairy, pooja items - ghar baithe mangwao. jagatstore.in - JAGAT STORE',
+      variables: { amount: '399' },
+      getMessage: (vars) => `JAGAT STORE: Free delivery on all orders above Rs.${vars.amount || '399'}! Fresh grocery, dairy, pooja items - ghar baithe mangwao. jagatstore.in - JAGAT STORE`
+    },
+    {
+      id: 'budget_friendly',
+      name: '💵 Budget Friendly',
+      text: 'JAGAT STORE: Sasta aur accha! Daily grocery at best prices. Free delivery above Rs.{amount}. Order: jagatstore.in - JAGAT STORE',
+      variables: { amount: '299' },
+      getMessage: (vars) => `JAGAT STORE: Sasta aur accha! Daily grocery at best prices. Free delivery above Rs.${vars.amount || '299'}. Order: jagatstore.in - JAGAT STORE`
     }
   ];
+
+  const [templateVars, setTemplateVars] = useState({});
 
   useEffect(() => {
     checkAdminAccess();
     fetchStats();
   }, []);
+
+  useEffect(() => {
+    if (selectedTemplate) {
+      const template = templates.find(t => t.id === selectedTemplate);
+      if (template) {
+        const vars = { ...template.variables, ...templateVars };
+        setMessage(template.getMessage(vars));
+      }
+    }
+  }, [selectedTemplate, templateVars]);
 
   const checkAdminAccess = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -87,14 +137,22 @@ const AdminPromoSMS = () => {
     return `₹${min} - ₹${max}`;
   };
 
+  const handleTemplateSelect = (templateId) => {
+    setSelectedTemplate(templateId);
+    const template = templates.find(t => t.id === templateId);
+    if (template) {
+      setTemplateVars(template.variables);
+    }
+  };
+
   const handleSend = async () => {
     if (!message.trim()) {
-      alert('Please enter a message');
+      alert('Please select a template');
       return;
     }
     
-    if (message.length > 160) {
-      alert('Message too long! Max 160 characters allowed.');
+    if (!selectedTemplate) {
+      alert('Please select a DLT approved template');
       return;
     }
 
@@ -115,8 +173,10 @@ const AdminPromoSMS = () => {
       setResult(null);
       
       const response = await api.post('/promo/send', {
-        message: message.trim(),
-        targetGroup
+        targetGroup,
+        templateType: selectedTemplate,
+        variable1: templateVars[Object.keys(templateVars)[0]] || '',
+        variable2: templateVars[Object.keys(templateVars)[1]] || ''
       });
 
       if (response.data.success) {
@@ -125,7 +185,6 @@ const AdminPromoSMS = () => {
           message: response.data.message,
           details: response.data.details
         });
-        setMessage(''); // Clear message on success
       }
     } catch (error) {
       setResult({
@@ -140,7 +199,7 @@ const AdminPromoSMS = () => {
   // 🧪 TEST SMS FUNCTION
   const handleTestSMS = async () => {
     if (!message.trim()) {
-      alert('Pehle message likho!');
+      alert('Pehle template select karo!');
       return;
     }
     
@@ -161,7 +220,9 @@ const AdminPromoSMS = () => {
       
       const response = await api.post('/promo/test', {
         phone: cleanPhone,
-        message: message.trim()
+        templateType: selectedTemplate,
+        variable1: templateVars[Object.keys(templateVars)[0]] || '',
+        variable2: templateVars[Object.keys(templateVars)[1]] || ''
       });
 
       if (response.data.success) {
@@ -192,7 +253,7 @@ const AdminPromoSMS = () => {
           <MessageSquare size={32} color="#9c27b0" />
           <div>
             <h1>📢 Promotional SMS</h1>
-            <p>Send marketing messages to your customers</p>
+            <p>Send DLT approved marketing messages (8 Templates)</p>
           </div>
         </div>
       </div>
@@ -228,7 +289,7 @@ const AdminPromoSMS = () => {
                 <Clock size={28} />
                 <div className="audience-info">
                   <span className="audience-count">{loading ? '...' : stats.last30Days}</span>
-                  <span className="audience-label">Ordered in Last 30 Days</span>
+                  <span className="audience-label">Last 30 Days</span>
                 </div>
                 <input 
                   type="radio" 
@@ -244,7 +305,7 @@ const AdminPromoSMS = () => {
                 <Clock size={28} />
                 <div className="audience-info">
                   <span className="audience-count">{loading ? '...' : stats.last7Days}</span>
-                  <span className="audience-label">Ordered in Last 7 Days</span>
+                  <span className="audience-label">Last 7 Days</span>
                 </div>
                 <input 
                   type="radio" 
@@ -255,22 +316,23 @@ const AdminPromoSMS = () => {
             </div>
           </div>
 
-          {/* Message Input */}
-          <div className="form-card">
-            <h3>✍️ Write Your Message</h3>
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your promotional message here..."
-              maxLength={160}
-              rows={5}
-            />
-            <div className="textarea-footer">
-              <span className={`char-count ${message.length > 140 ? 'warning' : ''}`}>
-                {message.length}/160 characters
-              </span>
+          {/* Template Variables */}
+          {selectedTemplate && Object.keys(templates.find(t => t.id === selectedTemplate)?.variables || {}).length > 0 && (
+            <div className="form-card">
+              <h3>✏️ Customize Message</h3>
+              {Object.entries(templates.find(t => t.id === selectedTemplate)?.variables || {}).map(([key, defaultVal]) => (
+                <div key={key} className="variable-input">
+                  <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                  <input
+                    type="text"
+                    value={templateVars[key] || defaultVal}
+                    onChange={(e) => setTemplateVars({...templateVars, [key]: e.target.value})}
+                    placeholder={defaultVal}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
+          )}
 
           {/* Cost & Send */}
           <div className="form-card cost-card">
@@ -285,7 +347,6 @@ const AdminPromoSMS = () => {
               </div>
             </div>
 
-            {/* Result Message */}
             {result && (
               <div className={`result-box ${result.type}`}>
                 {result.type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
@@ -303,7 +364,7 @@ const AdminPromoSMS = () => {
             <button 
               className="send-btn"
               onClick={handleSend}
-              disabled={sending || !message.trim() || getTargetCount() === 0}
+              disabled={sending || !selectedTemplate || getTargetCount() === 0}
             >
               {sending ? (
                 <>
@@ -323,9 +384,10 @@ const AdminPromoSMS = () => {
           <div className="warning-box">
             <AlertCircle size={18} />
             <div>
-              <strong>Important Notes:</strong>
+              <strong>⚠️ DLT Compliance:</strong>
               <ul>
-                <li>Promotional SMS only sent between 9 AM - 9 PM</li>
+                <li>Only DLT approved templates can be sent</li>
+                <li>Promotional SMS only between 9 AM - 9 PM</li>
                 <li>DND registered numbers won't receive SMS</li>
                 <li>Cost: ₹0.10 - ₹0.15 per SMS</li>
               </ul>
@@ -351,7 +413,7 @@ const AdminPromoSMS = () => {
               <button 
                 className="test-send-btn"
                 onClick={handleTestSMS}
-                disabled={testSending || !message.trim() || !testPhone.trim()}
+                disabled={testSending || !selectedTemplate || !testPhone.trim()}
               >
                 {testSending ? '⏳ Sending...' : '🧪 Send Test'}
               </button>
@@ -368,19 +430,21 @@ const AdminPromoSMS = () => {
         {/* Right Side - Templates */}
         <div className="promo-templates-section">
           <div className="form-card">
-            <h3>📝 Quick Templates</h3>
-            <p className="template-hint">Click any template to use it</p>
+            <h3>📝 DLT Approved Templates (8)</h3>
+            <p className="template-hint">⚠️ Only these templates are approved by TRAI</p>
             
             <div className="templates-list">
-              {templates.map((template, index) => (
+              {templates.map((template) => (
                 <div 
-                  key={index}
-                  className={`template-item ${message === template.text ? 'selected' : ''}`}
-                  onClick={() => setMessage(template.text)}
+                  key={template.id}
+                  className={`template-item ${selectedTemplate === template.id ? 'selected' : ''}`}
+                  onClick={() => handleTemplateSelect(template.id)}
                 >
                   <div className="template-name">{template.name}</div>
                   <div className="template-text">{template.text}</div>
-                  <div className="template-chars">{template.text.length} chars</div>
+                  <div className="template-chars">
+                    {selectedTemplate === template.id ? '✅ Selected' : 'Click to select'}
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,10 +1,19 @@
-// Backend/server.js - WITH STORE ON/OFF FEATURE + RATE LIMITING
+// Backend/server.js - FIXED: dotenv MUST be first!
+
+// ⚠️ CRITICAL: Load environment variables FIRST before any imports!
+const dotenv = require('dotenv');
+dotenv.config();
+
+// Now imports will have access to process.env
+console.log('🔐 JWT_SECRET loaded:', process.env.JWT_SECRET ? '✅ YES' : '❌ NO');
 
 const orderController = require('./controllers/orderController');
-console.log('✅ Order controller loaded from:', __dirname + '/controllers/orderController.js');
+console.log('✅ Order controller loaded');
+
+const promoRoutes = require('./routes/promoRoutes');
+const otpRoutes = require('./routes/otpRoutes');
 
 const express = require('express');
-const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -12,15 +21,12 @@ const http = require('http');
 const setupSocketIO = require('./utils/socketSetup');
 const rateLimit = require('express-rate-limit');
 
-// Load environment variables
-dotenv.config();
-
 // Connect to database
 connectDB();
 
 const app = express();
 
-// ✅ TRUST PROXY - For Render/Vercel/Proxy support (Fixes rate limit warning)
+// ✅ TRUST PROXY - For Render/Vercel/Proxy support
 app.set('trust proxy', 1);
 
 const server = http.createServer(app);
@@ -37,7 +43,7 @@ global.notifyAdmins = notifyAdmins;
 
 // General API limit - 100 requests per 15 min
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 100,
   message: {
     success: false,
@@ -47,9 +53,9 @@ const generalLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// OTP limit - 5 requests per 15 min (STRICT - prevents SMS abuse)
+// OTP limit - 5 requests per 15 min
 const otpLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 5,
   message: {
     success: false,
@@ -59,9 +65,9 @@ const otpLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Login limit - 10 attempts per 15 min (prevents brute force)
+// Login limit - 10 attempts per 15 min
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 10,
   message: {
     success: false,
@@ -71,13 +77,25 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Order limit - 20 orders per hour (prevents spam orders)
+// Order limit - 20 orders per hour
 const orderLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
+  windowMs: 60 * 60 * 1000,
   max: 20,
   message: {
     success: false,
     message: 'Too many orders, please try again later'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// SMS limit - 10 requests per 15 min
+const smsLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: {
+    success: false,
+    message: 'Too many SMS requests, please try again after 15 minutes'
   },
   standardHeaders: true,
   legacyHeaders: false,
@@ -105,22 +123,27 @@ app.use(cors({
 // 🔒 APPLY RATE LIMITERS
 // ============================================
 
-// Apply general limiter to all API routes
 app.use('/api', generalLimiter);
 
-// Apply strict OTP limiter
+// OTP routes
 app.use('/api/auth/send-login-otp', otpLimiter);
 app.use('/api/auth/send-register-otp', otpLimiter);
 app.use('/api/auth/forgot-password', otpLimiter);
+app.use('/api/otp/send', otpLimiter);
+app.use('/api/otp/resend', otpLimiter);
 
-// Apply login limiter
+// Login routes
 app.use('/api/auth/login', loginLimiter);
 app.use('/api/auth/register', loginLimiter);
 app.use('/api/auth/verify-login-otp', loginLimiter);
 app.use('/api/auth/verify-register-otp', loginLimiter);
 
-// Apply order limiter
+// Order routes
 app.use('/api/orders', orderLimiter);
+
+// SMS routes
+app.use('/api/promo/send', smsLimiter);
+app.use('/api/promo/test', smsLimiter);
 
 // ============================================
 // ROUTES
@@ -131,10 +154,14 @@ app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
-// 📢 PROMO SMS ROUTE
-app.use('/api/promo', require('./routes/promoRoutes'));
 
-// 🍪 STORE SETTINGS ROUTE
+// 📢 PROMO SMS ROUTE
+app.use('/api/promo', promoRoutes);
+
+// 📱 OTP SMS ROUTE
+app.use('/api/otp', otpRoutes);
+
+// 🪔 STORE SETTINGS ROUTE
 app.use('/api/store', require('./routes/storeRoutes'));
 
 // Health check
@@ -142,7 +169,8 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'Jagat Store API Running! 🚀',
     version: '1.0.0',
-    status: 'active'
+    status: 'active',
+    sms: 'enabled ✅'
   });
 });
 
@@ -168,25 +196,28 @@ server.listen(PORT, () => {
   console.log(`🔐 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔔 Socket.IO ready for real-time notifications`);
   console.log(`📸 Cloudinary upload ready at /api/upload`);
-  console.log(`🍪 Store settings ready at /api/store`);
+  console.log(`🪔 Store settings ready at /api/store`);
+  console.log(`📱 SMS Integration enabled:`);
+  console.log(`   - OTP Route: /api/otp`);
+  console.log(`   - Promo Route: /api/promo`);
   console.log(`🔒 Rate limiting enabled:`);
   console.log(`   - General API: 100 req/15min`);
   console.log(`   - OTP routes: 5 req/15min`);
   console.log(`   - Login routes: 10 req/15min`);
   console.log(`   - Orders: 20 req/hour`);
+  console.log(`   - SMS routes: 10 req/15min`);
 });
 
 // ========================================
-// 🔐 KEEP SERVER ALIVE (Render Free Tier)
+// 🔄 KEEP SERVER ALIVE (Render Free Tier)
 // ========================================
 const https = require('https');
 const BACKEND_URL = process.env.BACKEND_URL || 'https://your-backend.onrender.com';
 
-// Ping every 14 minutes to prevent sleep
 if (process.env.NODE_ENV === 'production') {
   setInterval(() => {
     https.get(`${BACKEND_URL}/health`, (res) => {
-      console.log('🔐 Keep-alive ping sent');
+      console.log('🔄 Keep-alive ping sent');
     }).on('error', (err) => {
       console.log('Ping error:', err.message);
     });
