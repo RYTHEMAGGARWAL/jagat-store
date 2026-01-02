@@ -150,7 +150,7 @@ const babyCareProducts = [
     discount: '40% OFF',
     category: 'Baby Care',
     brand: 'Bonny',
-    image: 'https://tse1.mm.bing.net/th/id/OIP.g521OGIbjlfnzsL8zvlXrgAAAA?pid=Api&P=0&w=400&h=449',
+    image: 'https://tse2.mm.bing.net/th/id/OIP.bCzxYa1mXk4cEZ9hIFpxrgHaE8?pid=Api&H=106&W=160',
     inStock: true,
     description: 'Bonny Feeding Bottle | 120ml | Peristaltic Nipple | BPA Free',
     stock: 60
