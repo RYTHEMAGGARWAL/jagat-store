@@ -1,4 +1,4 @@
-console.log('📧📱 ORDERCONTROLLER - ALL 15 TEMPLATES READY!');
+console.log('📧📱 ORDERCONTROLLER - MOBILE OPTIMIZED EMAILS!');
 
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
@@ -12,18 +12,14 @@ const GIFT_PRODUCT = {
   image: 'https://m.media-amazon.com/images/I/81nRsEQCprL._SL1500_.jpg', isGift: true
 };
 
-// ============================================
-// 📱 ALL FAST2SMS MESSAGE IDs (15 Templates)
-// ============================================
 const FAST2SMS = {
-  // SERVICE TEMPLATES (JGATST)
-  OTP: '205107',                    // 1 var: OTP
-  ORDER_SHIPPED: '205108',          // 2 vars: OrderID|Date
-  ORDER_CONFIRMATION: '205109',     // 3 vars: Name|OrderID|Amount
-  ORDER_DELIVERED: '205110',        // 1 var: OrderID
-  WELCOME: '205126',                // 1 var: Name 🆕
-  ORDER_CANCELLED: '205127',        // 3 vars: Name|OrderID|Amount 🆕
-  FEEDBACK: '205128'                // 1 var: Name 🆕
+  OTP: '205107',
+  ORDER_SHIPPED: '205108',
+  ORDER_CONFIRMATION: '205109',
+  ORDER_DELIVERED: '205110',
+  WELCOME: '205126',
+  ORDER_CANCELLED: '205127',
+  FEEDBACK: '205128'
 };
 
 const SENDER_ID = 'JGATST';
@@ -74,7 +70,7 @@ function getExpectedDelivery() {
 }
 
 // ========================================
-// 🎨 BEAUTIFUL ADMIN EMAIL TEMPLATE
+// 🎨 BEAUTIFUL MOBILE-OPTIMIZED ADMIN EMAIL
 // ========================================
 function getAdminEmailHTML(order, user, shortId, totalPrice) {
   const customerName = user?.name || order.shippingAddress?.name || 'N/A';
@@ -82,113 +78,146 @@ function getAdminEmailHTML(order, user, shortId, totalPrice) {
   const customerEmail = user?.email || 'N/A';
   
   const itemsHTML = order.orderItems?.map((item, i) => `
-    <tr style="border-bottom:1px solid #eee;">
-      <td style="padding:12px 8px;">${i+1}.</td>
-      <td style="padding:12px 8px;">
-        <strong>${item.name}</strong><br>
-        <small style="color:#666;">${item.weight || ''}</small>
-      </td>
-      <td style="padding:12px 8px;text-align:center;">${item.quantity}</td>
-      <td style="padding:12px 8px;text-align:right;">₹${item.price}</td>
-      <td style="padding:12px 8px;text-align:right;"><strong>₹${item.price * item.quantity}</strong></td>
-    </tr>
+    <div class="order-item">
+      <div class="item-image">
+        <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
+      </div>
+      <div class="item-details">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">${item.brand || ''} ${item.weight ? '| ' + item.weight : ''}</div>
+        <div class="item-price-mobile">
+          <span>Qty: ${item.quantity}</span>
+          <span class="price">₹${item.price * item.quantity}</span>
+        </div>
+      </div>
+    </div>
   `).join('') || '';
 
-  const giftHTML = order.hasGift ? `
-    <tr style="background:#fff3cd;border-bottom:2px solid #ffc107;">
-      <td style="padding:12px 8px;" colspan="5">
-        🎁 <strong>FREE GIFT INCLUDED!</strong> (Saved ₹${order.giftSavings || 149})
-      </td>
-    </tr>
+  const giftBadge = order.hasGift ? `
+    <div style="background:linear-gradient(135deg,#ffd700,#ffed4e);padding:15px;margin:20px 0;border-radius:10px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">🎁</div>
+      <div style="font-weight:bold;color:#333;font-size:16px;">FREE GIFT INCLUDED!</div>
+      <div style="color:#666;font-size:14px;margin-top:4px;">Saved ₹${order.giftSavings || 149}</div>
+    </div>
   ` : '';
 
   return `
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;">
-  <div style="max-width:700px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    body { margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f5f5f5; }
+    .container { max-width:600px; margin:0 auto; background:#fff; }
+    .header { background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:30px 20px; text-align:center; }
+    .header h1 { margin:0; font-size:28px; }
+    .header p { margin:10px 0 0; opacity:0.9; font-size:16px; }
+    .summary-box { background:#f8f9fa; border-left:4px solid #667eea; padding:20px; margin:20px; border-radius:8px; }
+    .summary-grid { display:flex; gap:20px; flex-wrap:wrap; }
+    .summary-item { flex:1; min-width:120px; }
+    .summary-label { color:#666; font-size:12px; margin-bottom:5px; }
+    .summary-value { font-size:24px; font-weight:bold; color:#667eea; }
+    .section { padding:0 20px 20px; }
+    .section-title { color:#333; border-bottom:2px solid #667eea; padding-bottom:10px; margin:20px 0 15px; font-size:18px; font-weight:bold; }
+    .info-row { padding:10px 0; border-bottom:1px solid #eee; display:flex; }
+    .info-label { color:#666; width:100px; flex-shrink:0; }
+    .info-value { font-weight:500; color:#333; flex:1; }
+    .order-item { display:flex; gap:15px; padding:15px; background:#fff; border:1px solid #eee; border-radius:8px; margin-bottom:10px; }
+    .item-image { flex-shrink:0; }
+    .item-image img { width:80px; height:80px; object-fit:cover; border-radius:8px; border:1px solid #eee; }
+    .item-details { flex:1; }
+    .item-name { font-weight:bold; color:#333; font-size:15px; margin-bottom:4px; }
+    .item-meta { color:#999; font-size:13px; margin-bottom:8px; }
+    .item-price-mobile { display:flex; justify-content:space-between; align-items:center; }
+    .price { font-weight:bold; color:#667eea; font-size:16px; }
+    .total-box { background:linear-gradient(135deg,#667eea22,#764ba222); padding:20px; border-radius:10px; margin-top:15px; text-align:right; }
+    .total-label { color:#666; font-size:14px; margin-bottom:5px; }
+    .total-amount { font-size:32px; font-weight:bold; color:#667eea; }
+    .button { display:inline-block; padding:15px 30px; background:#667eea; color:#fff; text-decoration:none; border-radius:8px; font-weight:bold; margin:10px 0; }
+    .footer { background:#2c3e50; color:#fff; padding:25px; text-align:center; }
+    .footer-title { font-size:20px; font-weight:bold; margin:0; }
+    .footer-subtitle { opacity:0.8; font-size:14px; margin:10px 0 0; }
+    .footer-contact { opacity:0.6; font-size:12px; margin:10px 0 0; }
     
-    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:30px;text-align:center;">
-      <h1 style="margin:0;font-size:32px;">🛒 NEW ORDER!</h1>
-      <p style="margin:10px 0 0;font-size:18px;opacity:0.9;">Order #${shortId}</p>
+    @media only screen and (max-width:600px) {
+      .header h1 { font-size:24px !important; }
+      .summary-grid { flex-direction:column; gap:15px; }
+      .summary-value { font-size:28px !important; }
+      .section { padding:0 15px 15px !important; }
+      .item-image img { width:70px !important; height:70px !important; }
+      .item-name { font-size:14px !important; }
+      .total-amount { font-size:28px !important; }
+      .button { padding:12px 25px !important; font-size:14px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h1>🛒 NEW ORDER!</h1>
+      <p>Order #${shortId}</p>
     </div>
 
-    <div style="background:#f8f9fa;border-left:4px solid #667eea;padding:20px;margin:20px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
-        <div>
-          <p style="margin:0;color:#666;font-size:13px;">TOTAL AMOUNT</p>
-          <p style="margin:5px 0 0;font-size:28px;font-weight:bold;color:#667eea;">₹${totalPrice}</p>
+    <div class="summary-box">
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-label">TOTAL AMOUNT</div>
+          <div class="summary-value">₹${totalPrice}</div>
         </div>
-        <div>
-          <p style="margin:0;color:#666;font-size:13px;">PAYMENT METHOD</p>
-          <p style="margin:5px 0 0;font-size:18px;font-weight:bold;">${order.paymentInfo?.method || 'COD'}</p>
+        <div class="summary-item">
+          <div class="summary-label">PAYMENT</div>
+          <div class="summary-value" style="font-size:18px;">${order.paymentInfo?.method || 'COD'}</div>
         </div>
       </div>
     </div>
 
-    <div style="padding:0 30px 20px;">
-      <h2 style="color:#333;border-bottom:2px solid #667eea;padding-bottom:10px;">👤 Customer Details</h2>
-      <table width="100%" style="margin-top:15px;">
-        <tr>
-          <td style="padding:8px 0;color:#666;width:120px;">Name:</td>
-          <td style="padding:8px 0;"><strong>${customerName}</strong></td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;color:#666;">Phone:</td>
-          <td style="padding:8px 0;"><strong>${customerPhone}</strong></td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;color:#666;">Email:</td>
-          <td style="padding:8px 0;">${customerEmail}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;color:#666;vertical-align:top;">Address:</td>
-          <td style="padding:8px 0;line-height:1.6;">
-            <strong>${order.shippingAddress?.fullAddress || 'N/A'}</strong><br>
-            ${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''}<br>
-            ${order.shippingAddress?.pincode || ''}
-          </td>
-        </tr>
-      </table>
+    <div class="section">
+      <div class="section-title">👤 Customer Details</div>
+      <div class="info-row">
+        <div class="info-label">Name:</div>
+        <div class="info-value">${customerName}</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Phone:</div>
+        <div class="info-value">${customerPhone}</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Email:</div>
+        <div class="info-value">${customerEmail}</div>
+      </div>
+      <div class="info-row" style="border:none;">
+        <div class="info-label">Address:</div>
+        <div class="info-value">
+          ${order.shippingAddress?.fullAddress || 'N/A'}<br>
+          ${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''} ${order.shippingAddress?.pincode || ''}
+        </div>
+      </div>
     </div>
 
-    <div style="padding:0 30px 30px;">
-      <h2 style="color:#333;border-bottom:2px solid #667eea;padding-bottom:10px;">📦 Order Items</h2>
-      <table width="100%" style="border-collapse:collapse;margin-top:15px;">
-        <thead>
-          <tr style="background:#f8f9fa;border-bottom:2px solid #667eea;">
-            <th style="padding:12px 8px;text-align:left;width:30px;">#</th>
-            <th style="padding:12px 8px;text-align:left;">Product</th>
-            <th style="padding:12px 8px;text-align:center;width:80px;">Qty</th>
-            <th style="padding:12px 8px;text-align:right;width:100px;">Price</th>
-            <th style="padding:12px 8px;text-align:right;width:100px;">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsHTML}
-          ${giftHTML}
-        </tbody>
-        <tfoot>
-          <tr style="background:#f8f9fa;border-top:2px solid #667eea;">
-            <td colspan="4" style="padding:15px 8px;text-align:right;"><strong>GRAND TOTAL:</strong></td>
-            <td style="padding:15px 8px;text-align:right;"><strong style="font-size:20px;color:#667eea;">₹${totalPrice}</strong></td>
-          </tr>
-        </tfoot>
-      </table>
+    ${giftBadge}
+
+    <div class="section">
+      <div class="section-title">📦 Order Items</div>
+      ${itemsHTML}
+      
+      <div class="total-box">
+        <div class="total-label">GRAND TOTAL</div>
+        <div class="total-amount">₹${totalPrice}</div>
+      </div>
     </div>
 
-    <div style="padding:0 30px 30px;text-align:center;">
-      <a href="${process.env.FRONTEND_URL || 'https://www.jagatstore.in'}/admin/orders" 
-         style="display:inline-block;padding:15px 40px;background:#667eea;color:white;text-decoration:none;border-radius:8px;font-weight:bold;margin:0 10px;">
+    <div class="section" style="text-align:center;">
+      <a href="${process.env.FRONTEND_URL || 'https://www.jagatstore.in'}/admin/orders" class="button">
         📋 View in Dashboard
       </a>
     </div>
 
-    <div style="background:#2c3e50;color:white;padding:25px;text-align:center;">
-      <p style="margin:0;font-size:18px;font-weight:bold;">🛒 JAGAT STORE</p>
-      <p style="margin:10px 0 0;font-size:14px;opacity:0.8;">Admin Order Notification</p>
-      <p style="margin:10px 0 0;font-size:12px;opacity:0.6;">📞 +91 9599633093 | 📧 orders@jagatstore.in</p>
+    <div class="footer">
+      <div class="footer-title">🛒 JAGAT STORE</div>
+      <div class="footer-subtitle">Admin Order Notification</div>
+      <div class="footer-contact">📞 +91 9599633093 | 📧 orders@jagatstore.in</div>
     </div>
 
   </div>
@@ -198,118 +227,159 @@ function getAdminEmailHTML(order, user, shortId, totalPrice) {
 }
 
 // ========================================
-// 🎨 BEAUTIFUL CUSTOMER EMAIL TEMPLATE
+// 🎨 BEAUTIFUL MOBILE-OPTIMIZED CUSTOMER EMAIL
 // ========================================
 function getCustomerEmailHTML(order, user, shortId, totalPrice) {
   const customerName = user?.name?.split(' ')[0] || order.shippingAddress?.name?.split(' ')[0] || 'Customer';
   const trackingUrl = `${process.env.FRONTEND_URL || 'https://www.jagatstore.in'}/orders/${order._id}`;
   
   const itemsHTML = order.orderItems?.map((item, i) => `
-    <tr style="border-bottom:1px solid #eee;">
-      <td style="padding:12px 8px;">
-        ${i+1}. <strong>${item.name}</strong><br>
-        <small style="color:#666;">${item.weight || ''}</small>
-      </td>
-      <td style="padding:12px 8px;text-align:center;">${item.quantity}</td>
-      <td style="padding:12px 8px;text-align:right;"><strong>₹${item.price * item.quantity}</strong></td>
-    </tr>
+    <div class="order-item">
+      <div class="item-image">
+        <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
+      </div>
+      <div class="item-details">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">${item.weight || ''}</div>
+        <div class="item-price-row">
+          <span class="qty">Qty: ${item.quantity}</span>
+          <span class="amount">₹${item.price * item.quantity}</span>
+        </div>
+      </div>
+    </div>
   `).join('') || '';
 
-  const giftHTML = order.hasGift ? `
-    <div style="background:linear-gradient(135deg,#ffd700,#ffed4e);padding:20px;margin:20px 0;border-radius:8px;text-align:center;">
-      <p style="margin:0;font-size:24px;">🎁</p>
-      <p style="margin:10px 0 0;font-size:16px;font-weight:bold;color:#333;">FREE GIFT INCLUDED!</p>
-      <p style="margin:5px 0 0;font-size:14px;color:#666;">You saved ₹${order.giftSavings || 149}!</p>
+  const giftBadge = order.hasGift ? `
+    <div style="background:linear-gradient(135deg,#ffd700,#ffed4e);padding:20px;margin:20px;border-radius:12px;text-align:center;box-shadow:0 2px 8px rgba(255,215,0,0.3);">
+      <div style="font-size:32px;margin-bottom:10px;">🎁</div>
+      <div style="font-weight:bold;color:#333;font-size:18px;">FREE GIFT INCLUDED!</div>
+      <div style="color:#666;font-size:15px;margin-top:6px;">You saved ₹${order.giftSavings || 149}!</div>
     </div>
   ` : '';
 
   return `
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;">
-  <div style="max-width:600px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    body { margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f5f5f5; }
+    .container { max-width:600px; margin:0 auto; background:#fff; }
+    .header { background:linear-gradient(135deg,#11998e,#38ef7d); color:#fff; padding:40px 20px; text-align:center; }
+    .header h1 { margin:0; font-size:32px; }
+    .header p { margin:15px 0 0; opacity:0.9; font-size:16px; }
+    .order-badge { background:rgba(255,255,255,0.2); padding:15px; border-radius:10px; margin-top:20px; }
+    .order-badge-label { font-size:14px; opacity:0.9; margin:0; }
+    .order-badge-number { font-size:24px; font-weight:bold; margin:5px 0 0; }
+    .greeting { padding:30px 20px; text-align:center; background:#fff; }
+    .greeting-text { font-size:18px; color:#333; margin:0; }
+    .greeting-name { font-weight:bold; }
+    .greeting-message { font-size:16px; color:#666; margin:15px 0 0; line-height:1.6; }
+    .section { padding:0 20px 20px; }
+    .section-title { color:#333; border-bottom:2px solid #11998e; padding-bottom:10px; margin:20px 0 15px; font-size:18px; font-weight:bold; }
+    .order-item { display:flex; gap:15px; padding:15px; background:#fff; border:1px solid #eee; border-radius:10px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+    .item-image { flex-shrink:0; }
+    .item-image img { width:90px; height:90px; object-fit:cover; border-radius:10px; border:1px solid #eee; }
+    .item-details { flex:1; display:flex; flex-direction:column; justify-content:space-between; }
+    .item-name { font-weight:bold; color:#333; font-size:15px; line-height:1.4; }
+    .item-meta { color:#999; font-size:13px; margin:4px 0; }
+    .item-price-row { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+    .qty { color:#666; font-size:14px; }
+    .amount { font-weight:bold; color:#11998e; font-size:17px; }
+    .total-box { background:linear-gradient(135deg,#11998e22,#38ef7d22); padding:25px; border-radius:12px; margin-top:15px; text-align:center; }
+    .total-label { color:#666; font-size:14px; margin-bottom:8px; }
+    .total-amount { font-size:36px; font-weight:bold; color:#11998e; margin:5px 0; }
+    .total-payment { color:#666; font-size:14px; margin-top:5px; }
+    .address-box { background:#f8f9fa; padding:20px; border-radius:10px; margin-top:15px; }
+    .address-name { font-weight:bold; color:#333; font-size:16px; margin-bottom:10px; }
+    .address-text { color:#666; line-height:1.8; font-size:14px; }
+    .delivery-box { background:#fff3cd; border-left:4px solid #ffc107; padding:15px; border-radius:6px; margin:20px; text-align:center; }
+    .delivery-text { color:#856404; font-weight:500; font-size:15px; margin:0; }
+    .button { display:inline-block; padding:16px 35px; background:#11998e; color:#fff; text-decoration:none; border-radius:10px; font-weight:bold; font-size:16px; margin:10px 0; box-shadow:0 4px 12px rgba(17,153,142,0.3); }
+    .help-box { background:#f8f9fa; padding:20px; border-radius:10px; margin:20px; text-align:center; }
+    .help-title { color:#666; font-size:14px; margin:0 0 12px; }
+    .help-link { color:#11998e; text-decoration:none; font-weight:bold; margin:0 10px; }
+    .footer { background:#2c3e50; color:#fff; padding:30px 20px; text-align:center; }
+    .footer-title { font-size:22px; font-weight:bold; margin:0; }
+    .footer-subtitle { opacity:0.8; font-size:14px; margin:10px 0; }
+    .footer-message { opacity:0.6; font-size:13px; margin:15px 0 0; line-height:1.6; }
     
-    <div style="background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);color:white;padding:40px;text-align:center;">
-      <h1 style="margin:0;font-size:32px;">✅ Order Confirmed!</h1>
-      <p style="margin:15px 0 0;font-size:16px;opacity:0.9;">Thank you for shopping with us!</p>
-      <div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:8px;margin-top:20px;">
-        <p style="margin:0;font-size:14px;opacity:0.9;">Order Number</p>
-        <p style="margin:5px 0 0;font-size:24px;font-weight:bold;">#${shortId}</p>
+    @media only screen and (max-width:600px) {
+      .header h1 { font-size:26px !important; }
+      .order-badge-number { font-size:20px !important; }
+      .greeting-text { font-size:16px !important; }
+      .greeting-message { font-size:14px !important; }
+      .item-image img { width:75px !important; height:75px !important; }
+      .item-name { font-size:14px !important; }
+      .amount { font-size:16px !important; }
+      .total-amount { font-size:32px !important; }
+      .button { padding:14px 28px !important; font-size:15px !important; }
+      .section { padding:0 15px 15px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h1>✅ Order Confirmed!</h1>
+      <p>Thank you for shopping with us!</p>
+      <div class="order-badge">
+        <p class="order-badge-label">Order Number</p>
+        <p class="order-badge-number">#${shortId}</p>
       </div>
     </div>
 
-    <div style="padding:30px;text-align:center;">
-      <p style="margin:0;font-size:18px;color:#333;">Hi <strong>${customerName}</strong>! 👋</p>
-      <p style="margin:15px 0 0;font-size:16px;color:#666;line-height:1.6;">
-        Great news! Your order has been confirmed and will be delivered soon.
-      </p>
+    <div class="greeting">
+      <p class="greeting-text">Hi <span class="greeting-name">${customerName}</span>! 👋</p>
+      <p class="greeting-message">Great news! Your order has been confirmed and will be delivered soon.</p>
     </div>
 
-    ${giftHTML}
+    ${giftBadge}
 
-    <div style="padding:0 30px 30px;">
-      <h2 style="color:#333;border-bottom:2px solid #11998e;padding-bottom:10px;">📦 Your Order</h2>
-      <table width="100%" style="border-collapse:collapse;margin-top:15px;">
-        <thead>
-          <tr style="background:#f8f9fa;border-bottom:2px solid #11998e;">
-            <th style="padding:12px 8px;text-align:left;">Item</th>
-            <th style="padding:12px 8px;text-align:center;width:80px;">Qty</th>
-            <th style="padding:12px 8px;text-align:right;width:100px;">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${itemsHTML}
-        </tbody>
-      </table>
+    <div class="section">
+      <div class="section-title">📦 Your Order</div>
+      ${itemsHTML}
       
-      <div style="margin-top:20px;padding:20px;background:linear-gradient(135deg,#667eea22,#764ba222);border-radius:8px;text-align:right;">
-        <p style="margin:0;color:#666;font-size:14px;">Total Amount</p>
-        <p style="margin:5px 0 0;font-size:32px;font-weight:bold;color:#11998e;">₹${totalPrice}</p>
-        <p style="margin:5px 0 0;font-size:14px;color:#666;">Payment: ${order.paymentInfo?.method || 'Cash on Delivery'}</p>
+      <div class="total-box">
+        <div class="total-label">Total Amount</div>
+        <div class="total-amount">₹${totalPrice}</div>
+        <div class="total-payment">Payment: ${order.paymentInfo?.method || 'Cash on Delivery'}</div>
       </div>
     </div>
 
-    <div style="padding:0 30px 30px;">
-      <h3 style="color:#333;border-bottom:2px solid #11998e;padding-bottom:10px;">📍 Delivery Address</h3>
-      <div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-top:15px;">
-        <p style="margin:0;font-weight:bold;color:#333;">${order.shippingAddress?.name || customerName}</p>
-        <p style="margin:10px 0 0;color:#666;line-height:1.6;">
+    <div class="section">
+      <div class="section-title">📍 Delivery Address</div>
+      <div class="address-box">
+        <div class="address-name">${order.shippingAddress?.name || customerName}</div>
+        <div class="address-text">
           ${order.shippingAddress?.fullAddress || ''}<br>
           ${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''} - ${order.shippingAddress?.pincode || ''}<br>
           📞 ${order.shippingAddress?.phone || ''}
-        </p>
+        </div>
       </div>
     </div>
 
-    <div style="padding:0 30px 30px;text-align:center;">
-      <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px;border-radius:4px;">
-        <p style="margin:0;color:#856404;"><strong>⏰ Expected Delivery:</strong> ${getExpectedDelivery()}</p>
-      </div>
+    <div class="delivery-box">
+      <p class="delivery-text">⏰ Expected Delivery: ${getExpectedDelivery()}</p>
     </div>
 
-    <div style="padding:0 30px 30px;text-align:center;">
-      <a href="${trackingUrl}" 
-         style="display:inline-block;padding:15px 40px;background:#11998e;color:white;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;">
-        📍 Track Your Order
-      </a>
+    <div class="section" style="text-align:center;">
+      <a href="${trackingUrl}" class="button">📍 Track Your Order</a>
     </div>
 
-    <div style="padding:0 30px 30px;">
-      <div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;">
-        <p style="margin:0;color:#666;font-size:14px;">Need help with your order?</p>
-        <p style="margin:10px 0 0;">
-          <a href="tel:+919599633093" style="color:#11998e;text-decoration:none;font-weight:bold;">📞 +91 9599633093</a>
-          <span style="color:#ccc;margin:0 10px;">|</span>
-          <a href="mailto:orders@jagatstore.in" style="color:#11998e;text-decoration:none;font-weight:bold;">📧 Email Us</a>
-        </p>
-      </div>
+    <div class="help-box">
+      <p class="help-title">Need help with your order?</p>
+      <a href="tel:+919599633093" class="help-link">📞 Call Us</a>
+      <span style="color:#ccc;">|</span>
+      <a href="mailto:orders@jagatstore.in" class="help-link">📧 Email Us</a>
     </div>
 
-    <div style="background:#2c3e50;color:white;padding:30px;text-align:center;">
-      <p style="margin:0;font-size:20px;font-weight:bold;">🛒 JAGAT STORE</p>
-      <p style="margin:10px 0 0;font-size:14px;opacity:0.8;">Your Trusted Grocery Partner</p>
-      <p style="margin:15px 0 0;font-size:12px;opacity:0.6;">Thank you for choosing Jagat Store!<br>We appreciate your business 💚</p>
+    <div class="footer">
+      <div class="footer-title">🛒 JAGAT STORE</div>
+      <div class="footer-subtitle">Your Trusted Grocery Partner</div>
+      <div class="footer-message">Thank you for choosing Jagat Store!<br>We appreciate your business 💚</div>
     </div>
 
   </div>
@@ -407,17 +477,14 @@ exports.createOrder = async (req, res) => {
       try {
         const adminEmail = process.env.ADMIN_EMAIL || 'rythemaggarwal7840@gmail.com';
         
-        // 📧 SEND BEAUTIFUL ADMIN EMAIL
         const adminHTML = getAdminEmailHTML(order, user, shortId, totalPrice);
         await sendEmail(adminEmail, `${finalHasGift ? '🎁 ' : ''}🛒 NEW ORDER #${shortId} - ₹${totalPrice}`, adminHTML);
         
-        // 📧 SEND BEAUTIFUL CUSTOMER EMAIL
         if (user?.email) {
           const customerHTML = getCustomerEmailHTML(order, user, shortId, totalPrice);
           await sendEmail(user.email, `✅ Order Confirmed #${shortId} - Jagat Store`, customerHTML);
         }
         
-        // 📱 SEND ORDER CONFIRMATION SMS
         const customerPhone = shippingAddress?.phone || user?.phone;
         if (customerPhone) {
           await sendFast2SMS(customerPhone, FAST2SMS.ORDER_CONFIRMATION, `${customerName}|${shortId}|${totalPrice}`);
