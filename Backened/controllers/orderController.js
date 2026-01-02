@@ -73,6 +73,251 @@ function getExpectedDelivery() {
   return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+// ========================================
+// 🎨 BEAUTIFUL ADMIN EMAIL TEMPLATE
+// ========================================
+function getAdminEmailHTML(order, user, shortId, totalPrice) {
+  const customerName = user?.name || order.shippingAddress?.name || 'N/A';
+  const customerPhone = order.shippingAddress?.phone || user?.phone || 'N/A';
+  const customerEmail = user?.email || 'N/A';
+  
+  const itemsHTML = order.orderItems?.map((item, i) => `
+    <tr style="border-bottom:1px solid #eee;">
+      <td style="padding:12px 8px;">${i+1}.</td>
+      <td style="padding:12px 8px;">
+        <strong>${item.name}</strong><br>
+        <small style="color:#666;">${item.weight || ''}</small>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">${item.quantity}</td>
+      <td style="padding:12px 8px;text-align:right;">₹${item.price}</td>
+      <td style="padding:12px 8px;text-align:right;"><strong>₹${item.price * item.quantity}</strong></td>
+    </tr>
+  `).join('') || '';
+
+  const giftHTML = order.hasGift ? `
+    <tr style="background:#fff3cd;border-bottom:2px solid #ffc107;">
+      <td style="padding:12px 8px;" colspan="5">
+        🎁 <strong>FREE GIFT INCLUDED!</strong> (Saved ₹${order.giftSavings || 149})
+      </td>
+    </tr>
+  ` : '';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;">
+  <div style="max-width:700px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    
+    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:30px;text-align:center;">
+      <h1 style="margin:0;font-size:32px;">🛒 NEW ORDER!</h1>
+      <p style="margin:10px 0 0;font-size:18px;opacity:0.9;">Order #${shortId}</p>
+    </div>
+
+    <div style="background:#f8f9fa;border-left:4px solid #667eea;padding:20px;margin:20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div>
+          <p style="margin:0;color:#666;font-size:13px;">TOTAL AMOUNT</p>
+          <p style="margin:5px 0 0;font-size:28px;font-weight:bold;color:#667eea;">₹${totalPrice}</p>
+        </div>
+        <div>
+          <p style="margin:0;color:#666;font-size:13px;">PAYMENT METHOD</p>
+          <p style="margin:5px 0 0;font-size:18px;font-weight:bold;">${order.paymentInfo?.method || 'COD'}</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 30px 20px;">
+      <h2 style="color:#333;border-bottom:2px solid #667eea;padding-bottom:10px;">👤 Customer Details</h2>
+      <table width="100%" style="margin-top:15px;">
+        <tr>
+          <td style="padding:8px 0;color:#666;width:120px;">Name:</td>
+          <td style="padding:8px 0;"><strong>${customerName}</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;color:#666;">Phone:</td>
+          <td style="padding:8px 0;"><strong>${customerPhone}</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;color:#666;">Email:</td>
+          <td style="padding:8px 0;">${customerEmail}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;color:#666;vertical-align:top;">Address:</td>
+          <td style="padding:8px 0;line-height:1.6;">
+            <strong>${order.shippingAddress?.fullAddress || 'N/A'}</strong><br>
+            ${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''}<br>
+            ${order.shippingAddress?.pincode || ''}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="padding:0 30px 30px;">
+      <h2 style="color:#333;border-bottom:2px solid #667eea;padding-bottom:10px;">📦 Order Items</h2>
+      <table width="100%" style="border-collapse:collapse;margin-top:15px;">
+        <thead>
+          <tr style="background:#f8f9fa;border-bottom:2px solid #667eea;">
+            <th style="padding:12px 8px;text-align:left;width:30px;">#</th>
+            <th style="padding:12px 8px;text-align:left;">Product</th>
+            <th style="padding:12px 8px;text-align:center;width:80px;">Qty</th>
+            <th style="padding:12px 8px;text-align:right;width:100px;">Price</th>
+            <th style="padding:12px 8px;text-align:right;width:100px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHTML}
+          ${giftHTML}
+        </tbody>
+        <tfoot>
+          <tr style="background:#f8f9fa;border-top:2px solid #667eea;">
+            <td colspan="4" style="padding:15px 8px;text-align:right;"><strong>GRAND TOTAL:</strong></td>
+            <td style="padding:15px 8px;text-align:right;"><strong style="font-size:20px;color:#667eea;">₹${totalPrice}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div style="padding:0 30px 30px;text-align:center;">
+      <a href="${process.env.FRONTEND_URL || 'https://www.jagatstore.in'}/admin/orders" 
+         style="display:inline-block;padding:15px 40px;background:#667eea;color:white;text-decoration:none;border-radius:8px;font-weight:bold;margin:0 10px;">
+        📋 View in Dashboard
+      </a>
+    </div>
+
+    <div style="background:#2c3e50;color:white;padding:25px;text-align:center;">
+      <p style="margin:0;font-size:18px;font-weight:bold;">🛒 JAGAT STORE</p>
+      <p style="margin:10px 0 0;font-size:14px;opacity:0.8;">Admin Order Notification</p>
+      <p style="margin:10px 0 0;font-size:12px;opacity:0.6;">📞 +91 9599633093 | 📧 orders@jagatstore.in</p>
+    </div>
+
+  </div>
+</body>
+</html>
+  `;
+}
+
+// ========================================
+// 🎨 BEAUTIFUL CUSTOMER EMAIL TEMPLATE
+// ========================================
+function getCustomerEmailHTML(order, user, shortId, totalPrice) {
+  const customerName = user?.name?.split(' ')[0] || order.shippingAddress?.name?.split(' ')[0] || 'Customer';
+  const trackingUrl = `${process.env.FRONTEND_URL || 'https://www.jagatstore.in'}/orders/${order._id}`;
+  
+  const itemsHTML = order.orderItems?.map((item, i) => `
+    <tr style="border-bottom:1px solid #eee;">
+      <td style="padding:12px 8px;">
+        ${i+1}. <strong>${item.name}</strong><br>
+        <small style="color:#666;">${item.weight || ''}</small>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">${item.quantity}</td>
+      <td style="padding:12px 8px;text-align:right;"><strong>₹${item.price * item.quantity}</strong></td>
+    </tr>
+  `).join('') || '';
+
+  const giftHTML = order.hasGift ? `
+    <div style="background:linear-gradient(135deg,#ffd700,#ffed4e);padding:20px;margin:20px 0;border-radius:8px;text-align:center;">
+      <p style="margin:0;font-size:24px;">🎁</p>
+      <p style="margin:10px 0 0;font-size:16px;font-weight:bold;color:#333;">FREE GIFT INCLUDED!</p>
+      <p style="margin:5px 0 0;font-size:14px;color:#666;">You saved ₹${order.giftSavings || 149}!</p>
+    </div>
+  ` : '';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;">
+  <div style="max-width:600px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    
+    <div style="background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);color:white;padding:40px;text-align:center;">
+      <h1 style="margin:0;font-size:32px;">✅ Order Confirmed!</h1>
+      <p style="margin:15px 0 0;font-size:16px;opacity:0.9;">Thank you for shopping with us!</p>
+      <div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:8px;margin-top:20px;">
+        <p style="margin:0;font-size:14px;opacity:0.9;">Order Number</p>
+        <p style="margin:5px 0 0;font-size:24px;font-weight:bold;">#${shortId}</p>
+      </div>
+    </div>
+
+    <div style="padding:30px;text-align:center;">
+      <p style="margin:0;font-size:18px;color:#333;">Hi <strong>${customerName}</strong>! 👋</p>
+      <p style="margin:15px 0 0;font-size:16px;color:#666;line-height:1.6;">
+        Great news! Your order has been confirmed and will be delivered soon.
+      </p>
+    </div>
+
+    ${giftHTML}
+
+    <div style="padding:0 30px 30px;">
+      <h2 style="color:#333;border-bottom:2px solid #11998e;padding-bottom:10px;">📦 Your Order</h2>
+      <table width="100%" style="border-collapse:collapse;margin-top:15px;">
+        <thead>
+          <tr style="background:#f8f9fa;border-bottom:2px solid #11998e;">
+            <th style="padding:12px 8px;text-align:left;">Item</th>
+            <th style="padding:12px 8px;text-align:center;width:80px;">Qty</th>
+            <th style="padding:12px 8px;text-align:right;width:100px;">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHTML}
+        </tbody>
+      </table>
+      
+      <div style="margin-top:20px;padding:20px;background:linear-gradient(135deg,#667eea22,#764ba222);border-radius:8px;text-align:right;">
+        <p style="margin:0;color:#666;font-size:14px;">Total Amount</p>
+        <p style="margin:5px 0 0;font-size:32px;font-weight:bold;color:#11998e;">₹${totalPrice}</p>
+        <p style="margin:5px 0 0;font-size:14px;color:#666;">Payment: ${order.paymentInfo?.method || 'Cash on Delivery'}</p>
+      </div>
+    </div>
+
+    <div style="padding:0 30px 30px;">
+      <h3 style="color:#333;border-bottom:2px solid #11998e;padding-bottom:10px;">📍 Delivery Address</h3>
+      <div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-top:15px;">
+        <p style="margin:0;font-weight:bold;color:#333;">${order.shippingAddress?.name || customerName}</p>
+        <p style="margin:10px 0 0;color:#666;line-height:1.6;">
+          ${order.shippingAddress?.fullAddress || ''}<br>
+          ${order.shippingAddress?.city || ''}, ${order.shippingAddress?.state || ''} - ${order.shippingAddress?.pincode || ''}<br>
+          📞 ${order.shippingAddress?.phone || ''}
+        </p>
+      </div>
+    </div>
+
+    <div style="padding:0 30px 30px;text-align:center;">
+      <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px;border-radius:4px;">
+        <p style="margin:0;color:#856404;"><strong>⏰ Expected Delivery:</strong> ${getExpectedDelivery()}</p>
+      </div>
+    </div>
+
+    <div style="padding:0 30px 30px;text-align:center;">
+      <a href="${trackingUrl}" 
+         style="display:inline-block;padding:15px 40px;background:#11998e;color:white;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;">
+        📍 Track Your Order
+      </a>
+    </div>
+
+    <div style="padding:0 30px 30px;">
+      <div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;">
+        <p style="margin:0;color:#666;font-size:14px;">Need help with your order?</p>
+        <p style="margin:10px 0 0;">
+          <a href="tel:+919599633093" style="color:#11998e;text-decoration:none;font-weight:bold;">📞 +91 9599633093</a>
+          <span style="color:#ccc;margin:0 10px;">|</span>
+          <a href="mailto:orders@jagatstore.in" style="color:#11998e;text-decoration:none;font-weight:bold;">📧 Email Us</a>
+        </p>
+      </div>
+    </div>
+
+    <div style="background:#2c3e50;color:white;padding:30px;text-align:center;">
+      <p style="margin:0;font-size:20px;font-weight:bold;">🛒 JAGAT STORE</p>
+      <p style="margin:10px 0 0;font-size:14px;opacity:0.8;">Your Trusted Grocery Partner</p>
+      <p style="margin:15px 0 0;font-size:12px;opacity:0.6;">Thank you for choosing Jagat Store!<br>We appreciate your business 💚</p>
+    </div>
+
+  </div>
+</body>
+</html>
+  `;
+}
+
 function getStatusEmailTemplate(order, status, user) {
   const shortId = order._id.toString().slice(-8).toUpperCase();
   const customerName = user?.name?.split(' ')[0] || order.shippingAddress?.name?.split(' ')[0] || 'Customer';
@@ -102,36 +347,26 @@ async function sendStatusNotification(order, status) {
     
     console.log(`📬 Sending ${status} notifications:`, { email: customerEmail, phone: customerPhone });
     
-    // Send Email
     if (customerEmail) {
       const emailTemplate = getStatusEmailTemplate(order, status, user);
       if (emailTemplate) { await sendEmail(customerEmail, emailTemplate.subject, emailTemplate.html); console.log(`✅ Email sent for: ${status}`); }
     }
     
-    // Send SMS based on status
     if (customerPhone) {
       if (status === 'Confirmed') {
-        // 205109: Dear {Name}, Your order {OrderID} is confirmed at JAGAT STORE. Amount: Rs.{Amount}
         await sendFast2SMS(customerPhone, FAST2SMS.ORDER_CONFIRMATION, `${customerName}|${orderId}|${order.totalPrice}`);
       } else if (status === 'Shipped' || status === 'Out for Delivery') {
-        // 205108: Dear Customer, Your order {OrderID} has been shipped... Expected delivery: {Date}
         const deliveryDate = status === 'Out for Delivery' ? 'Today' : getExpectedDelivery();
         await sendFast2SMS(customerPhone, FAST2SMS.ORDER_SHIPPED, `${orderId}|${deliveryDate}`);
       } else if (status === 'Delivered') {
-        // 205110: Dear Customer, Your order {OrderID} from JAGAT STORE has been delivered
         await sendFast2SMS(customerPhone, FAST2SMS.ORDER_DELIVERED, orderId);
-        
-        // 🆕 Send Feedback SMS after 2 hours
         setTimeout(async () => {
           try {
-            // 205128: Dear {Name} ji, Thank you for shopping at JAGAT STORE! Please rate your experience
             await sendFast2SMS(customerPhone, FAST2SMS.FEEDBACK, customerName);
             console.log('✅ Feedback SMS sent to:', customerPhone);
           } catch (e) { console.log('Feedback SMS failed:', e.message); }
-        }, 2 * 60 * 60 * 1000); // 2 hours delay
-        
+        }, 2 * 60 * 60 * 1000);
       } else if (status === 'Cancelled') {
-        // 🆕 205127: Dear {Name}, Your order {OrderID} at JAGAT STORE has been cancelled. Refund of Rs.{Amount}
         await sendFast2SMS(customerPhone, FAST2SMS.ORDER_CANCELLED, `${customerName}|${orderId}|${order.totalPrice}`);
       }
       console.log(`✅ SMS sent for: ${status}`);
@@ -140,10 +375,8 @@ async function sendStatusNotification(order, status) {
   } catch (error) { console.error('❌ Notification error:', error.message); return false; }
 }
 
-// 🆕 Send Welcome SMS on Registration (exported for use in authController)
 async function sendWelcomeSMS(phone, name) {
   try {
-    // 205126: Welcome to JAGAT STORE, {Name}! Thank you for registering...
     await sendFast2SMS(phone, FAST2SMS.WELCOME, name);
     console.log('✅ Welcome SMS sent to:', phone);
     return true;
@@ -173,8 +406,16 @@ exports.createOrder = async (req, res) => {
       
       try {
         const adminEmail = process.env.ADMIN_EMAIL || 'rythemaggarwal7840@gmail.com';
-        await sendEmail(adminEmail, `${finalHasGift ? '🎁 ' : ''}NEW ORDER #${shortId} | ₹${totalPrice}`, `<div style="font-family:Arial;max-width:600px;margin:auto;border:1px solid #ddd;border-radius:12px;"><div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;text-align:center;"><h1>NEW ORDER!</h1><p>Order #${shortId}</p></div><div style="padding:20px;"><p><strong>Customer:</strong> ${user?.name || 'N/A'}</p><p><strong>Phone:</strong> ${shippingAddress.phone}</p><p><strong>Address:</strong> ${shippingAddress.fullAddress}</p><p><strong>Total:</strong> ₹${totalPrice}</p></div></div>`);
-        if (user?.email) await sendEmail(user.email, `Order Confirmed #${shortId}`, `<div style="font-family:Arial;max-width:600px;margin:auto;border:1px solid #ddd;border-radius:12px;"><div style="background:linear-gradient(135deg,#11998e,#38ef7d);color:white;padding:30px;text-align:center;"><h1>Thank You!</h1><p>Order #${shortId}</p></div><div style="padding:30px;"><p>Hi ${customerName}, your order is confirmed!</p><p><strong>Total:</strong> ₹${totalPrice}</p></div></div>`);
+        
+        // 📧 SEND BEAUTIFUL ADMIN EMAIL
+        const adminHTML = getAdminEmailHTML(order, user, shortId, totalPrice);
+        await sendEmail(adminEmail, `${finalHasGift ? '🎁 ' : ''}🛒 NEW ORDER #${shortId} - ₹${totalPrice}`, adminHTML);
+        
+        // 📧 SEND BEAUTIFUL CUSTOMER EMAIL
+        if (user?.email) {
+          const customerHTML = getCustomerEmailHTML(order, user, shortId, totalPrice);
+          await sendEmail(user.email, `✅ Order Confirmed #${shortId} - Jagat Store`, customerHTML);
+        }
         
         // 📱 SEND ORDER CONFIRMATION SMS
         const customerPhone = shippingAddress?.phone || user?.phone;
@@ -182,6 +423,7 @@ exports.createOrder = async (req, res) => {
           await sendFast2SMS(customerPhone, FAST2SMS.ORDER_CONFIRMATION, `${customerName}|${shortId}|${totalPrice}`);
           console.log('✅ Order confirmation SMS sent!');
         }
+        
         console.log('✅ ALL NOTIFICATIONS SENT!');
         for (let item of orderItems) await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
       } catch (err) { console.error('❌ Background tasks failed:', err.message); }
